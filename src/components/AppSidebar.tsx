@@ -34,6 +34,7 @@ import {
   History,
   LogOut,
   ChevronsUpDown,
+  Sparkles,
 } from "lucide-react";
 
 const mainNav = [
@@ -57,6 +58,7 @@ const systemNav = [
   { title: "Sources", url: "/sources", icon: Upload },
   { title: "Library", url: "/library", icon: Library },
   { title: "Changelog", url: "/changelog", icon: History },
+  { title: "Copilot", url: "/copilot", icon: Sparkles },
   { title: "Settings", url: "/settings", icon: Settings },
 ];
 
