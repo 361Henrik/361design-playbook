@@ -11,7 +11,7 @@ serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
-    const { source_id } = await req.json();
+    const { source_id, continue_from } = await req.json();
     if (!source_id) throw new Error("source_id is required");
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
@@ -47,13 +47,68 @@ serve(async (req) => {
       }
     }
 
-    // Extraction prompt
+    // Large source chunking
+    const CHUNK_SIZE = 8000;
+    const startOffset = continue_from || 0;
+    const totalLength = fileContent.length;
+    const chunk = fileContent.slice(startOffset, startOffset + CHUNK_SIZE);
+    const hasMore = startOffset + CHUNK_SIZE < totalLength;
+
+    // Update pages info
+    const totalPages = Math.ceil(totalLength / CHUNK_SIZE) || 1;
+    const currentPage = Math.floor(startOffset / CHUNK_SIZE) + 1;
+    await supabase.from("sources").update({
+      pages_processed: currentPage,
+      total_pages: totalPages,
+    }).eq("id", source_id);
+
+    // Step 1: Relevance classification (only on first chunk)
+    if (startOffset === 0) {
+      const classifyResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${LOVABLE_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "google/gemini-2.5-flash-lite",
+          messages: [
+            { role: "system", content: "You classify documents. Respond with JSON only." },
+            { role: "user", content: `Is this a design system document (brand guidelines, style guide, design tokens, UI specs, etc.)? Rate confidence 0-1.\n\nTitle: "${source.title}"\nType: ${source.file_type}\nContent preview:\n${chunk.slice(0, 2000)}\n\nRespond with: {"is_design": true/false, "confidence": 0.0-1.0}` },
+          ],
+        }),
+      });
+
+      if (classifyResponse.ok) {
+        const classifyData = await classifyResponse.json();
+        const content = classifyData.choices?.[0]?.message?.content || "";
+        try {
+          const jsonMatch = content.match(/\{[^}]+\}/);
+          if (jsonMatch) {
+            const classification = JSON.parse(jsonMatch[0]);
+            if (classification.confidence < 0.3 && !classification.is_design) {
+              await supabase.from("sources").update({
+                status: "not_relevant",
+                error_message: `Low design relevance (confidence: ${(classification.confidence * 100).toFixed(0)}%). This doesn't appear to be a design document. You can force extraction if needed.`,
+              }).eq("id", source_id);
+              return new Response(
+                JSON.stringify({ success: false, not_relevant: true, confidence: classification.confidence }),
+                { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+              );
+            }
+          }
+        } catch { /* classification parse failed, continue anyway */ }
+      }
+    }
+
+    // Step 2: Extraction
     const extractionPrompt = `You are a design system expert. Analyze the following document and extract structured design entries.
 
 Document title: "${source.title}"
 Document type: ${source.file_type}
+${startOffset > 0 ? `(Continuation from offset ${startOffset})` : ""}
 Content:
-${fileContent.slice(0, 8000)}
+${chunk}
 
 Extract design system entries from this document. For each entry provide:
 - title: A clear, concise name
@@ -65,7 +120,6 @@ Extract design system entries from this document. For each entry provide:
 
 Return entries that cover colors, typography, spacing, layout, motion, imagery, and any other design decisions found.`;
 
-    // Call AI with timeout
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 30000);
 
@@ -153,17 +207,51 @@ Return entries that cover colors, typography, spacing, layout, motion, imagery, 
       }
     }
 
-    // Insert entries
-    const insertData = entries.map((entry: any) => ({
-      title: entry.title,
-      entry_type: entry.entry_type,
-      tags: entry.tags,
-      summary: entry.summary,
-      content: entry.content,
-      rules: entry.rules,
-      source_id,
-      status: "draft",
-    }));
+    // Step 3: Conflict detection — check new entries against existing approved entries
+    const { data: existingEntries } = await supabase
+      .from("library_entries")
+      .select("id, title, entry_type, tags")
+      .eq("status", "approved");
+
+    const conflicts: { newTitle: string; existingId: string; existingTitle: string }[] = [];
+
+    const insertData = entries.map((entry: any) => {
+      // Check for conflicts by title similarity
+      let conflictWith: string[] = [];
+      if (existingEntries) {
+        const normalizedTitle = entry.title.toLowerCase().trim();
+        for (const existing of existingEntries) {
+          const existingNormalized = existing.title.toLowerCase().trim();
+          // Exact or near match by title
+          if (normalizedTitle === existingNormalized ||
+              (normalizedTitle.length > 5 && existingNormalized.includes(normalizedTitle)) ||
+              (existingNormalized.length > 5 && normalizedTitle.includes(existingNormalized))) {
+            conflictWith.push(existing.id);
+            conflicts.push({ newTitle: entry.title, existingId: existing.id, existingTitle: existing.title });
+          }
+          // Also check overlapping tags for same entry_type
+          else if (entry.entry_type === existing.entry_type && entry.tags?.length > 0 && existing.tags?.length > 0) {
+            const overlap = entry.tags.filter((t: string) => existing.tags!.includes(t));
+            if (overlap.length >= 2) {
+              conflictWith.push(existing.id);
+              conflicts.push({ newTitle: entry.title, existingId: existing.id, existingTitle: existing.title });
+            }
+          }
+        }
+      }
+
+      return {
+        title: entry.title,
+        entry_type: entry.entry_type,
+        tags: entry.tags,
+        summary: entry.summary,
+        content: entry.content,
+        rules: entry.rules,
+        source_id,
+        status: conflictWith.length > 0 ? "conflict" : "draft",
+        related_entry_ids: conflictWith.length > 0 ? conflictWith : [],
+      };
+    });
 
     if (insertData.length > 0) {
       const { error: insertError } = await supabase.from("library_entries").insert(insertData);
@@ -177,10 +265,26 @@ Return entries that cover colors, typography, spacing, layout, motion, imagery, 
       }
     }
 
-    await supabase.from("sources").update({ status: "completed", error_message: null }).eq("id", source_id);
+    // Set final status
+    const finalStatus = hasMore ? "partial" : "completed";
+    const conflictMsg = conflicts.length > 0
+      ? `${conflicts.length} potential conflict(s) detected with existing entries.`
+      : null;
+
+    await supabase.from("sources").update({
+      status: finalStatus,
+      error_message: conflictMsg,
+      pages_processed: currentPage,
+    }).eq("id", source_id);
 
     return new Response(
-      JSON.stringify({ success: true, entries_count: insertData.length }),
+      JSON.stringify({
+        success: true,
+        entries_count: insertData.length,
+        conflicts_count: conflicts.length,
+        has_more: hasMore,
+        next_offset: hasMore ? startOffset + CHUNK_SIZE : null,
+      }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (e) {

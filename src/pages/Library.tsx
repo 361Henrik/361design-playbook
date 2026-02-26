@@ -6,9 +6,16 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
-import { Search, Loader2, CheckCircle2, FileEdit, Trash2, Sparkles, BookOpen, Tag } from "lucide-react";
+import { Search, Loader2, CheckCircle2, FileEdit, Trash2, Sparkles, BookOpen, Tag, AlertTriangle, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 type LibraryEntry = {
@@ -23,6 +30,7 @@ type LibraryEntry = {
   version: number;
   created_at: string;
   source_id: string | null;
+  related_entry_ids: string[] | null;
 };
 
 const LibraryPage = () => {
@@ -36,6 +44,8 @@ const LibraryPage = () => {
   const [filterStatus, setFilterStatus] = useState<string>("all");
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [bulkLoading, setBulkLoading] = useState(false);
+  const [conflictEntry, setConflictEntry] = useState<LibraryEntry | null>(null);
+  const [conflictTargets, setConflictTargets] = useState<LibraryEntry[]>([]);
   const { toast } = useToast();
   const { isAdmin, isEditor } = useAuth();
 
@@ -49,7 +59,7 @@ const LibraryPage = () => {
     if (filterStatus !== "all") query = query.eq("status", filterStatus);
 
     const { data, error } = await query;
-    if (!error && data) setEntries(data);
+    if (!error && data) setEntries(data as LibraryEntry[]);
     setLoading(false);
   };
 
@@ -96,6 +106,17 @@ const LibraryPage = () => {
     else { toast({ title: "Deleted" }); fetchEntries(); }
   };
 
+  // Conflict viewer
+  const viewConflict = async (entry: LibraryEntry) => {
+    if (!entry.related_entry_ids || entry.related_entry_ids.length === 0) return;
+    const { data } = await supabase
+      .from("library_entries")
+      .select("*")
+      .in("id", entry.related_entry_ids);
+    setConflictTargets((data || []) as LibraryEntry[]);
+    setConflictEntry(entry);
+  };
+
   // Batch operations
   const toggleSelect = (id: string) => {
     const next = new Set(selectedIds);
@@ -135,6 +156,7 @@ const LibraryPage = () => {
 
   // Counts
   const draftCount = useMemo(() => entries.filter((e) => e.status === "draft").length, [entries]);
+  const conflictCount = useMemo(() => entries.filter((e) => e.status === "conflict").length, [entries]);
 
   const typeColor = (type: string) => {
     switch (type) {
@@ -155,12 +177,21 @@ const LibraryPage = () => {
       />
 
       {/* Stats bar */}
-      {draftCount > 0 && (
-        <div className="mb-4 flex items-center gap-2 px-3 py-2 rounded-md bg-accent/10 border border-accent/20">
-          <Badge variant="secondary" className="text-xs font-mono">{draftCount}</Badge>
-          <span className="text-xs font-body text-muted-foreground">drafts awaiting review</span>
-        </div>
-      )}
+      <div className="flex gap-3 mb-4">
+        {draftCount > 0 && (
+          <div className="flex items-center gap-2 px-3 py-2 rounded-md bg-accent/10 border border-accent/20">
+            <Badge variant="secondary" className="text-xs font-mono">{draftCount}</Badge>
+            <span className="text-xs font-body text-muted-foreground">drafts awaiting review</span>
+          </div>
+        )}
+        {conflictCount > 0 && (
+          <div className="flex items-center gap-2 px-3 py-2 rounded-md bg-destructive/10 border border-destructive/20">
+            <AlertTriangle className="h-3.5 w-3.5 text-destructive" strokeWidth={1.5} />
+            <Badge variant="destructive" className="text-xs font-mono">{conflictCount}</Badge>
+            <span className="text-xs font-body text-destructive/80">conflicts detected</span>
+          </div>
+        )}
+      </div>
 
       {/* Search */}
       <div className="flex gap-2 mb-6">
@@ -215,6 +246,7 @@ const LibraryPage = () => {
             <SelectItem value="draft">Draft</SelectItem>
             <SelectItem value="approved">Approved</SelectItem>
             <SelectItem value="rejected">Rejected</SelectItem>
+            <SelectItem value="conflict">Conflict</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -265,7 +297,7 @@ const LibraryPage = () => {
           )}
 
           {displayEntries.map((entry) => (
-            <Card key={entry.id} className="hover:border-primary/20 transition-colors duration-ui">
+            <Card key={entry.id} className={`hover:border-primary/20 transition-colors duration-ui ${entry.status === "conflict" ? "border-destructive/30 bg-destructive/[0.02]" : ""}`}>
               <CardContent className="p-4">
                 <div className="flex items-start gap-3">
                   {isEditor && (
@@ -280,7 +312,7 @@ const LibraryPage = () => {
                       <h3 className="text-sm font-medium font-body">{entry.title}</h3>
                       <Badge className={`text-[10px] font-mono ${typeColor(entry.entry_type)}`}>{entry.entry_type}</Badge>
                       <Badge
-                        variant={entry.status === "approved" ? "default" : entry.status === "rejected" ? "destructive" : "secondary"}
+                        variant={entry.status === "approved" ? "default" : entry.status === "rejected" ? "destructive" : entry.status === "conflict" ? "destructive" : "secondary"}
                         className="text-[10px] font-mono"
                       >{entry.status}</Badge>
                     </div>
@@ -305,7 +337,13 @@ const LibraryPage = () => {
                     )}
                   </div>
                   <div className="flex items-center gap-1 shrink-0">
-                    {entry.status === "draft" && isEditor && (
+                    {entry.status === "conflict" && isEditor && (
+                      <Button size="sm" variant="outline" className="h-7 text-xs gap-1" onClick={() => viewConflict(entry)}>
+                        <AlertTriangle className="h-3 w-3" strokeWidth={1.5} />
+                        View Conflict
+                      </Button>
+                    )}
+                    {(entry.status === "draft" || entry.status === "conflict") && isEditor && (
                       <>
                         <Button size="icon" variant="ghost" className="h-7 w-7" onClick={() => approveEntry(entry.id)} title="Approve">
                           <CheckCircle2 className="h-3.5 w-3.5 text-primary" strokeWidth={1.5} />
@@ -327,6 +365,54 @@ const LibraryPage = () => {
           ))}
         </div>
       )}
+
+      {/* Conflict comparison dialog */}
+      <Dialog open={!!conflictEntry} onOpenChange={() => { setConflictEntry(null); setConflictTargets([]); }}>
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-base font-display flex items-center gap-2">
+              <AlertTriangle className="h-4 w-4 text-destructive" strokeWidth={1.5} />
+              Conflict: {conflictEntry?.title}
+            </DialogTitle>
+            <DialogDescription className="text-xs font-body">
+              This new entry conflicts with {conflictTargets.length} existing approved entry(s). Compare and decide which to keep.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4 mt-4">
+            {/* New entry */}
+            <div className="rounded-md border border-accent/30 bg-accent/5 p-3">
+              <p className="text-[10px] font-mono uppercase tracking-widest text-accent mb-2">New (from extraction)</p>
+              <p className="text-sm font-medium font-body">{conflictEntry?.title}</p>
+              {conflictEntry?.summary && <p className="text-xs text-muted-foreground mt-1">{conflictEntry.summary}</p>}
+              {conflictEntry?.content && <p className="text-xs text-foreground/80 mt-2 font-mono whitespace-pre-wrap">{conflictEntry.content}</p>}
+            </div>
+
+            <div className="flex items-center justify-center">
+              <span className="text-[10px] font-mono text-muted-foreground bg-muted px-2 py-1 rounded">vs</span>
+            </div>
+
+            {/* Existing entries */}
+            {conflictTargets.map((target) => (
+              <div key={target.id} className="rounded-md border border-primary/30 bg-primary/5 p-3">
+                <p className="text-[10px] font-mono uppercase tracking-widest text-primary mb-2">Existing (approved)</p>
+                <p className="text-sm font-medium font-body">{target.title}</p>
+                {target.summary && <p className="text-xs text-muted-foreground mt-1">{target.summary}</p>}
+                {target.content && <p className="text-xs text-foreground/80 mt-2 font-mono whitespace-pre-wrap">{target.content}</p>}
+              </div>
+            ))}
+          </div>
+
+          <div className="flex gap-2 mt-4 justify-end">
+            <Button variant="outline" size="sm" onClick={() => { if (conflictEntry) rejectEntry(conflictEntry.id); setConflictEntry(null); setConflictTargets([]); }}>
+              Keep Existing
+            </Button>
+            <Button size="sm" onClick={() => { if (conflictEntry) approveEntry(conflictEntry.id); setConflictEntry(null); setConflictTargets([]); }}>
+              Approve New
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

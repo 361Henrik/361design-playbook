@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
-import { Upload, FileText, Image, Link2, Loader2, CheckCircle2, XCircle, Clock, RotateCcw, AlertTriangle, Trash2 } from "lucide-react";
+import { Upload, FileText, Image, Link2, Loader2, CheckCircle2, XCircle, Clock, RotateCcw, AlertTriangle, Trash2, Play, Ban } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 type Source = {
@@ -34,6 +34,7 @@ const SourcesPage = () => {
   const [fileType, setFileType] = useState<string>("pdf");
   const [file, setFile] = useState<File | null>(null);
   const [dupeWarning, setDupeWarning] = useState<{ existing: Source; hash: string } | null>(null);
+  const [continuing, setContinuing] = useState<string | null>(null);
   const { toast } = useToast();
   const { isEditor, isAdmin } = useAuth();
 
@@ -74,11 +75,16 @@ const SourcesPage = () => {
 
       toast({ title: "Source uploaded", description: "Starting AI extraction…" });
 
-      const { error: fnError } = await supabase.functions.invoke("extract-source", { body: { source_id: source.id } });
+      const { data, error: fnError } = await supabase.functions.invoke("extract-source", { body: { source_id: source.id } });
       if (fnError) {
         toast({ title: "Extraction failed", description: fnError.message, variant: "destructive" });
+      } else if (data?.not_relevant) {
+        toast({ title: "Not a design document", description: "Low relevance detected. You can force extraction from the source card.", variant: "destructive" });
       } else {
-        toast({ title: "Extraction complete", description: "Entries extracted and saved as drafts." });
+        const msg = data?.conflicts_count > 0
+          ? `${data.entries_count} entries extracted. ${data.conflicts_count} conflict(s) found — review in Library.`
+          : `${data?.entries_count || 0} entries extracted as drafts.`;
+        toast({ title: "Extraction complete", description: msg });
       }
 
       setTitle("");
@@ -96,8 +102,6 @@ const SourcesPage = () => {
       toast({ title: "Title required", description: "Please enter a title.", variant: "destructive" });
       return;
     }
-
-    // Check for duplicate
     if (file) {
       const hash = await computeHash(file);
       const existing = sources.find((s) => s.file_hash === hash);
@@ -113,12 +117,42 @@ const SourcesPage = () => {
 
   const retryExtraction = async (sourceId: string) => {
     toast({ title: "Retrying extraction…" });
-    const { error } = await supabase.functions.invoke("extract-source", { body: { source_id: sourceId } });
+    const { data, error } = await supabase.functions.invoke("extract-source", { body: { source_id: sourceId } });
     if (error) {
       toast({ title: "Retry failed", description: error.message, variant: "destructive" });
     } else {
       toast({ title: "Extraction complete" });
     }
+    fetchSources();
+  };
+
+  const forceExtraction = async (sourceId: string) => {
+    // Reset status to pending, then retry
+    await supabase.from("sources").update({ status: "pending", error_message: null } as any).eq("id", sourceId);
+    await retryExtraction(sourceId);
+  };
+
+  const continueExtraction = async (sourceId: string) => {
+    const source = sources.find((s) => s.id === sourceId);
+    if (!source || !source.pages_processed || !source.total_pages) return;
+
+    setContinuing(sourceId);
+    const nextOffset = source.pages_processed * 8000;
+    toast({ title: "Continuing extraction…", description: `Processing page ${source.pages_processed + 1} of ${source.total_pages}` });
+
+    const { data, error } = await supabase.functions.invoke("extract-source", {
+      body: { source_id: sourceId, continue_from: nextOffset },
+    });
+
+    if (error) {
+      toast({ title: "Continue failed", description: error.message, variant: "destructive" });
+    } else {
+      const msg = data?.has_more
+        ? `Extracted ${data.entries_count} more entries. More pages remain.`
+        : `Extracted ${data?.entries_count || 0} more entries. All pages processed.`;
+      toast({ title: "Chunk complete", description: msg });
+    }
+    setContinuing(null);
     fetchSources();
   };
 
@@ -133,6 +167,7 @@ const SourcesPage = () => {
       case "completed": return <CheckCircle2 className="h-4 w-4 text-primary" strokeWidth={1.5} />;
       case "failed": return <XCircle className="h-4 w-4 text-destructive" strokeWidth={1.5} />;
       case "partial": return <AlertTriangle className="h-4 w-4 text-accent" strokeWidth={1.5} />;
+      case "not_relevant": return <Ban className="h-4 w-4 text-muted-foreground" strokeWidth={1.5} />;
       case "processing": return <Loader2 className="h-4 w-4 text-accent animate-spin" strokeWidth={1.5} />;
       default: return <Clock className="h-4 w-4 text-muted-foreground" strokeWidth={1.5} />;
     }
@@ -220,12 +255,19 @@ const SourcesPage = () => {
                 <Badge variant="secondary" className="text-[10px] font-mono uppercase">{source.file_type}</Badge>
                 <div className="flex items-center gap-1.5">
                   {statusIcon(source.status)}
-                  <span className="text-[10px] font-body text-muted-foreground capitalize">{source.status}</span>
+                  <span className="text-[10px] font-body text-muted-foreground capitalize">{source.status === "not_relevant" ? "Not Relevant" : source.status}</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  {source.status === "failed" && isEditor && (
-                    <Button size="icon" variant="ghost" className="h-7 w-7" onClick={() => retryExtraction(source.id)} title="Retry">
+                  {(source.status === "failed" || source.status === "not_relevant") && isEditor && (
+                    <Button size="sm" variant="ghost" className="h-7 gap-1 text-xs" onClick={() => source.status === "not_relevant" ? forceExtraction(source.id) : retryExtraction(source.id)} title={source.status === "not_relevant" ? "Force extraction" : "Retry"}>
                       <RotateCcw className="h-3.5 w-3.5" strokeWidth={1.5} />
+                      {source.status === "not_relevant" ? "Force" : "Retry"}
+                    </Button>
+                  )}
+                  {source.status === "partial" && source.pages_processed != null && source.total_pages != null && source.pages_processed < source.total_pages && isEditor && (
+                    <Button size="sm" variant="ghost" className="h-7 gap-1 text-xs" onClick={() => continueExtraction(source.id)} disabled={continuing === source.id} title="Continue extraction">
+                      {continuing === source.id ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Play className="h-3.5 w-3.5" strokeWidth={1.5} />}
+                      Continue
                     </Button>
                   )}
                   {isAdmin && (
