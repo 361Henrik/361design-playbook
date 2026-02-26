@@ -1,5 +1,6 @@
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 import {
   Sidebar,
   SidebarContent,
@@ -9,7 +10,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import {
   LayoutDashboard,
@@ -27,6 +27,7 @@ import {
   Upload,
   Library,
   History,
+  LogOut,
 } from "lucide-react";
 
 const mainNav = [
@@ -55,8 +56,7 @@ const systemNav = [
 
 export function AppSidebar() {
   const location = useLocation();
-  const isActive = (path: string) =>
-    path === "/" ? location.pathname === "/" : location.pathname.startsWith(path);
+  const { user, signOut } = useAuth();
 
   const renderItems = (items: typeof mainNav) =>
     items.map((item) => (
@@ -109,6 +109,20 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+
+      {/* User footer */}
+      {user && (
+        <div className="mt-auto px-5 py-4 border-t border-sidebar-border">
+          <div className="flex items-center gap-2">
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-body text-sidebar-foreground truncate">{user.email}</p>
+            </div>
+            <button onClick={signOut} className="text-sidebar-foreground/50 hover:text-sidebar-foreground transition-colors" title="Sign out">
+              <LogOut className="h-3.5 w-3.5" strokeWidth={1.5} />
+            </button>
+          </div>
+        </div>
+      )}
     </Sidebar>
   );
 }

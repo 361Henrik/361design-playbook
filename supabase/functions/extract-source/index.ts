@@ -21,7 +21,6 @@ serve(async (req) => {
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // Get the source
     const { data: source, error: sourceError } = await supabase
       .from("sources")
       .select("*")
@@ -30,25 +29,25 @@ serve(async (req) => {
 
     if (sourceError || !source) throw new Error("Source not found");
 
-    // Update status to processing
-    await supabase.from("sources").update({ status: "processing" }).eq("id", source_id);
+    // Update status to processing, increment retry count
+    await supabase.from("sources").update({
+      status: "processing",
+      error_message: null,
+      retry_count: (source.retry_count || 0) + 1,
+    }).eq("id", source_id);
 
-    // Download file content if it's a text-based source
+    // Download file content
     let fileContent = "";
     if (source.file_url) {
       try {
-        const { data: fileData } = await supabase.storage
-          .from("sources")
-          .download(source.file_url);
-        if (fileData) {
-          fileContent = await fileData.text();
-        }
+        const { data: fileData } = await supabase.storage.from("sources").download(source.file_url);
+        if (fileData) fileContent = await fileData.text();
       } catch {
         fileContent = `[File: ${source.title}, Type: ${source.file_type}]`;
       }
     }
 
-    // Use Lovable AI to extract design rules
+    // Extraction prompt
     const extractionPrompt = `You are a design system expert. Analyze the following document and extract structured design entries.
 
 Document title: "${source.title}"
@@ -66,20 +65,26 @@ Extract design system entries from this document. For each entry provide:
 
 Return entries that cover colors, typography, spacing, layout, motion, imagery, and any other design decisions found.`;
 
-    const aiResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${LOVABLE_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "google/gemini-3-flash-preview",
-        messages: [
-          { role: "system", content: "You are a design system extraction expert. Always respond with valid JSON." },
-          { role: "user", content: extractionPrompt },
-        ],
-        tools: [
-          {
+    // Call AI with timeout
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 30000);
+
+    let aiResponse: Response;
+    try {
+      aiResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${LOVABLE_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        signal: controller.signal,
+        body: JSON.stringify({
+          model: "google/gemini-3-flash-preview",
+          messages: [
+            { role: "system", content: "You are a design system extraction expert. Always respond with valid JSON." },
+            { role: "user", content: extractionPrompt },
+          ],
+          tools: [{
             type: "function",
             function: {
               name: "extract_entries",
@@ -108,29 +113,30 @@ Return entries that cover colors, typography, spacing, layout, motion, imagery, 
                 additionalProperties: false,
               },
             },
-          },
-        ],
-        tool_choice: { type: "function", function: { name: "extract_entries" } },
-      }),
-    });
+          }],
+          tool_choice: { type: "function", function: { name: "extract_entries" } },
+        }),
+      });
+    } catch (e: any) {
+      if (e.name === "AbortError") {
+        await supabase.from("sources").update({ status: "failed", error_message: "Extraction timed out after 30 seconds." }).eq("id", source_id);
+        return new Response(JSON.stringify({ error: "Timeout" }), { status: 408, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+      throw e;
+    } finally {
+      clearTimeout(timeout);
+    }
 
     if (!aiResponse.ok) {
       const status = aiResponse.status;
-      if (status === 429) {
-        await supabase.from("sources").update({ status: "failed" }).eq("id", source_id);
-        return new Response(JSON.stringify({ error: "Rate limit exceeded. Please try again later." }), {
-          status: 429,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
-      }
-      if (status === 402) {
-        await supabase.from("sources").update({ status: "failed" }).eq("id", source_id);
-        return new Response(JSON.stringify({ error: "Payment required. Please add credits." }), {
-          status: 402,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
-      }
-      throw new Error(`AI gateway error: ${status}`);
+      const errorMsg = status === 429 ? "Rate limit exceeded. Please try again later."
+        : status === 402 ? "Payment required. Please add credits."
+        : `AI gateway error: ${status}`;
+      await supabase.from("sources").update({ status: "failed", error_message: errorMsg }).eq("id", source_id);
+      return new Response(JSON.stringify({ error: errorMsg }), {
+        status,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     const aiData = await aiResponse.json();
@@ -138,11 +144,16 @@ Return entries that cover colors, typography, spacing, layout, motion, imagery, 
 
     let entries: any[] = [];
     if (toolCall?.function?.arguments) {
-      const parsed = JSON.parse(toolCall.function.arguments);
-      entries = parsed.entries || [];
+      try {
+        const parsed = JSON.parse(toolCall.function.arguments);
+        entries = parsed.entries || [];
+      } catch {
+        await supabase.from("sources").update({ status: "failed", error_message: "Failed to parse AI response." }).eq("id", source_id);
+        return new Response(JSON.stringify({ error: "Parse error" }), { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
     }
 
-    // Insert extracted entries as drafts
+    // Insert entries
     const insertData = entries.map((entry: any) => ({
       title: entry.title,
       entry_type: entry.entry_type,
@@ -150,7 +161,7 @@ Return entries that cover colors, typography, spacing, layout, motion, imagery, 
       summary: entry.summary,
       content: entry.content,
       rules: entry.rules,
-      source_id: source_id,
+      source_id,
       status: "draft",
     }));
 
@@ -158,12 +169,15 @@ Return entries that cover colors, typography, spacing, layout, motion, imagery, 
       const { error: insertError } = await supabase.from("library_entries").insert(insertData);
       if (insertError) {
         console.error("Insert error:", insertError);
-        throw new Error("Failed to insert entries");
+        await supabase.from("sources").update({ status: "partial", error_message: "Some entries failed to save." }).eq("id", source_id);
+        return new Response(
+          JSON.stringify({ success: true, entries_count: 0, error: "Partial failure" }),
+          { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
       }
     }
 
-    // Update source status
-    await supabase.from("sources").update({ status: "completed" }).eq("id", source_id);
+    await supabase.from("sources").update({ status: "completed", error_message: null }).eq("id", source_id);
 
     return new Response(
       JSON.stringify({ success: true, entries_count: insertData.length }),
