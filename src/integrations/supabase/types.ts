@@ -50,6 +50,8 @@ export type Database = {
         Row: {
           created_at: string
           id: string
+          session_type: string
+          source_id: string | null
           title: string
           updated_at: string
           user_id: string
@@ -58,6 +60,8 @@ export type Database = {
         Insert: {
           created_at?: string
           id?: string
+          session_type?: string
+          source_id?: string | null
           title?: string
           updated_at?: string
           user_id: string
@@ -66,12 +70,21 @@ export type Database = {
         Update: {
           created_at?: string
           id?: string
+          session_type?: string
+          source_id?: string | null
           title?: string
           updated_at?: string
           user_id?: string
           workspace_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "chat_sessions_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "sources"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "chat_sessions_workspace_id_fkey"
             columns: ["workspace_id"]
@@ -256,6 +269,66 @@ export type Database = {
           id?: string
         }
         Relationships: []
+      }
+      review_decisions: {
+        Row: {
+          code_snippet: string | null
+          created_at: string
+          created_by: string | null
+          fix_plan: Json
+          id: string
+          session_id: string
+          source_id: string | null
+          status: string
+          title: string
+          updated_at: string
+          violations: Json
+          workspace_id: string
+        }
+        Insert: {
+          code_snippet?: string | null
+          created_at?: string
+          created_by?: string | null
+          fix_plan?: Json
+          id?: string
+          session_id: string
+          source_id?: string | null
+          status?: string
+          title: string
+          updated_at?: string
+          violations?: Json
+          workspace_id: string
+        }
+        Update: {
+          code_snippet?: string | null
+          created_at?: string
+          created_by?: string | null
+          fix_plan?: Json
+          id?: string
+          session_id?: string
+          source_id?: string | null
+          status?: string
+          title?: string
+          updated_at?: string
+          violations?: Json
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "review_decisions_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "chat_sessions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "review_decisions_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "sources"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       sources: {
         Row: {
