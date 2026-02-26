@@ -1,256 +1,198 @@
 
 
-# Curated Lens – Design System Hub
+# Smart Functionality Improvements — Prioritized Plan
 
-## Product Vision
-An internal web app that serves as the single source of truth for the Curated Lens design system. Upload sources, extract structured design rules, browse tokens and components, enforce brand guardrails, and export production-ready code — all in an interface that itself embodies the design system's calm, architectural, editorial aesthetic.
-
----
-
-## Phase 1: MVP (Core Foundation)
-
-### 1. Design System Applied to the App Itself
-The hub's own UI will use the Curated Lens design tokens — Warm White background, Deep Forest Green anchors, Playfair Display headlines, Inter body, restrained bronze accents. The app is a living example of the system.
-
-### 2. Design Tokens Center
-A dedicated tokens area organized into categories:
-- **Colors** — Deep Forest Green, Warm White, Warm Off-White, Near Black, Antique Bronze with exact hex values, usage ratios (60/30/8), and Do/Don't guidance ("Bronze is jewelry, never paint")
-- **Typography** — Playfair Display headlines (weight 500, line-height 1.05/1.1, letter-spacing -0.01em) and Inter body (weight 400, nav/CTA 500, line-height 1.6–1.75)
-- **Spacing** — Top padding 120–160px, headline gap 32–40px, paragraph gap 56–72px
-- **Layout** — Max content width 52ch, controlled columns, panel pairings (Primary/Anchor context)
-- **Motion** — UI transitions 300–400ms, hero loops 8–20s, prohibited patterns listed
-- **Icons** — Thin stroke 1.5–2px, geometric, no fills, no gradients
-
-Each token shows: name, value, usage guidance, Do/Don't warnings, and a live preview swatch.
-
-### 3. Component Catalog
-A browsable registry with categories:
-- **Foundations** — Color swatches, typography scale, spacing scale, icon set
-- **Navigation** — Header, sidebar, breadcrumbs
-- **Buttons & CTAs** — Primary, secondary, text-link (no bouncing/scaling hover effects)
-- **Cards & Panels** — Primary Context (white) and Anchor Context (green) panel variants
-- **Layout Sections** — Hero sections, content blocks, split layouts
-- **Forms** — Inputs, selects, textareas (following typography rules)
-- **Data Display** — Tables, lists, stat blocks
-
-Each component page shows: purpose, anatomy diagram, props/variants, Do/Don't examples, accessibility notes, responsive behavior, and a live interactive preview.
-
-### 4. Guardrails & Enforcement Engine
-A validation system that checks designs and code against the PDF rules:
-- **Color guardrails** — Warn if bronze exceeds accent usage, flag gradients, flag unapproved near-whites
-- **Typography guardrails** — Warn on weight 300, flag non-Playfair headlines, flag non-Inter body
-- **Layout guardrails** — Warn on paragraphs wider than 52ch, flag full-width text blocks
-- **Motion guardrails** — Flag parallax, bouncing buttons, scaling animations
-- **Imagery guardrails** — Flag corporate stock imagery patterns
-- **Consistency guardrails** — Flag mixed typographic hierarchies, multiple hero images per section
-
-Guardrails appear as inline warnings throughout the app (token pages, component previews, export) and as a dedicated "System Health" dashboard.
-
-### 5. Code Export
-- Export tokens as: CSS custom properties, Tailwind config, JSON, TypeScript constants
-- Export individual components as copy-paste React + Tailwind code
-- Download a starter kit zip with: tokens, core components, example pages, and setup docs
-
-### 6. Authentication & Roles
-- Email-based auth via Supabase (small team, 1-5 people)
-- Three roles: Admin (full edit), Editor (create/update entries), Viewer (read-only)
-- Simple role management in settings
+Your list is excellent and thorough. Here's my recommendation organized into three tiers based on impact, feasibility, and how quickly they'd eliminate real pain points.
 
 ---
 
-## Phase 2: V1 (Library & Ingestion)
+## Tier 1: High Impact, Build Now
 
-### 7. Source Upload & Ingestion Pipeline
-- Upload PDFs, images, markdown files, and URLs as "Sources"
-- AI-powered extraction (via Lovable AI): parse uploaded documents and extract tokens, guidelines, components, and patterns into structured library entries
-- Each extracted entry includes: title, type (token/guideline/component/pattern/example), tags, summary, extracted rules, and related items
-- Manual review & approval step before entries go live
+These address the most likely friction points your team will hit immediately.
 
-### 8. AI-Powered Semantic Search
-- Embedding-based search across all library entries using Lovable AI
-- Natural language queries: "What color should I use for accents?" → returns bronze rules
-- Filter by type, tags, and categories
-- Search results ranked by relevance with highlighted snippets
+### 1. Batch Operations for Draft Entries (your #27)
+The current Library page only allows one-at-a-time approve/reject. When extraction creates 50+ drafts, this is unusable.
 
-### 9. Versioning & History
-- All tokens, components, and guidelines are versioned
-- View change history with diffs (before/after)
-- Revert to previous versions
-- Changelog view showing recent updates across the system
+**Changes:**
+- Add "Select All" checkbox and multi-select to Library page
+- Add bulk action bar: "Approve Selected", "Reject Selected", "Tag Selected", "Delete Selected"
+- Add entry count summary at top ("42 drafts awaiting review")
+
+### 2. Duplicate Source Detection (your #12 partial, #3)
+Hash uploaded files (SHA-256) and check for duplicates before ingestion.
+
+**Changes:**
+- Add `file_hash` column to `sources` table
+- Compute hash client-side before upload
+- On duplicate: show warning dialog — "This file was already uploaded as [title] on [date]. Upload anyway?"
+- Link duplicate sources together via a `duplicate_of` column
+
+### 3. Extraction Failure Handling & Retry (your #1)
+Currently if extraction fails, the source just shows "failed" with no recourse.
+
+**Changes:**
+- Add "Retry Extraction" button on failed sources
+- Add `error_message` and `retry_count` columns to `sources`
+- Show the actual error to the user (rate limit, bad format, timeout)
+- In the edge function: add timeout handling (30s max), catch partial extractions, save what was extracted even if incomplete
+- Add `partial` status alongside `completed`/`failed`
+
+### 4. Controlled Tag Vocabulary (your #28)
+Tags will drift immediately without governance.
+
+**Changes:**
+- Create a `tag_vocabulary` table (name, category, aliases)
+- Pre-seed with standard tags from the design system (color, typography, spacing, etc.)
+- Add tag autocomplete/suggestion in Library when editing entries
+- Show "unrecognized tag" warning for tags not in vocabulary
+- Add tag management section in Settings
+
+### 5. Empty State & Onboarding (your #29)
+A brand-new install is confusing. The Dashboard is just token category links.
+
+**Changes:**
+- Add a "Getting Started" checklist to Dashboard: Upload first source, Review drafts, Browse tokens, Check guardrails, Export code
+- Track completion state in localStorage
+- Show progress indicator (3/5 steps complete)
+- Add contextual empty states on each page with actionable CTAs ("Upload your brand guidelines PDF to get started")
+
+### 6. Authentication & Role-Based Access (your #24)
+Currently everything is open. Viewers can delete entries, trigger extraction, etc.
+
+**Changes:**
+- Add `user_roles` table with `app_role` enum (admin, editor, viewer)
+- Create login/signup pages with email auth
+- Add `has_role()` security definer function
+- Update all RLS policies: viewers = SELECT only, editors = SELECT + INSERT + UPDATE, admins = all
+- Gate UI actions: hide delete/approve buttons for viewers, hide upload for viewers
+- Add role management UI in Settings (admin only)
 
 ---
 
-## Phase 3: V2 (Governance & Advanced)
+## Tier 2: Important, Build Soon
 
-### 10. Approval Workflow
-- Propose changes to tokens/components/guidelines
-- Review queue for admins
-- Approve/reject with comments
-- Merge approved changes into the live system
+### 7. Conflicting Token Detection (your #2)
+When two sources assert different hex values for "Bronze", surface the conflict.
 
-### 11. Advanced Export & Integration
-- Generate a full Next.js App Router starter project (downloadable zip)
-- Figma token sync documentation
-- API endpoint for programmatic token access
+**Changes:**
+- After extraction, compare new entries against existing approved entries by title/tags
+- If a conflict is found, mark the new entry with `conflict_with` reference and flag it in the review UI
+- Show side-by-side comparison during review
 
-### 12. Usage Analytics
-- Track which tokens and components are most viewed/exported
-- Identify unused or rarely-referenced guidelines
-- Dashboard for system adoption metrics
+### 8. Stale Embedding Refresh (your #10)
+Currently embeddings are never set (the column exists but the edge function doesn't generate them).
+
+**Changes:**
+- Add embedding generation to the `extract-source` function after entry creation
+- Add a trigger or scheduled job to re-embed when entries are updated
+- Add "Re-index" button in Settings for admin to refresh all embeddings
+
+### 9. Revert Impact Preview (your #17)
+Currently revert is blind — no indication of what will change.
+
+**Changes:**
+- Before reverting, show a confirmation dialog with the diff (reuse existing DiffDialog)
+- Query dependent entries that reference the reverted entry and warn about them
+
+### 10. Guardrail Exception Workflow (your #13)
+Sometimes rules need to be intentionally broken for campaigns.
+
+**Changes:**
+- Add `guardrail_exceptions` table (rule_id, reason, approved_by, expires_at)
+- Show exception badge on the guardrails dashboard
+- Auto-expire exceptions and notify
+
+### 11. Large Source Chunking (your #5)
+200-page PDFs will timeout the edge function.
+
+**Changes:**
+- In the edge function: limit to first 50 pages (8000 chars already partially handles this)
+- Add `pages_processed` / `total_pages` columns to sources
+- Show progress: "Processed 50 of 200 pages"
+- Allow "Continue extraction" to process remaining chunks
+
+### 12. Source Relevance Classification (your #6)
+Reject non-design documents gracefully.
+
+**Changes:**
+- Add a classification step before full extraction: ask AI "Is this a design document? Rate confidence 0-1"
+- If confidence < 0.3, mark as "not_relevant" and show warning
+- Allow user to override and force extraction
 
 ---
 
-## Sitemap & Navigation
+## Tier 3: Nice to Have, Build Later
 
+### 13. Deterministic Exports (your #20)
+Sort all tokens alphabetically, strip timestamps from output.
+
+### 14. Single Canonical Token Source (your #21)
+Add a "token source of truth" flag — exports always pull from this canonical set rather than allowing drift between formats.
+
+### 15. Confidence Scores on Extraction (your #4)
+Add a `confidence` float column to `library_entries`. Display low-confidence entries differently in the review queue.
+
+### 16. Compound Violation "Taste Score" (your #14)
+Aggregate multiple soft warnings into a composite score. Show "3 minor warnings together suggest the UI may feel off" on the guardrails dashboard.
+
+### 17. Accessibility Conflict Detection (your #15)
+Cross-check brand colors against WCAG contrast ratios. Flag when brand-approved combinations fail for small text.
+
+### 18. Audit Log with Reason Field (your #26)
+Add a `reason` text field to the versions table. Prompt editors to explain changes when saving.
+
+---
+
+## Technical Details
+
+### Database Migrations Needed (Tiers 1-2)
+
+```text
+sources table additions:
+  + file_hash TEXT
+  + duplicate_of UUID REFERENCES sources(id)
+  + error_message TEXT
+  + retry_count INTEGER DEFAULT 0
+  + pages_processed INTEGER
+  + total_pages INTEGER
+
+New tables:
+  + tag_vocabulary (id, name, category, aliases TEXT[], created_at)
+  + user_roles (id, user_id UUID REFERENCES auth.users, role app_role, UNIQUE(user_id, role))
+  + guardrail_exceptions (id, rule_id TEXT, reason TEXT, approved_by UUID, expires_at TIMESTAMPTZ, created_at)
+
+library_entries additions:
+  + confidence FLOAT
+  + conflict_with UUID[]
+
+New enum:
+  + app_role AS ENUM ('admin', 'editor', 'viewer')
+
+New function:
+  + has_role(uuid, app_role) RETURNS boolean — SECURITY DEFINER
 ```
-/ .......................... Dashboard (system overview, recent changes, health score)
-/tokens .................... Tokens hub
-  /tokens/colors ........... Color tokens + Do/Don't
-  /tokens/typography ....... Type scale + rules
-  /tokens/spacing .......... Spacing scale
-  /tokens/layout ........... Layout rules + widths
-  /tokens/motion ........... Motion tokens + prohibited list
-  /tokens/icons ............ Icon system rules
-/components ................ Component catalog
-  /components/:category .... Category listing
-  /components/:category/:id  Component detail page
-/guidelines ................ Brand guidelines (essence, avoidance list, imagery philosophy)
-/guardrails ................ System health dashboard + all active warnings
-/library ................... Library entries (V1: searchable, filterable)
-/sources ................... Uploaded sources (V1)
-/export .................... Code export & starter kit download
-/settings .................. User management, roles
-```
 
-Persistent left sidebar navigation with categories. Top bar shows search and user menu.
+### Files to Create/Modify
 
----
+| Area | Files |
+|------|-------|
+| Batch ops | `src/pages/Library.tsx` (add multi-select, bulk actions) |
+| Dedup | `src/pages/Sources.tsx`, edge function, migration |
+| Retry | `src/pages/Sources.tsx`, edge function |
+| Tags | New `src/pages/TagManagement.tsx`, `src/pages/Library.tsx` |
+| Onboarding | `src/pages/Dashboard.tsx` (getting started checklist) |
+| Auth | New `src/pages/Auth.tsx`, `src/pages/Settings.tsx`, RLS policies, `App.tsx` routes |
+| Conflicts | Edge function, `src/pages/Library.tsx` |
+| Embeddings | Edge function update |
+| Revert preview | `src/pages/Changelog.tsx` |
+| Exceptions | `src/pages/Guardrails.tsx`, migration |
 
-## Core Data Model
+### Recommended Build Order
 
-- **Sources** — id, title, file_url, type (pdf/image/markdown/url), uploaded_by, created_at
-- **Library Entries** — id, title, type (token/guideline/component/pattern/example), tags[], summary, content (rich text), rules[], related_entry_ids[], source_id, version, created_by, created_at, updated_at
-- **Tokens** — id, category (color/typography/spacing/motion/layout/icon), name, value, css_variable, tailwind_key, usage_guidance, do_examples[], dont_examples[], version
-- **Components** — id, name, category, description, anatomy, props_schema, do_examples[], dont_examples[], accessibility_notes, responsive_notes, preview_code, export_code, version
-- **Guardrail Rules** — id, name, category, rule_type (error/warning), description, check_logic, applies_to (token/component/layout)
-- **Users** — managed by Supabase Auth
-- **User Roles** — id, user_id, role (admin/editor/viewer)
-- **Versions** — id, entity_type, entity_id, version_number, diff, changed_by, changed_at
-
----
-
-## Tech Stack
-
-- **Frontend**: React + Vite + Tailwind CSS + TypeScript (Lovable stack)
-- **UI Components**: shadcn/ui as baseline, restyled to match Curated Lens system
-- **Backend**: Lovable Cloud (Supabase) — database, auth, file storage, edge functions
-- **AI**: Lovable AI (Gemini) for document extraction and semantic search
-- **Fonts**: Google Fonts — Playfair Display + Inter
-- **Icons**: Lucide (thin stroke, geometric — aligns with the icon system requirements)
-- **Code Export**: Client-side zip generation for starter kit downloads
-
----
-
-## Key User Flows
-
-1. **Browse tokens** → Navigate to /tokens/colors → See swatches, values, ratios, Do/Don't → Copy CSS variable or Tailwind class
-2. **Browse components** → Navigate to /components → Pick category → View component detail with live preview → Copy React code
-3. **Check guardrails** → Visit /guardrails → See all active rules and any violations → Fix flagged issues
-4. **Export code** → Go to /export → Choose format (CSS/Tailwind/JSON/TS) → Download tokens or full starter kit
-5. **Upload source (V1)** → Go to /sources → Upload PDF → AI extracts entries → Review & approve → Entries appear in library
-6. **Search (V1)** → Use global search → Type natural language query → See ranked results across tokens, components, guidelines
-
----
-
-## MVP Component List
-
-- AppShell (sidebar + top bar + content area)
-- Sidebar navigation with categories
-- Token card (swatch/preview + name + value + copy button)
-- Token detail page (full guidance, Do/Don't panels)
-- Do/Don't comparison panel (green check vs red X side-by-side)
-- Component card (thumbnail + name + category)
-- Component detail page (preview + anatomy + props + code)
-- Live component preview renderer
-- Code block with syntax highlighting and copy
-- Color swatch (with hex, HSL, contrast info)
-- Typography specimen (showing all scale levels)
-- Spacing visualizer (visual blocks showing spacing tokens)
-- Panel pairing demo (Primary Context / Anchor Context)
-- Guardrail warning badge (inline warning with rule reference)
-- System health dashboard (summary of all guardrail checks)
-- Export format selector + download button
-- Search bar with filters
-- Auth pages (login, simple user settings)
-- Role badge and permission gates
-
----
-
-## Guardrail Enforcement Strategy
-
-Guardrails are implemented as a rules engine with two layers:
-
-1. **Static rules** (coded validations): Check token values, color ratios, typography weights, layout widths against the PDF's exact constraints. These run when viewing token/component pages and during export.
-
-2. **UI warnings** (visual indicators): Inline warning badges appear next to any token or component that violates a rule. The /guardrails dashboard aggregates all violations. Warnings are categorized as Error (hard violation) or Caution (soft guidance).
-
-Example rules:
-- `color.bronze.usage > 8%` → Error: "Bronze must stay under 8% visible area"
-- `typography.headline.weight === 300` → Error: "Never use weight 300"
-- `layout.paragraph.maxWidth > 52ch` → Warning: "Max paragraph width is 48–52 characters"
-- `motion.transition.type === 'bounce'` → Error: "Bouncing transitions are prohibited"
-- `color.gradient.exists` → Error: "Gradients are not permitted"
-
----
-
-## Build Sequence
-
-**Milestone 1 — Foundation (Week 1)**
-- Set up Lovable Cloud (Supabase) with auth and database schema
-- Implement the Curated Lens design tokens as CSS variables and Tailwind config
-- Build the app shell (sidebar, navigation, routing) using the design system itself
-- Load Playfair Display + Inter fonts
-
-**Milestone 2 — Tokens Center (Week 2)**
-- Build all token category pages (colors, typography, spacing, layout, motion, icons)
-- Create token cards with live previews, values, and copy-to-clipboard
-- Add Do/Don't comparison panels with the PDF's exact guidance
-- Pre-populate all tokens from the PDF
-
-**Milestone 3 — Component Catalog (Week 3)**
-- Build the component registry with categories and detail pages
-- Create live preview renderer for each component
-- Add code export per component (copy-paste React + Tailwind)
-- Implement the Panel Pairing demo (Primary/Anchor context)
-
-**Milestone 4 — Guardrails & Export (Week 4)**
-- Implement the guardrail rules engine with all PDF constraints
-- Build the system health dashboard
-- Add inline warning badges throughout token and component pages
-- Build the export page: token formats (CSS, Tailwind, JSON, TS) + starter kit zip
-
-**Milestone 5 — Ingestion & Search (V1)**
-- Build source upload (PDF, images, markdown) with Supabase Storage
-- Create AI extraction edge function using Lovable AI
-- Build the library entries system with tagging and relationships
-- Implement semantic search with embeddings
-
-**Milestone 6 — Versioning & Governance (V1-V2)**
-- Add version tracking to tokens, components, and guidelines
-- Build history/diff views
-- Implement approval workflows (V2)
-
----
-
-## Risks & Decisions Needed
-
-1. **AI extraction accuracy**: The AI will extract rules from uploaded PDFs, but results will need human review. Are you comfortable with a mandatory review step before entries go live?
-
-2. **Starter kit format**: You mentioned Next.js App Router preference, but Lovable builds React/Vite. The export will generate downloadable Next.js code (as files), but the hub itself runs on React/Vite. Is that acceptable?
-
-3. **Embedding storage**: Semantic search requires storing vector embeddings. We'll use Supabase's pgvector extension. This is well-supported but adds database complexity.
-
-4. **Component previews**: Live previews require rendering actual React components in an isolated context. We'll use iframe sandboxing for safety. Complex components (e.g., forms with state) may need simplified preview versions.
-
-5. **Font licensing**: Playfair Display and Inter are both Google Fonts (free). No licensing issues, but confirming you're okay with Google Fonts CDN delivery.
+1. Authentication and roles (unlocks all permission gating)
+2. Batch operations for drafts (immediate UX win)
+3. Empty state and onboarding (first-run experience)
+4. Duplicate detection and retry flow (ingestion reliability)
+5. Controlled tag vocabulary (data quality)
+6. Everything else from Tier 2
 
