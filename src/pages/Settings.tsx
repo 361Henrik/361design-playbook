@@ -10,7 +10,8 @@ import { Separator } from "@/components/ui/separator";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
-import { LogOut, Shield, Tag, Trash2, Plus, Users, Loader2 } from "lucide-react";
+import { LogOut, Shield, Tag, Trash2, Plus, Users, Loader2, Mail } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
 
 type Profile = { id: string; email: string | null; display_name: string | null };
 type UserRole = { id: string; user_id: string; role: string };
@@ -19,6 +20,7 @@ type TagEntry = { id: string; name: string; category: string | null };
 const SettingsPage = () => {
   const { user, isAdmin, signOut } = useAuth();
   const { toast } = useToast();
+  const [emailDigest, setEmailDigest] = useState(true);
 
   // Role management
   const [profiles, setProfiles] = useState<(Profile & { roles: string[] })[]>([]);
@@ -53,7 +55,12 @@ const SettingsPage = () => {
   useEffect(() => {
     fetchProfiles();
     fetchTags();
-  }, [isAdmin]);
+    // Load email digest preference
+    if (user) {
+      supabase.from("profiles").select("email_digest").eq("id", user.id).single()
+        .then(({ data }) => { if (data) setEmailDigest(data.email_digest ?? true); });
+    }
+  }, [isAdmin, user]);
 
   const setRole = async (userId: string, role: string) => {
     // Remove existing roles then add new one
@@ -165,6 +172,32 @@ const SettingsPage = () => {
               ))}
             </div>
           )}
+        </CardContent>
+      </Card>
+
+      <Separator />
+
+      {/* Email Digest */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base flex items-center gap-2"><Mail className="h-4 w-4" strokeWidth={1.5} />Weekly Digest</CardTitle>
+          <CardDescription className="text-xs">Receive a weekly summary of design system activity.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center justify-between">
+            <Label htmlFor="digest" className="text-sm font-body">Email digest</Label>
+            <Switch
+              id="digest"
+              checked={emailDigest}
+              onCheckedChange={async (checked) => {
+                setEmailDigest(checked);
+                if (user) {
+                  await supabase.from("profiles").update({ email_digest: checked }).eq("id", user.id);
+                  toast({ title: checked ? "Digest enabled" : "Digest disabled" });
+                }
+              }}
+            />
+          </div>
         </CardContent>
       </Card>
     </div>
