@@ -1,181 +1,174 @@
 
 
-# Design Copilot for Curated Lens
+# Review Session for Attached Documents
 
-A constrained AI chat assistant that answers design questions **exclusively** from the workspace's own tokens, components, guidelines, and library entries -- citing sources in every answer.
-
----
-
-## 1. UX: Where It Lives & How Sessions Work
-
-- **Access point**: A new "Copilot" item in the sidebar under the System group (sparkle icon), navigating to `/copilot`.
-- **Layout**: Full-page chat interface within the AppShell. Left column is a session list (past conversations), right column is the active chat with a message input at the bottom.
-- **Sessions**: Each conversation is a "session" tied to the current workspace. Users can start a new session or resume an old one. Sessions auto-title based on the first user question.
-- **Streaming**: AI responses stream token-by-token into the chat using SSE from the edge function.
-- **Citations**: Every AI response includes inline citation markers (e.g., `[1]`, `[2]`) that map to a "References" section at the bottom of each message, linking to the source library entry or token page.
+A dedicated workflow where users upload a document (PDF/image/markdown), the system extracts structured entries, runs them against all 24 guardrail rules, then opens a focused chat session where the AI produces violations, fix plans with concrete token substitutions, and exportable code -- all grounded in the workspace's design system.
 
 ---
 
-## 2. Data Model
+## How It Works (User Flow)
 
-Four new tables:
+1. User navigates to `/copilot` and clicks **"Review Document"** (new button next to "New Chat")
+2. A dialog appears for file upload (PDF, image, or markdown) with a title field
+3. On submit:
+   - File is uploaded to the existing `sources` storage bucket
+   - A new `sources` row is created with status `pending`
+   - The `extract-source` edge function runs (existing chunked extraction pipeline)
+   - A new chat session is created with `session_type = 'review'` and linked to the source via a new `source_id` column on `chat_sessions`
+4. Once extraction completes, the edge function `design-review` runs an automated guardrail audit on all extracted entries
+5. The review chat opens with the AI's initial analysis pre-populated: violations list, fix plan, and optional code snippets
+6. User can continue chatting to ask follow-up questions, request alternative fixes, or export decisions
+
+---
+
+## Failure States
+
+- **Bad PDF / unreadable file**: The existing `extract-source` function already handles this -- sets `status = 'failed'` with an error message. The review chat shows a clear error state with a retry button.
+- **Low relevance** (confidence < 0.3): The existing relevance classifier in `extract-source` already flags `status = 'not_relevant'`. The review chat shows a warning with an option to force extraction.
+- **Low confidence entries** (confidence < 0.5): The review audit flags these separately as "uncertain entries" and recommends manual verification before acting on the fix plan.
+- **Chunking continuation**: The existing `continue_from` mechanism in `extract-source` handles large files. The review session shows a progress indicator and auto-continues chunks until complete before running the audit.
+- **AI rate limits (429) / credits (402)**: Surfaced as user-visible error toasts with retry guidance.
+
+---
+
+## Data Model Changes
+
+### Modify `chat_sessions` table
+Add two columns:
+- `session_type` TEXT DEFAULT `'chat'` -- values: `'chat'` or `'review'`
+- `source_id` UUID (nullable) -- FK linking review sessions to the uploaded source
+
+### New table: `review_decisions`
+Stores the outcome of a review session as a versioned "Decision" entry that can be promoted to the library.
 
 ```text
-chat_sessions
-  id          UUID PK DEFAULT gen_random_uuid()
-  workspace_id UUID FK -> workspaces.id
-  user_id     UUID (auth.uid)
-  title       TEXT DEFAULT 'New conversation'
-  created_at  TIMESTAMPTZ DEFAULT now()
-  updated_at  TIMESTAMPTZ DEFAULT now()
-
-chat_messages
-  id          UUID PK DEFAULT gen_random_uuid()
-  session_id  UUID FK -> chat_sessions.id ON DELETE CASCADE
-  role        TEXT ('user' | 'assistant')
-  content     TEXT
-  created_at  TIMESTAMPTZ DEFAULT now()
-
-chat_citations
-  id          UUID PK DEFAULT gen_random_uuid()
-  message_id  UUID FK -> chat_messages.id ON DELETE CASCADE
-  entry_id    UUID FK -> library_entries.id (nullable -- for component registry refs)
-  entry_type  TEXT ('library_entry' | 'token_page' | 'component' | 'guardrail')
-  entry_title TEXT
-  citation_index INTEGER (the [1], [2] number)
-
-decision_entries (optional -- for exporting copilot decisions back to the library)
-  id          UUID PK DEFAULT gen_random_uuid()
-  session_id  UUID FK -> chat_sessions.id
-  message_id  UUID FK -> chat_messages.id
-  title       TEXT
-  content     TEXT
-  entry_type  TEXT DEFAULT 'decision'
-  status      TEXT DEFAULT 'draft'
-  workspace_id UUID FK -> workspaces.id
-  created_at  TIMESTAMPTZ DEFAULT now()
+review_decisions
+  id            UUID PK DEFAULT gen_random_uuid()
+  session_id    UUID FK -> chat_sessions.id ON DELETE CASCADE
+  workspace_id  UUID NOT NULL
+  source_id     UUID FK -> sources.id
+  title         TEXT NOT NULL
+  violations    JSONB DEFAULT '[]'  -- [{rule_id, rule_name, severity, description, affected_entries}]
+  fix_plan      JSONB DEFAULT '[]'  -- [{action, target, from_value, to_value, component_recommendation}]
+  code_snippet  TEXT                -- optional exportable code
+  status        TEXT DEFAULT 'draft' -- draft | approved | rejected
+  created_by    UUID
+  created_at    TIMESTAMPTZ DEFAULT now()
+  updated_at    TIMESTAMPTZ DEFAULT now()
 ```
 
-**RLS policies**:
-- `chat_sessions`: SELECT/INSERT/UPDATE/DELETE where `user_id = auth.uid()` (users own their sessions)
-- `chat_messages`: SELECT/INSERT where session belongs to user (via join on chat_sessions)
-- `chat_citations`: SELECT where parent message's session belongs to user
-- `decision_entries`: Same workspace-member scoping as library_entries
+RLS policies:
+- SELECT/INSERT/UPDATE/DELETE: `user_id = auth.uid()` via join on `chat_sessions`
 
 ---
 
-## 3. Retrieval Strategy
+## New Edge Function: `design-review`
 
-The edge function `supabase/functions/design-copilot/index.ts` performs retrieval before prompting the AI:
+**Endpoint**: `supabase/functions/design-review/index.ts`
 
-1. **Keyword search**: Query `library_entries` using `ilike` on title, summary, and content (same as existing `search-library` function).
-2. **Embedding search**: Use the existing `match_library_entries` RPC to find semantically similar entries (vector similarity with threshold 0.5).
-3. **Workspace scoping**: All queries filter by `workspace_id` to keep results within the active workspace.
-4. **Canonical token bias**: Results where `is_canonical = true` are boosted -- placed first in the context window and explicitly marked as "canonical source of truth" in the system prompt.
-5. **Component registry**: The edge function also receives a condensed index of the hardcoded component registry (name, category, dos/donts) so the copilot can reference registered components.
-6. **Guardrail rules**: The full `guardrailRules` list is included in the system prompt so the copilot can cite applicable rules.
+**Input**: `{ source_id, session_id, workspace_id }`
 
-The retrieval results (up to 15 entries) are injected into the system prompt as structured context blocks.
+**Process**:
+1. Fetch all `library_entries` where `source_id` matches (the freshly extracted entries)
+2. Fetch all canonical/approved entries for the workspace (context for fix recommendations)
+3. Build a structured prompt containing:
+   - The extracted entries (title, type, content, confidence)
+   - The full 24 guardrail rules (from the same `GUARDRAIL_RULES` constant used in design-copilot)
+   - The component registry index
+   - The approved color palette and typography tokens
+4. Call Lovable AI (`google/gemini-3-flash-preview`) with **tool calling** to extract structured output:
+   - `violations[]`: Each mapped to a specific guardrail rule ID, with severity and affected entry titles
+   - `fix_plan[]`: Concrete substitutions (e.g., "Replace #FF0000 with Deep Forest Green #1B3D2F", "Use Primary Button component instead of custom styled div")
+   - `code_snippet`: Optional React/Tailwind code using components from the catalog
+   - `risk_notes[]`: Caveats or manual-review items
+5. Persist the AI response as the first assistant message in the review chat session
+6. Create a `review_decisions` row with the structured violations/fix_plan/code_snippet
+7. Stream the formatted response back via SSE
 
----
-
-## 4. Answer Contract
-
-Every AI response must follow this structure (enforced via system prompt + tool calling):
-
+**Answer contract** (enforced via tool calling schema):
 ```text
-**Recommendation**
-[Direct answer to the question, using only system-known tokens/components]
+**Violations Found**
+- [RULE-ID] Rule Name (severity): Description of how it's violated, which entries affected
 
-**Rules Applied**
-- [Guardrail rule name]: [How it applies]
-- [Guardrail rule name]: ...
+**Fix Plan**
+1. [Action]: Replace [current value] with [token name + value] in [entry title]
+2. [Action]: Use [Component Name] instead of [current approach]
 
-**References**
-[1] Token: "Deep Forest Green" (library entry)
-[2] Component: "Primary Button" (component registry)
-[3] Guideline: "Color Distribution" (library entry)
+**Recommended Code** (if applicable)
+// React/Tailwind snippet using approved components
 
-**Risks**
-- [Any caveats, e.g., "This combination hasn't been tested at small sizes"]
-
-**Code Snippet** (optional, only if user asked for implementation)
-```css
-/* example output */
-```
+**Risks & Manual Review Items**
+- Items requiring human judgment
 ```
 
-The edge function uses **tool calling** to extract structured output with fields: `recommendation`, `rules_applied[]`, `references[]`, `risks[]`, `code_snippet?`. The frontend renders each section with appropriate styling.
+---
+
+## Frontend Changes
+
+### `src/pages/Copilot.tsx` modifications:
+- Add "Review Document" button in the session sidebar header (next to "New Chat")
+- Upload dialog with file picker (reuse pattern from Sources page: title, file type, file input)
+- New session type indicator: review sessions show a document icon and source title instead of chat icon
+- Progress state while extraction runs (polling `sources` table for status changes)
+- Once extraction + audit complete, auto-load the review chat with the initial analysis
+
+### Review chat rendering:
+- Violations rendered with severity badges (error = red, warning = amber) and rule ID links
+- Fix plan items rendered as an ordered checklist
+- Code snippet rendered in a `CodeBlock` component (already exists) with copy button
+- "Export as Decision" button saves/updates the `review_decisions` entry
+- "Promote to Library" button creates approved `library_entries` from the fix plan (future enhancement, deferred)
 
 ---
 
-## 5. Chat Guardrails
+## MVP Scope
 
-The system prompt enforces strict boundaries:
+**Include in MVP**:
+- `chat_sessions` schema update (add `session_type`, `source_id`)
+- `review_decisions` table with RLS
+- `design-review` edge function with guardrail audit + structured output
+- Upload flow in Copilot page with progress indicator
+- Review chat UI with violations, fix plan, and code snippet rendering
+- Failure states: bad file, low relevance, low confidence flagging
+- Chunking: auto-continue extraction before running audit
 
-1. **No generic advice**: "You may ONLY recommend tokens, colors, components, patterns, and guidelines that exist in the provided context. If the answer is not in the context, say 'I don't have information about this in the current design system.'"
-2. **No inventing tokens**: "NEVER invent new color values, font names, spacing values, or component names. Only reference what exists."
-3. **Label outside-system content**: If the user asks about something not covered, the copilot must respond with a clearly labeled `[OUTSIDE SYSTEM]` prefix and suggest creating a new library entry or uploading a source document.
-4. **Mandatory citations**: "Every factual claim must include a citation marker [N] referencing a specific library entry, component, or guardrail rule."
-5. **Workspace isolation**: The copilot never references data from other workspaces.
-6. **No destructive actions**: The copilot is read-only -- it cannot modify library entries, approve drafts, or change settings. The only write action is exporting a "decision entry" back to the library as a draft.
-
----
-
-## 6. Implementation Steps
-
-### Step 1: Database migration
-- Create `chat_sessions`, `chat_messages`, `chat_citations`, `decision_entries` tables
-- Add RLS policies scoped to user ownership
-- Enable realtime on `chat_messages` for streaming UX (optional)
-
-### Step 2: Edge function `design-copilot`
-- Accept `{ session_id, message, workspace_id }` 
-- Load conversation history from `chat_messages`
-- Run retrieval (keyword + embedding + canonical bias)
-- Build system prompt with context blocks + guardrail rules + component index
-- Call Lovable AI gateway (`google/gemini-3-flash-preview`) with tool calling for structured output
-- Stream response back via SSE
-- Persist assistant message + citations to database after completion
-
-### Step 3: Frontend page `/copilot`
-- `src/pages/Copilot.tsx` -- session list + chat interface
-- Message bubbles with markdown rendering (react-markdown not installed, use simple HTML rendering or add dependency)
-- Citation rendering with clickable reference links
-- "Export as Decision" button on assistant messages to create a `decision_entries` draft
-- Session management (new, rename, delete)
-
-### Step 4: Wire into app
-- Add route to `App.tsx`
-- Add "Copilot" nav item to `AppSidebar.tsx`
-- Update `CommandSearch.tsx` pages list
+**Defer**:
+- "Promote to Library" (creating approved entries from fix plan)
+- Image-based document review (OCR via AI vision) -- start with text-based files only
+- Diff view comparing extracted entries against existing canonical entries
+- Batch review of multiple documents
 
 ---
 
-## 7. Minimal MVP Scope
+## Technical Details
 
-For the first iteration, **defer**:
-- `decision_entries` table and export (add later)
-- `chat_citations` table (extract citations client-side from structured response instead of persisting)
-- Embedding-based retrieval (start with keyword-only, add embeddings when entries have them)
-- Session rename/delete (just auto-title + list)
-
-**MVP delivers**:
-- `chat_sessions` and `chat_messages` tables with RLS
-- Edge function with keyword retrieval + canonical bias + guardrail context
-- Streaming chat UI at `/copilot`
-- Structured answer format with inline citations
-- System prompt guardrails (no generic advice, no invented tokens, outside-system labeling)
-- Conversation history persistence and resumption
-
-### Files to create/modify
+### Files to Create/Modify
 
 | File | Action |
 |------|--------|
-| Migration SQL | Create `chat_sessions`, `chat_messages` tables + RLS |
-| `supabase/functions/design-copilot/index.ts` | New edge function |
-| `src/pages/Copilot.tsx` | New chat page |
-| `src/App.tsx` | Add `/copilot` route |
-| `src/components/AppSidebar.tsx` | Add Copilot nav item |
-| `src/components/CommandSearch.tsx` | Add Copilot to pages list |
+| Migration SQL | Add `session_type`, `source_id` to `chat_sessions`; create `review_decisions` table + RLS |
+| `supabase/functions/design-review/index.ts` | New edge function for guardrail audit |
+| `src/pages/Copilot.tsx` | Add review upload flow, progress UI, review-specific message rendering |
+| `supabase/config.toml` | Add `[functions.design-review]` with `verify_jwt = false` |
+
+### Shared Constants
+The `GUARDRAIL_RULES` and `COMPONENT_INDEX` arrays in the `design-copilot` edge function will be duplicated into `design-review` (edge functions can't share imports). Both arrays are small and static.
+
+### Extraction + Review Pipeline Sequence
+```text
+User uploads file
+  -> sources row created (status: pending)
+  -> extract-source called (existing function)
+    -> relevance check (low? show warning, offer force)
+    -> chunk extraction loop (8KB chunks, auto-continue)
+    -> entries saved as drafts in library_entries
+  -> extraction complete (status: completed)
+  -> design-review called automatically
+    -> fetch extracted entries + workspace context
+    -> AI audit against 24 guardrail rules
+    -> structured output: violations, fix plan, code
+    -> save review_decisions row
+    -> stream initial analysis to chat
+  -> user can continue chatting for follow-ups
+```
 
