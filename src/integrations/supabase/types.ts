@@ -43,12 +43,14 @@ export type Database = {
       }
       library_entries: {
         Row: {
+          confidence: number | null
           content: string | null
           created_at: string
           created_by: string | null
           embedding: string | null
           entry_type: string
           id: string
+          is_canonical: boolean
           related_entry_ids: string[] | null
           rules: string[] | null
           source_id: string | null
@@ -60,12 +62,14 @@ export type Database = {
           version: number
         }
         Insert: {
+          confidence?: number | null
           content?: string | null
           created_at?: string
           created_by?: string | null
           embedding?: string | null
           entry_type: string
           id?: string
+          is_canonical?: boolean
           related_entry_ids?: string[] | null
           rules?: string[] | null
           source_id?: string | null
@@ -77,12 +81,14 @@ export type Database = {
           version?: number
         }
         Update: {
+          confidence?: number | null
           content?: string | null
           created_at?: string
           created_by?: string | null
           embedding?: string | null
           entry_type?: string
           id?: string
+          is_canonical?: boolean
           related_entry_ids?: string[] | null
           rules?: string[] | null
           source_id?: string | null
@@ -234,6 +240,7 @@ export type Database = {
           entity_id: string
           entity_type: string
           id: string
+          reason: string | null
           snapshot: Json
           title: string
           version_number: number
@@ -246,6 +253,7 @@ export type Database = {
           entity_id: string
           entity_type: string
           id?: string
+          reason?: string | null
           snapshot?: Json
           title: string
           version_number?: number
@@ -258,6 +266,7 @@ export type Database = {
           entity_id?: string
           entity_type?: string
           id?: string
+          reason?: string | null
           snapshot?: Json
           title?: string
           version_number?: number

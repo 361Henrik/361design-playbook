@@ -14,6 +14,8 @@ import {
   categoryMeta,
   getHealthScore,
   getRuleCountByCategory,
+  getTasteScore,
+  getContrastResults,
   type RuleCategory,
   type GuardrailRule,
 } from "@/data/guardrailRules";
@@ -24,6 +26,8 @@ import {
   Shield,
   ShieldOff,
   Plus,
+  Gauge,
+  Eye,
 } from "lucide-react";
 
 type Exception = {
@@ -45,6 +49,7 @@ const GuardrailsPage = () => {
   const [exceptions, setExceptions] = useState<Exception[]>([]);
   const [addingException, setAddingException] = useState<string | null>(null);
   const [exceptionReason, setExceptionReason] = useState("");
+  const [showContrast, setShowContrast] = useState(false);
 
   const fetchExceptions = async () => {
     const { data } = await supabase.from("guardrail_exceptions").select("*");
@@ -53,12 +58,20 @@ const GuardrailsPage = () => {
 
   useEffect(() => { fetchExceptions(); }, []);
 
+  const activeExceptionRuleIds = exceptions
+    .filter((e) => !e.expires_at || new Date(e.expires_at) > new Date())
+    .map((e) => e.rule_id);
+
+  const tasteScore = getTasteScore(activeExceptionRuleIds);
+  const contrastResults = getContrastResults();
+  const contrastFailures = contrastResults.filter((r) => !r.passesBody);
+
   const addException = async () => {
     if (!addingException || !exceptionReason.trim()) return;
     const { error } = await supabase.from("guardrail_exceptions").insert({
       rule_id: addingException,
       reason: exceptionReason,
-      expires_at: new Date(Date.now() + 30 * 86400000).toISOString(), // 30 days
+      expires_at: new Date(Date.now() + 30 * 86400000).toISOString(),
     });
     if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
     else toast({ title: "Exception added", description: "Valid for 30 days." });
@@ -75,6 +88,8 @@ const GuardrailsPage = () => {
   const getExceptionForRule = (ruleId: string) =>
     exceptions.find((e) => e.rule_id === ruleId && (!e.expires_at || new Date(e.expires_at) > new Date()));
 
+  const tasteColor = tasteScore >= 90 ? "text-primary" : tasteScore >= 70 ? "text-accent" : "text-destructive";
+
   return (
     <div className="px-8 py-10 max-w-5xl space-y-10">
       <PageHeader
@@ -82,9 +97,9 @@ const GuardrailsPage = () => {
         description="System health dashboard showing all active rules and their enforcement status across tokens, components, and layout."
       />
 
-      {/* Health Score */}
+      {/* Health Score + Taste Score */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="md:col-span-1">
+        <Card>
           <CardContent className="p-6 flex flex-col items-center justify-center text-center">
             <Shield className="h-8 w-8 text-primary mb-3" strokeWidth={1.5} />
             <p className="font-display text-4xl font-medium text-foreground">{score}%</p>
@@ -92,7 +107,16 @@ const GuardrailsPage = () => {
           </CardContent>
         </Card>
 
-        <Card className="md:col-span-3">
+        <Card>
+          <CardContent className="p-6 flex flex-col items-center justify-center text-center">
+            <Gauge className="h-8 w-8 text-accent mb-3" strokeWidth={1.5} />
+            <p className={`font-display text-4xl font-medium ${tasteColor}`}>{tasteScore}</p>
+            <p className="text-xs font-body text-muted-foreground mt-1">Taste Score</p>
+            <p className="text-[10px] font-body text-muted-foreground/50 mt-0.5">Weighted compound</p>
+          </CardContent>
+        </Card>
+
+        <Card className="md:col-span-2">
           <CardContent className="p-6">
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {categoryOrder.map((cat) => {
@@ -118,6 +142,50 @@ const GuardrailsPage = () => {
           </CardContent>
         </Card>
       </div>
+
+      {/* Accessibility contrast results */}
+      <Card className={contrastFailures.length > 0 ? "border-destructive/30" : "border-primary/20"}>
+        <CardHeader className="pb-2">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Eye className="h-4 w-4 text-muted-foreground" strokeWidth={1.5} />
+              <CardTitle className="text-sm">WCAG AA Contrast Check</CardTitle>
+              {contrastFailures.length > 0 ? (
+                <Badge variant="destructive" className="text-[10px]">{contrastFailures.length} failing</Badge>
+              ) : (
+                <Badge variant="secondary" className="text-[10px] bg-primary/10 text-primary">All passing</Badge>
+              )}
+            </div>
+            <Button variant="ghost" size="sm" className="text-xs h-7" onClick={() => setShowContrast(!showContrast)}>
+              {showContrast ? "Hide" : "Show"} Details
+            </Button>
+          </div>
+        </CardHeader>
+        {showContrast && (
+          <CardContent className="pt-0">
+            <div className="space-y-1">
+              {contrastResults.map((r, i) => (
+                <div key={i} className="flex items-center gap-3 text-xs font-body py-1">
+                  {r.passesBody ? (
+                    <CheckCircle className="h-3.5 w-3.5 text-primary shrink-0" strokeWidth={2} />
+                  ) : r.passesLarge ? (
+                    <AlertTriangle className="h-3.5 w-3.5 text-accent shrink-0" strokeWidth={2} />
+                  ) : (
+                    <XCircle className="h-3.5 w-3.5 text-destructive shrink-0" strokeWidth={2} />
+                  )}
+                  <span className="text-foreground">{r.fg}</span>
+                  <span className="text-muted-foreground/50">on</span>
+                  <span className="text-foreground">{r.bg}</span>
+                  <span className="font-mono text-muted-foreground ml-auto">{r.ratio}:1</span>
+                  <Badge variant={r.passesBody ? "secondary" : "destructive"} className="text-[10px]">
+                    {r.passesBody ? "AA" : r.passesLarge ? "AA Large" : "Fail"}
+                  </Badge>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        )}
+      </Card>
 
       {/* Active exceptions banner */}
       {exceptions.length > 0 && (
@@ -245,6 +313,9 @@ function RuleRow({ rule, exception, isEditor, onAddException }: {
             <p className="text-sm font-body font-medium text-foreground">{rule.name}</p>
             <Badge variant={rule.severity === "error" ? "destructive" : "secondary"} className="text-[10px] px-1.5 py-0">{rule.severity}</Badge>
             {exception && <Badge className="text-[10px] px-1.5 py-0 bg-accent/20 text-accent-foreground">exception</Badge>}
+            {rule.weight && (
+              <span className="text-[10px] font-mono text-muted-foreground/40">w:{rule.weight}</span>
+            )}
           </div>
           <p className="text-xs font-body text-muted-foreground leading-reading">{rule.description}</p>
           <p className="text-[11px] font-mono text-muted-foreground/70">Check: {rule.checkDescription}</p>
