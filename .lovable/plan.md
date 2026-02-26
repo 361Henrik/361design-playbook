@@ -1,261 +1,210 @@
 
 
-# Tone of Voice System for Curated Lens
+# Channel Kits + Preview Ports
 
-A structured voice and copy system that mirrors how the existing design system handles visual tokens (colors, typography, spacing) -- treating language as a designable, auditable layer with the same rigor.
+Live preview environments that show the design system and tone of voice **in action** across different delivery surfaces -- using real tokens, real components, and curated copy patterns.
 
 ---
 
-## Information Architecture
+## 1. Where It Lives
 
-Three interconnected layers, mirroring the visual system hierarchy:
+- New page at `/channel-kits` under the System group in the sidebar (between "Export" and "Sources", using a `Megaphone` icon)
+- The page has a channel selector at the top (tab bar or card picker) and a live preview frame below
+- Each channel kit is a self-contained preview that enforces specific constraints from the design system
+
+---
+
+## 2. MVP Templates (6 total)
+
+Each template is a React component that renders a realistic layout using only approved tokens, components, and copy. The copy is hardcoded in MVP (not fetched from `channel_kits` DB table -- that comes later).
+
+| # | Template ID | Channel | What It Shows |
+|---|------------|---------|---------------|
+| 1 | `web-app-dashboard` | Web App | Dashboard-style layout: sidebar hint, stat cards, a data table row, primary + secondary buttons |
+| 2 | `landing-hero` | Landing Page | Panel pairing (anchor + primary context), hero headline, CTA, feature list cards |
+| 3 | `landing-pricing` | Landing Page | Three pricing cards with tiered CTAs, badge accents, feature checklists |
+| 4 | `social-post` | Social Post | Square card format with headline, body (character-limited), soft CTA, brand color framing |
+| 5 | `email-header` | Email | Email header + hero image area + single CTA + footer, constrained width (600px) |
+| 6 | `email-transactional` | Email | Transactional email: confirmation message, action button, fine print |
+
+Each template includes curated copy that follows voice tokens (sentence case, verb-first CTAs, no exclamation marks, no filler).
+
+---
+
+## 3. Preview Frame UI
+
+### Layout
+- **Top bar**: Channel selector as a `TabsList` (Web App | Landing Page | Social | Email)
+- **Constraint bar** (below tabs): Shows active constraints as read-only badges:
+  - Heading limit: "40 chars" 
+  - CTA style: "Verb-first, 1-3 words"
+  - Tone: "Functional, precise"
+  - Typography: "Playfair Display / Inter"
+  - Color distribution: "60/30/8"
+- **Preview area**: Bordered container with a subtle checkerboard or light gray surround to frame the preview
+  - Landing Page and Web App render at full width of the content area
+  - Social Post renders at a fixed 400x400 square, centered
+  - Email renders at a fixed 600px width, centered (standard email width)
+- **Template sub-tabs**: When a channel has multiple templates (Landing Page has 2, Email has 2), sub-tabs appear below the main channel tabs
+- **Viewport toggle**: Small device-width toggle (desktop / tablet / mobile) that wraps the preview in a resizable container
+
+### Interaction
+- Preview is read-only -- no editing, no content generation
+- Hovering over a component in the preview shows a subtle tooltip with the component name from the registry
+- The constraint bar updates when switching channels
+
+---
+
+## 4. How Each Kit Constrains the System
+
+Each channel kit defines a constraint profile. These are hardcoded in MVP as a TypeScript data structure:
 
 ```text
-voice_tokens          (= design tokens: the atomic primitives)
-  |
-copy_patterns         (= components: composable templates tied to UI)
-  |
-channel_kits          (= layout sections: assembled context for delivery)
+ChannelKit {
+  id: string
+  name: string
+  description: string
+  toneModifiers: string[]           -- ["Functional", "Precise"]
+  maxHeadingLength: number          -- character limit
+  maxBodyLength: number | null      -- null = no limit
+  ctaRules: string                  -- "Verb-first, 1-3 words"
+  allowedComponents: string[]       -- component IDs from registry
+  typographyOverrides: {            -- channel-specific type constraints
+    maxHeadlineSize: string         -- e.g. "text-2xl" (web app) vs "text-4xl" (landing)
+    bodySize: string                -- e.g. "text-sm" vs "text-base"
+  }
+  spacingProfile: string            -- "compact" | "standard" | "generous"
+  colorEmphasis: string             -- which color gets more weight in this channel
+  templates: TemplateEntry[]
+}
+
+TemplateEntry {
+  id: string
+  name: string
+  description: string
+  component: () => ReactNode        -- the preview render function
+}
 ```
 
-### Where it lives in the UI
+### Constraint matrix (MVP)
 
-- **New sidebar group item**: "Voice" under the Tokens group (between Icons and Components), navigating to `/tokens/voice`
-- **Sub-pages** accessible via tabs on the Voice page:
-  - **Pillars** -- the voice token primitives
-  - **Copy Patterns** -- per-component copy guidance
-  - **Channel Kits** -- assembled guidance per delivery surface
-- This mirrors how Colors/Typography/Spacing each have their own page under the Tokens group
+| Constraint | Web App | Landing Page | Social Post | Email |
+|-----------|---------|-------------|-------------|-------|
+| Heading limit | 40 chars | 60 chars | 80 chars | 50 chars |
+| Body limit | none | none | 280 chars | none |
+| CTA words | 1-3 | 1-5 | 1-3 (soft) | 1-3 |
+| Headline size | text-xl | text-4xl | text-2xl | text-xl |
+| Body size | text-sm | text-base | text-sm | text-sm |
+| Spacing | compact | generous | compact | standard |
+| Color emphasis | Functional (more white) | Editorial (more green) | Warm (bronze accents) | Neutral |
+| Components | Cards, tables, buttons, badges | Panel pairing, hero, feature cards | Single card | Single-column, CTA button |
 
 ---
 
-## 1. Voice Tokens (the primitives)
+## 5. Export Options
 
-Voice tokens are the atomic building blocks of how the brand speaks. They are stored in `voice_tokens` and rendered on a dedicated page with the same card-based layout as color/typography tokens.
+Each channel kit preview can be exported in three formats:
 
-### Database table: `voice_tokens`
-
-```text
-voice_tokens
-  id              UUID PK DEFAULT gen_random_uuid()
-  workspace_id    UUID NOT NULL
-  token_type      TEXT NOT NULL
-                  -- 'pillar' | 'prohibited_pattern' | 'cta_style' | 'grammar_rule'
-  name            TEXT NOT NULL        -- e.g. "Confident, Not Aggressive"
-  description     TEXT                 -- explanation of what this means in practice
-  dos             TEXT[] DEFAULT '{}'  -- example phrases that embody this
-  donts           TEXT[] DEFAULT '{}'  -- example phrases that violate this
-  severity        TEXT DEFAULT 'error' -- 'error' | 'warning' (for guardrail checks)
-  sort_order      INTEGER DEFAULT 0
-  created_by      UUID
-  created_at      TIMESTAMPTZ DEFAULT now()
-  updated_at      TIMESTAMPTZ DEFAULT now()
+### a) Layout Spec (Markdown)
+A structured markdown document describing the layout, component usage, spacing, and constraints:
+```
+# Landing Page -- Hero Section
+## Constraints
+- Heading: max 60 characters, sentence case, Playfair Display
+- CTA: verb-first, 1-5 words, no exclamation marks
+- Color distribution: 60% white / 30% green / 8% bronze max
+## Layout
+- Panel pairing: Anchor (left) + Primary Context (right)
+- Grid: grid-cols-1 md:grid-cols-2, gap-4
+## Components Used
+- Anchor Context Panel (card-anchor)
+- Primary Button (button-primary)
+- Secondary Button (button-secondary)
 ```
 
-### Token types explained
+### b) Code Export (React/Tailwind)
+The actual JSX + Tailwind code for the template, using the project's component imports. Downloaded as a `.tsx` file. Uses the existing `downloadFile` utility from `exportGenerators.ts`.
 
-| Type | Purpose | Example |
-|------|---------|---------|
-| `pillar` | Core voice attributes (3-5 max) | "Confident, Not Aggressive" -- We state things directly. We don't hedge with "maybe" or "just". We also don't command or pressure. |
-| `prohibited_pattern` | Specific language anti-patterns | "No Urgency Scarcity" -- Never use "Limited time!", "Don't miss out!", "Only X left!" |
-| `cta_style` | Rules for call-to-action phrasing | "Verb-First, Calm Authority" -- CTAs start with a verb, 1-3 words, no exclamation marks. "Explore" not "Click here!!!" |
-| `grammar_rule` | Mechanical style choices | "Sentence Case Headlines" -- All headlines use sentence case. No Title Case. No ALL CAPS except legal. |
-
-### UI rendering
-
-Same card layout as `TokensColors.tsx` and `TokensTypography.tsx`:
-- Each token as a bordered card with name, description, and a `DosDonts` component (already exists)
-- Grouped by `token_type` with section headers
-- `CopyButton` for the token name (for referencing in reviews)
-
-### RLS policies
-
-- SELECT: workspace members
-- INSERT/UPDATE: editors and admins (same pattern as `library_entries`)
-- DELETE: admins only
-
----
-
-## 2. Copy Patterns (per-component guidance)
-
-Copy patterns tie voice tokens to specific UI components. They answer "what should a button/card/form say and how?"
-
-### Database table: `copy_patterns`
-
-```text
-copy_patterns
-  id              UUID PK DEFAULT gen_random_uuid()
-  workspace_id    UUID NOT NULL
-  component_id    TEXT NOT NULL        -- maps to componentRegistry id (e.g. "button-primary")
-  element         TEXT NOT NULL        -- 'label' | 'heading' | 'description' | 'placeholder' | 'error_message' | 'empty_state'
-  guidance        TEXT NOT NULL        -- the rule: "1-3 words, verb-first, no exclamation marks"
-  good_examples   TEXT[] DEFAULT '{}'  -- ["Explore", "Get Started", "View Details"]
-  bad_examples    TEXT[] DEFAULT '{}'  -- ["Click Here!!!", "Submit", "GO NOW"]
-  voice_token_ids UUID[] DEFAULT '{}' -- references to voice_tokens that apply
-  sort_order      INTEGER DEFAULT 0
-  created_by      UUID
-  created_at      TIMESTAMPTZ DEFAULT now()
-  updated_at      TIMESTAMPTZ DEFAULT now()
+### c) Copy Spec (Markdown)
+All copy used in the template, annotated with voice token references:
+```
+# Landing Page -- Hero Copy Spec
+## Headline
+"Design with purpose" (sentence case, max 60 chars)
+Voice tokens: Confident Not Aggressive, Sentence Case Headlines
+## CTA
+"Get started" (verb-first, 2 words, no exclamation)
+Voice tokens: Verb-First Calm Authority, No Exclamation Marks
+## Body
+"Every decision should be intentional..." (no filler words)
+Voice tokens: No Filler Words
 ```
 
-### Relationship to components
-
-`component_id` maps to the existing `ComponentEntry.id` from `componentRegistry.tsx`. This is a soft reference (not an FK) since the component registry is a hardcoded TypeScript array, not a database table.
-
-A single component can have multiple copy patterns (one per element type). For example, `card-primary` might have patterns for `heading`, `description`, and `empty_state`.
-
-### UI rendering
-
-- Displayed as a tab on the Voice page ("Copy Patterns")
-- Grouped by component category (Buttons, Cards, Forms, etc.) -- reusing the `categories` array from `componentRegistry.tsx`
-- Each pattern shows the component name, element type, guidance text, and good/bad examples in the `DosDonts` format
-- Links to the component detail page for visual reference
-
-### RLS policies
-
-Same as `voice_tokens`.
+Export is triggered by a dropdown button in the top bar: "Export" with three menu items (Layout Spec, Code, Copy Spec). All three can also be downloaded together as a zip-like bundle (sequential downloads, same pattern as the Starter Kit in Export page).
 
 ---
 
-## 3. Channel Kits (assembled delivery context)
+## 6. Data Model
 
-Channel kits package voice tokens and copy patterns into context-specific guidance for a delivery surface.
+### No new database tables for MVP
+All channel kit data and templates are hardcoded in a new TypeScript file `src/data/channelKits.tsx`. This mirrors how `componentRegistry.tsx` works -- the data is static, the rendering is dynamic.
 
-### Database table: `channel_kits`
-
-```text
-channel_kits
-  id              UUID PK DEFAULT gen_random_uuid()
-  workspace_id    UUID NOT NULL
-  name            TEXT NOT NULL        -- "Web App", "Landing Page", "Social Post", "Email"
-  description     TEXT                 -- when/why to use this kit
-  tone_modifiers  TEXT[] DEFAULT '{}'  -- adjustments from baseline: ["More conversational", "Shorter sentences"]
-  max_heading_length  INTEGER          -- character limit for headings in this channel
-  max_body_length     INTEGER          -- character limit for body copy
-  cta_rules       TEXT                 -- channel-specific CTA guidance
-  sample_copy     JSONB DEFAULT '[]'  -- [{element, text, notes}] -- example full-page copy set
-  voice_token_ids UUID[] DEFAULT '{}' -- which pillars are emphasized/de-emphasized
-  sort_order      INTEGER DEFAULT 0
-  created_by      UUID
-  created_at      TIMESTAMPTZ DEFAULT now()
-  updated_at      TIMESTAMPTZ DEFAULT now()
-```
-
-### Predefined starter kits (seeded on first use)
-
-| Kit | Tone modifier | Heading limit | CTA style |
-|-----|--------------|---------------|-----------|
-| Web App | Functional, precise | 40 chars | Verb-first, 1-3 words |
-| Landing Page | Editorial, aspirational | 60 chars | Verb-first, can be longer (up to 5 words) |
-| Social Post | Warm, concise | 80 chars | Soft CTA, no hard sell |
-| Email | Respectful, informative | 50 chars | Single CTA per email, verb-first |
-
-### UI rendering
-
-- Third tab on the Voice page ("Channel Kits")
-- Each kit as a large card showing: name, description, tone modifiers as badges, character limits, CTA rules, and sample copy
-- "Preview" section showing sample copy rendered in the component styles
-
-### RLS policies
-
-Same as `voice_tokens`.
+### Future: `channel_kits` table
+The existing plan already defines this table. When CRUD is added later, the hardcoded data becomes seed/default data, and user-created kits are stored in the database. The preview templates remain in code (they're React components), but the constraint profiles and copy specs become editable.
 
 ---
 
-## 4. Guardrails Integration
+## 7. Success Criteria
 
-### New guardrail rules (added to `guardrailRules.ts`)
-
-```text
-voice-no-urgency-scarcity (error)
-  "Never use urgency or scarcity language: 'Limited time', 'Don't miss out', 'Only X left'"
-
-voice-no-exclamation-cta (error)
-  "CTA labels must not contain exclamation marks"
-
-voice-sentence-case (warning)
-  "Headlines should use sentence case, not Title Case or ALL CAPS"
-
-voice-cta-length (warning)
-  "CTA labels should be 1-3 words, verb-first"
-
-voice-no-filler (warning)
-  "Avoid filler words: 'just', 'simply', 'actually', 'basically'"
-```
-
-These rules are checked by the Design Copilot and Design Review functions alongside the existing 24 visual rules.
-
-### What is NOT allowed (guardrails for the system itself)
-
-1. **No generic copywriting advice** -- The system stores brand-specific voice rules, not "how to write good copy." There is no AI copy generator.
-2. **No free-text generation** -- The Voice page is a reference system, not a content creation tool. Users look up guidance; they don't type prompts and get copy back.
-3. **No channel kits without a component anchor** -- Every piece of copy guidance must trace back to either a voice token or a component pattern. No floating advice.
-4. **No overriding visual guardrails** -- Voice tokens cannot contradict visual tokens (e.g., a voice token cannot specify a font or color).
-5. **No unbounded token creation** -- Pillars are capped at 5 per workspace. This prevents voice sprawl.
-
----
-
-## 5. Copilot and Review Integration
-
-### Design Copilot
-
-The `design-copilot` edge function's system prompt and context injection will be updated to include:
-- Active voice tokens as additional context blocks (same format as library entries)
-- Copy patterns for referenced components
-- Channel kit guidance when the user mentions a specific channel
-
-The copilot can then cite voice tokens in its References section, e.g., `[3] Voice Token: "Confident, Not Aggressive"`.
-
-### Design Review
-
-The `design-review` edge function will include voice tokens and copy patterns in its audit context. When reviewing a document that contains UI copy, it can flag violations against voice guardrails alongside visual guardrails.
-
----
-
-## 6. MVP Scope
-
-### Include in MVP
-
-- `voice_tokens` table with RLS + migration
-- Voice Tokens page at `/tokens/voice` with pillar, prohibited pattern, CTA style, and grammar rule sections
-- Do/Don't rendering using the existing `DosDonts` component
-- 5 new voice guardrail rules in `guardrailRules.ts`
-- Seed data: 3 pillars, 2 prohibited patterns, 2 CTA style rules, 2 grammar rules (hardcoded defaults matching the existing brand aesthetic -- "calm, architectural, intelligent")
-- Sidebar navigation update
-- CommandSearch update
-
-### Defer to next iteration
-
-- `copy_patterns` table and UI (requires mapping to component registry, more complex)
-- `channel_kits` table and UI (requires sample copy authoring)
-- Copilot/Review context injection (voice tokens need to exist first)
-- Voice token CRUD UI (start read-only with seed data; add edit forms later)
-- Pillar cap enforcement (simple count check, add when CRUD exists)
+1. **Constraint fidelity**: Every template passes all 29 guardrail rules (24 visual + 5 voice) when manually reviewed. No template violates its own channel constraints.
+2. **Token traceability**: Every color, font, spacing value, and component used in a template traces back to a named token or registry entry. No arbitrary values.
+3. **Copy compliance**: All copy in templates follows voice tokens -- sentence case headlines, verb-first CTAs of 1-3 words, no exclamation marks, no filler words, no urgency language.
+4. **Export accuracy**: Exported code compiles and renders identically to the preview when pasted into a fresh project with the Starter Kit tokens applied.
+5. **Visual coherence**: Each channel looks distinct (a social post should feel different from a web app dashboard) while clearly belonging to the same brand system.
+6. **No content generation**: The page is a reference/preview system. There is no text input, no AI prompt, no "generate copy" button.
 
 ---
 
 ## Technical Details
 
-### Files to Create/Modify
+### Files to Create
 
-| File | Action |
+| File | Purpose |
+|------|---------|
+| `src/data/channelKits.tsx` | Channel kit definitions (constraints, metadata) + template render functions |
+| `src/pages/ChannelKits.tsx` | Main page with channel tabs, constraint bar, preview frame, export buttons |
+
+### Files to Modify
+
+| File | Change |
 |------|--------|
-| Migration SQL | Create `voice_tokens` table + RLS policies; seed default tokens |
-| `src/pages/tokens/TokensVoice.tsx` | New page rendering voice tokens with DosDonts |
-| `src/data/guardrailRules.ts` | Add 5 voice guardrail rules + new `voice` category |
-| `src/App.tsx` | Add `/tokens/voice` route |
-| `src/components/AppSidebar.tsx` | Add "Voice" to tokenNav |
-| `src/components/CommandSearch.tsx` | Add Voice page to search index |
+| `src/App.tsx` | Add `/channel-kits` route |
+| `src/components/AppSidebar.tsx` | Add "Channel Kits" to systemNav |
+| `src/components/CommandSearch.tsx` | Add Channel Kits to search index |
 
-### Data seeded on migration
+### Dependencies
+No new dependencies. Templates use existing components (`Button`, `Card`, `Badge`, `Table`, `Tabs`, etc.) and existing utilities (`downloadFile` from `exportGenerators.ts`).
 
-The migration will insert default voice tokens matching the existing brand personality ("calm, architectural, intelligent, editorial authority, controlled luxury"):
+### Template implementation pattern
+Each template is a plain React component that uses only design system components and tokens. Example structure:
 
-**Pillars**: "Confident, Not Aggressive", "Precise, Not Cold", "Curated, Not Exclusive"
+```tsx
+// Inside channelKits.tsx
+const LandingHeroTemplate = () => (
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="rounded-lg bg-primary text-primary-foreground p-6 space-y-3">
+      <h1 className="font-display text-4xl font-medium tracking-headline leading-hero">
+        Design with purpose
+      </h1>
+      <p className="text-sm font-body leading-reading opacity-85">
+        Every decision should be intentional. The system provides the rails.
+      </p>
+      <Button variant="secondary">Get started</Button>
+    </div>
+    <Card>...</Card>
+  </div>
+);
+```
 
-**Prohibited patterns**: "No Urgency/Scarcity Language", "No Filler Words"
-
-**CTA style**: "Verb-First, Calm Authority", "No Exclamation Marks"
-
-**Grammar rules**: "Sentence Case Headlines", "Oxford Comma Always"
+The code export captures this JSX as a string (same pattern as `componentRegistry.tsx` where each entry has a `code` string alongside the `preview` function).
 
