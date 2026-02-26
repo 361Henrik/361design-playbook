@@ -19,6 +19,7 @@ import ExportPage from "./pages/Export";
 import SettingsPage from "./pages/Settings";
 import SourcesPage from "./pages/Sources";
 import LibraryPage from "./pages/Library";
+import ChangelogPage from "./pages/Changelog";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -45,6 +46,7 @@ const App = () => (
             <Route path="/export" element={<ExportPage />} />
             <Route path="/sources" element={<SourcesPage />} />
             <Route path="/library" element={<LibraryPage />} />
+            <Route path="/changelog" element={<ChangelogPage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
