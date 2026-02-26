@@ -692,6 +692,7 @@ export type Database = {
           name: string
           slot_type: string
           sort_order: number | null
+          token_category: string | null
           updated_at: string | null
           voice_token_ids: string[] | null
           workspace_id: string
@@ -705,6 +706,7 @@ export type Database = {
           name: string
           slot_type: string
           sort_order?: number | null
+          token_category?: string | null
           updated_at?: string | null
           voice_token_ids?: string[] | null
           workspace_id: string
@@ -718,6 +720,7 @@ export type Database = {
           name?: string
           slot_type?: string
           sort_order?: number | null
+          token_category?: string | null
           updated_at?: string | null
           voice_token_ids?: string[] | null
           workspace_id?: string
