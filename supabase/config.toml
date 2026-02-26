@@ -11,3 +11,6 @@ verify_jwt = false
 
 [functions.design-copilot]
 verify_jwt = false
+
+[functions.design-review]
+verify_jwt = false
