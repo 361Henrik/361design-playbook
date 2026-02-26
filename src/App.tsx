@@ -12,6 +12,7 @@ import TokensLayout from "./pages/tokens/TokensLayout";
 import TokensMotion from "./pages/tokens/TokensMotion";
 import TokensIcons from "./pages/tokens/TokensIcons";
 import ComponentsPage from "./pages/Components";
+import ComponentDetailPage from "./pages/ComponentDetail";
 import GuidelinesPage from "./pages/Guidelines";
 import GuardrailsPage from "./pages/Guardrails";
 import ExportPage from "./pages/Export";
@@ -36,6 +37,7 @@ const App = () => (
             <Route path="/tokens/motion" element={<TokensMotion />} />
             <Route path="/tokens/icons" element={<TokensIcons />} />
             <Route path="/components" element={<ComponentsPage />} />
+            <Route path="/components/:id" element={<ComponentDetailPage />} />
             <Route path="/guidelines" element={<GuidelinesPage />} />
             <Route path="/guardrails" element={<GuardrailsPage />} />
             <Route path="/export" element={<ExportPage />} />
