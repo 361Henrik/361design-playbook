@@ -17,6 +17,8 @@ import GuidelinesPage from "./pages/Guidelines";
 import GuardrailsPage from "./pages/Guardrails";
 import ExportPage from "./pages/Export";
 import SettingsPage from "./pages/Settings";
+import SourcesPage from "./pages/Sources";
+import LibraryPage from "./pages/Library";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -41,6 +43,8 @@ const App = () => (
             <Route path="/guidelines" element={<GuidelinesPage />} />
             <Route path="/guardrails" element={<GuardrailsPage />} />
             <Route path="/export" element={<ExportPage />} />
+            <Route path="/sources" element={<SourcesPage />} />
+            <Route path="/library" element={<LibraryPage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
