@@ -1,210 +1,254 @@
 
 
-# Channel Kits + Preview Ports
+# Applied Layer: Channel Kits + Variants + Studio
 
-Live preview environments that show the design system and tone of voice **in action** across different delivery surfaces -- using real tokens, real components, and curated copy patterns.
-
----
-
-## 1. Where It Lives
-
-- New page at `/channel-kits` under the System group in the sidebar (between "Export" and "Sources", using a `Megaphone` icon)
-- The page has a channel selector at the top (tab bar or card picker) and a live preview frame below
-- Each channel kit is a self-contained preview that enforces specific constraints from the design system
+Evolves the existing `/channel-kits` page into a three-part "Applied" layer that shows the design system in use -- moving from static previews to an interactive playground where users compose real layouts, swap content variants, and validate against guardrails before exporting.
 
 ---
 
-## 2. MVP Templates (6 total)
+## 1. Information Architecture Changes
 
-Each template is a React component that renders a realistic layout using only approved tokens, components, and copy. The copy is hardcoded in MVP (not fetched from `channel_kits` DB table -- that comes later).
+### Current sidebar structure (System group)
+```text
+Components | Guidelines | Guardrails | Export | Channel Kits | Sources | ...
+```
 
-| # | Template ID | Channel | What It Shows |
-|---|------------|---------|---------------|
-| 1 | `web-app-dashboard` | Web App | Dashboard-style layout: sidebar hint, stat cards, a data table row, primary + secondary buttons |
-| 2 | `landing-hero` | Landing Page | Panel pairing (anchor + primary context), hero headline, CTA, feature list cards |
-| 3 | `landing-pricing` | Landing Page | Three pricing cards with tiered CTAs, badge accents, feature checklists |
-| 4 | `social-post` | Social Post | Square card format with headline, body (character-limited), soft CTA, brand color framing |
-| 5 | `email-header` | Email | Email header + hero image area + single CTA + footer, constrained width (600px) |
-| 6 | `email-transactional` | Email | Transactional email: confirmation message, action button, fine print |
+### New sidebar structure
+```text
+Components | Guidelines | Guardrails | Export | Studio | Sources | ...
+```
 
-Each template includes curated copy that follows voice tokens (sentence case, verb-first CTAs, no exclamation marks, no filler).
+"Channel Kits" is renamed to **Studio** (icon: `PanelTop`). The page gets three tabs:
 
----
+| Tab | What it does |
+|-----|-------------|
+| **Kits** | Browse and inspect kit presets (replaces current channel tabs) |
+| **Variants** | Browse reusable content examples tagged by token category and component |
+| **Studio** | The playground: pick kit, pick template, swap variants, fill content, run guardrails, export |
 
-## 3. Preview Frame UI
-
-### Layout
-- **Top bar**: Channel selector as a `TabsList` (Web App | Landing Page | Social | Email)
-- **Constraint bar** (below tabs): Shows active constraints as read-only badges:
-  - Heading limit: "40 chars" 
-  - CTA style: "Verb-first, 1-3 words"
-  - Tone: "Functional, precise"
-  - Typography: "Playfair Display / Inter"
-  - Color distribution: "60/30/8"
-- **Preview area**: Bordered container with a subtle checkerboard or light gray surround to frame the preview
-  - Landing Page and Web App render at full width of the content area
-  - Social Post renders at a fixed 400x400 square, centered
-  - Email renders at a fixed 600px width, centered (standard email width)
-- **Template sub-tabs**: When a channel has multiple templates (Landing Page has 2, Email has 2), sub-tabs appear below the main channel tabs
-- **Viewport toggle**: Small device-width toggle (desktop / tablet / mobile) that wraps the preview in a resizable container
-
-### Interaction
-- Preview is read-only -- no editing, no content generation
-- Hovering over a component in the preview shows a subtle tooltip with the component name from the registry
-- The constraint bar updates when switching channels
+The `/channel-kits` route is kept as a redirect to `/studio` for backward compatibility.
 
 ---
 
-## 4. How Each Kit Constrains the System
+## 2. Data Model
 
-Each channel kit defines a constraint profile. These are hardcoded in MVP as a TypeScript data structure:
+Six new database tables. All use `workspace_id` for multi-tenancy and standard RLS.
+
+### 2a. `kits`
+A Kit is a preset that bundles constraints for a channel/context.
 
 ```text
-ChannelKit {
-  id: string
-  name: string
-  description: string
-  toneModifiers: string[]           -- ["Functional", "Precise"]
-  maxHeadingLength: number          -- character limit
-  maxBodyLength: number | null      -- null = no limit
-  ctaRules: string                  -- "Verb-first, 1-3 words"
-  allowedComponents: string[]       -- component IDs from registry
-  typographyOverrides: {            -- channel-specific type constraints
-    maxHeadlineSize: string         -- e.g. "text-2xl" (web app) vs "text-4xl" (landing)
-    bodySize: string                -- e.g. "text-sm" vs "text-base"
-  }
-  spacingProfile: string            -- "compact" | "standard" | "generous"
-  colorEmphasis: string             -- which color gets more weight in this channel
-  templates: TemplateEntry[]
-}
-
-TemplateEntry {
-  id: string
-  name: string
-  description: string
-  component: () => ReactNode        -- the preview render function
-}
+kits
+  id                UUID PK DEFAULT gen_random_uuid()
+  workspace_id      UUID NOT NULL
+  name              TEXT NOT NULL              -- "Web App", "Travel Landing Page"
+  slug              TEXT NOT NULL              -- URL-safe identifier
+  description       TEXT
+  channel           TEXT NOT NULL              -- 'web_app' | 'landing_page' | 'social' | 'email' | 'custom'
+  token_overrides   JSONB DEFAULT '{}'         -- optional: e.g. {"colors": {"accent": "#..."}}
+  layout_constraints JSONB DEFAULT '{}'        -- maxHeadingLength, maxBodyLength, spacingProfile, etc.
+  component_subset  TEXT[] DEFAULT '{}'        -- component IDs from registry that are allowed
+  guardrail_profile TEXT[] DEFAULT '{}'        -- guardrail rule IDs that are enforced (subset or all)
+  tone_modifiers    TEXT[] DEFAULT '{}'        -- voice adjustments: ["Functional", "Precise"]
+  sort_order        INTEGER DEFAULT 0
+  is_default        BOOLEAN DEFAULT false      -- seed kits are default, user kits are not
+  created_by        UUID
+  created_at        TIMESTAMPTZ DEFAULT now()
+  updated_at        TIMESTAMPTZ DEFAULT now()
 ```
 
-### Constraint matrix (MVP)
+### 2b. `kit_rules`
+Junction table linking kits to specific guardrail rule overrides (severity changes per kit).
 
-| Constraint | Web App | Landing Page | Social Post | Email |
-|-----------|---------|-------------|-------------|-------|
-| Heading limit | 40 chars | 60 chars | 80 chars | 50 chars |
-| Body limit | none | none | 280 chars | none |
-| CTA words | 1-3 | 1-5 | 1-3 (soft) | 1-3 |
-| Headline size | text-xl | text-4xl | text-2xl | text-xl |
-| Body size | text-sm | text-base | text-sm | text-sm |
-| Spacing | compact | generous | compact | standard |
-| Color emphasis | Functional (more white) | Editorial (more green) | Warm (bronze accents) | Neutral |
-| Components | Cards, tables, buttons, badges | Panel pairing, hero, feature cards | Single card | Single-column, CTA button |
+```text
+kit_rules
+  id              UUID PK DEFAULT gen_random_uuid()
+  kit_id          UUID NOT NULL FK -> kits.id ON DELETE CASCADE
+  rule_id         TEXT NOT NULL              -- matches guardrailRules[].id
+  severity_override TEXT                     -- 'error' | 'warning' | 'disabled'
+  notes           TEXT                       -- why this rule is different for this kit
+  created_at      TIMESTAMPTZ DEFAULT now()
+  UNIQUE(kit_id, rule_id)
+```
+
+### 2c. `templates`
+A template is a layout blueprint tied to a kit.
+
+```text
+templates
+  id              UUID PK DEFAULT gen_random_uuid()
+  kit_id          UUID NOT NULL FK -> kits.id ON DELETE CASCADE
+  workspace_id    UUID NOT NULL
+  name            TEXT NOT NULL              -- "Dashboard", "Hero Section"
+  description     TEXT
+  component_jsx   TEXT NOT NULL              -- the React/Tailwind code (string)
+  layout_spec     TEXT                       -- markdown layout documentation
+  copy_spec       TEXT                       -- markdown copy documentation
+  slot_schema     JSONB DEFAULT '[]'         -- [{slot_id, label, type, max_length, default_value}]
+  sort_order      INTEGER DEFAULT 0
+  is_default      BOOLEAN DEFAULT false
+  created_by      UUID
+  created_at      TIMESTAMPTZ DEFAULT now()
+  updated_at      TIMESTAMPTZ DEFAULT now()
+```
+
+`slot_schema` defines replaceable content zones in the template (headline, body, CTA label, stat values). This is what the Studio uses for variant swapping and content filling.
+
+### 2d. `variants`
+A variant is a reusable content example -- a specific headline, a CTA label, a stat block -- tagged by category and linked to components.
+
+```text
+variants
+  id              UUID PK DEFAULT gen_random_uuid()
+  workspace_id    UUID NOT NULL
+  name            TEXT NOT NULL              -- "Calm authority headline"
+  slot_type       TEXT NOT NULL              -- 'headline' | 'body' | 'cta' | 'stat' | 'feature_list'
+  content         JSONB NOT NULL             -- {text: "Design with purpose", meta: {char_count: 19}}
+  component_ids   TEXT[] DEFAULT '{}'        -- which components this pairs well with
+  voice_token_ids UUID[] DEFAULT '{}'        -- which voice_tokens this exemplifies
+  sort_order      INTEGER DEFAULT 0
+  created_by      UUID
+  created_at      TIMESTAMPTZ DEFAULT now()
+  updated_at      TIMESTAMPTZ DEFAULT now()
+```
+
+### 2e. `variant_tags`
+Flexible tagging for variants (maps to the existing `tag_vocabulary`).
+
+```text
+variant_tags
+  id              UUID PK DEFAULT gen_random_uuid()
+  variant_id      UUID NOT NULL FK -> variants.id ON DELETE CASCADE
+  tag_name        TEXT NOT NULL              -- from tag_vocabulary
+  created_at      TIMESTAMPTZ DEFAULT now()
+  UNIQUE(variant_id, tag_name)
+```
+
+### 2f. `variant_assets`
+Optional media attached to variants (e.g. a hero image for an image slot).
+
+```text
+variant_assets
+  id              UUID PK DEFAULT gen_random_uuid()
+  variant_id      UUID NOT NULL FK -> variants.id ON DELETE CASCADE
+  file_url        TEXT NOT NULL
+  file_type       TEXT NOT NULL              -- 'image/png', 'image/svg+xml', etc.
+  alt_text        TEXT
+  created_at      TIMESTAMPTZ DEFAULT now()
+```
+
+### RLS (all tables)
+- SELECT: `is_workspace_member(auth.uid(), workspace_id)` (or via join for junction tables)
+- INSERT/UPDATE: editors and admins
+- DELETE: admins only
+- Service role: full INSERT/UPDATE for seed data
 
 ---
 
-## 5. Export Options
+## 3. Relationship to Existing Data
 
-Each channel kit preview can be exported in three formats:
-
-### a) Layout Spec (Markdown)
-A structured markdown document describing the layout, component usage, spacing, and constraints:
+```text
+kits ──1:N──> templates          (a kit has multiple layout templates)
+kits ──1:N──> kit_rules          (a kit overrides specific guardrail severities)
+variants ──1:N──> variant_tags   (flexible tagging via tag_vocabulary)
+variants ──1:N──> variant_assets (optional attached media)
+templates.slot_schema ──soft──> variants.slot_type  (Studio matches slots to variants)
+variants.component_ids ──soft──> componentRegistry   (soft reference, not FK)
+variants.voice_token_ids ──FK──> voice_tokens.id     (which voice tokens apply)
 ```
-# Landing Page -- Hero Section
-## Constraints
-- Heading: max 60 characters, sentence case, Playfair Display
-- CTA: verb-first, 1-5 words, no exclamation marks
-- Color distribution: 60% white / 30% green / 8% bronze max
-## Layout
-- Panel pairing: Anchor (left) + Primary Context (right)
-- Grid: grid-cols-1 md:grid-cols-2, gap-4
-## Components Used
-- Anchor Context Panel (card-anchor)
-- Primary Button (button-primary)
-- Secondary Button (button-secondary)
-```
-
-### b) Code Export (React/Tailwind)
-The actual JSX + Tailwind code for the template, using the project's component imports. Downloaded as a `.tsx` file. Uses the existing `downloadFile` utility from `exportGenerators.ts`.
-
-### c) Copy Spec (Markdown)
-All copy used in the template, annotated with voice token references:
-```
-# Landing Page -- Hero Copy Spec
-## Headline
-"Design with purpose" (sentence case, max 60 chars)
-Voice tokens: Confident Not Aggressive, Sentence Case Headlines
-## CTA
-"Get started" (verb-first, 2 words, no exclamation)
-Voice tokens: Verb-First Calm Authority, No Exclamation Marks
-## Body
-"Every decision should be intentional..." (no filler words)
-Voice tokens: No Filler Words
-```
-
-Export is triggered by a dropdown button in the top bar: "Export" with three menu items (Layout Spec, Code, Copy Spec). All three can also be downloaded together as a zip-like bundle (sequential downloads, same pattern as the Starter Kit in Export page).
 
 ---
 
-## 6. Data Model
+## 4. MVP Scope
 
-### No new database tables for MVP
-All channel kit data and templates are hardcoded in a new TypeScript file `src/data/channelKits.tsx`. This mirrors how `componentRegistry.tsx` works -- the data is static, the rendering is dynamic.
+### Include
+1. **Database migration**: Create all 6 tables + RLS + seed 4 default kits (web app, landing page, social, email) with their templates (migrated from current `channelKits.tsx` hardcoded data)
+2. **Studio page** (`/studio`) with 3 tabs:
+   - **Kits tab**: Card grid showing all kits with constraint summaries, click to inspect details
+   - **Variants tab**: Filterable list of variants grouped by `slot_type`, with tag chips
+   - **Studio tab**: The playground (pick kit -> pick template -> preview with content slots -> run guardrails -> export)
+3. **Seed data**: Migrate the 6 existing templates into the `templates` table; create ~12 starter variants (3 headlines, 3 CTAs, 3 body texts, 3 stat blocks)
+4. **Guardrail runner in Studio**: Client-side check of the current template + content against the kit's guardrail profile, showing pass/fail badges
+5. **Export from Studio**: Layout spec + code + copy spec (reuse existing `downloadFile` utility)
+6. **Backward compatibility**: `/channel-kits` redirects to `/studio`
 
-### Future: `channel_kits` table
-The existing plan already defines this table. When CRUD is added later, the hardcoded data becomes seed/default data, and user-created kits are stored in the database. The preview templates remain in code (they're React components), but the constraint profiles and copy specs become editable.
+### Defer
+- Variant CRUD UI (start with seed data, add forms later)
+- Kit CRUD UI (start with seed kits, add creation later)
+- `variant_assets` upload flow (start text-only)
+- Token override preview (applying `token_overrides` to CSS variables in the preview frame)
+- Real-time slot editing in the preview (start with form fields, not inline editing)
+- AI-assisted content suggestions for slots
 
 ---
 
-## 7. Success Criteria
+## 5. Studio Playground UI
 
-1. **Constraint fidelity**: Every template passes all 29 guardrail rules (24 visual + 5 voice) when manually reviewed. No template violates its own channel constraints.
-2. **Token traceability**: Every color, font, spacing value, and component used in a template traces back to a named token or registry entry. No arbitrary values.
-3. **Copy compliance**: All copy in templates follows voice tokens -- sentence case headlines, verb-first CTAs of 1-3 words, no exclamation marks, no filler words, no urgency language.
-4. **Export accuracy**: Exported code compiles and renders identically to the preview when pasted into a fresh project with the Starter Kit tokens applied.
-5. **Visual coherence**: Each channel looks distinct (a social post should feel different from a web app dashboard) while clearly belonging to the same brand system.
-6. **No content generation**: The page is a reference/preview system. There is no text input, no AI prompt, no "generate copy" button.
+```text
++--------------------------------------------------+
+| Kit: [Web App v]  Template: [Dashboard v]        |
++--------------------------------------------------+
+| Constraint bar: badges from kit.layout_constraints|
++--------------------------------------------------+
+| +------------------+  +------------------------+ |
+| | Content Slots    |  | Preview Frame          | |
+| |                  |  |                        | |
+| | Headline: [___]  |  |  (live rendered        | |
+| | Body: [______]   |  |   template with        | |
+| | CTA: [___]       |  |   slot values)         | |
+| | Stat 1: [___]    |  |                        | |
+| |                  |  |                        | |
+| | [Swap Variant v] |  |                        | |
+| +------------------+  +------------------------+ |
++--------------------------------------------------+
+| Guardrail Results: 29/29 passed  [Export v]      |
++--------------------------------------------------+
+```
+
+- Left panel: Form fields for each slot defined in `template.slot_schema`. Each slot has a dropdown to pick a matching variant (filtered by `slot_type`).
+- Right panel: Live preview rendered using the existing template components, with slot values injected.
+- Bottom bar: Guardrail check results (client-side, using `guardrailRules` filtered by `kit.guardrail_profile`) + export dropdown.
+- Viewport toggle (desktop/tablet/mobile) carries over from the current channel kits page.
 
 ---
 
-## Technical Details
+## 6. Technical Details
 
 ### Files to Create
 
 | File | Purpose |
 |------|---------|
-| `src/data/channelKits.tsx` | Channel kit definitions (constraints, metadata) + template render functions |
-| `src/pages/ChannelKits.tsx` | Main page with channel tabs, constraint bar, preview frame, export buttons |
+| Migration SQL | Create 6 tables + RLS + seed kits/templates/variants |
+| `src/pages/Studio.tsx` | Main page with Kits/Variants/Studio tabs |
+| `src/components/studio/KitsTab.tsx` | Kit browser with card grid |
+| `src/components/studio/VariantsTab.tsx` | Variant browser with filters |
+| `src/components/studio/StudioPlayground.tsx` | The interactive playground |
+| `src/components/studio/SlotEditor.tsx` | Content slot form with variant picker |
+| `src/components/studio/GuardrailRunner.tsx` | Client-side guardrail check display |
 
 ### Files to Modify
 
 | File | Change |
 |------|--------|
-| `src/App.tsx` | Add `/channel-kits` route |
-| `src/components/AppSidebar.tsx` | Add "Channel Kits" to systemNav |
-| `src/components/CommandSearch.tsx` | Add Channel Kits to search index |
+| `src/App.tsx` | Add `/studio` route, redirect `/channel-kits` to `/studio` |
+| `src/components/AppSidebar.tsx` | Rename "Channel Kits" to "Studio", update URL and icon |
+| `src/components/CommandSearch.tsx` | Update search entry |
 
-### Dependencies
-No new dependencies. Templates use existing components (`Button`, `Card`, `Badge`, `Table`, `Tabs`, etc.) and existing utilities (`downloadFile` from `exportGenerators.ts`).
+### Migration from hardcoded data
+The existing `src/data/channelKits.tsx` remains as a fallback/reference but the Studio page reads from the database. The seed migration inserts the same 4 kits and 6 templates. The `component` render function stays in code (templates reference a `component_jsx` string for export, but the live preview uses a lookup map keyed by template ID that maps to the existing React components).
 
-### Template implementation pattern
-Each template is a plain React component that uses only design system components and tokens. Example structure:
+### Template rendering strategy
+Since database-stored JSX can't be executed directly, the MVP uses a **registry approach**: a TypeScript map (`TEMPLATE_RENDERERS`) maps template IDs to React component functions. The `component_jsx` field in the database is used only for code export. When a user creates custom templates (deferred), they would use the slot-based system with pre-built layout shells rather than arbitrary JSX.
 
-```tsx
-// Inside channelKits.tsx
-const LandingHeroTemplate = () => (
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div className="rounded-lg bg-primary text-primary-foreground p-6 space-y-3">
-      <h1 className="font-display text-4xl font-medium tracking-headline leading-hero">
-        Design with purpose
-      </h1>
-      <p className="text-sm font-body leading-reading opacity-85">
-        Every decision should be intentional. The system provides the rails.
-      </p>
-      <Button variant="secondary">Get started</Button>
-    </div>
-    <Card>...</Card>
-  </div>
-);
+### Slot system
+Each template's `slot_schema` defines named content zones:
+```text
+[
+  { slot_id: "headline", label: "Headline", type: "text", max_length: 40, default_value: "Overview" },
+  { slot_id: "cta_primary", label: "Primary CTA", type: "text", max_length: 15, default_value: "Create report" },
+  { slot_id: "stat_1_value", label: "Stat 1 Value", type: "text", max_length: 10, default_value: "2,847" }
+]
 ```
 
-The code export captures this JSX as a string (same pattern as `componentRegistry.tsx` where each entry has a `code` string alongside the `preview` function).
+The Studio playground renders the template component and passes slot values as props. Template components accept a `slots` prop object.
 
