@@ -10,9 +10,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
+  DialogFooter,
 } from "@/components/ui/dialog";
 import { supabase } from "@/integrations/supabase/client";
-import { History, GitCompareArrows, RotateCcw, Loader2, Clock, ArrowRight } from "lucide-react";
+import { History, GitCompareArrows, RotateCcw, Loader2, Clock, ArrowRight, AlertTriangle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import type { Json } from "@/integrations/supabase/types";
 
@@ -34,6 +35,8 @@ const ChangelogPage = () => {
   const [loading, setLoading] = useState(true);
   const [filterType, setFilterType] = useState<string>("all");
   const [selectedDiff, setSelectedDiff] = useState<Version | null>(null);
+  const [revertTarget, setRevertTarget] = useState<Version | null>(null);
+  const [revertImpact, setRevertImpact] = useState<{ referencing: any[]; loading: boolean }>({ referencing: [], loading: false });
   const { toast } = useToast();
 
   const fetchVersions = async () => {
@@ -56,13 +59,28 @@ const ChangelogPage = () => {
     fetchVersions();
   }, [filterType]);
 
-  const revertToVersion = async (version: Version) => {
+  const initiateRevert = async (version: Version) => {
     if (version.entity_type !== "library_entry") {
       toast({ title: "Revert not supported", description: "Only library entries can be reverted.", variant: "destructive" });
       return;
     }
 
-    const snapshot = version.snapshot as Record<string, any>;
+    setRevertTarget(version);
+    setRevertImpact({ referencing: [], loading: true });
+
+    // Find entries that reference this entity
+    const { data: dependents } = await supabase
+      .from("library_entries")
+      .select("id, title, entry_type")
+      .contains("related_entry_ids", [version.entity_id]);
+
+    setRevertImpact({ referencing: dependents || [], loading: false });
+  };
+
+  const confirmRevert = async () => {
+    if (!revertTarget) return;
+
+    const snapshot = revertTarget.snapshot as Record<string, any>;
     const { error } = await supabase
       .from("library_entries")
       .update({
@@ -73,14 +91,15 @@ const ChangelogPage = () => {
         tags: snapshot.tags,
         status: snapshot.status,
       })
-      .eq("id", version.entity_id);
+      .eq("id", revertTarget.entity_id);
 
     if (error) {
       toast({ title: "Revert failed", description: error.message, variant: "destructive" });
     } else {
-      toast({ title: "Reverted", description: `Reverted to version ${version.version_number}.` });
+      toast({ title: "Reverted", description: `Reverted to version ${revertTarget.version_number}.` });
       fetchVersions();
     }
+    setRevertTarget(null);
   };
 
   const entityTypeColor = (type: string) => {
@@ -164,12 +183,10 @@ const ChangelogPage = () => {
                 {dateKey}
               </h3>
               <div className="space-y-2 relative">
-                {/* Timeline line */}
                 <div className="absolute left-[11px] top-2 bottom-2 w-px bg-border" />
 
                 {dayVersions.map((version) => (
                   <div key={version.id} className="flex gap-3 relative">
-                    {/* Timeline dot */}
                     <div className="mt-2 shrink-0">
                       <div className="h-[9px] w-[9px] rounded-full bg-primary border-2 border-background relative z-10" />
                     </div>
@@ -214,7 +231,7 @@ const ChangelogPage = () => {
                                 size="icon"
                                 variant="ghost"
                                 className="h-7 w-7"
-                                onClick={() => revertToVersion(version)}
+                                onClick={() => initiateRevert(version)}
                                 title="Revert to this version"
                               >
                                 <RotateCcw className="h-3.5 w-3.5" strokeWidth={1.5} />
@@ -234,6 +251,76 @@ const ChangelogPage = () => {
 
       {/* Diff dialog */}
       <DiffDialog version={selectedDiff} onClose={() => setSelectedDiff(null)} />
+
+      {/* Revert impact preview dialog */}
+      <Dialog open={!!revertTarget} onOpenChange={() => setRevertTarget(null)}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="text-base font-display flex items-center gap-2">
+              <RotateCcw className="h-4 w-4" strokeWidth={1.5} />
+              Revert to v{revertTarget?.version_number}
+            </DialogTitle>
+            <DialogDescription className="text-xs font-body">
+              This will restore "{revertTarget?.title}" to its state at version {revertTarget?.version_number}.
+            </DialogDescription>
+          </DialogHeader>
+
+          {/* Show diff preview */}
+          {revertTarget?.diff && (
+            <div className="space-y-2 mt-2">
+              <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">Changes that will be reverted</p>
+              {(() => {
+                const diff = revertTarget.diff as Record<string, any>;
+                const after = diff.after || {};
+                const before = diff.before || {};
+                const fields = Object.keys(after).filter(f => {
+                  const bVal = JSON.stringify(before[f]);
+                  const aVal = JSON.stringify(after[f]);
+                  return bVal !== aVal;
+                });
+                return fields.slice(0, 4).map(field => (
+                  <div key={field} className="text-xs font-body px-2 py-1 rounded bg-muted/50">
+                    <span className="font-mono text-muted-foreground">{field}:</span>{" "}
+                    <span className="text-destructive/70 line-through">{String(after[field]).slice(0, 60)}</span>{" "}
+                    <ArrowRight className="inline h-3 w-3 text-muted-foreground" />{" "}
+                    <span className="text-primary">{String(before[field]).slice(0, 60)}</span>
+                  </div>
+                ));
+              })()}
+            </div>
+          )}
+
+          {/* Impact warning */}
+          {revertImpact.loading ? (
+            <div className="flex items-center gap-2 text-xs text-muted-foreground mt-2">
+              <Loader2 className="h-3 w-3 animate-spin" /> Checking dependencies…
+            </div>
+          ) : revertImpact.referencing.length > 0 ? (
+            <div className="mt-3 px-3 py-2 rounded-md bg-destructive/10 border border-destructive/20">
+              <div className="flex items-center gap-2 mb-1">
+                <AlertTriangle className="h-3.5 w-3.5 text-destructive" strokeWidth={1.5} />
+                <span className="text-xs font-medium text-destructive">Impact Warning</span>
+              </div>
+              <p className="text-[10px] text-destructive/80 font-body">
+                {revertImpact.referencing.length} entries reference this entry and may be affected:
+              </p>
+              <ul className="mt-1 space-y-0.5">
+                {revertImpact.referencing.slice(0, 5).map((dep: any) => (
+                  <li key={dep.id} className="text-[10px] font-mono text-destructive/70">• {dep.title} ({dep.entry_type})</li>
+                ))}
+                {revertImpact.referencing.length > 5 && (
+                  <li className="text-[10px] font-mono text-destructive/50">+{revertImpact.referencing.length - 5} more</li>
+                )}
+              </ul>
+            </div>
+          ) : null}
+
+          <DialogFooter className="gap-2 mt-4">
+            <Button variant="outline" onClick={() => setRevertTarget(null)}>Cancel</Button>
+            <Button onClick={confirmRevert}>Confirm Revert</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
