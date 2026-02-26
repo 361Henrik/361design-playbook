@@ -346,6 +346,50 @@ export type Database = {
         }
         Relationships: []
       }
+      onboarding_content: {
+        Row: {
+          body: string
+          content_key: string
+          created_at: string | null
+          id: string
+          metadata: Json | null
+          title: string | null
+          updated_at: string | null
+          updated_by: string | null
+          workspace_id: string
+        }
+        Insert: {
+          body: string
+          content_key: string
+          created_at?: string | null
+          id?: string
+          metadata?: Json | null
+          title?: string | null
+          updated_at?: string | null
+          updated_by?: string | null
+          workspace_id: string
+        }
+        Update: {
+          body?: string
+          content_key?: string
+          created_at?: string | null
+          id?: string
+          metadata?: Json | null
+          title?: string | null
+          updated_at?: string | null
+          updated_by?: string | null
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "onboarding_content_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string
@@ -353,6 +397,7 @@ export type Database = {
           email: string | null
           email_digest: boolean
           id: string
+          onboarding_completed: boolean | null
         }
         Insert: {
           created_at?: string
@@ -360,6 +405,7 @@ export type Database = {
           email?: string | null
           email_digest?: boolean
           id: string
+          onboarding_completed?: boolean | null
         }
         Update: {
           created_at?: string
@@ -367,6 +413,7 @@ export type Database = {
           email?: string | null
           email_digest?: boolean
           id?: string
+          onboarding_completed?: boolean | null
         }
         Relationships: []
       }
