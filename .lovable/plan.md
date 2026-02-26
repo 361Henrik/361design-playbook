@@ -1,142 +1,236 @@
 
 
-# Review Session for Attached Documents
+# Tone of Voice System for Curated Lens
 
-A dedicated workflow where users upload a document (PDF/image/markdown), the system extracts structured entries, runs them against all 24 guardrail rules, then opens a focused chat session where the AI produces violations, fix plans with concrete token substitutions, and exportable code -- all grounded in the workspace's design system.
-
----
-
-## How It Works (User Flow)
-
-1. User navigates to `/copilot` and clicks **"Review Document"** (new button next to "New Chat")
-2. A dialog appears for file upload (PDF, image, or markdown) with a title field
-3. On submit:
-   - File is uploaded to the existing `sources` storage bucket
-   - A new `sources` row is created with status `pending`
-   - The `extract-source` edge function runs (existing chunked extraction pipeline)
-   - A new chat session is created with `session_type = 'review'` and linked to the source via a new `source_id` column on `chat_sessions`
-4. Once extraction completes, the edge function `design-review` runs an automated guardrail audit on all extracted entries
-5. The review chat opens with the AI's initial analysis pre-populated: violations list, fix plan, and optional code snippets
-6. User can continue chatting to ask follow-up questions, request alternative fixes, or export decisions
+A structured voice and copy system that mirrors how the existing design system handles visual tokens (colors, typography, spacing) -- treating language as a designable, auditable layer with the same rigor.
 
 ---
 
-## Failure States
+## Information Architecture
 
-- **Bad PDF / unreadable file**: The existing `extract-source` function already handles this -- sets `status = 'failed'` with an error message. The review chat shows a clear error state with a retry button.
-- **Low relevance** (confidence < 0.3): The existing relevance classifier in `extract-source` already flags `status = 'not_relevant'`. The review chat shows a warning with an option to force extraction.
-- **Low confidence entries** (confidence < 0.5): The review audit flags these separately as "uncertain entries" and recommends manual verification before acting on the fix plan.
-- **Chunking continuation**: The existing `continue_from` mechanism in `extract-source` handles large files. The review session shows a progress indicator and auto-continues chunks until complete before running the audit.
-- **AI rate limits (429) / credits (402)**: Surfaced as user-visible error toasts with retry guidance.
-
----
-
-## Data Model Changes
-
-### Modify `chat_sessions` table
-Add two columns:
-- `session_type` TEXT DEFAULT `'chat'` -- values: `'chat'` or `'review'`
-- `source_id` UUID (nullable) -- FK linking review sessions to the uploaded source
-
-### New table: `review_decisions`
-Stores the outcome of a review session as a versioned "Decision" entry that can be promoted to the library.
+Three interconnected layers, mirroring the visual system hierarchy:
 
 ```text
-review_decisions
-  id            UUID PK DEFAULT gen_random_uuid()
-  session_id    UUID FK -> chat_sessions.id ON DELETE CASCADE
-  workspace_id  UUID NOT NULL
-  source_id     UUID FK -> sources.id
-  title         TEXT NOT NULL
-  violations    JSONB DEFAULT '[]'  -- [{rule_id, rule_name, severity, description, affected_entries}]
-  fix_plan      JSONB DEFAULT '[]'  -- [{action, target, from_value, to_value, component_recommendation}]
-  code_snippet  TEXT                -- optional exportable code
-  status        TEXT DEFAULT 'draft' -- draft | approved | rejected
-  created_by    UUID
-  created_at    TIMESTAMPTZ DEFAULT now()
-  updated_at    TIMESTAMPTZ DEFAULT now()
+voice_tokens          (= design tokens: the atomic primitives)
+  |
+copy_patterns         (= components: composable templates tied to UI)
+  |
+channel_kits          (= layout sections: assembled context for delivery)
 ```
 
-RLS policies:
-- SELECT/INSERT/UPDATE/DELETE: `user_id = auth.uid()` via join on `chat_sessions`
+### Where it lives in the UI
+
+- **New sidebar group item**: "Voice" under the Tokens group (between Icons and Components), navigating to `/tokens/voice`
+- **Sub-pages** accessible via tabs on the Voice page:
+  - **Pillars** -- the voice token primitives
+  - **Copy Patterns** -- per-component copy guidance
+  - **Channel Kits** -- assembled guidance per delivery surface
+- This mirrors how Colors/Typography/Spacing each have their own page under the Tokens group
 
 ---
 
-## New Edge Function: `design-review`
+## 1. Voice Tokens (the primitives)
 
-**Endpoint**: `supabase/functions/design-review/index.ts`
+Voice tokens are the atomic building blocks of how the brand speaks. They are stored in `voice_tokens` and rendered on a dedicated page with the same card-based layout as color/typography tokens.
 
-**Input**: `{ source_id, session_id, workspace_id }`
+### Database table: `voice_tokens`
 
-**Process**:
-1. Fetch all `library_entries` where `source_id` matches (the freshly extracted entries)
-2. Fetch all canonical/approved entries for the workspace (context for fix recommendations)
-3. Build a structured prompt containing:
-   - The extracted entries (title, type, content, confidence)
-   - The full 24 guardrail rules (from the same `GUARDRAIL_RULES` constant used in design-copilot)
-   - The component registry index
-   - The approved color palette and typography tokens
-4. Call Lovable AI (`google/gemini-3-flash-preview`) with **tool calling** to extract structured output:
-   - `violations[]`: Each mapped to a specific guardrail rule ID, with severity and affected entry titles
-   - `fix_plan[]`: Concrete substitutions (e.g., "Replace #FF0000 with Deep Forest Green #1B3D2F", "Use Primary Button component instead of custom styled div")
-   - `code_snippet`: Optional React/Tailwind code using components from the catalog
-   - `risk_notes[]`: Caveats or manual-review items
-5. Persist the AI response as the first assistant message in the review chat session
-6. Create a `review_decisions` row with the structured violations/fix_plan/code_snippet
-7. Stream the formatted response back via SSE
-
-**Answer contract** (enforced via tool calling schema):
 ```text
-**Violations Found**
-- [RULE-ID] Rule Name (severity): Description of how it's violated, which entries affected
-
-**Fix Plan**
-1. [Action]: Replace [current value] with [token name + value] in [entry title]
-2. [Action]: Use [Component Name] instead of [current approach]
-
-**Recommended Code** (if applicable)
-// React/Tailwind snippet using approved components
-
-**Risks & Manual Review Items**
-- Items requiring human judgment
+voice_tokens
+  id              UUID PK DEFAULT gen_random_uuid()
+  workspace_id    UUID NOT NULL
+  token_type      TEXT NOT NULL
+                  -- 'pillar' | 'prohibited_pattern' | 'cta_style' | 'grammar_rule'
+  name            TEXT NOT NULL        -- e.g. "Confident, Not Aggressive"
+  description     TEXT                 -- explanation of what this means in practice
+  dos             TEXT[] DEFAULT '{}'  -- example phrases that embody this
+  donts           TEXT[] DEFAULT '{}'  -- example phrases that violate this
+  severity        TEXT DEFAULT 'error' -- 'error' | 'warning' (for guardrail checks)
+  sort_order      INTEGER DEFAULT 0
+  created_by      UUID
+  created_at      TIMESTAMPTZ DEFAULT now()
+  updated_at      TIMESTAMPTZ DEFAULT now()
 ```
 
+### Token types explained
+
+| Type | Purpose | Example |
+|------|---------|---------|
+| `pillar` | Core voice attributes (3-5 max) | "Confident, Not Aggressive" -- We state things directly. We don't hedge with "maybe" or "just". We also don't command or pressure. |
+| `prohibited_pattern` | Specific language anti-patterns | "No Urgency Scarcity" -- Never use "Limited time!", "Don't miss out!", "Only X left!" |
+| `cta_style` | Rules for call-to-action phrasing | "Verb-First, Calm Authority" -- CTAs start with a verb, 1-3 words, no exclamation marks. "Explore" not "Click here!!!" |
+| `grammar_rule` | Mechanical style choices | "Sentence Case Headlines" -- All headlines use sentence case. No Title Case. No ALL CAPS except legal. |
+
+### UI rendering
+
+Same card layout as `TokensColors.tsx` and `TokensTypography.tsx`:
+- Each token as a bordered card with name, description, and a `DosDonts` component (already exists)
+- Grouped by `token_type` with section headers
+- `CopyButton` for the token name (for referencing in reviews)
+
+### RLS policies
+
+- SELECT: workspace members
+- INSERT/UPDATE: editors and admins (same pattern as `library_entries`)
+- DELETE: admins only
+
 ---
 
-## Frontend Changes
+## 2. Copy Patterns (per-component guidance)
 
-### `src/pages/Copilot.tsx` modifications:
-- Add "Review Document" button in the session sidebar header (next to "New Chat")
-- Upload dialog with file picker (reuse pattern from Sources page: title, file type, file input)
-- New session type indicator: review sessions show a document icon and source title instead of chat icon
-- Progress state while extraction runs (polling `sources` table for status changes)
-- Once extraction + audit complete, auto-load the review chat with the initial analysis
+Copy patterns tie voice tokens to specific UI components. They answer "what should a button/card/form say and how?"
 
-### Review chat rendering:
-- Violations rendered with severity badges (error = red, warning = amber) and rule ID links
-- Fix plan items rendered as an ordered checklist
-- Code snippet rendered in a `CodeBlock` component (already exists) with copy button
-- "Export as Decision" button saves/updates the `review_decisions` entry
-- "Promote to Library" button creates approved `library_entries` from the fix plan (future enhancement, deferred)
+### Database table: `copy_patterns`
+
+```text
+copy_patterns
+  id              UUID PK DEFAULT gen_random_uuid()
+  workspace_id    UUID NOT NULL
+  component_id    TEXT NOT NULL        -- maps to componentRegistry id (e.g. "button-primary")
+  element         TEXT NOT NULL        -- 'label' | 'heading' | 'description' | 'placeholder' | 'error_message' | 'empty_state'
+  guidance        TEXT NOT NULL        -- the rule: "1-3 words, verb-first, no exclamation marks"
+  good_examples   TEXT[] DEFAULT '{}'  -- ["Explore", "Get Started", "View Details"]
+  bad_examples    TEXT[] DEFAULT '{}'  -- ["Click Here!!!", "Submit", "GO NOW"]
+  voice_token_ids UUID[] DEFAULT '{}' -- references to voice_tokens that apply
+  sort_order      INTEGER DEFAULT 0
+  created_by      UUID
+  created_at      TIMESTAMPTZ DEFAULT now()
+  updated_at      TIMESTAMPTZ DEFAULT now()
+```
+
+### Relationship to components
+
+`component_id` maps to the existing `ComponentEntry.id` from `componentRegistry.tsx`. This is a soft reference (not an FK) since the component registry is a hardcoded TypeScript array, not a database table.
+
+A single component can have multiple copy patterns (one per element type). For example, `card-primary` might have patterns for `heading`, `description`, and `empty_state`.
+
+### UI rendering
+
+- Displayed as a tab on the Voice page ("Copy Patterns")
+- Grouped by component category (Buttons, Cards, Forms, etc.) -- reusing the `categories` array from `componentRegistry.tsx`
+- Each pattern shows the component name, element type, guidance text, and good/bad examples in the `DosDonts` format
+- Links to the component detail page for visual reference
+
+### RLS policies
+
+Same as `voice_tokens`.
 
 ---
 
-## MVP Scope
+## 3. Channel Kits (assembled delivery context)
 
-**Include in MVP**:
-- `chat_sessions` schema update (add `session_type`, `source_id`)
-- `review_decisions` table with RLS
-- `design-review` edge function with guardrail audit + structured output
-- Upload flow in Copilot page with progress indicator
-- Review chat UI with violations, fix plan, and code snippet rendering
-- Failure states: bad file, low relevance, low confidence flagging
-- Chunking: auto-continue extraction before running audit
+Channel kits package voice tokens and copy patterns into context-specific guidance for a delivery surface.
 
-**Defer**:
-- "Promote to Library" (creating approved entries from fix plan)
-- Image-based document review (OCR via AI vision) -- start with text-based files only
-- Diff view comparing extracted entries against existing canonical entries
-- Batch review of multiple documents
+### Database table: `channel_kits`
+
+```text
+channel_kits
+  id              UUID PK DEFAULT gen_random_uuid()
+  workspace_id    UUID NOT NULL
+  name            TEXT NOT NULL        -- "Web App", "Landing Page", "Social Post", "Email"
+  description     TEXT                 -- when/why to use this kit
+  tone_modifiers  TEXT[] DEFAULT '{}'  -- adjustments from baseline: ["More conversational", "Shorter sentences"]
+  max_heading_length  INTEGER          -- character limit for headings in this channel
+  max_body_length     INTEGER          -- character limit for body copy
+  cta_rules       TEXT                 -- channel-specific CTA guidance
+  sample_copy     JSONB DEFAULT '[]'  -- [{element, text, notes}] -- example full-page copy set
+  voice_token_ids UUID[] DEFAULT '{}' -- which pillars are emphasized/de-emphasized
+  sort_order      INTEGER DEFAULT 0
+  created_by      UUID
+  created_at      TIMESTAMPTZ DEFAULT now()
+  updated_at      TIMESTAMPTZ DEFAULT now()
+```
+
+### Predefined starter kits (seeded on first use)
+
+| Kit | Tone modifier | Heading limit | CTA style |
+|-----|--------------|---------------|-----------|
+| Web App | Functional, precise | 40 chars | Verb-first, 1-3 words |
+| Landing Page | Editorial, aspirational | 60 chars | Verb-first, can be longer (up to 5 words) |
+| Social Post | Warm, concise | 80 chars | Soft CTA, no hard sell |
+| Email | Respectful, informative | 50 chars | Single CTA per email, verb-first |
+
+### UI rendering
+
+- Third tab on the Voice page ("Channel Kits")
+- Each kit as a large card showing: name, description, tone modifiers as badges, character limits, CTA rules, and sample copy
+- "Preview" section showing sample copy rendered in the component styles
+
+### RLS policies
+
+Same as `voice_tokens`.
+
+---
+
+## 4. Guardrails Integration
+
+### New guardrail rules (added to `guardrailRules.ts`)
+
+```text
+voice-no-urgency-scarcity (error)
+  "Never use urgency or scarcity language: 'Limited time', 'Don't miss out', 'Only X left'"
+
+voice-no-exclamation-cta (error)
+  "CTA labels must not contain exclamation marks"
+
+voice-sentence-case (warning)
+  "Headlines should use sentence case, not Title Case or ALL CAPS"
+
+voice-cta-length (warning)
+  "CTA labels should be 1-3 words, verb-first"
+
+voice-no-filler (warning)
+  "Avoid filler words: 'just', 'simply', 'actually', 'basically'"
+```
+
+These rules are checked by the Design Copilot and Design Review functions alongside the existing 24 visual rules.
+
+### What is NOT allowed (guardrails for the system itself)
+
+1. **No generic copywriting advice** -- The system stores brand-specific voice rules, not "how to write good copy." There is no AI copy generator.
+2. **No free-text generation** -- The Voice page is a reference system, not a content creation tool. Users look up guidance; they don't type prompts and get copy back.
+3. **No channel kits without a component anchor** -- Every piece of copy guidance must trace back to either a voice token or a component pattern. No floating advice.
+4. **No overriding visual guardrails** -- Voice tokens cannot contradict visual tokens (e.g., a voice token cannot specify a font or color).
+5. **No unbounded token creation** -- Pillars are capped at 5 per workspace. This prevents voice sprawl.
+
+---
+
+## 5. Copilot and Review Integration
+
+### Design Copilot
+
+The `design-copilot` edge function's system prompt and context injection will be updated to include:
+- Active voice tokens as additional context blocks (same format as library entries)
+- Copy patterns for referenced components
+- Channel kit guidance when the user mentions a specific channel
+
+The copilot can then cite voice tokens in its References section, e.g., `[3] Voice Token: "Confident, Not Aggressive"`.
+
+### Design Review
+
+The `design-review` edge function will include voice tokens and copy patterns in its audit context. When reviewing a document that contains UI copy, it can flag violations against voice guardrails alongside visual guardrails.
+
+---
+
+## 6. MVP Scope
+
+### Include in MVP
+
+- `voice_tokens` table with RLS + migration
+- Voice Tokens page at `/tokens/voice` with pillar, prohibited pattern, CTA style, and grammar rule sections
+- Do/Don't rendering using the existing `DosDonts` component
+- 5 new voice guardrail rules in `guardrailRules.ts`
+- Seed data: 3 pillars, 2 prohibited patterns, 2 CTA style rules, 2 grammar rules (hardcoded defaults matching the existing brand aesthetic -- "calm, architectural, intelligent")
+- Sidebar navigation update
+- CommandSearch update
+
+### Defer to next iteration
+
+- `copy_patterns` table and UI (requires mapping to component registry, more complex)
+- `channel_kits` table and UI (requires sample copy authoring)
+- Copilot/Review context injection (voice tokens need to exist first)
+- Voice token CRUD UI (start read-only with seed data; add edit forms later)
+- Pillar cap enforcement (simple count check, add when CRUD exists)
 
 ---
 
@@ -146,29 +240,22 @@ RLS policies:
 
 | File | Action |
 |------|--------|
-| Migration SQL | Add `session_type`, `source_id` to `chat_sessions`; create `review_decisions` table + RLS |
-| `supabase/functions/design-review/index.ts` | New edge function for guardrail audit |
-| `src/pages/Copilot.tsx` | Add review upload flow, progress UI, review-specific message rendering |
-| `supabase/config.toml` | Add `[functions.design-review]` with `verify_jwt = false` |
+| Migration SQL | Create `voice_tokens` table + RLS policies; seed default tokens |
+| `src/pages/tokens/TokensVoice.tsx` | New page rendering voice tokens with DosDonts |
+| `src/data/guardrailRules.ts` | Add 5 voice guardrail rules + new `voice` category |
+| `src/App.tsx` | Add `/tokens/voice` route |
+| `src/components/AppSidebar.tsx` | Add "Voice" to tokenNav |
+| `src/components/CommandSearch.tsx` | Add Voice page to search index |
 
-### Shared Constants
-The `GUARDRAIL_RULES` and `COMPONENT_INDEX` arrays in the `design-copilot` edge function will be duplicated into `design-review` (edge functions can't share imports). Both arrays are small and static.
+### Data seeded on migration
 
-### Extraction + Review Pipeline Sequence
-```text
-User uploads file
-  -> sources row created (status: pending)
-  -> extract-source called (existing function)
-    -> relevance check (low? show warning, offer force)
-    -> chunk extraction loop (8KB chunks, auto-continue)
-    -> entries saved as drafts in library_entries
-  -> extraction complete (status: completed)
-  -> design-review called automatically
-    -> fetch extracted entries + workspace context
-    -> AI audit against 24 guardrail rules
-    -> structured output: violations, fix plan, code
-    -> save review_decisions row
-    -> stream initial analysis to chat
-  -> user can continue chatting for follow-ups
-```
+The migration will insert default voice tokens matching the existing brand personality ("calm, architectural, intelligent, editorial authority, controlled luxury"):
+
+**Pillars**: "Confident, Not Aggressive", "Precise, Not Cold", "Curated, Not Exclusive"
+
+**Prohibited patterns**: "No Urgency/Scarcity Language", "No Filler Words"
+
+**CTA style**: "Verb-First, Calm Authority", "No Exclamation Marks"
+
+**Grammar rules**: "Sentence Case Headlines", "Oxford Comma Always"
 
