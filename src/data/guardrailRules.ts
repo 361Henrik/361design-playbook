@@ -9,6 +9,7 @@ import {
   Zap,
   Image,
   Layers,
+  MessageSquare,
 } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
@@ -16,7 +17,7 @@ import {
 /* ------------------------------------------------------------------ */
 
 export type RuleSeverity = "error" | "warning";
-export type RuleCategory = "color" | "typography" | "layout" | "motion" | "imagery" | "consistency";
+export type RuleCategory = "color" | "typography" | "layout" | "motion" | "imagery" | "consistency" | "voice";
 export type RuleStatus = "pass" | "fail";
 
 export interface GuardrailRule {
@@ -43,6 +44,7 @@ export const categoryMeta: Record<RuleCategory, { label: string; icon: typeof Pa
   motion: { label: "Motion", icon: Zap },
   imagery: { label: "Imagery", icon: Image },
   consistency: { label: "Consistency", icon: Layers },
+  voice: { label: "Voice", icon: MessageSquare },
 };
 
 /* ------------------------------------------------------------------ */
@@ -301,6 +303,58 @@ export const guardrailRules: GuardrailRule[] = [
     checkDescription: "Verify all icon instances use strokeWidth 1.5–2 and no fill.",
     status: "pass",
     weight: 0.6,
+  },
+
+  // ─── Voice ───
+  {
+    id: "voice-no-urgency-scarcity",
+    name: "No urgency/scarcity language",
+    category: "voice",
+    severity: "error",
+    description: "Never use urgency or scarcity language: 'Limited time', 'Don't miss out', 'Only X left'.",
+    checkDescription: "Flag any urgency or artificial scarcity phrases in UI copy.",
+    status: "pass",
+    weight: 0.8,
+  },
+  {
+    id: "voice-no-exclamation-cta",
+    name: "No exclamation marks in CTAs",
+    category: "voice",
+    severity: "error",
+    description: "CTA labels must not contain exclamation marks. Our brand doesn't shout.",
+    checkDescription: "Flag any button or link label containing '!'.",
+    status: "pass",
+    weight: 0.7,
+  },
+  {
+    id: "voice-sentence-case",
+    name: "Sentence case headlines",
+    category: "voice",
+    severity: "warning",
+    description: "Headlines should use sentence case, not Title Case or ALL CAPS.",
+    checkDescription: "Flag headings using Title Case or ALL CAPS patterns.",
+    status: "pass",
+    weight: 0.4,
+  },
+  {
+    id: "voice-cta-length",
+    name: "CTA labels 1–3 words",
+    category: "voice",
+    severity: "warning",
+    description: "CTA labels should be 1–3 words, verb-first. Keep them calm and direct.",
+    checkDescription: "Flag CTA labels exceeding 3 words or not starting with a verb.",
+    status: "pass",
+    weight: 0.3,
+  },
+  {
+    id: "voice-no-filler",
+    name: "No filler words",
+    category: "voice",
+    severity: "warning",
+    description: "Avoid filler words: 'just', 'simply', 'actually', 'basically'. Every word earns its place.",
+    checkDescription: "Flag occurrences of common filler words in UI copy.",
+    status: "pass",
+    weight: 0.3,
   },
 ];
 

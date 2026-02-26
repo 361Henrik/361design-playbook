@@ -13,6 +13,7 @@ import TokensSpacing from "./pages/tokens/TokensSpacing";
 import TokensLayout from "./pages/tokens/TokensLayout";
 import TokensMotion from "./pages/tokens/TokensMotion";
 import TokensIcons from "./pages/tokens/TokensIcons";
+import TokensVoice from "./pages/tokens/TokensVoice";
 import ComponentsPage from "./pages/Components";
 import ComponentDetailPage from "./pages/ComponentDetail";
 import GuidelinesPage from "./pages/Guidelines";
@@ -53,6 +54,7 @@ function ProtectedRoutes() {
           <Route path="/tokens/layout" element={<TokensLayout />} />
           <Route path="/tokens/motion" element={<TokensMotion />} />
           <Route path="/tokens/icons" element={<TokensIcons />} />
+          <Route path="/tokens/voice" element={<TokensVoice />} />
           <Route path="/components" element={<ComponentsPage />} />
           <Route path="/components/:id" element={<ComponentDetailPage />} />
           <Route path="/guidelines" element={<GuidelinesPage />} />
