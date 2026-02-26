@@ -36,7 +36,7 @@ import {
   ChevronsUpDown,
   Sparkles,
   MessageSquare,
-  Megaphone,
+  PanelTop,
 } from "lucide-react";
 
 const mainNav = [
@@ -58,7 +58,7 @@ const systemNav = [
   { title: "Guidelines", url: "/guidelines", icon: BookOpen },
   { title: "Guardrails", url: "/guardrails", icon: ShieldCheck },
   { title: "Export", url: "/export", icon: Download },
-  { title: "Channel Kits", url: "/channel-kits", icon: Megaphone },
+  { title: "Studio", url: "/studio", icon: PanelTop },
   { title: "Sources", url: "/sources", icon: Upload },
   { title: "Library", url: "/library", icon: Library },
   { title: "Changelog", url: "/changelog", icon: History },

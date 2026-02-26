@@ -132,6 +132,106 @@ export type Database = {
           },
         ]
       }
+      kit_rules: {
+        Row: {
+          created_at: string | null
+          id: string
+          kit_id: string
+          notes: string | null
+          rule_id: string
+          severity_override: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          kit_id: string
+          notes?: string | null
+          rule_id: string
+          severity_override?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          kit_id?: string
+          notes?: string | null
+          rule_id?: string
+          severity_override?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kit_rules_kit_id_fkey"
+            columns: ["kit_id"]
+            isOneToOne: false
+            referencedRelation: "kits"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      kits: {
+        Row: {
+          channel: string
+          component_subset: string[] | null
+          created_at: string | null
+          created_by: string | null
+          description: string | null
+          guardrail_profile: string[] | null
+          id: string
+          is_default: boolean | null
+          layout_constraints: Json | null
+          name: string
+          slug: string
+          sort_order: number | null
+          token_overrides: Json | null
+          tone_modifiers: string[] | null
+          updated_at: string | null
+          workspace_id: string
+        }
+        Insert: {
+          channel?: string
+          component_subset?: string[] | null
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          guardrail_profile?: string[] | null
+          id?: string
+          is_default?: boolean | null
+          layout_constraints?: Json | null
+          name: string
+          slug: string
+          sort_order?: number | null
+          token_overrides?: Json | null
+          tone_modifiers?: string[] | null
+          updated_at?: string | null
+          workspace_id: string
+        }
+        Update: {
+          channel?: string
+          component_subset?: string[] | null
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          guardrail_profile?: string[] | null
+          id?: string
+          is_default?: boolean | null
+          layout_constraints?: Json | null
+          name?: string
+          slug?: string
+          sort_order?: number | null
+          token_overrides?: Json | null
+          tone_modifiers?: string[] | null
+          updated_at?: string | null
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kits_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       library_entries: {
         Row: {
           confidence: number | null
@@ -431,6 +531,72 @@ export type Database = {
           },
         ]
       }
+      templates: {
+        Row: {
+          component_jsx: string
+          copy_spec: string | null
+          created_at: string | null
+          created_by: string | null
+          description: string | null
+          id: string
+          is_default: boolean | null
+          kit_id: string
+          layout_spec: string | null
+          name: string
+          slot_schema: Json | null
+          sort_order: number | null
+          updated_at: string | null
+          workspace_id: string
+        }
+        Insert: {
+          component_jsx: string
+          copy_spec?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          is_default?: boolean | null
+          kit_id: string
+          layout_spec?: string | null
+          name: string
+          slot_schema?: Json | null
+          sort_order?: number | null
+          updated_at?: string | null
+          workspace_id: string
+        }
+        Update: {
+          component_jsx?: string
+          copy_spec?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          is_default?: boolean | null
+          kit_id?: string
+          layout_spec?: string | null
+          name?: string
+          slot_schema?: Json | null
+          sort_order?: number | null
+          updated_at?: string | null
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "templates_kit_id_fkey"
+            columns: ["kit_id"]
+            isOneToOne: false
+            referencedRelation: "kits"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "templates_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -451,6 +617,120 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      variant_assets: {
+        Row: {
+          alt_text: string | null
+          created_at: string | null
+          file_type: string
+          file_url: string
+          id: string
+          variant_id: string
+        }
+        Insert: {
+          alt_text?: string | null
+          created_at?: string | null
+          file_type: string
+          file_url: string
+          id?: string
+          variant_id: string
+        }
+        Update: {
+          alt_text?: string | null
+          created_at?: string | null
+          file_type?: string
+          file_url?: string
+          id?: string
+          variant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "variant_assets_variant_id_fkey"
+            columns: ["variant_id"]
+            isOneToOne: false
+            referencedRelation: "variants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      variant_tags: {
+        Row: {
+          created_at: string | null
+          id: string
+          tag_name: string
+          variant_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          tag_name: string
+          variant_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          tag_name?: string
+          variant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "variant_tags_variant_id_fkey"
+            columns: ["variant_id"]
+            isOneToOne: false
+            referencedRelation: "variants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      variants: {
+        Row: {
+          component_ids: string[] | null
+          content: Json
+          created_at: string | null
+          created_by: string | null
+          id: string
+          name: string
+          slot_type: string
+          sort_order: number | null
+          updated_at: string | null
+          voice_token_ids: string[] | null
+          workspace_id: string
+        }
+        Insert: {
+          component_ids?: string[] | null
+          content: Json
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          name: string
+          slot_type: string
+          sort_order?: number | null
+          updated_at?: string | null
+          voice_token_ids?: string[] | null
+          workspace_id: string
+        }
+        Update: {
+          component_ids?: string[] | null
+          content?: Json
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          name?: string
+          slot_type?: string
+          sort_order?: number | null
+          updated_at?: string | null
+          voice_token_ids?: string[] | null
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "variants_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       versions: {
         Row: {
