@@ -1,0 +1,282 @@
+import { useState, useEffect } from "react";
+import { PageHeader } from "@/components/PageHeader";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { supabase } from "@/integrations/supabase/client";
+import { Search, Loader2, CheckCircle2, FileEdit, Trash2, Sparkles, BookOpen, Tag } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+
+type LibraryEntry = {
+  id: string;
+  title: string;
+  entry_type: string;
+  tags: string[] | null;
+  summary: string | null;
+  content: string | null;
+  rules: string[] | null;
+  status: string;
+  version: number;
+  created_at: string;
+  source_id: string | null;
+};
+
+const LibraryPage = () => {
+  const [entries, setEntries] = useState<LibraryEntry[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<LibraryEntry[] | null>(null);
+  const [aiSummary, setAiSummary] = useState("");
+  const [searching, setSearching] = useState(false);
+  const [filterType, setFilterType] = useState<string>("all");
+  const [filterStatus, setFilterStatus] = useState<string>("all");
+  const { toast } = useToast();
+
+  const fetchEntries = async () => {
+    let query = supabase
+      .from("library_entries")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (filterType !== "all") query = query.eq("entry_type", filterType);
+    if (filterStatus !== "all") query = query.eq("status", filterStatus);
+
+    const { data, error } = await query;
+    if (!error && data) setEntries(data);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchEntries();
+  }, [filterType, filterStatus]);
+
+  const handleSearch = async () => {
+    if (!searchQuery.trim()) {
+      setSearchResults(null);
+      setAiSummary("");
+      return;
+    }
+    setSearching(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("search-library", {
+        body: {
+          query: searchQuery,
+          filters: filterType !== "all" ? { entry_type: filterType } : undefined,
+        },
+      });
+      if (error) throw error;
+      setSearchResults(data.results || []);
+      setAiSummary(data.ai_summary || "");
+    } catch (e: any) {
+      toast({ title: "Search failed", description: e.message, variant: "destructive" });
+    } finally {
+      setSearching(false);
+    }
+  };
+
+  const approveEntry = async (id: string) => {
+    const { error } = await supabase
+      .from("library_entries")
+      .update({ status: "approved" })
+      .eq("id", id);
+    if (error) {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    } else {
+      toast({ title: "Approved", description: "Entry is now live." });
+      fetchEntries();
+      if (searchResults) setSearchResults(searchResults.map(e => e.id === id ? { ...e, status: "approved" } : e));
+    }
+  };
+
+  const rejectEntry = async (id: string) => {
+    const { error } = await supabase
+      .from("library_entries")
+      .update({ status: "rejected" })
+      .eq("id", id);
+    if (error) {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    } else {
+      toast({ title: "Rejected" });
+      fetchEntries();
+    }
+  };
+
+  const deleteEntry = async (id: string) => {
+    const { error } = await supabase.from("library_entries").delete().eq("id", id);
+    if (error) {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    } else {
+      toast({ title: "Deleted" });
+      fetchEntries();
+    }
+  };
+
+  const displayEntries = searchResults !== null ? searchResults : entries;
+
+  const typeColor = (type: string) => {
+    switch (type) {
+      case "token": return "bg-primary/10 text-primary";
+      case "guideline": return "bg-accent/20 text-accent-foreground";
+      case "component": return "bg-secondary text-secondary-foreground";
+      case "pattern": return "bg-muted text-muted-foreground";
+      case "example": return "bg-primary/5 text-primary";
+      default: return "bg-muted text-muted-foreground";
+    }
+  };
+
+  return (
+    <div className="px-8 py-10 max-w-5xl">
+      <PageHeader
+        title="Library"
+        description="Searchable, filterable collection of all extracted design tokens, guidelines, components, and patterns."
+      />
+
+      {/* Search */}
+      <div className="flex gap-2 mb-6">
+        <div className="relative flex-1">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" strokeWidth={1.5} />
+          <Input
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+            placeholder="Search the library… e.g. 'What color for accents?'"
+            className="pl-9 text-sm"
+          />
+        </div>
+        <Button onClick={handleSearch} disabled={searching} className="gap-2">
+          {searching ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" strokeWidth={1.5} />}
+          Search
+        </Button>
+      </div>
+
+      {/* AI Summary */}
+      {aiSummary && (
+        <Card className="mb-6 border-accent/30 bg-accent/5">
+          <CardContent className="p-4">
+            <div className="flex items-start gap-2">
+              <Sparkles className="h-4 w-4 text-accent mt-0.5 shrink-0" strokeWidth={1.5} />
+              <div>
+                <p className="text-xs font-medium text-accent mb-1 font-body">AI Answer</p>
+                <p className="text-sm font-body leading-reading text-foreground">{aiSummary}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Filters */}
+      <div className="flex gap-3 mb-6">
+        <Select value={filterType} onValueChange={(v) => { setFilterType(v); setSearchResults(null); }}>
+          <SelectTrigger className="w-[140px] text-xs">
+            <SelectValue placeholder="Type" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Types</SelectItem>
+            <SelectItem value="token">Token</SelectItem>
+            <SelectItem value="guideline">Guideline</SelectItem>
+            <SelectItem value="component">Component</SelectItem>
+            <SelectItem value="pattern">Pattern</SelectItem>
+            <SelectItem value="example">Example</SelectItem>
+          </SelectContent>
+        </Select>
+        <Select value={filterStatus} onValueChange={(v) => { setFilterStatus(v); setSearchResults(null); }}>
+          <SelectTrigger className="w-[140px] text-xs">
+            <SelectValue placeholder="Status" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Status</SelectItem>
+            <SelectItem value="draft">Draft</SelectItem>
+            <SelectItem value="approved">Approved</SelectItem>
+            <SelectItem value="rejected">Rejected</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      {/* Results */}
+      {loading ? (
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <Loader2 className="h-4 w-4 animate-spin" /> Loading…
+        </div>
+      ) : displayEntries.length === 0 ? (
+        <div className="text-center py-12">
+          <BookOpen className="h-8 w-8 text-muted-foreground/30 mx-auto mb-3" strokeWidth={1.5} />
+          <p className="text-sm text-muted-foreground font-body">
+            {searchResults !== null ? "No results found." : "No library entries yet. Upload a source to get started."}
+          </p>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {displayEntries.map((entry) => (
+            <Card key={entry.id} className="hover:border-primary/20 transition-colors duration-ui">
+              <CardContent className="p-4">
+                <div className="flex items-start gap-3">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className="text-sm font-medium font-body">{entry.title}</h3>
+                      <Badge className={`text-[10px] font-mono ${typeColor(entry.entry_type)}`}>
+                        {entry.entry_type}
+                      </Badge>
+                      <Badge
+                        variant={entry.status === "approved" ? "default" : entry.status === "rejected" ? "destructive" : "secondary"}
+                        className="text-[10px] font-mono"
+                      >
+                        {entry.status}
+                      </Badge>
+                    </div>
+                    {entry.summary && (
+                      <p className="text-xs text-muted-foreground font-body leading-reading mb-2">{entry.summary}</p>
+                    )}
+                    {entry.tags && entry.tags.length > 0 && (
+                      <div className="flex items-center gap-1 flex-wrap">
+                        <Tag className="h-3 w-3 text-muted-foreground/50" strokeWidth={1.5} />
+                        {entry.tags.map((tag) => (
+                          <span key={tag} className="text-[10px] text-muted-foreground bg-muted px-1.5 py-0.5 rounded font-mono">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    {entry.rules && entry.rules.length > 0 && (
+                      <div className="mt-2 space-y-1">
+                        {entry.rules.slice(0, 3).map((rule, i) => (
+                          <p key={i} className="text-[10px] text-muted-foreground font-mono pl-2 border-l-2 border-accent/30">
+                            {rule}
+                          </p>
+                        ))}
+                        {entry.rules.length > 3 && (
+                          <p className="text-[10px] text-muted-foreground/50 font-mono pl-2">
+                            +{entry.rules.length - 3} more rules
+                          </p>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-1 shrink-0">
+                    {entry.status === "draft" && (
+                      <>
+                        <Button size="icon" variant="ghost" className="h-7 w-7" onClick={() => approveEntry(entry.id)} title="Approve">
+                          <CheckCircle2 className="h-3.5 w-3.5 text-primary" strokeWidth={1.5} />
+                        </Button>
+                        <Button size="icon" variant="ghost" className="h-7 w-7" onClick={() => rejectEntry(entry.id)} title="Reject">
+                          <FileEdit className="h-3.5 w-3.5 text-muted-foreground" strokeWidth={1.5} />
+                        </Button>
+                      </>
+                    )}
+                    <Button size="icon" variant="ghost" className="h-7 w-7" onClick={() => deleteEntry(entry.id)} title="Delete">
+                      <Trash2 className="h-3.5 w-3.5 text-destructive/70" strokeWidth={1.5} />
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default LibraryPage;

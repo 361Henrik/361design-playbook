@@ -24,6 +24,8 @@ import {
   ShieldCheck,
   Download,
   Settings,
+  Upload,
+  Library,
 } from "lucide-react";
 
 const mainNav = [
@@ -44,6 +46,8 @@ const systemNav = [
   { title: "Guidelines", url: "/guidelines", icon: BookOpen },
   { title: "Guardrails", url: "/guardrails", icon: ShieldCheck },
   { title: "Export", url: "/export", icon: Download },
+  { title: "Sources", url: "/sources", icon: Upload },
+  { title: "Library", url: "/library", icon: Library },
   { title: "Settings", url: "/settings", icon: Settings },
 ];
 

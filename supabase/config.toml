@@ -1,0 +1,7 @@
+project_id = "jdtuawpoarrwziwvouie"
+
+[functions.extract-source]
+verify_jwt = false
+
+[functions.search-library]
+verify_jwt = false
