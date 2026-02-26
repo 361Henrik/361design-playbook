@@ -12,7 +12,7 @@ import {
 import {
   Palette, Type, Ruler, LayoutGrid, Zap, Hexagon,
   Component, BookOpen, ShieldCheck, Download, Upload,
-  Library, History, Settings, LayoutDashboard, FileText,
+  Library, History, Settings, LayoutDashboard, FileText, Sparkles,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -31,6 +31,7 @@ const pages = [
   { title: "Sources", href: "/sources", icon: Upload },
   { title: "Library", href: "/library", icon: Library },
   { title: "Changelog", href: "/changelog", icon: History },
+  { title: "Copilot", href: "/copilot", icon: Sparkles },
   { title: "Settings", href: "/settings", icon: Settings },
 ];
 
