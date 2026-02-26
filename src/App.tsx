@@ -2,7 +2,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider, useAuth } from "@/hooks/useAuth";
 import { AppShell } from "@/components/AppShell";
 import Dashboard from "./pages/Dashboard";
 import TokensColors from "./pages/tokens/TokensColors";
@@ -20,9 +21,64 @@ import SettingsPage from "./pages/Settings";
 import SourcesPage from "./pages/Sources";
 import LibraryPage from "./pages/Library";
 import ChangelogPage from "./pages/Changelog";
+import AuthPage from "./pages/Auth";
 import NotFound from "./pages/NotFound";
+import { Loader2 } from "lucide-react";
 
 const queryClient = new QueryClient();
+
+function ProtectedRoutes() {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <Loader2 className="h-6 w-6 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (!user) return <Navigate to="/auth" replace />;
+
+  return (
+    <AppShell>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/tokens/colors" element={<TokensColors />} />
+        <Route path="/tokens/typography" element={<TokensTypography />} />
+        <Route path="/tokens/spacing" element={<TokensSpacing />} />
+        <Route path="/tokens/layout" element={<TokensLayout />} />
+        <Route path="/tokens/motion" element={<TokensMotion />} />
+        <Route path="/tokens/icons" element={<TokensIcons />} />
+        <Route path="/components" element={<ComponentsPage />} />
+        <Route path="/components/:id" element={<ComponentDetailPage />} />
+        <Route path="/guidelines" element={<GuidelinesPage />} />
+        <Route path="/guardrails" element={<GuardrailsPage />} />
+        <Route path="/export" element={<ExportPage />} />
+        <Route path="/sources" element={<SourcesPage />} />
+        <Route path="/library" element={<LibraryPage />} />
+        <Route path="/changelog" element={<ChangelogPage />} />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </AppShell>
+  );
+}
+
+function AuthGate() {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <Loader2 className="h-6 w-6 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (user) return <Navigate to="/" replace />;
+  return <AuthPage />;
+}
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -30,27 +86,12 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <AppShell>
+        <AuthProvider>
           <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/tokens/colors" element={<TokensColors />} />
-            <Route path="/tokens/typography" element={<TokensTypography />} />
-            <Route path="/tokens/spacing" element={<TokensSpacing />} />
-            <Route path="/tokens/layout" element={<TokensLayout />} />
-            <Route path="/tokens/motion" element={<TokensMotion />} />
-            <Route path="/tokens/icons" element={<TokensIcons />} />
-            <Route path="/components" element={<ComponentsPage />} />
-            <Route path="/components/:id" element={<ComponentDetailPage />} />
-            <Route path="/guidelines" element={<GuidelinesPage />} />
-            <Route path="/guardrails" element={<GuardrailsPage />} />
-            <Route path="/export" element={<ExportPage />} />
-            <Route path="/sources" element={<SourcesPage />} />
-            <Route path="/library" element={<LibraryPage />} />
-            <Route path="/changelog" element={<ChangelogPage />} />
-            <Route path="/settings" element={<SettingsPage />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path="/auth" element={<AuthGate />} />
+            <Route path="/*" element={<ProtectedRoutes />} />
           </Routes>
-        </AppShell>
+        </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

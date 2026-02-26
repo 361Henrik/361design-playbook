@@ -1,7 +1,14 @@
+import { useState, useEffect } from "react";
 import { PageHeader } from "@/components/PageHeader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/hooks/use-toast";
 import {
   guardrailRules,
   categoryMeta,
@@ -15,12 +22,58 @@ import {
   XCircle,
   AlertTriangle,
   Shield,
+  ShieldOff,
+  Plus,
 } from "lucide-react";
+
+type Exception = {
+  id: string;
+  rule_id: string;
+  reason: string;
+  approved_by: string | null;
+  expires_at: string | null;
+  created_at: string;
+};
 
 const GuardrailsPage = () => {
   const score = getHealthScore();
   const counts = getRuleCountByCategory();
   const categoryOrder: RuleCategory[] = ["color", "typography", "layout", "motion", "imagery", "consistency"];
+  const { isEditor } = useAuth();
+  const { toast } = useToast();
+
+  const [exceptions, setExceptions] = useState<Exception[]>([]);
+  const [addingException, setAddingException] = useState<string | null>(null);
+  const [exceptionReason, setExceptionReason] = useState("");
+
+  const fetchExceptions = async () => {
+    const { data } = await supabase.from("guardrail_exceptions").select("*");
+    setExceptions((data as Exception[]) || []);
+  };
+
+  useEffect(() => { fetchExceptions(); }, []);
+
+  const addException = async () => {
+    if (!addingException || !exceptionReason.trim()) return;
+    const { error } = await supabase.from("guardrail_exceptions").insert({
+      rule_id: addingException,
+      reason: exceptionReason,
+      expires_at: new Date(Date.now() + 30 * 86400000).toISOString(), // 30 days
+    });
+    if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+    else toast({ title: "Exception added", description: "Valid for 30 days." });
+    setAddingException(null);
+    setExceptionReason("");
+    fetchExceptions();
+  };
+
+  const removeException = async (id: string) => {
+    await supabase.from("guardrail_exceptions").delete().eq("id", id);
+    fetchExceptions();
+  };
+
+  const getExceptionForRule = (ruleId: string) =>
+    exceptions.find((e) => e.rule_id === ruleId && (!e.expires_at || new Date(e.expires_at) > new Date()));
 
   return (
     <div className="px-8 py-10 max-w-5xl space-y-10">
@@ -56,9 +109,7 @@ const GuardrailsPage = () => {
                       <span className="text-xs font-mono text-muted-foreground">{c.total}</span>
                     </div>
                     {c.failing > 0 && (
-                      <Badge variant="destructive" className="text-[10px] px-1.5 py-0">
-                        {c.failing} failing
-                      </Badge>
+                      <Badge variant="destructive" className="text-[10px] px-1.5 py-0">{c.failing} failing</Badge>
                     )}
                   </div>
                 );
@@ -67,6 +118,41 @@ const GuardrailsPage = () => {
           </CardContent>
         </Card>
       </div>
+
+      {/* Active exceptions banner */}
+      {exceptions.length > 0 && (
+        <Card className="border-accent/30 bg-accent/5">
+          <CardContent className="p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <ShieldOff className="h-4 w-4 text-accent" strokeWidth={1.5} />
+              <span className="text-sm font-body font-medium text-foreground">Active Exceptions</span>
+              <Badge variant="secondary" className="text-[10px] font-mono">{exceptions.length}</Badge>
+            </div>
+            <div className="space-y-1">
+              {exceptions.map((ex) => {
+                const rule = guardrailRules.find((r) => r.id === ex.rule_id);
+                const expired = ex.expires_at && new Date(ex.expires_at) < new Date();
+                return (
+                  <div key={ex.id} className={`flex items-center gap-2 text-xs font-body ${expired ? "opacity-50" : ""}`}>
+                    <span className="text-muted-foreground">{rule?.name || ex.rule_id}:</span>
+                    <span className="text-foreground">{ex.reason}</span>
+                    {ex.expires_at && (
+                      <span className="text-[10px] text-muted-foreground/50">
+                        {expired ? "(expired)" : `expires ${new Date(ex.expires_at).toLocaleDateString()}`}
+                      </span>
+                    )}
+                    {isEditor && (
+                      <button onClick={() => removeException(ex.id)} className="text-destructive/50 hover:text-destructive ml-auto">
+                        <XCircle className="h-3 w-3" />
+                      </button>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Rules by category */}
       {categoryOrder.map((cat) => {
@@ -78,17 +164,19 @@ const GuardrailsPage = () => {
           <section key={cat} className="space-y-4">
             <div className="flex items-center gap-2">
               <Icon className="h-4 w-4 text-muted-foreground" strokeWidth={1.5} />
-              <h2 className="font-display text-lg font-medium tracking-headline text-foreground">
-                {meta.label}
-              </h2>
-              <Badge variant="secondary" className="font-mono text-[10px]">
-                {rules.length} rules
-              </Badge>
+              <h2 className="font-display text-lg font-medium tracking-headline text-foreground">{meta.label}</h2>
+              <Badge variant="secondary" className="font-mono text-[10px]">{rules.length} rules</Badge>
             </div>
 
             <div className="space-y-2">
               {rules.map((rule) => (
-                <RuleRow key={rule.id} rule={rule} />
+                <RuleRow
+                  key={rule.id}
+                  rule={rule}
+                  exception={getExceptionForRule(rule.id)}
+                  isEditor={isEditor}
+                  onAddException={() => setAddingException(rule.id)}
+                />
               ))}
             </div>
           </section>
@@ -98,32 +186,52 @@ const GuardrailsPage = () => {
       {/* Legend */}
       <Separator />
       <div className="flex flex-wrap gap-6 text-xs font-body text-muted-foreground">
-        <div className="flex items-center gap-1.5">
-          <CheckCircle className="h-3.5 w-3.5 text-primary" strokeWidth={2} />
-          Pass
-        </div>
-        <div className="flex items-center gap-1.5">
-          <XCircle className="h-3.5 w-3.5 text-destructive" strokeWidth={2} />
-          Error (hard violation)
-        </div>
-        <div className="flex items-center gap-1.5">
-          <AlertTriangle className="h-3.5 w-3.5 text-accent" strokeWidth={2} />
-          Warning (soft guidance)
-        </div>
+        <div className="flex items-center gap-1.5"><CheckCircle className="h-3.5 w-3.5 text-primary" strokeWidth={2} /> Pass</div>
+        <div className="flex items-center gap-1.5"><XCircle className="h-3.5 w-3.5 text-destructive" strokeWidth={2} /> Error</div>
+        <div className="flex items-center gap-1.5"><AlertTriangle className="h-3.5 w-3.5 text-accent" strokeWidth={2} /> Warning</div>
+        <div className="flex items-center gap-1.5"><ShieldOff className="h-3.5 w-3.5 text-accent" strokeWidth={2} /> Exception</div>
       </div>
+
+      {/* Exception dialog */}
+      <Dialog open={!!addingException} onOpenChange={() => setAddingException(null)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="font-display">Add Exception</DialogTitle>
+            <DialogDescription className="font-body text-sm">
+              Allow this rule to be intentionally broken for a campaign or special case. Expires in 30 days.
+            </DialogDescription>
+          </DialogHeader>
+          <Input
+            value={exceptionReason}
+            onChange={(e) => setExceptionReason(e.target.value)}
+            placeholder="Reason for exception…"
+            className="text-sm"
+          />
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setAddingException(null)}>Cancel</Button>
+            <Button onClick={addException}>Add Exception</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
 
-function RuleRow({ rule }: { rule: GuardrailRule }) {
+function RuleRow({ rule, exception, isEditor, onAddException }: {
+  rule: GuardrailRule;
+  exception?: Exception;
+  isEditor: boolean;
+  onAddException: () => void;
+}) {
   const isPassing = rule.status === "pass";
 
   return (
-    <Card className={`transition-colors duration-ui ${!isPassing ? "border-destructive/30" : ""}`}>
+    <Card className={`transition-colors duration-ui ${!isPassing && !exception ? "border-destructive/30" : ""} ${exception ? "border-accent/30" : ""}`}>
       <CardContent className="p-4 flex items-start gap-4">
-        {/* Status icon */}
         <div className="pt-0.5">
-          {isPassing ? (
+          {exception ? (
+            <ShieldOff className="h-4 w-4 text-accent" strokeWidth={2} />
+          ) : isPassing ? (
             <CheckCircle className="h-4 w-4 text-primary" strokeWidth={2} />
           ) : rule.severity === "error" ? (
             <XCircle className="h-4 w-4 text-destructive" strokeWidth={2} />
@@ -132,32 +240,27 @@ function RuleRow({ rule }: { rule: GuardrailRule }) {
           )}
         </div>
 
-        {/* Content */}
         <div className="flex-1 min-w-0 space-y-1">
           <div className="flex items-center gap-2 flex-wrap">
             <p className="text-sm font-body font-medium text-foreground">{rule.name}</p>
-            <Badge
-              variant={rule.severity === "error" ? "destructive" : "secondary"}
-              className="text-[10px] px-1.5 py-0"
-            >
-              {rule.severity}
-            </Badge>
+            <Badge variant={rule.severity === "error" ? "destructive" : "secondary"} className="text-[10px] px-1.5 py-0">{rule.severity}</Badge>
+            {exception && <Badge className="text-[10px] px-1.5 py-0 bg-accent/20 text-accent-foreground">exception</Badge>}
           </div>
-          <p className="text-xs font-body text-muted-foreground leading-reading">
-            {rule.description}
-          </p>
-          <p className="text-[11px] font-mono text-muted-foreground/70">
-            Check: {rule.checkDescription}
-          </p>
-          {rule.details && (
-            <p className="text-[11px] font-body text-accent italic">{rule.details}</p>
-          )}
+          <p className="text-xs font-body text-muted-foreground leading-reading">{rule.description}</p>
+          <p className="text-[11px] font-mono text-muted-foreground/70">Check: {rule.checkDescription}</p>
+          {rule.details && <p className="text-[11px] font-body text-accent italic">{rule.details}</p>}
         </div>
 
-        {/* Status badge */}
-        <Badge variant={isPassing ? "secondary" : "destructive"} className="text-[10px] shrink-0">
-          {isPassing ? "PASS" : "FAIL"}
-        </Badge>
+        <div className="flex items-center gap-1 shrink-0">
+          <Badge variant={isPassing || exception ? "secondary" : "destructive"} className="text-[10px]">
+            {exception ? "EXCEPTED" : isPassing ? "PASS" : "FAIL"}
+          </Badge>
+          {!isPassing && !exception && isEditor && (
+            <Button size="icon" variant="ghost" className="h-7 w-7" onClick={onAddException} title="Add exception">
+              <Plus className="h-3.5 w-3.5" strokeWidth={1.5} />
+            </Button>
+          )}
+        </div>
       </CardContent>
     </Card>
   );

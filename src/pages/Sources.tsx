@@ -6,8 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { supabase } from "@/integrations/supabase/client";
-import { Upload, FileText, Image, Link2, Loader2, CheckCircle2, XCircle, Clock } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import { Upload, FileText, Image, Link2, Loader2, CheckCircle2, XCircle, Clock, RotateCcw, AlertTriangle, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 type Source = {
@@ -17,6 +19,11 @@ type Source = {
   file_url: string | null;
   status: string;
   created_at: string;
+  error_message: string | null;
+  retry_count: number;
+  file_hash: string | null;
+  pages_processed: number | null;
+  total_pages: number | null;
 };
 
 const SourcesPage = () => {
@@ -26,58 +33,49 @@ const SourcesPage = () => {
   const [title, setTitle] = useState("");
   const [fileType, setFileType] = useState<string>("pdf");
   const [file, setFile] = useState<File | null>(null);
+  const [dupeWarning, setDupeWarning] = useState<{ existing: Source; hash: string } | null>(null);
   const { toast } = useToast();
+  const { isEditor, isAdmin } = useAuth();
 
   const fetchSources = async () => {
-    const { data, error } = await supabase
-      .from("sources")
-      .select("*")
-      .order("created_at", { ascending: false });
-    if (!error && data) setSources(data);
+    const { data, error } = await supabase.from("sources").select("*").order("created_at", { ascending: false });
+    if (!error && data) setSources(data as Source[]);
     setLoading(false);
   };
 
-  useEffect(() => {
-    fetchSources();
-  }, []);
+  useEffect(() => { fetchSources(); }, []);
 
-  const handleUpload = async () => {
-    if (!title.trim()) {
-      toast({ title: "Title required", description: "Please enter a title for this source.", variant: "destructive" });
-      return;
-    }
+  const computeHash = async (file: File): Promise<string> => {
+    const buffer = await file.arrayBuffer();
+    const hashBuffer = await crypto.subtle.digest("SHA-256", buffer);
+    return Array.from(new Uint8Array(hashBuffer)).map((b) => b.toString(16).padStart(2, "0")).join("");
+  };
 
+  const doUpload = async (forceHash?: string) => {
     setUploading(true);
     try {
       let fileUrl: string | null = null;
+      let hash: string | null = forceHash || null;
 
       if (file) {
-        const ext = file.name.split(".").pop();
+        if (!hash) hash = await computeHash(file);
         const path = `${Date.now()}-${file.name}`;
-        const { error: uploadError } = await supabase.storage
-          .from("sources")
-          .upload(path, file);
+        const { error: uploadError } = await supabase.storage.from("sources").upload(path, file);
         if (uploadError) throw uploadError;
         fileUrl = path;
       }
 
       const { data: source, error: insertError } = await supabase
         .from("sources")
-        .insert({ title, file_type: fileType, file_url: fileUrl })
+        .insert({ title, file_type: fileType, file_url: fileUrl, file_hash: hash } as any)
         .select()
         .single();
-
       if (insertError) throw insertError;
 
       toast({ title: "Source uploaded", description: "Starting AI extraction…" });
 
-      // Trigger extraction
-      const { error: fnError } = await supabase.functions.invoke("extract-source", {
-        body: { source_id: source.id },
-      });
-
+      const { error: fnError } = await supabase.functions.invoke("extract-source", { body: { source_id: source.id } });
       if (fnError) {
-        console.error("Extraction error:", fnError);
         toast({ title: "Extraction failed", description: fnError.message, variant: "destructive" });
       } else {
         toast({ title: "Extraction complete", description: "Entries extracted and saved as drafts." });
@@ -93,10 +91,48 @@ const SourcesPage = () => {
     }
   };
 
+  const handleUpload = async () => {
+    if (!title.trim()) {
+      toast({ title: "Title required", description: "Please enter a title.", variant: "destructive" });
+      return;
+    }
+
+    // Check for duplicate
+    if (file) {
+      const hash = await computeHash(file);
+      const existing = sources.find((s) => s.file_hash === hash);
+      if (existing) {
+        setDupeWarning({ existing, hash });
+        return;
+      }
+      await doUpload(hash);
+    } else {
+      await doUpload();
+    }
+  };
+
+  const retryExtraction = async (sourceId: string) => {
+    toast({ title: "Retrying extraction…" });
+    const { error } = await supabase.functions.invoke("extract-source", { body: { source_id: sourceId } });
+    if (error) {
+      toast({ title: "Retry failed", description: error.message, variant: "destructive" });
+    } else {
+      toast({ title: "Extraction complete" });
+    }
+    fetchSources();
+  };
+
+  const deleteSource = async (id: string) => {
+    const { error } = await supabase.from("sources").delete().eq("id", id);
+    if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+    else { toast({ title: "Deleted" }); fetchSources(); }
+  };
+
   const statusIcon = (status: string) => {
     switch (status) {
       case "completed": return <CheckCircle2 className="h-4 w-4 text-primary" strokeWidth={1.5} />;
       case "failed": return <XCircle className="h-4 w-4 text-destructive" strokeWidth={1.5} />;
+      case "partial": return <AlertTriangle className="h-4 w-4 text-accent" strokeWidth={1.5} />;
       case "processing": return <Loader2 className="h-4 w-4 text-accent animate-spin" strokeWidth={1.5} />;
       default: return <Clock className="h-4 w-4 text-muted-foreground" strokeWidth={1.5} />;
     }
@@ -118,62 +154,49 @@ const SourcesPage = () => {
         description="Upload PDFs, images, and markdown files. AI extracts structured design entries for the library."
       />
 
-      {/* Upload form */}
-      <Card className="mb-8">
-        <CardHeader>
-          <CardTitle className="text-base">Upload New Source</CardTitle>
-          <CardDescription className="text-xs">
-            Upload a document and AI will extract design tokens, guidelines, and patterns.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="space-y-2">
-              <Label className="text-xs font-body">Title</Label>
-              <Input
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="e.g. Brand Guidelines v2"
-                className="text-sm"
-              />
+      {/* Upload form — only for editors */}
+      {isEditor && (
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle className="text-base">Upload New Source</CardTitle>
+            <CardDescription className="text-xs">Upload a document and AI will extract design tokens, guidelines, and patterns.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="space-y-2">
+                <Label className="text-xs font-body">Title</Label>
+                <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g. Brand Guidelines v2" className="text-sm" />
+              </div>
+              <div className="space-y-2">
+                <Label className="text-xs font-body">Type</Label>
+                <Select value={fileType} onValueChange={setFileType}>
+                  <SelectTrigger className="text-sm"><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="pdf">PDF</SelectItem>
+                    <SelectItem value="image">Image</SelectItem>
+                    <SelectItem value="markdown">Markdown</SelectItem>
+                    <SelectItem value="url">URL</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label className="text-xs font-body">File</Label>
+                <Input type="file" onChange={(e) => setFile(e.target.files?.[0] || null)} className="text-sm"
+                  accept={fileType === "pdf" ? ".pdf" : fileType === "image" ? "image/*" : ".md,.txt"} />
+              </div>
             </div>
-            <div className="space-y-2">
-              <Label className="text-xs font-body">Type</Label>
-              <Select value={fileType} onValueChange={setFileType}>
-                <SelectTrigger className="text-sm">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="pdf">PDF</SelectItem>
-                  <SelectItem value="image">Image</SelectItem>
-                  <SelectItem value="markdown">Markdown</SelectItem>
-                  <SelectItem value="url">URL</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="space-y-2">
-              <Label className="text-xs font-body">File</Label>
-              <Input
-                type="file"
-                onChange={(e) => setFile(e.target.files?.[0] || null)}
-                className="text-sm"
-                accept={fileType === "pdf" ? ".pdf" : fileType === "image" ? "image/*" : ".md,.txt"}
-              />
-            </div>
-          </div>
-          <Button onClick={handleUpload} disabled={uploading} className="gap-2">
-            {uploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" strokeWidth={1.5} />}
-            {uploading ? "Processing…" : "Upload & Extract"}
-          </Button>
-        </CardContent>
-      </Card>
+            <Button onClick={handleUpload} disabled={uploading} className="gap-2">
+              {uploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" strokeWidth={1.5} />}
+              {uploading ? "Processing…" : "Upload & Extract"}
+            </Button>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Sources list */}
       <h2 className="font-display text-lg font-medium mb-4">Uploaded Sources</h2>
       {loading ? (
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <Loader2 className="h-4 w-4 animate-spin" /> Loading…
-        </div>
+        <div className="flex items-center gap-2 text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin" /> Loading…</div>
       ) : sources.length === 0 ? (
         <p className="text-sm text-muted-foreground font-body">No sources uploaded yet.</p>
       ) : (
@@ -181,27 +204,60 @@ const SourcesPage = () => {
           {sources.map((source) => (
             <Card key={source.id} className="hover:border-primary/20 transition-colors duration-ui">
               <CardContent className="p-4 flex items-center gap-4">
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  {fileTypeIcon(source.file_type)}
-                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">{fileTypeIcon(source.file_type)}</div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium font-body truncate">{source.title}</p>
-                  <p className="text-[10px] text-muted-foreground font-body">
-                    {new Date(source.created_at).toLocaleDateString()}
-                  </p>
+                  <p className="text-[10px] text-muted-foreground font-body">{new Date(source.created_at).toLocaleDateString()}</p>
+                  {source.error_message && (
+                    <p className="text-[10px] text-destructive font-body mt-0.5">{source.error_message}</p>
+                  )}
+                  {source.pages_processed != null && source.total_pages != null && (
+                    <p className="text-[10px] text-muted-foreground font-mono mt-0.5">
+                      Processed {source.pages_processed}/{source.total_pages} pages
+                    </p>
+                  )}
                 </div>
-                <Badge variant="secondary" className="text-[10px] font-mono uppercase">
-                  {source.file_type}
-                </Badge>
+                <Badge variant="secondary" className="text-[10px] font-mono uppercase">{source.file_type}</Badge>
                 <div className="flex items-center gap-1.5">
                   {statusIcon(source.status)}
                   <span className="text-[10px] font-body text-muted-foreground capitalize">{source.status}</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  {source.status === "failed" && isEditor && (
+                    <Button size="icon" variant="ghost" className="h-7 w-7" onClick={() => retryExtraction(source.id)} title="Retry">
+                      <RotateCcw className="h-3.5 w-3.5" strokeWidth={1.5} />
+                    </Button>
+                  )}
+                  {isAdmin && (
+                    <Button size="icon" variant="ghost" className="h-7 w-7" onClick={() => deleteSource(source.id)} title="Delete">
+                      <Trash2 className="h-3.5 w-3.5 text-destructive/70" strokeWidth={1.5} />
+                    </Button>
+                  )}
                 </div>
               </CardContent>
             </Card>
           ))}
         </div>
       )}
+
+      {/* Duplicate warning dialog */}
+      <Dialog open={!!dupeWarning} onOpenChange={() => setDupeWarning(null)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="font-display">Duplicate File Detected</DialogTitle>
+            <DialogDescription className="font-body text-sm">
+              This file was already uploaded as "<strong>{dupeWarning?.existing.title}</strong>" on{" "}
+              {dupeWarning?.existing.created_at ? new Date(dupeWarning.existing.created_at).toLocaleDateString() : ""}.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="gap-2">
+            <Button variant="outline" onClick={() => setDupeWarning(null)}>Cancel</Button>
+            <Button onClick={() => { const h = dupeWarning!.hash; setDupeWarning(null); doUpload(h); }}>
+              Upload Anyway
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

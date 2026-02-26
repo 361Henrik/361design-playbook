@@ -1,12 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { PageHeader } from "@/components/PageHeader";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
 import { Search, Loader2, CheckCircle2, FileEdit, Trash2, Sparkles, BookOpen, Tag } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -33,7 +34,10 @@ const LibraryPage = () => {
   const [searching, setSearching] = useState(false);
   const [filterType, setFilterType] = useState<string>("all");
   const [filterStatus, setFilterStatus] = useState<string>("all");
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [bulkLoading, setBulkLoading] = useState(false);
   const { toast } = useToast();
+  const { isAdmin, isEditor } = useAuth();
 
   const fetchEntries = async () => {
     let query = supabase
@@ -62,10 +66,7 @@ const LibraryPage = () => {
     setSearching(true);
     try {
       const { data, error } = await supabase.functions.invoke("search-library", {
-        body: {
-          query: searchQuery,
-          filters: filterType !== "all" ? { entry_type: filterType } : undefined,
-        },
+        body: { query: searchQuery, filters: filterType !== "all" ? { entry_type: filterType } : undefined },
       });
       if (error) throw error;
       setSearchResults(data.results || []);
@@ -78,43 +79,62 @@ const LibraryPage = () => {
   };
 
   const approveEntry = async (id: string) => {
-    const { error } = await supabase
-      .from("library_entries")
-      .update({ status: "approved" })
-      .eq("id", id);
-    if (error) {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
-    } else {
-      toast({ title: "Approved", description: "Entry is now live." });
-      fetchEntries();
-      if (searchResults) setSearchResults(searchResults.map(e => e.id === id ? { ...e, status: "approved" } : e));
-    }
+    const { error } = await supabase.from("library_entries").update({ status: "approved" }).eq("id", id);
+    if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+    else { toast({ title: "Approved" }); fetchEntries(); }
   };
 
   const rejectEntry = async (id: string) => {
-    const { error } = await supabase
-      .from("library_entries")
-      .update({ status: "rejected" })
-      .eq("id", id);
-    if (error) {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
-    } else {
-      toast({ title: "Rejected" });
-      fetchEntries();
-    }
+    const { error } = await supabase.from("library_entries").update({ status: "rejected" }).eq("id", id);
+    if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+    else { toast({ title: "Rejected" }); fetchEntries(); }
   };
 
   const deleteEntry = async (id: string) => {
     const { error } = await supabase.from("library_entries").delete().eq("id", id);
-    if (error) {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
-    } else {
-      toast({ title: "Deleted" });
-      fetchEntries();
-    }
+    if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+    else { toast({ title: "Deleted" }); fetchEntries(); }
+  };
+
+  // Batch operations
+  const toggleSelect = (id: string) => {
+    const next = new Set(selectedIds);
+    if (next.has(id)) next.delete(id); else next.add(id);
+    setSelectedIds(next);
   };
 
   const displayEntries = searchResults !== null ? searchResults : entries;
+
+  const toggleSelectAll = () => {
+    if (selectedIds.size === displayEntries.length) {
+      setSelectedIds(new Set());
+    } else {
+      setSelectedIds(new Set(displayEntries.map((e) => e.id)));
+    }
+  };
+
+  const bulkAction = async (action: "approve" | "reject" | "delete") => {
+    if (selectedIds.size === 0) return;
+    setBulkLoading(true);
+    const ids = Array.from(selectedIds);
+
+    if (action === "delete") {
+      const { error } = await supabase.from("library_entries").delete().in("id", ids);
+      if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+      else toast({ title: `Deleted ${ids.length} entries` });
+    } else {
+      const status = action === "approve" ? "approved" : "rejected";
+      const { error } = await supabase.from("library_entries").update({ status }).in("id", ids);
+      if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+      else toast({ title: `${action === "approve" ? "Approved" : "Rejected"} ${ids.length} entries` });
+    }
+    setSelectedIds(new Set());
+    setBulkLoading(false);
+    fetchEntries();
+  };
+
+  // Counts
+  const draftCount = useMemo(() => entries.filter((e) => e.status === "draft").length, [entries]);
 
   const typeColor = (type: string) => {
     switch (type) {
@@ -133,6 +153,14 @@ const LibraryPage = () => {
         title="Library"
         description="Searchable, filterable collection of all extracted design tokens, guidelines, components, and patterns."
       />
+
+      {/* Stats bar */}
+      {draftCount > 0 && (
+        <div className="mb-4 flex items-center gap-2 px-3 py-2 rounded-md bg-accent/10 border border-accent/20">
+          <Badge variant="secondary" className="text-xs font-mono">{draftCount}</Badge>
+          <span className="text-xs font-body text-muted-foreground">drafts awaiting review</span>
+        </div>
+      )}
 
       {/* Search */}
       <div className="flex gap-2 mb-6">
@@ -168,11 +196,9 @@ const LibraryPage = () => {
       )}
 
       {/* Filters */}
-      <div className="flex gap-3 mb-6">
+      <div className="flex gap-3 mb-4">
         <Select value={filterType} onValueChange={(v) => { setFilterType(v); setSearchResults(null); }}>
-          <SelectTrigger className="w-[140px] text-xs">
-            <SelectValue placeholder="Type" />
-          </SelectTrigger>
+          <SelectTrigger className="w-[140px] text-xs"><SelectValue placeholder="Type" /></SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Types</SelectItem>
             <SelectItem value="token">Token</SelectItem>
@@ -183,9 +209,7 @@ const LibraryPage = () => {
           </SelectContent>
         </Select>
         <Select value={filterStatus} onValueChange={(v) => { setFilterStatus(v); setSearchResults(null); }}>
-          <SelectTrigger className="w-[140px] text-xs">
-            <SelectValue placeholder="Status" />
-          </SelectTrigger>
+          <SelectTrigger className="w-[140px] text-xs"><SelectValue placeholder="Status" /></SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Status</SelectItem>
             <SelectItem value="draft">Draft</SelectItem>
@@ -194,6 +218,26 @@ const LibraryPage = () => {
           </SelectContent>
         </Select>
       </div>
+
+      {/* Bulk action bar */}
+      {selectedIds.size > 0 && isEditor && (
+        <div className="flex items-center gap-3 mb-4 px-3 py-2 rounded-md bg-primary/5 border border-primary/20">
+          <span className="text-xs font-body text-foreground font-medium">{selectedIds.size} selected</span>
+          <div className="flex gap-2 ml-auto">
+            <Button size="sm" variant="outline" className="text-xs h-7" onClick={() => bulkAction("approve")} disabled={bulkLoading}>
+              Approve
+            </Button>
+            <Button size="sm" variant="outline" className="text-xs h-7" onClick={() => bulkAction("reject")} disabled={bulkLoading}>
+              Reject
+            </Button>
+            {isAdmin && (
+              <Button size="sm" variant="destructive" className="text-xs h-7" onClick={() => bulkAction("delete")} disabled={bulkLoading}>
+                Delete
+              </Button>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Results */}
       {loading ? (
@@ -209,53 +253,59 @@ const LibraryPage = () => {
         </div>
       ) : (
         <div className="space-y-3">
+          {/* Select all */}
+          {isEditor && (
+            <div className="flex items-center gap-2 px-1">
+              <Checkbox
+                checked={selectedIds.size === displayEntries.length && displayEntries.length > 0}
+                onCheckedChange={toggleSelectAll}
+              />
+              <span className="text-[10px] text-muted-foreground font-body">Select all ({displayEntries.length})</span>
+            </div>
+          )}
+
           {displayEntries.map((entry) => (
             <Card key={entry.id} className="hover:border-primary/20 transition-colors duration-ui">
               <CardContent className="p-4">
                 <div className="flex items-start gap-3">
+                  {isEditor && (
+                    <Checkbox
+                      className="mt-1"
+                      checked={selectedIds.has(entry.id)}
+                      onCheckedChange={() => toggleSelect(entry.id)}
+                    />
+                  )}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
                       <h3 className="text-sm font-medium font-body">{entry.title}</h3>
-                      <Badge className={`text-[10px] font-mono ${typeColor(entry.entry_type)}`}>
-                        {entry.entry_type}
-                      </Badge>
+                      <Badge className={`text-[10px] font-mono ${typeColor(entry.entry_type)}`}>{entry.entry_type}</Badge>
                       <Badge
                         variant={entry.status === "approved" ? "default" : entry.status === "rejected" ? "destructive" : "secondary"}
                         className="text-[10px] font-mono"
-                      >
-                        {entry.status}
-                      </Badge>
+                      >{entry.status}</Badge>
                     </div>
-                    {entry.summary && (
-                      <p className="text-xs text-muted-foreground font-body leading-reading mb-2">{entry.summary}</p>
-                    )}
+                    {entry.summary && <p className="text-xs text-muted-foreground font-body leading-reading mb-2">{entry.summary}</p>}
                     {entry.tags && entry.tags.length > 0 && (
                       <div className="flex items-center gap-1 flex-wrap">
                         <Tag className="h-3 w-3 text-muted-foreground/50" strokeWidth={1.5} />
                         {entry.tags.map((tag) => (
-                          <span key={tag} className="text-[10px] text-muted-foreground bg-muted px-1.5 py-0.5 rounded font-mono">
-                            {tag}
-                          </span>
+                          <span key={tag} className="text-[10px] text-muted-foreground bg-muted px-1.5 py-0.5 rounded font-mono">{tag}</span>
                         ))}
                       </div>
                     )}
                     {entry.rules && entry.rules.length > 0 && (
                       <div className="mt-2 space-y-1">
                         {entry.rules.slice(0, 3).map((rule, i) => (
-                          <p key={i} className="text-[10px] text-muted-foreground font-mono pl-2 border-l-2 border-accent/30">
-                            {rule}
-                          </p>
+                          <p key={i} className="text-[10px] text-muted-foreground font-mono pl-2 border-l-2 border-accent/30">{rule}</p>
                         ))}
                         {entry.rules.length > 3 && (
-                          <p className="text-[10px] text-muted-foreground/50 font-mono pl-2">
-                            +{entry.rules.length - 3} more rules
-                          </p>
+                          <p className="text-[10px] text-muted-foreground/50 font-mono pl-2">+{entry.rules.length - 3} more rules</p>
                         )}
                       </div>
                     )}
                   </div>
                   <div className="flex items-center gap-1 shrink-0">
-                    {entry.status === "draft" && (
+                    {entry.status === "draft" && isEditor && (
                       <>
                         <Button size="icon" variant="ghost" className="h-7 w-7" onClick={() => approveEntry(entry.id)} title="Approve">
                           <CheckCircle2 className="h-3.5 w-3.5 text-primary" strokeWidth={1.5} />
@@ -265,9 +315,11 @@ const LibraryPage = () => {
                         </Button>
                       </>
                     )}
-                    <Button size="icon" variant="ghost" className="h-7 w-7" onClick={() => deleteEntry(entry.id)} title="Delete">
-                      <Trash2 className="h-3.5 w-3.5 text-destructive/70" strokeWidth={1.5} />
-                    </Button>
+                    {isAdmin && (
+                      <Button size="icon" variant="ghost" className="h-7 w-7" onClick={() => deleteEntry(entry.id)} title="Delete">
+                        <Trash2 className="h-3.5 w-3.5 text-destructive/70" strokeWidth={1.5} />
+                      </Button>
+                    )}
                   </div>
                 </div>
               </CardContent>
