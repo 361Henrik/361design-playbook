@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
-import { Search, Loader2, CheckCircle2, FileEdit, Trash2, Sparkles, BookOpen, Tag, AlertTriangle, ArrowRight } from "lucide-react";
+import { Search, Loader2, CheckCircle2, FileEdit, Trash2, Sparkles, BookOpen, Tag, AlertTriangle, ArrowRight, Crown, TrendingDown } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 type LibraryEntry = {
@@ -31,6 +31,8 @@ type LibraryEntry = {
   created_at: string;
   source_id: string | null;
   related_entry_ids: string[] | null;
+  confidence: number | null;
+  is_canonical: boolean;
 };
 
 const LibraryPage = () => {
@@ -308,13 +310,23 @@ const LibraryPage = () => {
                     />
                   )}
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
+                    <div className="flex items-center gap-2 mb-1 flex-wrap">
                       <h3 className="text-sm font-medium font-body">{entry.title}</h3>
                       <Badge className={`text-[10px] font-mono ${typeColor(entry.entry_type)}`}>{entry.entry_type}</Badge>
                       <Badge
                         variant={entry.status === "approved" ? "default" : entry.status === "rejected" ? "destructive" : entry.status === "conflict" ? "destructive" : "secondary"}
                         className="text-[10px] font-mono"
                       >{entry.status}</Badge>
+                      {entry.is_canonical && (
+                        <Badge className="text-[10px] font-mono bg-primary/10 text-primary gap-0.5">
+                          <Crown className="h-2.5 w-2.5" /> canonical
+                        </Badge>
+                      )}
+                      {entry.confidence != null && entry.confidence < 0.7 && (
+                        <Badge variant="outline" className="text-[10px] font-mono text-accent gap-0.5">
+                          <TrendingDown className="h-2.5 w-2.5" /> {Math.round(entry.confidence * 100)}%
+                        </Badge>
+                      )}
                     </div>
                     {entry.summary && <p className="text-xs text-muted-foreground font-body leading-reading mb-2">{entry.summary}</p>}
                     {entry.tags && entry.tags.length > 0 && (
@@ -341,6 +353,21 @@ const LibraryPage = () => {
                       <Button size="sm" variant="outline" className="h-7 text-xs gap-1" onClick={() => viewConflict(entry)}>
                         <AlertTriangle className="h-3 w-3" strokeWidth={1.5} />
                         View Conflict
+                      </Button>
+                    )}
+                    {entry.status === "approved" && entry.entry_type === "token" && isEditor && (
+                      <Button
+                        size="sm"
+                        variant={entry.is_canonical ? "default" : "ghost"}
+                        className="h-7 text-xs gap-1"
+                        onClick={async () => {
+                          const { error } = await supabase.from("library_entries").update({ is_canonical: !entry.is_canonical } as any).eq("id", entry.id);
+                          if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+                          else { toast({ title: entry.is_canonical ? "Removed canonical" : "Set as canonical" }); fetchEntries(); }
+                        }}
+                        title={entry.is_canonical ? "Remove canonical" : "Set as canonical source of truth"}
+                      >
+                        <Crown className="h-3 w-3" strokeWidth={1.5} />
                       </Button>
                     )}
                     {(entry.status === "draft" || entry.status === "conflict") && isEditor && (

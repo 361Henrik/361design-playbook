@@ -3,6 +3,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
   Dialog,
@@ -28,6 +29,7 @@ type Version = {
   change_summary: string | null;
   changed_by: string | null;
   created_at: string;
+  reason: string | null;
 };
 
 const ChangelogPage = () => {
@@ -36,6 +38,7 @@ const ChangelogPage = () => {
   const [filterType, setFilterType] = useState<string>("all");
   const [selectedDiff, setSelectedDiff] = useState<Version | null>(null);
   const [revertTarget, setRevertTarget] = useState<Version | null>(null);
+  const [revertReason, setRevertReason] = useState("");
   const [revertImpact, setRevertImpact] = useState<{ referencing: any[]; loading: boolean }>({ referencing: [], loading: false });
   const { toast } = useToast();
 
@@ -207,6 +210,9 @@ const ChangelogPage = () => {
                             {version.change_summary && (
                               <p className="text-xs text-muted-foreground font-body">{version.change_summary}</p>
                             )}
+                            {version.reason && (
+                              <p className="text-[10px] text-accent font-body italic">Reason: {version.reason}</p>
+                            )}
                             <div className="flex items-center gap-1 mt-1">
                               <Clock className="h-3 w-3 text-muted-foreground/50" strokeWidth={1.5} />
                               <span className="text-[10px] text-muted-foreground/50 font-body">
@@ -315,8 +321,19 @@ const ChangelogPage = () => {
             </div>
           ) : null}
 
+          {/* Reason for revert (audit log) */}
+          <div className="mt-3 space-y-1">
+            <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">Reason (optional)</p>
+            <Input
+              value={revertReason}
+              onChange={(e) => setRevertReason(e.target.value)}
+              placeholder="Why are you reverting this change?"
+              className="text-sm"
+            />
+          </div>
+
           <DialogFooter className="gap-2 mt-4">
-            <Button variant="outline" onClick={() => setRevertTarget(null)}>Cancel</Button>
+            <Button variant="outline" onClick={() => { setRevertTarget(null); setRevertReason(""); }}>Cancel</Button>
             <Button onClick={confirmRevert}>Confirm Revert</Button>
           </DialogFooter>
         </DialogContent>

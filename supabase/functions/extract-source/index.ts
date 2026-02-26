@@ -117,6 +117,7 @@ Extract design system entries from this document. For each entry provide:
 - summary: A one-sentence summary
 - content: The full extracted content/description
 - rules: Specific rules or constraints as an array of strings
+- confidence: A float 0-1 indicating how confident you are this is a real design system entry (1 = very confident, 0.5 = uncertain)
 
 Return entries that cover colors, typography, spacing, layout, motion, imagery, and any other design decisions found.`;
 
@@ -157,8 +158,9 @@ Return entries that cover colors, typography, spacing, layout, motion, imagery, 
                         summary: { type: "string" },
                         content: { type: "string" },
                         rules: { type: "array", items: { type: "string" } },
+                        confidence: { type: "number", description: "0-1 confidence score" },
                       },
-                      required: ["title", "entry_type", "tags", "summary", "content", "rules"],
+                      required: ["title", "entry_type", "tags", "summary", "content", "rules", "confidence"],
                       additionalProperties: false,
                     },
                   },
@@ -247,6 +249,7 @@ Return entries that cover colors, typography, spacing, layout, motion, imagery, 
         summary: entry.summary,
         content: entry.content,
         rules: entry.rules,
+        confidence: typeof entry.confidence === "number" ? entry.confidence : null,
         source_id,
         status: conflictWith.length > 0 ? "conflict" : "draft",
         related_entry_ids: conflictWith.length > 0 ? conflictWith : [],
