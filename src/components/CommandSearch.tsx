@@ -24,6 +24,7 @@ const pages = [
   { title: "Layout", href: "/tokens/layout", icon: LayoutGrid },
   { title: "Motion", href: "/tokens/motion", icon: Zap },
   { title: "Icons", href: "/tokens/icons", icon: Hexagon },
+  { title: "Voice", href: "/tokens/voice", icon: FileText },
   { title: "Components", href: "/components", icon: Component },
   { title: "Guidelines", href: "/guidelines", icon: BookOpen },
   { title: "Guardrails", href: "/guardrails", icon: ShieldCheck },

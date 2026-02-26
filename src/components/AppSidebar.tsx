@@ -35,6 +35,7 @@ import {
   LogOut,
   ChevronsUpDown,
   Sparkles,
+  MessageSquare,
 } from "lucide-react";
 
 const mainNav = [
@@ -48,6 +49,7 @@ const tokenNav = [
   { title: "Layout", url: "/tokens/layout", icon: LayoutGrid },
   { title: "Motion", url: "/tokens/motion", icon: Zap },
   { title: "Icons", url: "/tokens/icons", icon: Hexagon },
+  { title: "Voice", url: "/tokens/voice", icon: MessageSquare },
 ];
 
 const systemNav = [

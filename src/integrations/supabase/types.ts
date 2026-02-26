@@ -505,6 +505,59 @@ export type Database = {
           },
         ]
       }
+      voice_tokens: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          description: string | null
+          donts: string[] | null
+          dos: string[] | null
+          id: string
+          name: string
+          severity: string
+          sort_order: number | null
+          token_type: string
+          updated_at: string
+          workspace_id: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          donts?: string[] | null
+          dos?: string[] | null
+          id?: string
+          name: string
+          severity?: string
+          sort_order?: number | null
+          token_type: string
+          updated_at?: string
+          workspace_id: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          donts?: string[] | null
+          dos?: string[] | null
+          id?: string
+          name?: string
+          severity?: string
+          sort_order?: number | null
+          token_type?: string
+          updated_at?: string
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "voice_tokens_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       workspace_members: {
         Row: {
           id: string
