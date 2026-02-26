@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useWorkspace } from "@/hooks/useWorkspace";
 import { NotificationCenter } from "@/components/NotificationCenter";
+import { WelcomePanel } from "@/components/WelcomePanel";
+import { OnboardingTour } from "@/components/OnboardingTour";
 import {
   Sidebar,
   SidebarContent,
@@ -37,6 +40,7 @@ import {
   Sparkles,
   MessageSquare,
   PanelTop,
+  HelpCircle,
 } from "lucide-react";
 
 const mainNav = [
@@ -64,12 +68,14 @@ const systemNav = [
   { title: "Changelog", url: "/changelog", icon: History },
   { title: "Copilot", url: "/copilot", icon: Sparkles },
   { title: "Settings", url: "/settings", icon: Settings },
+  { title: "Help", url: "/help", icon: HelpCircle },
 ];
 
 export function AppSidebar() {
   const location = useLocation();
   const { user, signOut } = useAuth();
   const { workspaces, activeWorkspace, setActiveWorkspaceId } = useWorkspace();
+  const [tourOpen, setTourOpen] = useState(false);
 
   const renderItems = (items: typeof mainNav) =>
     items.map((item) => (
@@ -112,6 +118,8 @@ export function AppSidebar() {
         )}
       </div>
 
+      <WelcomePanel onStartTour={() => setTourOpen(true)} />
+
       <SidebarContent className="px-3 py-4">
         <SidebarGroup>
           <SidebarGroupContent>
@@ -153,6 +161,7 @@ export function AppSidebar() {
           <p className="text-[10px] font-mono text-sidebar-foreground/30 mt-2">⌘K to search</p>
         </div>
       )}
+      <OnboardingTour forceOpen={tourOpen} onClose={() => setTourOpen(false)} />
     </Sidebar>
   );
 }

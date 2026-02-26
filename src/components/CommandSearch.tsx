@@ -12,7 +12,7 @@ import {
 import {
   Palette, Type, Ruler, LayoutGrid, Zap, Hexagon,
   Component, BookOpen, ShieldCheck, Download, Upload,
-  Library, History, Settings, LayoutDashboard, FileText, Sparkles, PanelTop,
+  Library, History, Settings, LayoutDashboard, FileText, Sparkles, PanelTop, HelpCircle,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -35,6 +35,7 @@ const pages = [
   { title: "Changelog", href: "/changelog", icon: History },
   { title: "Copilot", href: "/copilot", icon: Sparkles },
   { title: "Settings", href: "/settings", icon: Settings },
+  { title: "Help", href: "/help", icon: HelpCircle },
 ];
 
 type LibraryResult = { id: string; title: string; entry_type: string };
