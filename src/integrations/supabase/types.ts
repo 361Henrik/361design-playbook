@@ -106,6 +106,45 @@ export type Database = {
         }
         Relationships: []
       }
+      versions: {
+        Row: {
+          change_summary: string | null
+          changed_by: string | null
+          created_at: string
+          diff: Json | null
+          entity_id: string
+          entity_type: string
+          id: string
+          snapshot: Json
+          title: string
+          version_number: number
+        }
+        Insert: {
+          change_summary?: string | null
+          changed_by?: string | null
+          created_at?: string
+          diff?: Json | null
+          entity_id: string
+          entity_type: string
+          id?: string
+          snapshot?: Json
+          title: string
+          version_number?: number
+        }
+        Update: {
+          change_summary?: string | null
+          changed_by?: string | null
+          created_at?: string
+          diff?: Json | null
+          entity_id?: string
+          entity_type?: string
+          id?: string
+          snapshot?: Json
+          title?: string
+          version_number?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

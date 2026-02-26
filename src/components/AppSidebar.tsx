@@ -26,6 +26,7 @@ import {
   Settings,
   Upload,
   Library,
+  History,
 } from "lucide-react";
 
 const mainNav = [
@@ -48,6 +49,7 @@ const systemNav = [
   { title: "Export", url: "/export", icon: Download },
   { title: "Sources", url: "/sources", icon: Upload },
   { title: "Library", url: "/library", icon: Library },
+  { title: "Changelog", url: "/changelog", icon: History },
   { title: "Settings", url: "/settings", icon: Settings },
 ];
 
