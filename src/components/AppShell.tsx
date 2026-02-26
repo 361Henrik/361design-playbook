@@ -1,6 +1,7 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { CommandSearch } from "@/components/CommandSearch";
+import { OnboardingTour } from "@/components/OnboardingTour";
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -24,6 +25,7 @@ export function AppShell({ children }: AppShellProps) {
           </main>
         </div>
         <CommandSearch />
+        <OnboardingTour />
       </div>
     </SidebarProvider>
   );

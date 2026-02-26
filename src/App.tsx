@@ -26,6 +26,7 @@ import ChangelogPage from "./pages/Changelog";
 import CopilotPage from "./pages/Copilot";
 import ChannelKitsPage from "./pages/ChannelKits";
 import StudioPage from "./pages/Studio";
+import HelpPage from "./pages/Help";
 import AuthPage from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import { Loader2 } from "lucide-react";
@@ -69,6 +70,7 @@ function ProtectedRoutes() {
           <Route path="/changelog" element={<ChangelogPage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/copilot" element={<CopilotPage />} />
+          <Route path="/help" element={<HelpPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AppShell>
