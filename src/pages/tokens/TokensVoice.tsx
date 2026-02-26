@@ -5,6 +5,8 @@ import { DosDonts } from "@/components/DosDonts";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { TokenExamplesTab } from "@/components/tokens/TokenExamplesTab";
 import { supabase } from "@/integrations/supabase/client";
 import { useWorkspace } from "@/hooks/useWorkspace";
 import { MessageSquare, Ban, MousePointerClick, BookType } from "lucide-react";
@@ -75,71 +77,84 @@ const TokensVoice = () => {
     <div className="px-8 py-10 max-w-5xl">
       <PageHeader
         title="Voice tokens"
-        description="The atomic building blocks of how the brand speaks — pillars, prohibited patterns, CTA rules, and grammar conventions. Every piece of copy traces back to these tokens."
+        description="The atomic building blocks of how the brand speaks — pillars, prohibited patterns, CTA rules, and grammar conventions."
       />
 
-      {loading ? (
-        <div className="space-y-6">
-          {[1, 2, 3].map((i) => (
-            <Skeleton key={i} className="h-40 w-full rounded-md" />
-          ))}
-        </div>
-      ) : grouped.length === 0 ? (
-        <Card>
-          <CardContent className="py-12 text-center">
-            <p className="text-sm font-body text-muted-foreground">
-              No voice tokens defined yet. Seed data may not have been applied to this workspace.
-            </p>
-          </CardContent>
-        </Card>
-      ) : (
-        <div className="space-y-12">
-          {grouped.map(({ type, meta, items }) => (
-            <section key={type}>
-              <div className="flex items-center gap-3 mb-1">
-                <meta.icon className="h-4 w-4 text-muted-foreground" strokeWidth={1.5} />
-                <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground">
-                  {meta.label}
-                </h2>
-              </div>
-              <p className="text-sm font-body text-muted-foreground mb-5 max-w-prose">
-                {meta.description}
-              </p>
+      <Tabs defaultValue="tokens" className="mt-6">
+        <TabsList>
+          <TabsTrigger value="tokens">Tokens</TabsTrigger>
+          <TabsTrigger value="examples">Examples</TabsTrigger>
+        </TabsList>
 
-              <div className="space-y-4">
-                {items.map((token) => (
-                  <Card key={token.id}>
-                    <CardHeader className="pb-3">
-                      <div className="flex items-center gap-3">
-                        <CardTitle className="text-base font-display tracking-headline">
-                          {token.name}
-                        </CardTitle>
-                        <Badge
-                          variant={token.severity === "error" ? "destructive" : "secondary"}
-                          className="text-[10px] font-mono"
-                        >
-                          {token.severity}
-                        </Badge>
-                        <CopyButton value={token.name} label="Copy name" />
-                      </div>
-                      {token.description && (
-                        <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose mt-1">
-                          {token.description}
-                        </p>
-                      )}
-                    </CardHeader>
-                    <CardContent>
-                      {(token.dos.length > 0 || token.donts.length > 0) && (
-                        <DosDonts dos={token.dos} donts={token.donts} />
-                      )}
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </section>
-          ))}
-        </div>
-      )}
+        <TabsContent value="tokens">
+          {loading ? (
+            <div className="space-y-6">
+              {[1, 2, 3].map((i) => (
+                <Skeleton key={i} className="h-40 w-full rounded-md" />
+              ))}
+            </div>
+          ) : grouped.length === 0 ? (
+            <Card>
+              <CardContent className="py-12 text-center">
+                <p className="text-sm font-body text-muted-foreground">
+                  No voice tokens defined yet.
+                </p>
+              </CardContent>
+            </Card>
+          ) : (
+            <div className="space-y-12">
+              {grouped.map(({ type, meta, items }) => (
+                <section key={type}>
+                  <div className="flex items-center gap-3 mb-1">
+                    <meta.icon className="h-4 w-4 text-muted-foreground" strokeWidth={1.5} />
+                    <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground">
+                      {meta.label}
+                    </h2>
+                  </div>
+                  <p className="text-sm font-body text-muted-foreground mb-5 max-w-prose">
+                    {meta.description}
+                  </p>
+
+                  <div className="space-y-4">
+                    {items.map((token) => (
+                      <Card key={token.id}>
+                        <CardHeader className="pb-3">
+                          <div className="flex items-center gap-3">
+                            <CardTitle className="text-base font-display tracking-headline">
+                              {token.name}
+                            </CardTitle>
+                            <Badge
+                              variant={token.severity === "error" ? "destructive" : "secondary"}
+                              className="text-[10px] font-mono"
+                            >
+                              {token.severity}
+                            </Badge>
+                            <CopyButton value={token.name} label="Copy name" />
+                          </div>
+                          {token.description && (
+                            <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose mt-1">
+                              {token.description}
+                            </p>
+                          )}
+                        </CardHeader>
+                        <CardContent>
+                          {(token.dos.length > 0 || token.donts.length > 0) && (
+                            <DosDonts dos={token.dos} donts={token.donts} />
+                          )}
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </section>
+              ))}
+            </div>
+          )}
+        </TabsContent>
+
+        <TabsContent value="examples">
+          <TokenExamplesTab tokenCategory="voice" />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
