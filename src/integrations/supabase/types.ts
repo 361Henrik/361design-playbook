@@ -22,6 +22,7 @@ export type Database = {
           id: string
           reason: string
           rule_id: string
+          workspace_id: string | null
         }
         Insert: {
           approved_by?: string | null
@@ -30,6 +31,7 @@ export type Database = {
           id?: string
           reason: string
           rule_id: string
+          workspace_id?: string | null
         }
         Update: {
           approved_by?: string | null
@@ -38,8 +40,17 @@ export type Database = {
           id?: string
           reason?: string
           rule_id?: string
+          workspace_id?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "guardrail_exceptions_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       library_entries: {
         Row: {
@@ -60,6 +71,7 @@ export type Database = {
           title: string
           updated_at: string
           version: number
+          workspace_id: string | null
         }
         Insert: {
           confidence?: number | null
@@ -79,6 +91,7 @@ export type Database = {
           title: string
           updated_at?: string
           version?: number
+          workspace_id?: string | null
         }
         Update: {
           confidence?: number | null
@@ -98,6 +111,7 @@ export type Database = {
           title?: string
           updated_at?: string
           version?: number
+          workspace_id?: string | null
         }
         Relationships: [
           {
@@ -107,25 +121,71 @@ export type Database = {
             referencedRelation: "sources"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "library_entries_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
         ]
+      }
+      notifications: {
+        Row: {
+          created_at: string
+          entity_id: string | null
+          entity_type: string | null
+          id: string
+          message: string | null
+          read: boolean
+          title: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: string
+          message?: string | null
+          read?: boolean
+          title: string
+          type: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: string
+          message?: string | null
+          read?: boolean
+          title?: string
+          type?: string
+          user_id?: string
+        }
+        Relationships: []
       }
       profiles: {
         Row: {
           created_at: string
           display_name: string | null
           email: string | null
+          email_digest: boolean
           id: string
         }
         Insert: {
           created_at?: string
           display_name?: string | null
           email?: string | null
+          email_digest?: boolean
           id: string
         }
         Update: {
           created_at?: string
           display_name?: string | null
           email?: string | null
+          email_digest?: boolean
           id?: string
         }
         Relationships: []
@@ -145,6 +205,7 @@ export type Database = {
           title: string
           total_pages: number | null
           uploaded_by: string | null
+          workspace_id: string | null
         }
         Insert: {
           created_at?: string
@@ -160,6 +221,7 @@ export type Database = {
           title: string
           total_pages?: number | null
           uploaded_by?: string | null
+          workspace_id?: string | null
         }
         Update: {
           created_at?: string
@@ -175,6 +237,7 @@ export type Database = {
           title?: string
           total_pages?: number | null
           uploaded_by?: string | null
+          workspace_id?: string | null
         }
         Relationships: [
           {
@@ -182,6 +245,13 @@ export type Database = {
             columns: ["duplicate_of"]
             isOneToOne: false
             referencedRelation: "sources"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "sources_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
             referencedColumns: ["id"]
           },
         ]
@@ -193,6 +263,7 @@ export type Database = {
           created_at: string
           id: string
           name: string
+          workspace_id: string | null
         }
         Insert: {
           aliases?: string[] | null
@@ -200,6 +271,7 @@ export type Database = {
           created_at?: string
           id?: string
           name: string
+          workspace_id?: string | null
         }
         Update: {
           aliases?: string[] | null
@@ -207,8 +279,17 @@ export type Database = {
           created_at?: string
           id?: string
           name?: string
+          workspace_id?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "tag_vocabulary_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {
@@ -244,6 +325,7 @@ export type Database = {
           snapshot: Json
           title: string
           version_number: number
+          workspace_id: string | null
         }
         Insert: {
           change_summary?: string | null
@@ -257,6 +339,7 @@ export type Database = {
           snapshot?: Json
           title: string
           version_number?: number
+          workspace_id?: string | null
         }
         Update: {
           change_summary?: string | null
@@ -270,6 +353,71 @@ export type Database = {
           snapshot?: Json
           title?: string
           version_number?: number
+          workspace_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "versions_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      workspace_members: {
+        Row: {
+          id: string
+          joined_at: string
+          role: string
+          user_id: string
+          workspace_id: string
+        }
+        Insert: {
+          id?: string
+          joined_at?: string
+          role?: string
+          user_id: string
+          workspace_id: string
+        }
+        Update: {
+          id?: string
+          joined_at?: string
+          role?: string
+          user_id?: string
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workspace_members_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      workspaces: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          description: string | null
+          id: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          name?: string
         }
         Relationships: []
       }
@@ -283,6 +431,10 @@ export type Database = {
           _role: Database["public"]["Enums"]["app_role"]
           _user_id: string
         }
+        Returns: boolean
+      }
+      is_workspace_member: {
+        Args: { _user_id: string; _workspace_id: string }
         Returns: boolean
       }
       match_library_entries: {

@@ -1,6 +1,8 @@
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
+import { useWorkspace } from "@/hooks/useWorkspace";
+import { NotificationCenter } from "@/components/NotificationCenter";
 import {
   Sidebar,
   SidebarContent,
@@ -11,6 +13,9 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import {
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+} from "@/components/ui/select";
 import {
   LayoutDashboard,
   Palette,
@@ -28,6 +33,7 @@ import {
   Library,
   History,
   LogOut,
+  ChevronsUpDown,
 } from "lucide-react";
 
 const mainNav = [
@@ -57,6 +63,7 @@ const systemNav = [
 export function AppSidebar() {
   const location = useLocation();
   const { user, signOut } = useAuth();
+  const { workspaces, activeWorkspace, setActiveWorkspaceId } = useWorkspace();
 
   const renderItems = (items: typeof mainNav) =>
     items.map((item) => (
@@ -78,10 +85,25 @@ export function AppSidebar() {
   return (
     <Sidebar className="w-60 border-r-0" collapsible="icon">
       <div className="px-5 py-6 border-b border-sidebar-border">
-        <h1 className="font-display text-lg font-medium tracking-headline text-sidebar-foreground leading-section">
-          Curated Lens
-        </h1>
-        <p className="text-xs font-body text-sidebar-foreground/50 mt-1">Design System Hub</p>
+        {workspaces.length > 1 ? (
+          <Select value={activeWorkspace?.id || ""} onValueChange={setActiveWorkspaceId}>
+            <SelectTrigger className="w-full bg-sidebar-accent border-sidebar-border text-sidebar-foreground text-sm h-9">
+              <SelectValue placeholder="Select workspace" />
+            </SelectTrigger>
+            <SelectContent>
+              {workspaces.map((w) => (
+                <SelectItem key={w.id} value={w.id}>{w.name}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        ) : (
+          <>
+            <h1 className="font-display text-lg font-medium tracking-headline text-sidebar-foreground leading-section">
+              {activeWorkspace?.name || "Curated Lens"}
+            </h1>
+            <p className="text-xs font-body text-sidebar-foreground/50 mt-1">Design System Hub</p>
+          </>
+        )}
       </div>
 
       <SidebarContent className="px-3 py-4">
@@ -117,10 +139,12 @@ export function AppSidebar() {
             <div className="flex-1 min-w-0">
               <p className="text-xs font-body text-sidebar-foreground truncate">{user.email}</p>
             </div>
+            <NotificationCenter />
             <button onClick={signOut} className="text-sidebar-foreground/50 hover:text-sidebar-foreground transition-colors" title="Sign out">
               <LogOut className="h-3.5 w-3.5" strokeWidth={1.5} />
             </button>
           </div>
+          <p className="text-[10px] font-mono text-sidebar-foreground/30 mt-2">⌘K to search</p>
         </div>
       )}
     </Sidebar>
