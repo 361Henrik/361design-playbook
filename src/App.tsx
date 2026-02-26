@@ -24,6 +24,7 @@ import SourcesPage from "./pages/Sources";
 import LibraryPage from "./pages/Library";
 import ChangelogPage from "./pages/Changelog";
 import CopilotPage from "./pages/Copilot";
+import ChannelKitsPage from "./pages/ChannelKits";
 import AuthPage from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import { Loader2 } from "lucide-react";
@@ -60,6 +61,7 @@ function ProtectedRoutes() {
           <Route path="/guidelines" element={<GuidelinesPage />} />
           <Route path="/guardrails" element={<GuardrailsPage />} />
           <Route path="/export" element={<ExportPage />} />
+          <Route path="/channel-kits" element={<ChannelKitsPage />} />
           <Route path="/sources" element={<SourcesPage />} />
           <Route path="/library" element={<LibraryPage />} />
           <Route path="/changelog" element={<ChangelogPage />} />
