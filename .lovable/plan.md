@@ -1,182 +1,240 @@
 
 
-# Examples Tab for Token Pages
+# Onboarding + Product Narrative for Curated Lens
 
-Add an "Examples" tab to each token category page (Colors, Typography, Spacing, Layout, Motion, Icons, Voice) that surfaces real-world usage examples from the `variants` table, filtered and tagged with a controlled vocabulary. Each example shows the design system tokens in context -- bridging the gap between abstract token definitions and applied usage.
-
----
-
-## How It Works
-
-Each token page gets a two-tab layout: **Tokens** (current content) and **Examples**. The Examples tab queries the `variants` table filtered by a new `token_category` field, and renders each variant as a card with title, summary, kit associations, a live preview, and an exportable spec.
+Add a self-explanatory layer to the app: a collapsible Welcome panel in the sidebar, a first-run tour carousel, and a lightweight Help page -- all with calm, editorial copy stored in the database for admin editability.
 
 ---
 
-## Data Model Changes
+## 1. Data Model
 
-### Extend the `variants` table
+### New table: `onboarding_content`
 
-Add one new column:
+Stores editable content blocks for the welcome panel, tour slides, and help sections. Admin/Editor can update via Settings or a future content editor.
 
-- `token_category TEXT` -- maps to the token page: `'color'`, `'typography'`, `'spacing'`, `'layout'`, `'motion'`, `'icons'`, `'voice'`. A variant can belong to one token category (nullable for variants that don't map to a specific token page).
-
-This column is indexed for fast filtering. No new tables needed -- variants already have `slot_type`, `content`, `component_ids`, and `voice_token_ids`. The `variant_tags` junction table already provides controlled vocabulary tagging.
-
-### Controlled vocabulary tags for examples
-
-Seed new tags into `tag_vocabulary` under four categories:
-
-| Category | Tags |
-|----------|------|
-| `channel` | `web-app`, `landing-page`, `social`, `email` |
-| `format` | `headline`, `body`, `cta`, `stat`, `card`, `hero`, `table-row` |
-| `intent` | `inform`, `persuade`, `guide`, `confirm`, `warn` |
-| `context` | `onboarding`, `dashboard`, `settings`, `marketing`, `transactional` |
-
-These map to `variant_tags.tag_name` and are used for filtering in the Examples tab.
-
-### Relationship to `library_entries`
-
-Examples are **not** library entries. They live in the `variants` table (which is part of the Studio/Applied layer). However, each variant can reference `voice_token_ids` (linking to voice tokens) and `component_ids` (linking to the component registry). The `token_category` field creates the new link to token pages.
-
-Library entries with `entry_type = 'example'` remain a separate concept (extracted from uploaded sources). The Examples tab on token pages shows `variants` -- curated, structured content -- not raw library extractions.
-
----
-
-## UI Behavior
-
-### Tab Structure
-
-Each token page (e.g., `TokensColors.tsx`) wraps its existing content in a `Tabs` component:
-
-```
-[Tokens] [Examples]
+```text
+onboarding_content
+  id              UUID PK DEFAULT gen_random_uuid()
+  workspace_id    UUID NOT NULL
+  content_key     TEXT NOT NULL          -- 'welcome_paragraph', 'how_it_works', 'method', 'start_here', 'tour_slide_1' ... 'tour_slide_5', 'help_quickstart', 'help_glossary', 'help_faq'
+  title           TEXT
+  body            TEXT NOT NULL          -- markdown or plain text
+  metadata        JSONB DEFAULT '{}'     -- e.g. {cta_label, cta_href, sort_order, icon}
+  updated_by      UUID
+  created_at      TIMESTAMPTZ DEFAULT now()
+  updated_at      TIMESTAMPTZ DEFAULT now()
+  UNIQUE(workspace_id, content_key)
 ```
 
-- **Tokens tab**: Exactly the current page content (no changes)
-- **Examples tab**: Filterable grid of variant cards
+RLS:
+- SELECT: `is_workspace_member(auth.uid(), workspace_id)`
+- INSERT/UPDATE: editors and admins
+- DELETE: admins only
+- Service role: full INSERT for seed data
 
-### Examples Tab Layout
+### Extend `profiles` table
 
-1. **Filter bar**: Four dropdown filters (channel, format, intent, context) using `Select` components. Each pulls its options from `tag_vocabulary` filtered by category. An "All" option resets the filter. Filters are AND-combined.
+Add one column:
 
-2. **Results grid**: Cards laid out in a single-column list (matching the token card pattern). Each card shows:
-   - **Title**: variant `name` (e.g., "Calm authority headline")
-   - **Summary**: derived from `content.meta` or the first 80 chars of `content.text`
-   - **Tags**: rendered as `Badge` chips (channel, format, intent, context)
-   - **Kit associations**: which kits reference this variant's `slot_type`, shown as small badges
-   - **Preview**: the variant content rendered in the appropriate token style (e.g., a headline variant renders in `font-display text-4xl`, a CTA renders as a `Button`)
-   - **Export button**: downloads a markdown spec with the content, applied tokens, and voice token references
+- `onboarding_completed BOOLEAN DEFAULT false` -- tracks whether user has finished or dismissed the tour
 
-3. **Empty state**: "No examples match these filters" with a suggestion to adjust filters.
-
-### Preview Rendering
-
-The preview renderer maps `slot_type` to a visual treatment:
-
-| slot_type | Preview rendering |
-|-----------|------------------|
-| `headline` | `font-display text-2xl font-medium tracking-headline` |
-| `body` | `font-body text-sm leading-reading max-w-prose` |
-| `cta` | Rendered inside a `<Button>` component |
-| `stat` | Stat card layout with `content.meta.label` as description |
-| `feature_list` | Bulleted list with check icons |
-
-### Filtering Logic
-
-1. Query `variants` where `token_category` matches the current page (e.g., `'typography'` for the Typography page)
-2. Join `variant_tags` to get tag names
-3. Client-side filter by selected channel/format/intent/context tags
-4. Sort by `sort_order`
+This avoids a separate preferences table. The "don't show again" toggle and "Skip" button both set this to `true`.
 
 ---
 
-## Guardrail Validation
+## 2. Information Architecture
 
-Each example (variant) is validated client-side against relevant guardrail rules when displayed. A small status indicator (green check or amber warning) appears on each card:
+### Sidebar changes
 
-- **Voice rules**: Check `content.text` against `voice-no-urgency-scarcity`, `voice-no-exclamation-cta`, `voice-sentence-case`, `voice-cta-length`, `voice-no-filler`
-- **Typography rules**: For headline variants, verify sentence case (`voice-sentence-case`)
-- **Layout rules**: For body variants, verify character count against `layout-max-52ch`
-
-The validation reuses the same logic from `GuardrailRunner.tsx`. A failing check shows as a warning badge on the card -- it doesn't block display.
-
----
-
-## Export
-
-Each example card has a small export button that downloads a markdown spec:
-
-```markdown
-# Example: Calm authority headline
-## Content
-"Design with purpose"
-## Token Category
-Typography
-## Tags
-channel: landing-page | format: headline | intent: persuade | context: marketing
-## Applied Tokens
-- Font: Playfair Display (font-display)
-- Size: text-4xl
-- Tracking: tracking-headline
-- Line height: leading-hero
-## Voice Tokens
-- Confident, Not Aggressive
-- Sentence Case Headlines
-## Kit Associations
-- Landing Page (landing-hero template)
+```text
+[Workspace title]
+[Welcome panel - collapsible]     <-- NEW
+  Dashboard
+  ---Tokens---
+  Colors | Typography | ...
+  ---System---
+  Components | Guidelines | ... | Help    <-- NEW entry
 ```
 
----
+- The Welcome panel sits between the workspace header and Dashboard nav item
+- "Help" is added as the last item in the System nav group (icon: `HelpCircle`)
+- The tour carousel is triggered from the Welcome panel ("Take the tour" link) or from Help page
 
-## Seed Data
+### New route: `/help`
 
-Seed ~12 example variants with `token_category` assignments and tags, reusing and extending the existing `SEED_VARIANTS` from `studioData.ts`:
-
-| Variant | token_category | Tags |
-|---------|---------------|------|
-| "Calm authority headline" | typography | landing-page, headline, persuade, marketing |
-| "System thinking headline" | typography | web-app, headline, inform, dashboard |
-| "Outcome-focused headline" | typography | social, headline, persuade, marketing |
-| "Primary action CTA" | voice | web-app, cta, guide, dashboard |
-| "Exploration CTA" | voice | landing-page, cta, persuade, marketing |
-| "View action CTA" | voice | web-app, cta, guide, dashboard |
-| "System value proposition" | layout | landing-page, body, persuade, marketing |
-| "Token traceability body" | layout | web-app, body, inform, dashboard |
-| "Weekly digest body" | spacing | email, body, inform, transactional |
-| "Active users stat" | color | web-app, stat, inform, dashboard |
-| "Engagement rate stat" | color | web-app, stat, inform, dashboard |
-| "Growth stat" | color | web-app, stat, inform, dashboard |
+A lightweight page with three sections: Quickstart, Glossary, FAQ. Content loaded from `onboarding_content` table.
 
 ---
 
-## Technical Details
+## 3. Sidebar Welcome Panel
 
-### Files to Create
+### Behavior
+- Rendered as a collapsible section using `Collapsible` from Radix
+- Collapse state persisted in `localStorage` (`welcome_panel_collapsed`)
+- When collapsed, shows only a small "Welcome" label with chevron; when expanded, shows full content
+- Uses sidebar color tokens (`sidebar-foreground`, `sidebar-accent`) for consistency
+
+### Content (seeded into `onboarding_content`)
+
+**Welcome paragraph** (`content_key: 'welcome_paragraph'`):
+> "Curated Lens is your design system's single source of truth -- a system of record for what the brand looks like, and a system of judgment for how it should behave. Every token, component, and guideline is traceable, versioned, and enforced."
+
+**How it works** (`content_key: 'how_it_works'`):
+1. Upload sources (brand PDFs, style guides, Figma exports)
+2. Review extracted entries in the Library
+3. Browse and refine design tokens
+4. Set guardrails to enforce brand rules
+5. Compose layouts in Studio with Channel Kits
+6. Export production-ready specs and code
+
+**Start here actions** (`content_key: 'start_here'`):
+- Upload a source -> `/sources`
+- Review drafts -> `/library`
+- Browse tokens -> `/tokens/colors`
+- Open Copilot -> `/copilot`
+- Explore Studio -> `/studio`
+- Export starter kit -> `/export`
+
+**Method** (`content_key: 'method'`):
+> "The operating principle is restraint. Tokens define the boundaries. Components compose within them. Guardrails enforce consistency. Channel Kits show the system in action -- applied, not abstract."
+
+### Visual treatment
+- Small text (text-xs / text-[11px]), muted sidebar colors
+- "Start here" actions as compact text links with small icons
+- "How it works" as a numbered list with no bullets, just ordinal numbers
+- Subtle top/bottom border separators
+- "Take the tour" link at the bottom of the panel
+
+---
+
+## 4. First-Run Tour Carousel
+
+### Trigger conditions
+- Auto-shows on first login when `profiles.onboarding_completed` is `false`
+- Can be re-opened from Welcome panel ("Take the tour") or Help page
+- Rendered as a `Dialog` overlay with carousel content inside
+
+### Slide content (5 slides, seeded as `tour_slide_1` through `tour_slide_5`)
+
+**Slide 1: What this hub is**
+- Title: "Your design system, governed"
+- Body: "Curated Lens is where brand decisions become enforceable rules. It is not a component library alone -- it is a system of record and a system of judgment."
+- CTA: "Go to Dashboard" -> `/`
+
+**Slide 2: Tokens and guardrails**
+- Title: "Tokens define. Guardrails enforce."
+- Body: "Design tokens capture every visual decision -- colors, typography, spacing, motion. Guardrails automatically check that usage stays within bounds."
+- CTA: "Browse tokens" -> `/tokens/colors`
+
+**Slide 3: Library and sources**
+- Title: "Upload. Extract. Approve."
+- Body: "Upload brand documents and style guides. The system extracts design entries, flags conflicts, and queues drafts for your review."
+- CTA: "Upload a source" -> `/sources`
+
+**Slide 4: Copilot and review**
+- Title: "Design-aware conversation"
+- Body: "Copilot answers questions grounded in your approved library -- not generic advice. Use review sessions to audit code against your system."
+- CTA: "Open Copilot" -> `/copilot`
+
+**Slide 5: Studio and exports**
+- Title: "Design in action"
+- Body: "Channel Kits bundle constraints for specific contexts. Studio lets you compose layouts, swap content variants, run guardrails, and export production specs."
+- CTA: "Explore Studio" -> `/studio`
+
+### Navigation
+- Dot indicators at bottom
+- "Next" / "Previous" buttons (text, not arrows)
+- "Skip" button (top right) -- sets `onboarding_completed = true`
+- "Don't show again" toggle on last slide -- sets `onboarding_completed = true`
+- Closing the dialog without completing also dismisses (does not set the flag, so it shows again next time)
+
+### Visual treatment
+- Centered dialog, max-w-lg
+- No heavy animation -- simple opacity fade between slides using CSS transitions
+- Slide content is centered text with generous whitespace
+- CTA is a single primary `Button`
+
+---
+
+## 5. Help Page
+
+### Route: `/help`
+
+Three sections rendered from `onboarding_content`:
+
+**Quickstart** (`help_quickstart`):
+A condensed version of the "How it works" steps with links to each page.
+
+**Glossary** (`help_glossary`):
+Definitions for: Token, Guideline, Component, Guardrail, Kit, Variant, Template, Canonical, Voice Token, Slot, Source, Library Entry.
+
+**FAQ** (`help_faq`):
+- "My uploaded source shows 'failed'" -> Check file format, retry, or contact admin
+- "Search returns low-relevance results" -> Library needs more approved entries; try broader terms
+- "I see a 'conflict' status" -> Two sources produced contradicting entries; review and resolve in Library
+- "How do I change a token value?" -> Edit the voice token or update the source material and re-extract
+- "Exports look different from preview" -> Studio preview uses template renderers; exported code may need framework-specific adjustments
+
+### Visual treatment
+- Same page layout as other pages (PageHeader + content)
+- Sections as `Card` components with `Accordion` for FAQ items
+- "Restart tour" button at top that reopens the carousel
+
+---
+
+## 6. Technical Details
+
+### Files to create
 
 | File | Purpose |
 |------|---------|
-| `src/components/tokens/TokenExamplesTab.tsx` | Shared Examples tab component used by all token pages |
+| Migration SQL | Create `onboarding_content` table, add `onboarding_completed` to `profiles`, seed content |
+| `src/components/WelcomePanel.tsx` | Collapsible sidebar welcome section |
+| `src/components/OnboardingTour.tsx` | First-run carousel dialog |
+| `src/pages/Help.tsx` | Help page with quickstart, glossary, FAQ |
 
-### Files to Modify
+### Files to modify
 
 | File | Change |
 |------|--------|
-| Migration SQL | Add `token_category` column to `variants`; seed tags into `tag_vocabulary`; update existing seed variants with `token_category` and insert `variant_tags` |
-| `src/pages/tokens/TokensColors.tsx` | Wrap in Tabs, add Examples tab |
-| `src/pages/tokens/TokensTypography.tsx` | Wrap in Tabs, add Examples tab |
-| `src/pages/tokens/TokensSpacing.tsx` | Wrap in Tabs, add Examples tab |
-| `src/pages/tokens/TokensLayout.tsx` | Wrap in Tabs, add Examples tab |
-| `src/pages/tokens/TokensMotion.tsx` | Wrap in Tabs, add Examples tab |
-| `src/pages/tokens/TokensIcons.tsx` | Wrap in Tabs, add Examples tab |
-| `src/pages/tokens/TokensVoice.tsx` | Wrap in Tabs, add Examples tab |
+| `src/components/AppSidebar.tsx` | Add WelcomePanel between header and nav; add Help to systemNav |
+| `src/components/AppShell.tsx` | Add OnboardingTour component (reads profile flag, shows on first run) |
+| `src/App.tsx` | Add `/help` route |
+| `src/components/CommandSearch.tsx` | Add "Help" entry |
 
-### Implementation Approach
+### Data flow
 
-1. **Database migration**: Add `token_category` column, seed tag vocabulary entries, update existing variant seed data
-2. **Create `TokenExamplesTab`**: A reusable component that accepts `tokenCategory: string` as a prop, fetches variants + tags, renders the filter bar and card grid
-3. **Update each token page**: Wrap existing content in `<Tabs>` / `<TabsContent>`, import and render `<TokenExamplesTab tokenCategory="color" />` in the second tab
-4. **Add guardrail validation**: Run relevant checks on variant content and display pass/fail indicators
+1. `AppShell` mounts `OnboardingTour` which queries `profiles.onboarding_completed`
+2. If `false`, dialog opens automatically
+3. User can skip or complete -- updates `profiles.onboarding_completed = true`
+4. `WelcomePanel` fetches `onboarding_content` rows for the active workspace
+5. Falls back to hardcoded seed content if DB returns empty (same pattern as Studio)
+6. Help page fetches `onboarding_content` rows with `help_*` keys
 
-The `TokenExamplesTab` component handles all data fetching, filtering, preview rendering, and export -- keeping the individual token pages clean with minimal changes (just wrapping in Tabs).
+### Collapse persistence
+- `localStorage` key: `welcome_panel_collapsed`
+- Default: expanded (collapsed = false)
+- Toggle via chevron button in the panel header
+
+### Content editability (deferred but designed for)
+- All content lives in `onboarding_content` with `content_key` identifiers
+- Admin/Editor can update via direct DB access or a future "Content Manager" UI
+- The `metadata` JSONB field stores CTA labels, hrefs, sort orders, and icon names
+
+---
+
+## 7. MVP Scope
+
+### Include
+1. Database migration: `onboarding_content` table + `profiles.onboarding_completed` column + seed all content
+2. `WelcomePanel` component with collapsible behavior and "Start here" links
+3. `OnboardingTour` carousel dialog with 5 slides and skip/dismiss behavior
+4. `Help` page with quickstart, glossary, and FAQ
+5. Sidebar and routing updates
+
+### Defer
+- Content editing UI (admin form for updating onboarding_content)
+- Per-section collapse memory (e.g. collapsing just "Method" vs the whole panel)
+- Analytics on tour completion rates
+- Localization / multi-language content
 
