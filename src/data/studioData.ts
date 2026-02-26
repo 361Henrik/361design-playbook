@@ -53,6 +53,7 @@ export interface VariantRow {
   component_ids: string[];
   voice_token_ids: string[];
   sort_order: number;
+  token_category?: string | null;
 }
 
 /* ---- Template renderer registry ---- */

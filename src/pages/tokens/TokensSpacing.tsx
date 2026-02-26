@@ -1,6 +1,8 @@
 import { PageHeader } from "@/components/PageHeader";
 import { CopyButton } from "@/components/CopyButton";
 import { DosDonts } from "@/components/DosDonts";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { TokenExamplesTab } from "@/components/tokens/TokenExamplesTab";
 
 const spacingTokens = [
   { name: "Section Top Padding", range: "120–160px", token: "section-top", value: "10rem (160px)", tailwind: "pt-section-top", description: "Generous breathing room above major sections. Sets the architectural pace.", barWidth: "w-full" },
@@ -19,58 +21,69 @@ const TokensSpacing = () => {
         description="White space is a primary design element. Generous padding and controlled density create the calm, architectural feel."
       />
 
-      {/* Visual spacing scale */}
-      <div className="mb-10 p-5 rounded-md border border-border bg-card">
-        <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-4">Spacing Scale</h3>
-        <div className="space-y-3">
-          {spacingTokens.map((s) => (
-            <div key={s.name} className="flex items-center gap-4">
-              <span className="text-xs font-body text-muted-foreground w-32 shrink-0 text-right">{s.range}</span>
-              <div className={`h-3 rounded-sm bg-primary/20 border border-primary/30 ${s.barWidth}`} />
-            </div>
-          ))}
-        </div>
-      </div>
+      <Tabs defaultValue="tokens" className="mt-6">
+        <TabsList>
+          <TabsTrigger value="tokens">Tokens</TabsTrigger>
+          <TabsTrigger value="examples">Examples</TabsTrigger>
+        </TabsList>
 
-      {/* Token cards */}
-      <div className="space-y-4">
-        {spacingTokens.map((s) => (
-          <div key={s.name} className="flex items-start gap-5 p-5 rounded-md border border-border bg-card">
-            <div className="w-16 h-16 rounded-md bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
-              <span className="text-[10px] font-body font-medium text-primary leading-tight text-center">{s.range}</span>
-            </div>
-            <div className="flex-1">
-              <h3 className="font-display text-base font-medium tracking-headline text-card-foreground">{s.name}</h3>
-              <div className="flex flex-wrap gap-2 mt-2">
-                <CopyButton value={s.tailwind} label={`tw: ${s.tailwind}`} />
-                <CopyButton value={s.value} label={s.value} />
-              </div>
-              <p className="mt-2 text-sm font-body leading-reading text-muted-foreground max-w-prose">{s.description}</p>
+        <TabsContent value="tokens">
+          {/* Visual spacing scale */}
+          <div className="mb-10 p-5 rounded-md border border-border bg-card">
+            <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-4">Spacing Scale</h3>
+            <div className="space-y-3">
+              {spacingTokens.map((s) => (
+                <div key={s.name} className="flex items-center gap-4">
+                  <span className="text-xs font-body text-muted-foreground w-32 shrink-0 text-right">{s.range}</span>
+                  <div className={`h-3 rounded-sm bg-primary/20 border border-primary/30 ${s.barWidth}`} />
+                </div>
+              ))}
             </div>
           </div>
-        ))}
-      </div>
 
-      {/* Do / Don't */}
-      <section className="mt-12">
-        <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-4">
-          Do / Don't
-        </h2>
-        <DosDonts
-          dos={[
-            "Use generous section top padding (120–160px) to establish architectural rhythm.",
-            "Let white space do the work — it is a primary design element, not empty area.",
-            "Use consistent spacing tokens rather than arbitrary pixel values.",
-            "Maintain clear hierarchy: section > paragraph > inline spacing.",
-          ]}
-          donts={[
-            "Don't use tight spacing to cram more content on screen.",
-            "Don't use inconsistent spacing values — stick to the token scale.",
-            "Don't skip spacing levels (e.g., going from section-gap to gap-2 directly).",
-            "Don't reduce padding on mobile — maintain the architectural calm at all sizes.",
-          ]}
-        />
-      </section>
+          {/* Token cards */}
+          <div className="space-y-4">
+            {spacingTokens.map((s) => (
+              <div key={s.name} className="flex items-start gap-5 p-5 rounded-md border border-border bg-card">
+                <div className="w-16 h-16 rounded-md bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+                  <span className="text-[10px] font-body font-medium text-primary leading-tight text-center">{s.range}</span>
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-display text-base font-medium tracking-headline text-card-foreground">{s.name}</h3>
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    <CopyButton value={s.tailwind} label={`tw: ${s.tailwind}`} />
+                    <CopyButton value={s.value} label={s.value} />
+                  </div>
+                  <p className="mt-2 text-sm font-body leading-reading text-muted-foreground max-w-prose">{s.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Do / Don't */}
+          <section className="mt-12">
+            <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-4">Do / Don't</h2>
+            <DosDonts
+              dos={[
+                "Use generous section top padding (120–160px) to establish architectural rhythm.",
+                "Let white space do the work — it is a primary design element, not empty area.",
+                "Use consistent spacing tokens rather than arbitrary pixel values.",
+                "Maintain clear hierarchy: section > paragraph > inline spacing.",
+              ]}
+              donts={[
+                "Don't use tight spacing to cram more content on screen.",
+                "Don't use inconsistent spacing values — stick to the token scale.",
+                "Don't skip spacing levels (e.g., going from section-gap to gap-2 directly).",
+                "Don't reduce padding on mobile — maintain the architectural calm at all sizes.",
+              ]}
+            />
+          </section>
+        </TabsContent>
+
+        <TabsContent value="examples">
+          <TokenExamplesTab tokenCategory="spacing" />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
