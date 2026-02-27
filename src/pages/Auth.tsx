@@ -25,10 +25,12 @@ const AuthPage = () => {
     setLoading(false);
   };
 
+  const [forgotMode, setForgotMode] = useState(false);
+
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const { data, error } = await supabase.auth.signUp({
+    const { error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -40,16 +42,25 @@ const AuthPage = () => {
     if (error) {
       toast({ title: "Signup failed", description: error.message, variant: "destructive" });
     } else {
-      // First user gets admin role
-      if (data.user) {
-        const { count } = await supabase.from("profiles").select("*", { count: "exact", head: true });
-        if (count !== null && count <= 1) {
-          await supabase.from("user_roles").insert({ user_id: data.user.id, role: "admin" as any });
-        } else {
-          await supabase.from("user_roles").insert({ user_id: data.user.id, role: "editor" as any });
-        }
-      }
-      toast({ title: "Account created", description: "You're now signed in." });
+      toast({ title: "Account created", description: "Check your email to confirm, then sign in." });
+    }
+    setLoading(false);
+  };
+
+  const handleForgotPassword = async () => {
+    if (!email) {
+      toast({ title: "Enter your email", description: "Type your email address above first.", variant: "destructive" });
+      return;
+    }
+    setLoading(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+    if (error) {
+      toast({ title: "Reset failed", description: error.message, variant: "destructive" });
+    } else {
+      toast({ title: "Check your email", description: "A password reset link has been sent." });
+      setForgotMode(false);
     }
     setLoading(false);
   };
@@ -81,6 +92,13 @@ const AuthPage = () => {
                   {loading && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
                   Sign In
                 </Button>
+                <button
+                  type="button"
+                  onClick={handleForgotPassword}
+                  className="w-full text-xs text-muted-foreground hover:text-foreground transition-colors mt-2"
+                >
+                  Forgot password?
+                </button>
               </form>
             </TabsContent>
             <TabsContent value="signup">
