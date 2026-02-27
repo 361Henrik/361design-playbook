@@ -28,6 +28,7 @@ import ChannelKitsPage from "./pages/ChannelKits";
 import StudioPage from "./pages/Studio";
 import HelpPage from "./pages/Help";
 import AuthPage from "./pages/Auth";
+import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
 import { Loader2 } from "lucide-react";
 
@@ -102,6 +103,7 @@ const App = () => (
         <AuthProvider>
           <Routes>
             <Route path="/auth" element={<AuthGate />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/*" element={<ProtectedRoutes />} />
           </Routes>
         </AuthProvider>
