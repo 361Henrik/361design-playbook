@@ -43,9 +43,10 @@ const slides = [
 interface OnboardingTourProps {
   forceOpen?: boolean;
   onClose?: () => void;
+  onTourComplete?: () => void;
 }
 
-export function OnboardingTour({ forceOpen, onClose }: OnboardingTourProps) {
+export function OnboardingTour({ forceOpen, onClose, onTourComplete }: OnboardingTourProps) {
   const [open, setOpen] = useState(false);
   const [current, setCurrent] = useState(0);
   const [dontShow, setDontShow] = useState(false);
@@ -89,6 +90,7 @@ export function OnboardingTour({ forceOpen, onClose }: OnboardingTourProps) {
     await markCompleted();
     setOpen(false);
     onClose?.();
+    onTourComplete?.();
   };
 
   const handleClose = (isOpen: boolean) => {
@@ -107,16 +109,18 @@ export function OnboardingTour({ forceOpen, onClose }: OnboardingTourProps) {
   };
 
   const handleCta = async () => {
-    if (dontShow) await markCompleted();
+    if (isLast || dontShow) await markCompleted();
     setOpen(false);
     onClose?.();
+    if (isLast) onTourComplete?.();
     navigate(slides[current].href);
   };
 
   const handleFinish = async () => {
-    if (dontShow) await markCompleted();
+    await markCompleted();
     setOpen(false);
     onClose?.();
+    onTourComplete?.();
   };
 
   if (!checked && forceOpen === undefined) return null;
