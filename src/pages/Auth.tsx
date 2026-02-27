@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 
 const AuthPage = () => {
@@ -14,6 +15,7 @@ const AuthPage = () => {
   const [displayName, setDisplayName] = useState("");
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,6 +63,7 @@ const AuthPage = () => {
     } else {
       toast({ title: "Check your email", description: "A password reset link has been sent." });
       setForgotMode(false);
+      navigate("/reset-password");
     }
     setLoading(false);
   };
