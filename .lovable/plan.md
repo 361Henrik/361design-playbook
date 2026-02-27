@@ -1,62 +1,95 @@
 
 
-# Fix Password Reset Flow
+# Smart Welcome Panel Collapse After Onboarding
 
-Two root causes are preventing password recovery from working.
-
----
-
-## Problem 1: Reset link redirects to wrong URL
-
-The authentication system has a "Site URL" and "Redirect URLs" allowlist. The password reset email link redirects through the auth server, which then sends the user to the configured site URL with recovery tokens. If the preview URL isn't registered, the redirect silently fails.
-
-### Fix
-
-Use the auth configuration tool to:
-- Set the Site URL to the current preview URL
-- Add the preview URL + `/reset-password` to the allowed redirect URLs
+Make the Welcome panel aware of the user's onboarding state so it auto-collapses once the tour is complete, shows a shorter "Welcome back" view for returning users, and never dominates the sidebar after first run.
 
 ---
 
-## Problem 2: Email rate limiting
+## Current Behavior
 
-Multiple signup and reset attempts have likely exhausted the default email rate limit (3-4 per hour per address). No code fix needed -- just wait ~1 hour and try once more. Also check spam/junk folders.
+- Welcome panel reads collapse state from `localStorage` only -- it has no awareness of `onboarding_completed`
+- The carousel finishing does NOT collapse the panel or update localStorage
+- Returning users see the full "How it works" + "Start here" content every time they expand
+- Dismissing the carousel via "X" (without completing) does not set `onboarding_completed`, but also doesn't affect the panel
+
+## Changes
+
+### 1. WelcomePanel -- onboarding-aware collapse default
+
+**File: `src/components/WelcomePanel.tsx`**
+
+- Accept a new prop `onboardingCompleted: boolean` from AppSidebar
+- Change the initial collapsed state logic:
+  - If `localStorage` has an explicit value, use it (user's manual preference wins)
+  - If no localStorage value exists AND `onboardingCompleted` is `true`, default to collapsed
+  - If no localStorage value AND `onboardingCompleted` is `false`, default to expanded (first-run)
+- When expanded by a returning user (`onboardingCompleted === true`), show a compact "Welcome back" view: just the intro paragraph and "Take the tour" link -- hide the "How it works" list, "Start here" links, and "Method" quote
+- When expanded by a first-run user (`onboardingCompleted === false`), show the full content as today
+
+### 2. OnboardingTour -- collapse panel on completion
+
+**File: `src/components/OnboardingTour.tsx`**
+
+- Accept a new optional prop `onTourComplete?: () => void`
+- Call `onTourComplete()` after `markCompleted()` in `handleSkip`, `handleFinish`, and `handleCta` (on last slide)
+- Always call `markCompleted()` when finishing the last slide (currently only calls it if "Don't show again" is toggled) -- completing the tour should always mark onboarding done
+
+### 3. AppSidebar -- wire the state together
+
+**File: `src/components/AppSidebar.tsx`**
+
+- Add state: `const [onboardingCompleted, setOnboardingCompleted] = useState(false)`
+- On mount, query `profiles.onboarding_completed` for the current user
+- Pass `onboardingCompleted` to `WelcomePanel`
+- Pass `onTourComplete` callback to `OnboardingTour` that:
+  1. Sets `onboardingCompleted` to `true`
+  2. Writes `localStorage welcome_panel_collapsed = "true"` so the panel collapses immediately
+- The WelcomePanel will re-render collapsed because localStorage now says collapsed
+
+### 4. Mobile treatment (< 768px)
+
+No separate modal needed -- the existing Collapsible already works inline. The collapsed state (single "Welcome" label line) takes minimal vertical space on any viewport. No additional changes required for this.
 
 ---
 
-## Problem 3: ResetPassword page robustness
+## State Flow
 
-The current page relies on detecting `type=recovery` in the URL hash or the `PASSWORD_RECOVERY` auth event. This can be fragile if the auth system uses PKCE flow (which puts tokens in query params, not the hash). The page should also handle the case where the session is already established by the time the component mounts.
+```text
+First login:
+  profiles.onboarding_completed = false
+  localStorage: no key
+  -> Panel EXPANDED (full content)
+  -> Carousel auto-opens
 
-### Fix
+User completes/skips carousel:
+  profiles.onboarding_completed = true
+  localStorage: welcome_panel_collapsed = "true"
+  -> Panel COLLAPSES immediately
 
-Update `ResetPassword.tsx` to:
-- Also check for an existing session on mount (the auth callback may have already processed tokens before React renders)
-- Show the password form if a valid session exists, regardless of how it was established
-- Add a manual "re-send reset email" option so the user doesn't have to navigate back to `/auth`
+Returning user (next session):
+  profiles.onboarding_completed = true
+  localStorage: welcome_panel_collapsed = "true"
+  -> Panel COLLAPSED by default
+
+Returning user manually expands panel:
+  -> Shows compact "Welcome back" view (2-3 lines only)
+  localStorage: welcome_panel_collapsed = "false"
+
+User clicks "Take the tour" from panel:
+  -> Carousel opens, panel stays as-is
+  -> On carousel close, panel does NOT auto-expand
+```
 
 ---
 
-## Implementation Steps
+## File-by-File Summary
 
-### 1. Configure auth redirect URLs
-Use the auth settings tool to add the preview URL to the allowed redirect list.
+| File | Changes |
+|------|---------|
+| `src/components/WelcomePanel.tsx` | Add `onboardingCompleted` prop; conditional initial collapse; compact "Welcome back" view for returning users |
+| `src/components/OnboardingTour.tsx` | Add `onTourComplete` prop; always mark completed on finish/skip; call callback |
+| `src/components/AppSidebar.tsx` | Query `onboarding_completed` on mount; pass props to WelcomePanel and OnboardingTour; handle tour completion callback |
 
-### 2. Update ResetPassword.tsx
-- On mount, call `supabase.auth.getSession()` -- if a session exists, show the form immediately (the recovery token was already exchanged)
-- Keep the `PASSWORD_RECOVERY` event listener as a fallback
-- Add a "Request new link" button that calls `resetPasswordForEmail` directly from this page
-
-### 3. Update Auth.tsx
-- After calling `resetPasswordForEmail`, navigate to `/reset-password` so the user lands on the right page and can request another link if needed
-
----
-
-## Files to modify
-
-| File | Change |
-|------|--------|
-| Auth config | Add preview URL to redirect allowlist |
-| `src/pages/ResetPassword.tsx` | Check for existing session on mount; add re-send link option |
-| `src/pages/Auth.tsx` | Navigate to `/reset-password` after sending reset email |
+No database changes needed -- uses existing `profiles.onboarding_completed` column and existing `localStorage` key.
 
