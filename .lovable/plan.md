@@ -1,93 +1,62 @@
 
 
-# Fix Authentication Flow
+# Fix Password Reset Flow
 
-Two issues prevent sign-in from working:
-
-1. **Password mismatch** -- The password entered at login doesn't match the one used during the original signup. There is no "Forgot Password" flow to recover.
-2. **No roles assigned** -- The signup code tries to insert into `user_roles`, but RLS only allows admins to insert roles. A brand-new user has no roles yet, so the insert silently fails. The first user can never bootstrap as admin.
+Two root causes are preventing password recovery from working.
 
 ---
 
-## Changes
+## Problem 1: Reset link redirects to wrong URL
 
-### 1. Database migration: fix role bootstrapping + assign admin to existing user
+The authentication system has a "Site URL" and "Redirect URLs" allowlist. The password reset email link redirects through the auth server, which then sends the user to the configured site URL with recovery tokens. If the preview URL isn't registered, the redirect silently fails.
 
-- Create a `assign_initial_role()` database function (SECURITY DEFINER) that runs after signup. It checks if the user is the first user and assigns `admin`, otherwise `editor`. This bypasses RLS safely.
-- Create a trigger on `auth.users` AFTER INSERT that calls this function (or use the existing `handle_new_user` trigger pattern).
-- Fix the existing user: insert `(3905065d-33fe-4446-977c-a50dfd111e81, 'admin')` into `user_roles` via migration.
-- Remove the client-side role insertion from `Auth.tsx` (lines 44-51) since it fails due to RLS and belongs server-side.
+### Fix
 
-### 2. Add password reset flow to Auth.tsx
-
-- Add a "Forgot password?" link on the login tab.
-- Call `supabase.auth.resetPasswordForEmail()` with `redirectTo` pointing to `/reset-password`.
-- Show a toast confirming the reset email was sent.
-
-### 3. Create /reset-password page
-
-- New file: `src/pages/ResetPassword.tsx`
-- Detects `type=recovery` in URL hash (set by the auth system's email link).
-- Shows a form to enter a new password.
-- Calls `supabase.auth.updateUser({ password })`.
-- Redirects to `/` on success.
-
-### 4. Update routing in App.tsx
-
-- Add `/reset-password` as a public route (not behind `ProtectedRoutes`).
+Use the auth configuration tool to:
+- Set the Site URL to the current preview URL
+- Add the preview URL + `/reset-password` to the allowed redirect URLs
 
 ---
 
-## Files to create
+## Problem 2: Email rate limiting
 
-| File | Purpose |
-|------|---------|
-| Migration SQL | Assign admin role to existing user; create `assign_initial_role()` SECURITY DEFINER function + trigger |
-| `src/pages/ResetPassword.tsx` | Password reset form |
+Multiple signup and reset attempts have likely exhausted the default email rate limit (3-4 per hour per address). No code fix needed -- just wait ~1 hour and try once more. Also check spam/junk folders.
+
+---
+
+## Problem 3: ResetPassword page robustness
+
+The current page relies on detecting `type=recovery` in the URL hash or the `PASSWORD_RECOVERY` auth event. This can be fragile if the auth system uses PKCE flow (which puts tokens in query params, not the hash). The page should also handle the case where the session is already established by the time the component mounts.
+
+### Fix
+
+Update `ResetPassword.tsx` to:
+- Also check for an existing session on mount (the auth callback may have already processed tokens before React renders)
+- Show the password form if a valid session exists, regardless of how it was established
+- Add a manual "re-send reset email" option so the user doesn't have to navigate back to `/auth`
+
+---
+
+## Implementation Steps
+
+### 1. Configure auth redirect URLs
+Use the auth settings tool to add the preview URL to the allowed redirect list.
+
+### 2. Update ResetPassword.tsx
+- On mount, call `supabase.auth.getSession()` -- if a session exists, show the form immediately (the recovery token was already exchanged)
+- Keep the `PASSWORD_RECOVERY` event listener as a fallback
+- Add a "Request new link" button that calls `resetPasswordForEmail` directly from this page
+
+### 3. Update Auth.tsx
+- After calling `resetPasswordForEmail`, navigate to `/reset-password` so the user lands on the right page and can request another link if needed
+
+---
 
 ## Files to modify
 
 | File | Change |
 |------|--------|
-| `src/pages/Auth.tsx` | Remove client-side role insert (lines 44-51); add "Forgot password?" link and handler |
-| `src/App.tsx` | Add `/reset-password` route |
+| Auth config | Add preview URL to redirect allowlist |
+| `src/pages/ResetPassword.tsx` | Check for existing session on mount; add re-send link option |
+| `src/pages/Auth.tsx` | Navigate to `/reset-password` after sending reset email |
 
----
-
-## Technical details
-
-### The SECURITY DEFINER function
-
-```sql
-CREATE OR REPLACE FUNCTION public.assign_initial_role()
-RETURNS trigger
-LANGUAGE plpgsql
-SECURITY DEFINER
-SET search_path = public
-AS $$
-DECLARE
-  user_count INT;
-BEGIN
-  SELECT count(*) INTO user_count FROM public.user_roles;
-  IF user_count = 0 THEN
-    INSERT INTO public.user_roles (user_id, role) VALUES (NEW.id, 'admin');
-  ELSE
-    INSERT INTO public.user_roles (user_id, role) VALUES (NEW.id, 'editor');
-  END IF;
-  RETURN NEW;
-END;
-$$;
-```
-
-This runs server-side with elevated privileges, bypassing RLS. It is attached as an AFTER INSERT trigger on `auth.users` (same pattern as the existing `handle_new_user` trigger).
-
-### Immediate fix for the existing user
-
-The migration also runs:
-```sql
-INSERT INTO public.user_roles (user_id, role)
-VALUES ('3905065d-33fe-4446-977c-a50dfd111e81', 'admin')
-ON CONFLICT DO NOTHING;
-```
-
-This unblocks the current account once the password is reset.
