@@ -130,7 +130,7 @@ export function AppSidebar() {
         ) : (
           <>
             <h1 className="font-display text-lg font-medium tracking-headline text-sidebar-foreground leading-section">
-              {activeWorkspace?.name || "Curated Lens"}
+              {activeWorkspace?.name || "The Curated Lens"}
             </h1>
             <p className="text-xs font-body text-sidebar-foreground/50 mt-1">Design System Hub</p>
           </>
