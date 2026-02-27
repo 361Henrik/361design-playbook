@@ -10,23 +10,37 @@ import { Loader2 } from "lucide-react";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [ready, setReady] = useState(false);
+  const [checking, setChecking] = useState(true);
   const { toast } = useToast();
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Listen for the PASSWORD_RECOVERY event
+    // 1. Listen for PASSWORD_RECOVERY event
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
       if (event === "PASSWORD_RECOVERY") {
         setReady(true);
+        setChecking(false);
       }
     });
-    // Also check if we already have a session with recovery type in hash
+
+    // 2. Check URL hash for recovery type
     const hash = window.location.hash;
     if (hash.includes("type=recovery")) {
       setReady(true);
+      setChecking(false);
     }
+
+    // 3. Check if session already exists (PKCE flow may have already exchanged tokens)
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        setReady(true);
+      }
+      setChecking(false);
+    });
+
     return () => subscription.unsubscribe();
   }, []);
 
@@ -43,6 +57,31 @@ const ResetPassword = () => {
     setLoading(false);
   };
 
+  const handleResendLink = async () => {
+    if (!email) {
+      toast({ title: "Enter your email", description: "Type your email address to receive a new link.", variant: "destructive" });
+      return;
+    }
+    setLoading(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+    if (error) {
+      toast({ title: "Failed to send", description: error.message, variant: "destructive" });
+    } else {
+      toast({ title: "Link sent", description: "Check your email (including spam) for a new reset link." });
+    }
+    setLoading(false);
+  };
+
+  if (checking) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <Loader2 className="h-6 w-6 animate-spin text-primary" />
+      </div>
+    );
+  }
+
   if (!ready) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background px-4">
@@ -50,9 +89,31 @@ const ResetPassword = () => {
           <CardHeader className="text-center">
             <CardTitle className="font-display text-2xl tracking-headline">Reset Password</CardTitle>
             <CardDescription className="font-body text-sm">
-              Check your email for the reset link, then click it to continue here.
+              No recovery session detected. Request a new reset link below, or check your email and click the link.
             </CardDescription>
           </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Label className="text-xs font-body">Email</Label>
+              <Input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@example.com"
+              />
+            </div>
+            <Button onClick={handleResendLink} className="w-full" disabled={loading}>
+              {loading && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
+              Send Reset Link
+            </Button>
+            <button
+              type="button"
+              onClick={() => navigate("/auth")}
+              className="w-full text-xs text-muted-foreground hover:text-foreground transition-colors mt-2"
+            >
+              Back to Sign In
+            </button>
+          </CardContent>
         </Card>
       </div>
     );
