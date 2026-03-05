@@ -129,7 +129,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ["Inter", "system-ui", "sans-serif"],
+        body: ["Lexend", "system-ui", "sans-serif"],
         display: ['"Playfair Display"', "Georgia", "serif"],
       },
       colors: {
