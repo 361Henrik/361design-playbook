@@ -11,7 +11,7 @@ const tokens = {
     secondary: { name: "Warm Off-White", hsl: "37 21% 95%", hex: "#F5F3EF", css: "--secondary", tw: "secondary" },
   },
   typography: {
-    body: { family: "Inter", fallback: "system-ui, sans-serif", weight: "400", lineHeight: "1.65" },
+    body: { family: "Lexend", fallback: "system-ui, sans-serif", weight: "400", lineHeight: "1.6" },
     display: { family: "Playfair Display", fallback: "Georgia, serif", weight: "500", letterSpacing: "-0.01em" },
   },
   spacing: {
@@ -129,7 +129,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ["Inter", "system-ui", "sans-serif"],
+        body: ["Lexend", "system-ui", "sans-serif"],
         display: ['"Playfair Display"', "Georgia", "serif"],
       },
       colors: {

@@ -236,8 +236,34 @@ const Dashboard = () => {
         </section>
       )}
 
+      {/* Using the System */}
+      <section className="mb-10">
+        <h2 className="font-display text-h2 text-foreground mb-4">
+          Using the System
+        </h2>
+        <p className="text-body font-body text-muted-foreground max-w-prose mb-6">
+          Follow the path: Foundations → Components → Patterns. These five rules prevent inconsistency.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+          {[
+            { num: "1", rule: "Use named spacing tokens (space-1 through space-9) — never arbitrary pixel values." },
+            { num: "2", rule: "Follow the nine typography roles — never invent new sizes or weights." },
+            { num: "3", rule: "Constrain content width: max-w-reading (720px) for text, max-w-content (1100px) for pages." },
+            { num: "4", rule: "One primary CTA per section. Labels: verb-first, 1–3 words." },
+            { num: "5", rule: "Use the master spec (curated-lens-system.md) as the canonical reference." },
+          ].map((r) => (
+            <Card key={r.num} className="p-4">
+              <CardContent className="p-0 flex items-start gap-3">
+                <span className="text-h3 font-display text-accent font-medium">{r.num}</span>
+                <p className="text-body-sm font-body text-muted-foreground">{r.rule}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
+
       <section>
-        <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-6">
+        <h2 className="font-display text-h2 text-foreground mb-6">
           Token Categories
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -248,8 +274,8 @@ const Dashboard = () => {
               className="group block rounded-md border border-border bg-card p-5 transition-colors duration-ui hover:border-primary/30"
             >
               <cat.icon className="h-5 w-5 text-accent mb-3" strokeWidth={1.5} />
-              <h3 className="font-display text-base font-medium tracking-headline text-card-foreground">{cat.title}</h3>
-              <p className="mt-1.5 text-sm font-body leading-reading text-muted-foreground">{cat.description}</p>
+              <h3 className="font-display text-h3 text-card-foreground">{cat.title}</h3>
+              <p className="mt-1.5 text-body-sm font-body text-muted-foreground">{cat.description}</p>
             </Link>
           ))}
         </div>

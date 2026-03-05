@@ -15,7 +15,18 @@ export default {
     extend: {
       fontFamily: {
         display: ['"Playfair Display"', "Georgia", "serif"],
-        body: ["Inter", "system-ui", "sans-serif"],
+        body: ["Lexend", "system-ui", "sans-serif"],
+      },
+      fontSize: {
+        "display": ["3rem", { lineHeight: "1.2", letterSpacing: "-0.01em", fontWeight: "500" }],
+        "h1": ["2.25rem", { lineHeight: "1.2", letterSpacing: "-0.01em", fontWeight: "500" }],
+        "h2": ["1.5rem", { lineHeight: "1.2", letterSpacing: "-0.01em", fontWeight: "500" }],
+        "h3": ["1.25rem", { lineHeight: "1.2", letterSpacing: "-0.005em", fontWeight: "500" }],
+        "body-lg": ["1.125rem", { lineHeight: "1.6", fontWeight: "400" }],
+        "body": ["1rem", { lineHeight: "1.6", fontWeight: "400" }],
+        "body-sm": ["0.875rem", { lineHeight: "1.6", fontWeight: "400" }],
+        "label": ["0.8125rem", { lineHeight: "1.3", letterSpacing: "0.01em", fontWeight: "500" }],
+        "caption": ["0.75rem", { lineHeight: "1.3", letterSpacing: "0.01em", fontWeight: "400" }],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -69,6 +80,9 @@ export default {
       },
       maxWidth: {
         prose: "52ch",
+        reading: "720px",
+        content: "1100px",
+        wide: "1280px",
       },
       letterSpacing: {
         headline: "-0.01em",
@@ -76,12 +90,23 @@ export default {
       lineHeight: {
         hero: "1.05",
         section: "1.1",
-        reading: "1.65",
+        heading: "1.2",
+        label: "1.3",
+        reading: "1.6",
       },
       spacing: {
-        "section-top": "10rem",    /* 160px */
-        "section-gap": "4.5rem",   /* 72px */
-        "headline-gap": "2.5rem",  /* 40px */
+        "space-1": "4px",
+        "space-2": "8px",
+        "space-3": "12px",
+        "space-4": "16px",
+        "space-5": "24px",
+        "space-6": "32px",
+        "space-7": "48px",
+        "space-8": "64px",
+        "space-9": "96px",
+        "section-top": "10rem",
+        "section-gap": "4.5rem",
+        "headline-gap": "2.5rem",
       },
       borderRadius: {
         lg: "var(--radius)",

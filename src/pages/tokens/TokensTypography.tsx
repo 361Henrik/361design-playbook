@@ -6,70 +6,103 @@ import { TokenExamplesTab } from "@/components/tokens/TokenExamplesTab";
 
 const typographyTokens = [
   {
-    name: "Display / Hero",
+    name: "Display",
     font: "Playfair Display",
     weight: "500",
-    lineHeight: "1.05",
+    lineHeight: "1.2",
     letterSpacing: "-0.01em",
-    size: "text-4xl (2.25rem)",
+    size: "3rem (48px)",
     example: "The Art of Restraint",
-    className: "font-display text-4xl font-medium leading-hero tracking-headline",
-    tailwind: "font-display text-4xl font-medium leading-hero tracking-headline",
+    className: "font-display text-display",
+    tailwind: "font-display text-display",
   },
   {
-    name: "Section Heading",
+    name: "H1",
     font: "Playfair Display",
     weight: "500",
-    lineHeight: "1.1",
+    lineHeight: "1.2",
     letterSpacing: "-0.01em",
-    size: "text-2xl (1.5rem)",
+    size: "2.25rem (36px)",
     example: "Design Token Center",
-    className: "font-display text-2xl font-medium leading-section tracking-headline",
-    tailwind: "font-display text-2xl font-medium leading-section tracking-headline",
+    className: "font-display text-h1",
+    tailwind: "font-display text-h1",
   },
   {
-    name: "Subsection",
+    name: "H2",
     font: "Playfair Display",
     weight: "500",
-    lineHeight: "1.1",
+    lineHeight: "1.2",
     letterSpacing: "-0.01em",
-    size: "text-lg (1.125rem)",
+    size: "1.5rem (24px)",
     example: "Color Palette",
-    className: "font-display text-lg font-medium leading-section tracking-headline",
-    tailwind: "font-display text-lg font-medium leading-section tracking-headline",
+    className: "font-display text-h2",
+    tailwind: "font-display text-h2",
+  },
+  {
+    name: "H3",
+    font: "Playfair Display",
+    weight: "500",
+    lineHeight: "1.2",
+    letterSpacing: "-0.005em",
+    size: "1.25rem (20px)",
+    example: "Spacing Scale",
+    className: "font-display text-h3",
+    tailwind: "font-display text-h3",
+  },
+  {
+    name: "Body Large",
+    font: "Lexend",
+    weight: "400",
+    lineHeight: "1.6",
+    letterSpacing: "normal",
+    size: "1.125rem (18px)",
+    example: "Restraint signals confidence. White space is a primary design element, not wasted area.",
+    className: "font-body text-body-lg",
+    tailwind: "font-body text-body-lg",
   },
   {
     name: "Body",
-    font: "Inter",
+    font: "Lexend",
     weight: "400",
-    lineHeight: "1.65",
+    lineHeight: "1.6",
     letterSpacing: "normal",
-    size: "text-base (1rem)",
-    example: "Restraint signals confidence. White space is a primary design element. Keep text in controlled columns; never use full-width paragraphs.",
-    className: "font-body text-base font-normal leading-reading",
-    tailwind: "font-body text-base font-normal leading-reading",
+    size: "1rem (16px)",
+    example: "Keep text in controlled columns; never use full-width paragraphs. Every word should earn its place.",
+    className: "font-body text-body",
+    tailwind: "font-body text-body",
   },
   {
-    name: "UI / Navigation",
-    font: "Inter",
+    name: "Body Small",
+    font: "Lexend",
+    weight: "400",
+    lineHeight: "1.6",
+    letterSpacing: "normal",
+    size: "0.875rem (14px)",
+    example: "Components • Guidelines • Export • Settings",
+    className: "font-body text-body-sm",
+    tailwind: "font-body text-body-sm",
+  },
+  {
+    name: "Label",
+    font: "Lexend",
     weight: "500",
-    lineHeight: "1.4",
-    letterSpacing: "normal",
-    size: "text-sm (0.875rem)",
-    example: "Components • Guidelines • Export",
-    className: "font-body text-sm font-medium leading-snug",
-    tailwind: "font-body text-sm font-medium leading-snug",
+    lineHeight: "1.3",
+    letterSpacing: "0.01em",
+    size: "0.8125rem (13px)",
+    example: "Email Address",
+    className: "font-body text-label",
+    tailwind: "font-body text-label",
   },
   {
-    name: "Caption / Label",
-    font: "Inter",
+    name: "Caption",
+    font: "Lexend",
     weight: "400",
-    lineHeight: "1.4",
+    lineHeight: "1.3",
     letterSpacing: "0.01em",
-    size: "text-xs (0.75rem)",
+    size: "0.75rem (12px)",
     example: "HSL: 153 38% 17%  •  Last updated 2 hours ago",
-    className: "font-body text-xs font-normal leading-snug tracking-wide",
-    tailwind: "font-body text-xs font-normal leading-snug tracking-wide",
+    className: "font-body text-caption",
+    tailwind: "font-body text-caption",
   },
 ];
 
@@ -78,7 +111,7 @@ const TokensTypography = () => {
     <div className="px-8 py-10 max-w-5xl">
       <PageHeader
         title="Typography Tokens"
-        description="Playfair Display for headlines and editorial authority. Inter for body, UI, and utility. No substitutions. Never use weight 300."
+        description="Playfair Display for headlines and editorial authority. Lexend for body, UI, and utility. Nine defined roles. No substitutions. Never use weight 300."
       />
 
       <Tabs defaultValue="tokens" className="mt-6">
@@ -91,31 +124,50 @@ const TokensTypography = () => {
           {/* Font stack overview */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
             <div className="p-5 rounded-md border border-border bg-card">
-              <p className="text-xs font-body font-medium text-muted-foreground uppercase tracking-widest mb-3">Display Font</p>
-              <p className="font-display text-3xl font-medium tracking-headline leading-hero text-card-foreground">Playfair Display</p>
-              <p className="mt-2 text-xs font-body text-muted-foreground">Weight 500 (default) · 600 (rare, emphasis only)</p>
+              <p className="text-caption font-body font-medium text-muted-foreground uppercase tracking-widest mb-3">Display Font</p>
+              <p className="font-display text-h1 text-card-foreground">Playfair Display</p>
+              <p className="mt-2 text-caption font-body text-muted-foreground">Weight 500 (default) · 600 (rare, emphasis only)</p>
+              <p className="mt-1 text-caption font-body text-muted-foreground">Used for: Display, H1, H2, H3</p>
               <div className="mt-3">
                 <CopyButton value='font-family: "Playfair Display", Georgia, serif' label="CSS" />
               </div>
             </div>
             <div className="p-5 rounded-md border border-border bg-card">
-              <p className="text-xs font-body font-medium text-muted-foreground uppercase tracking-widest mb-3">Body Font</p>
-              <p className="font-body text-3xl font-medium leading-section text-card-foreground">Inter</p>
-              <p className="mt-2 text-xs font-body text-muted-foreground">Weight 400 (body) · 500 (nav/CTA) · Never 300</p>
+              <p className="text-caption font-body font-medium text-muted-foreground uppercase tracking-widest mb-3">Body Font</p>
+              <p className="font-body text-h1 font-medium text-card-foreground">Lexend</p>
+              <p className="mt-2 text-caption font-body text-muted-foreground">Weight 400 (body) · 500 (label/CTA) · Never 300</p>
+              <p className="mt-1 text-caption font-body text-muted-foreground">Used for: Body Large, Body, Body Small, Label, Caption</p>
               <div className="mt-3">
-                <CopyButton value='font-family: Inter, system-ui, sans-serif' label="CSS" />
+                <CopyButton value='font-family: Lexend, system-ui, sans-serif' label="CSS" />
               </div>
             </div>
           </div>
 
+          {/* Line-height rules */}
+          <div className="p-5 rounded-md border border-border bg-card mb-10">
+            <h3 className="font-display text-h3 text-card-foreground mb-4">Line-Height Rules</h3>
+            <div className="space-y-2">
+              {[
+                { role: "Headlines (Display–H3)", value: "~1.2", token: "leading-heading" },
+                { role: "Body text", value: "~1.6", token: "leading-reading" },
+                { role: "Labels & Captions", value: "~1.3", token: "leading-label" },
+              ].map((r) => (
+                <div key={r.role} className="flex items-center gap-4">
+                  <span className="text-body-sm font-body text-foreground w-48 shrink-0">{r.role}</span>
+                  <CopyButton value={r.token} label={`${r.token} (${r.value})`} />
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* Type scale */}
-          <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-6">Type Scale</h2>
+          <h2 className="font-display text-h2 text-foreground mb-6">Type Scale</h2>
           <div className="space-y-4">
             {typographyTokens.map((t) => (
               <div key={t.name} className="p-5 rounded-md border border-border bg-card">
                 <div className="flex items-baseline justify-between mb-1">
-                  <h3 className="font-display text-base font-medium tracking-headline text-card-foreground">{t.name}</h3>
-                  <div className="flex gap-3 text-xs font-body text-muted-foreground shrink-0 ml-4">
+                  <h3 className="font-display text-h3 text-card-foreground">{t.name}</h3>
+                  <div className="flex gap-3 text-caption font-body text-muted-foreground shrink-0 ml-4">
                     <span>{t.font}</span>
                     <span>w{t.weight}</span>
                     <span>lh {t.lineHeight}</span>
@@ -132,19 +184,19 @@ const TokensTypography = () => {
 
           {/* Do / Don't */}
           <section className="mt-12">
-            <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-4">Do / Don't</h2>
+            <h2 className="font-display text-h2 text-foreground mb-4">Do / Don't</h2>
             <DosDonts
               dos={[
-                "Use Playfair Display at weight 500 for all headings.",
-                "Use Inter weight 400 for body text and weight 500 for navigation and CTAs.",
-                "Maintain consistent typographic hierarchy — Display → Section → Subsection → Body → UI → Caption.",
-                "Keep paragraph line-height between 1.6–1.75 for comfortable reading.",
+                "Use Playfair Display at weight 500 for all headings (Display–H3).",
+                "Use Lexend weight 400 for body text and weight 500 for labels and CTAs.",
+                "Follow the nine-role hierarchy: Display → H1 → H2 → H3 → Body Large → Body → Body Small → Label → Caption.",
+                "Headlines use line-height ~1.2, body ~1.6, labels ~1.3.",
               ]}
               donts={[
                 "Never use weight 300 on any font — it reads as weak and uncommitted.",
-                "Never substitute fonts. No Roboto, no Open Sans, no system fonts as primary.",
-                "Don't invent new typographic structures beyond the established six-level hierarchy.",
-                "Don't mix Playfair into body text or Inter into hero headlines.",
+                "Never substitute fonts. No Inter, no Roboto, no Open Sans as primary body.",
+                "Don't invent new typographic roles beyond the established nine.",
+                "Don't mix Playfair into body text or Lexend into hero headlines.",
               ]}
             />
           </section>
