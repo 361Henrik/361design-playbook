@@ -262,6 +262,43 @@ const Dashboard = () => {
         </div>
       </section>
 
+      {/* Sample Route */}
+      <section className="mb-10">
+        <h2 className="font-display text-h2 text-foreground mb-2">
+          Sample Route
+        </h2>
+        <p className="text-body-sm font-body text-muted-foreground mb-6 max-w-prose">
+          A five-stop walking route demonstrating how content flows through the guest experience.
+        </p>
+        <div className="flex flex-col gap-0">
+          {[
+            { num: 1, title: "Start port", desc: "Arrival point — welcome briefing, orientation, and route overview.", tag: "Start" },
+            { num: 2, title: "Historic site", desc: "Key landmark with layered storytelling: timeline, context, and local significance.", tag: "Culture" },
+            { num: 3, title: "Landscape view", desc: "Panoramic viewpoint — AR overlay identifies peaks, waterways, and distances.", tag: "Nature" },
+            { num: 4, title: "Wildlife moment", desc: "Guided observation stop with species cards and seasonal notes.", tag: "Wildlife" },
+            { num: 5, title: "Local culture", desc: "Artisan or community encounter — audio story and photo opportunity.", tag: "Culture" },
+          ].map((stop, i, arr) => (
+            <div key={stop.num} className="flex gap-4">
+              {/* Timeline line */}
+              <div className="flex flex-col items-center">
+                <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-label font-body font-medium shrink-0">
+                  {stop.num}
+                </div>
+                {i < arr.length - 1 && <div className="w-px flex-1 bg-border min-h-[24px]" />}
+              </div>
+              {/* Content */}
+              <div className="pb-6">
+                <div className="flex items-center gap-2 mb-1">
+                  <h3 className="font-display text-h3 text-foreground">{stop.title}</h3>
+                  <Badge variant="outline" className="text-[10px] font-body">{stop.tag}</Badge>
+                </div>
+                <p className="text-body-sm font-body text-muted-foreground max-w-prose">{stop.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <section>
         <h2 className="font-display text-h2 text-foreground mb-6">
           Token Categories
