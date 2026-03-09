@@ -9,10 +9,30 @@ import {
   Settings, User, Mail, Calendar, Download, Upload, Eye, EyeOff,
   Palette, Type, Ruler, LayoutGrid, Zap, Hexagon, Copy, ExternalLink,
   Hotel, Coffee, UtensilsCrossed, Info, Landmark, Building2, GalleryVerticalEnd,
-  Mountain, Waves, Binoculars, TreePine, Umbrella, Waypoints, ShoppingBag,
+  Mountain, Waves, Binoculars, TreePine, Waypoints, ShoppingBag,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { LucideIcon } from "lucide-react";
+
+// Custom Beach Parasol icon — parasol canopy + pole + meandering shoreline
+const BeachParasol = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="M12 2C8 2 4 5.5 4 9h16c0-3.5-4-7-8-7Z" />
+    <line x1="12" y1="9" x2="12" y2="19" />
+    <path d="M3 22c2-1.5 4 0 6-1s4 .5 6-1 4 0 6-1" />
+  </svg>
+);
 
 // ── Existing icon groups ──
 const iconGroups = [
@@ -101,7 +121,7 @@ const poiGroups = [
     label: "Nature Experiences",
     icons: [
       { name: "Nature Walk", icon: TreePine },
-      { name: "Beach", icon: Umbrella },
+      { name: "Beach", icon: BeachParasol as unknown as LucideIcon },
     ],
   },
   {
