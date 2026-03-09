@@ -63,6 +63,7 @@ function ProtectedRoutes() {
           <Route path="/components" element={<ComponentsPage />} />
           <Route path="/components/:id" element={<ComponentDetailPage />} />
           <Route path="/guidelines" element={<GuidelinesPage />} />
+          <Route path="/narrative-patterns" element={<NarrativePatternsPage />} />
           <Route path="/guardrails" element={<GuardrailsPage />} />
           <Route path="/export" element={<ExportPage />} />
           <Route path="/channel-kits" element={<Navigate to="/studio" replace />} />
