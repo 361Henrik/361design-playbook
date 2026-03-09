@@ -42,6 +42,7 @@ import {
   MessageSquare,
   PanelTop,
   HelpCircle,
+  Route,
 } from "lucide-react";
 
 const mainNav = [
