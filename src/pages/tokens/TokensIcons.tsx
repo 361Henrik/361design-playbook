@@ -150,7 +150,7 @@ const poiGroups = [
   {
     label: "Urban & Exploration",
     icons: [
-      { name: "Bridge", icon: Waypoints },
+      { name: "Bridge", icon: BridgeIcon as unknown as LucideIcon },
       { name: "Shopping", icon: ShoppingBag },
     ],
   },
