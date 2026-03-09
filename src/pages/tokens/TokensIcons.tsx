@@ -9,7 +9,7 @@ import {
   Settings, User, Mail, Calendar, Download, Upload, Eye, EyeOff,
   Palette, Type, Ruler, LayoutGrid, Zap, Hexagon, Copy, ExternalLink,
   Hotel, Coffee, UtensilsCrossed, Info, Landmark, Building2, GalleryVerticalEnd,
-  Mountain, Waves, Binoculars, TreePine, ShoppingBag,
+  Waves, Binoculars, TreePine, ShoppingBag,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { LucideIcon } from "lucide-react";
@@ -48,12 +48,32 @@ const BridgeIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: num
     strokeLinejoin="round"
     className={className}
   >
-    {/* Bridge deck */}
-    <line x1="2" y1="8" x2="22" y2="8" />
+    {/* Arch */}
     {/* Arch */}
     <path d="M5 16c0-5 3.5-8 7-8s7 3 7 8" />
     {/* Water line */}
     <line x1="2" y1="20" x2="22" y2="20" />
+  </svg>
+);
+
+// Custom Island icon — mountain peak with water wave underneath
+const IslandIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    {/* Mountain peak */}
+    <path d="M12 4L4 16h16L12 4Z" />
+    {/* Water wave */}
+    <path d="M2 20c2-1.5 4 0 6-1s4 .5 6-1 4 0 6-1" />
   </svg>
 );
 
@@ -135,7 +155,7 @@ const poiGroups = [
     label: "Scenic & Landscape",
     icons: [
       { name: "View", icon: Eye },
-      { name: "Island / Islet", icon: Mountain },
+      { name: "Island / Islet", icon: IslandIcon as unknown as LucideIcon },
       { name: "Nature Sight", icon: Waves },
       { name: "Lookout", icon: Binoculars },
     ],
