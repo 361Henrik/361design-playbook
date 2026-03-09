@@ -34,6 +34,29 @@ const BeachParasol = ({ size = 24, strokeWidth = 2, className = "" }: { size?: n
   </svg>
 );
 
+// Custom Bridge icon — arch bridge with deck and water line
+const BridgeIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    {/* Bridge deck */}
+    <line x1="2" y1="8" x2="22" y2="8" />
+    {/* Arch */}
+    <path d="M5 8c0 5 3.5 8 7 8s7-3 7-8" />
+    {/* Water line */}
+    <line x1="2" y1="20" x2="22" y2="20" />
+  </svg>
+);
+
 // ── Existing icon groups ──
 const iconGroups = [
   {
