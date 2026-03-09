@@ -492,7 +492,7 @@ const TokensIcons = () => {
                     <MapMarker
                       state={item.state}
                       size={40}
-                      icon={item.state === "cluster" ? undefined : Landmark}
+                      icon={item.state === "cluster" ? undefined : HistoricSiteIcon as unknown as LucideIcon}
                       clusterCount={item.state === "cluster" ? 5 : undefined}
                     />
                     <div className="text-center mt-2">
