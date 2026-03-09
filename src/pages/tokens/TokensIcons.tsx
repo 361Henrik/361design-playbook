@@ -9,7 +9,7 @@ import {
   Settings, User, Mail, Calendar, Download, Upload, Eye, EyeOff,
   Palette, Type, Ruler, LayoutGrid, Zap, Hexagon, Copy, ExternalLink,
   Hotel, Coffee, UtensilsCrossed, Info, Landmark, Building2, GalleryVerticalEnd,
-  Mountain, Waves, Binoculars, TreePine, Umbrella, Waypoints, ShoppingBag,
+  Mountain, Waves, Binoculars, TreePine, UmbrellaBeach, Waypoints, ShoppingBag,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { LucideIcon } from "lucide-react";
