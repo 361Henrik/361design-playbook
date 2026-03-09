@@ -34,47 +34,79 @@ const BeachParasol = ({ size = 24, strokeWidth = 2, className = "" }: { size?: n
   </svg>
 );
 
-// Custom Bridge icon — arch bridge with deck and water line
+// Custom Bridge icon — flat deck on top with arch underneath and water line
 const BridgeIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={strokeWidth}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    {/* Arch */}
-    {/* Arch */}
-    <path d="M5 16c0-5 3.5-8 7-8s7 3 7 8" />
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
+    {/* Deck surface */}
+    <line x1="3" y1="10" x2="21" y2="10" />
+    {/* Arch underneath */}
+    <path d="M5 10c0 4 3.5 6 7 6s7-2 7-6" />
+    {/* Support pillars */}
+    <line x1="5" y1="10" x2="5" y2="18" />
+    <line x1="19" y1="10" x2="19" y2="18" />
     {/* Water line */}
-    <line x1="2" y1="20" x2="22" y2="20" />
+    <path d="M2 20c2 0 3-1 5-1s3 1 5 1 3-1 5-1 3 1 5 1" />
   </svg>
 );
 
-// Custom Island icon — mountain peak with water wave underneath
+// Custom Island icon — small land mound with tiny house + flag, wavy water below
 const IslandIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={strokeWidth}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    {/* Mountain peak */}
-    <path d="M12 4L4 14h16L12 4Z" />
-    {/* Two wavy water lines */}
-    <path d="M2 18c2 0 3.5-1.5 5.5-1.5S11 18 12 18s2.5-1.5 4.5-1.5S20 18 22 18" />
-    <path d="M2 21c2 0 3.5-1.5 5.5-1.5S11 21 12 21s2.5-1.5 4.5-1.5S20 21 22 21" />
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
+    {/* Flag pole */}
+    <line x1="14" y1="4" x2="14" y2="11" />
+    {/* Flag */}
+    <path d="M14 4l4 2-4 2" />
+    {/* Tiny house */}
+    <path d="M8 11l2-3 2 3" />
+    <rect x="8" y="11" width="4" height="3" rx="0.3" />
+    {/* Land mound */}
+    <path d="M4 14c1-1 3-2 8-2s7 1 8 2" />
+    {/* Water line */}
+    <path d="M2 18c2 0 3-1 5-1s3 1 5 1 3-1 5-1 3 1 5 1" />
+  </svg>
+);
+
+// Custom Nature Sight icon — two mountain peaks with ridgeline
+const NatureSightIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
+    {/* Left peak (taller) */}
+    <path d="M3 18l5-10 3 4 2-6 3 4 5-2v10H3z" />
+    {/* Snow cap accent on main peak */}
+    <path d="M8 8l1.5 3L11 9" />
+  </svg>
+);
+
+// Custom Historic Site icon — castle turret with crenellations
+const HistoricSiteIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
+    {/* Base */}
+    <rect x="5" y="10" width="14" height="10" rx="0.5" />
+    {/* Crenellations */}
+    <path d="M5 10V7h2v3M9 10V7h2v3M13 10V7h2v3M17 10V7h2v3" />
+    {/* Top wall connecting crenellations */}
+    <line x1="5" y1="10" x2="19" y2="10" />
+    {/* Door */}
+    <path d="M10 20v-4a2 2 0 0 1 4 0v4" />
+    {/* Window */}
+    <line x1="12" y1="12" x2="12" y2="14" />
+  </svg>
+);
+
+// Custom Gallery icon — framed picture on wall with rope stanchions
+const GalleryIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
+    {/* Picture frame */}
+    <rect x="6" y="3" width="12" height="10" rx="0.5" />
+    {/* Mountain scene inside frame */}
+    <path d="M6 11l3-3 2 2 2-4 3 3 2-1v2H6z" />
+    {/* Rope stanchion left post */}
+    <line x1="7" y1="17" x2="7" y2="21" />
+    <circle cx="7" cy="16.5" r="0.8" />
+    {/* Rope stanchion right post */}
+    <line x1="17" y1="17" x2="17" y2="21" />
+    <circle cx="17" cy="16.5" r="0.8" />
+    {/* Rope */}
+    <path d="M7 17c2 1.5 8 1.5 10 0" />
   </svg>
 );
 
