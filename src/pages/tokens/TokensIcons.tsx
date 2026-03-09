@@ -376,11 +376,11 @@ const TokensIcons = () => {
             <div className="p-6 rounded-md border border-border bg-card">
               <div className="flex flex-wrap items-end gap-10">
                 {([
-                  { state: "default" as MarkerState, label: "Default", desc: "White center, black icon, thin black ring" },
-                  { state: "hover" as MarkerState, label: "Hover / Focus", desc: "White center, black icon, bronze ring" },
-                  { state: "selected" as MarkerState, label: "Selected", desc: "Black center, white icon, bronze ring" },
-                  { state: "cluster" as MarkerState, label: "Cluster", desc: "White circle, number, bronze ring" },
-                  { state: "curated" as MarkerState, label: "Curated Highlight", desc: "White center, double bronze ring" },
+                  { state: "default" as MarkerState, label: "Default", desc: "White bg, black icon, 2px black ring" },
+                  { state: "hover" as MarkerState, label: "Hover / Focus", desc: "White bg, black icon, 2.5px black ring" },
+                  { state: "selected" as MarkerState, label: "Selected", desc: "White bg, black icon, 3px bronze ring" },
+                  { state: "cluster" as MarkerState, label: "Cluster", desc: "White circle, black number, black ring" },
+                  { state: "curated" as MarkerState, label: "Curated Highlight", desc: "White bg, double bronze ring" },
                 ]).map((item) => (
                   <div key={item.state} className="flex flex-col items-center gap-3">
                     <MapMarker
