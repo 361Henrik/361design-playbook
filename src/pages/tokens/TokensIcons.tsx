@@ -125,7 +125,7 @@ function MapMarker({
 }: {
   state?: MarkerState;
   size?: number;
-  icon?: React.ComponentType<{ className?: string; strokeWidth?: number }>;
+  icon?: LucideIcon;
   clusterCount?: number;
   className?: string;
 }) {
