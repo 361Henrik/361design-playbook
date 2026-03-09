@@ -179,9 +179,9 @@ const poiGroups = [
   {
     label: "Culture & Heritage",
     icons: [
-      { name: "Historic Site", icon: Landmark },
+      { name: "Historic Site", icon: HistoricSiteIcon as unknown as LucideIcon },
       { name: "Museum", icon: Building2 },
-      { name: "Gallery", icon: GalleryVerticalEnd },
+      { name: "Gallery", icon: GalleryIcon as unknown as LucideIcon },
     ],
   },
   {
@@ -189,7 +189,7 @@ const poiGroups = [
     icons: [
       { name: "View", icon: Eye },
       { name: "Island / Islet", icon: IslandIcon as unknown as LucideIcon },
-      { name: "Nature Sight", icon: Waves },
+      { name: "Nature Sight", icon: NatureSightIcon as unknown as LucideIcon },
       { name: "Lookout", icon: Binoculars },
     ],
   },
