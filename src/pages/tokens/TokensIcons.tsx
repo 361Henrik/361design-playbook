@@ -129,12 +129,17 @@ function MapMarker({
   clusterCount?: number;
   className?: string;
 }) {
-  const isSelected = state === "selected";
-  const isBronzeRing = state === "hover" || state === "selected" || state === "cluster" || state === "curated";
   const isCurated = state === "curated";
+  const isBronzeRing = state === "selected" || state === "curated";
+  const isCluster = state === "cluster";
+
+  // Ring border widths per state
+  const ringWidth = state === "selected" ? 3 : state === "hover" ? 2.5 : 2;
 
   const ringSize = size + 8;
   const outerRingSize = isCurated ? size + 16 : ringSize;
+
+  const shadow = "0 1px 2px rgba(0,0,0,0.15)";
 
   return (
     <div className={cn("flex flex-col items-center gap-1", className)}>
@@ -142,10 +147,11 @@ function MapMarker({
         {/* Outer ring (curated double ring) */}
         {isCurated && (
           <div
-            className="absolute rounded-full border-[1.5px] border-accent"
+            className="absolute rounded-full border-accent"
             style={{
               width: outerRingSize,
               height: outerRingSize,
+              borderWidth: 2,
               top: 0,
               left: 0,
             }}
@@ -154,27 +160,26 @@ function MapMarker({
         {/* Ring */}
         <div
           className={cn(
-            "absolute rounded-full border-[1.5px]",
+            "absolute rounded-full",
             isBronzeRing ? "border-accent" : "border-foreground"
           )}
           style={{
             width: ringSize,
             height: ringSize,
+            borderWidth: ringWidth,
             top: isCurated ? 4 : 0,
             left: isCurated ? 4 : 0,
           }}
         />
         {/* Body */}
         <div
-          className={cn(
-            "absolute rounded-full flex items-center justify-center",
-            isSelected ? "bg-foreground" : "bg-background"
-          )}
+          className="absolute rounded-full flex items-center justify-center bg-background"
           style={{
             width: size,
             height: size,
             top: isCurated ? 8 : 4,
             left: isCurated ? 8 : 4,
+            boxShadow: shadow,
           }}
         >
           {clusterCount !== undefined ? (
@@ -186,7 +191,7 @@ function MapMarker({
             </span>
           ) : Icon ? (
             <Icon
-              className={isSelected ? "text-background" : "text-foreground"}
+              className="text-foreground"
               strokeWidth={2}
               size={size * 0.45}
             />
@@ -194,12 +199,7 @@ function MapMarker({
         </div>
         {/* Pointer tip */}
         <div
-          className={cn(
-            "absolute w-0 h-0",
-            isSelected
-              ? "border-l-[5px] border-r-[5px] border-t-[6px] border-l-transparent border-r-transparent border-t-foreground"
-              : "border-l-[5px] border-r-[5px] border-t-[6px] border-l-transparent border-r-transparent border-t-border"
-          )}
+          className="absolute w-0 h-0 border-l-[5px] border-r-[5px] border-t-[6px] border-l-transparent border-r-transparent border-t-border"
           style={{
             bottom: 0,
             left: "50%",
