@@ -48,8 +48,7 @@ const BridgeIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: num
     strokeLinejoin="round"
     className={className}
   >
-    {/* Bridge deck */}
-    <line x1="2" y1="8" x2="22" y2="8" />
+    {/* Arch */}
     {/* Arch */}
     <path d="M5 16c0-5 3.5-8 7-8s7 3 7 8" />
     {/* Water line */}
