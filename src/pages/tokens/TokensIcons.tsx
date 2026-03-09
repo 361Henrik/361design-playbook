@@ -56,6 +56,27 @@ const BridgeIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: num
   </svg>
 );
 
+// Custom Island icon — mountain peak with water wave underneath
+const IslandIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    {/* Mountain peak */}
+    <path d="M12 4L4 16h16L12 4Z" />
+    {/* Water wave */}
+    <path d="M2 20c2-1.5 4 0 6-1s4 .5 6-1 4 0 6-1" />
+  </svg>
+);
+
 // ── Existing icon groups ──
 const iconGroups = [
   {
