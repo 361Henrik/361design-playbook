@@ -156,7 +156,7 @@ const poiGroups = [
   {
     label: "Essentials",
     icons: [
-      { name: "Hotel", icon: Hotel },
+      { name: "Hotel", icon: HotelIcon as unknown as LucideIcon },
       { name: "Café", icon: Coffee },
       { name: "Restaurant", icon: UtensilsCrossed },
       { name: "Information", icon: Info },
