@@ -188,7 +188,7 @@ function MapMarker({
             <Icon
               className={isSelected ? "text-background" : "text-foreground"}
               strokeWidth={2}
-              style={{ width: size * 0.45, height: size * 0.45 }}
+              size={size * 0.45}
             />
           ) : null}
         </div>
