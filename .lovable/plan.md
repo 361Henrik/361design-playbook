@@ -1,95 +1,38 @@
 
 
-# Two-Pane Login Page Redesign
+# Update POI Icons to Match Reference Images
 
-Redesign the Auth page from a centered card into a split-panel editorial layout: branded intro on the left, login form on the right.
+Replace several POI icons with custom SVG components that match the uploaded reference images. The reference shows specific icon styles inside circular map markers.
 
----
+## Icons to Update
 
-## Layout Structure
-
-```text
-Desktop (>=1024px):
-+---------------------------+---------------------+
-|                           |                     |
-|   LEFT PANEL (50%)        |  RIGHT PANEL (50%)  |
-|   bg-primary (Deep Green) |  bg-background      |
-|                           |                     |
-|   Logo                    |  "Sign In" heading   |
-|   Headline                |  Login/Signup tabs   |
-|   Subhead                 |  Form fields         |
-|   Description paragraph   |  CTA button          |
-|   3 benefit bullets       |  Forgot password     |
-|   Bronze accent line      |  Help link           |
-|                           |                     |
-+---------------------------+---------------------+
-
-Tablet (768-1023px): Stacked -- intro panel on top (compact), form below
-Mobile (<768px): Stacked -- intro collapses to logo + one-liner, form fills viewport
-```
-
----
-
-## Left Panel Content
-
-- **Logo**: "The Curated Lens" in `font-display` (Playfair Display), warm-white text
-- **Headline**: "Your Design System. Defined. Applied."
-- **Subhead**: "The single source of truth for design tokens, rules, components, and interactive guidance."
-- **Description** (3 benefit lines with subtle bronze bullet markers):
-  - Browse tokens and patterns with live previews
-  - Run guided reviews backed by brand guardrails
-  - Export production-ready code for any channel
-- **Accent**: A thin horizontal bronze line separator between headline block and benefits
-- **Background**: `bg-primary` (Deep Forest Green) with `text-primary-foreground` (Warm White)
-- **Spacing**: generous padding (`p-12 lg:p-16`), editorial whitespace
-
-## Right Panel
-
-- Clean `bg-background` (Warm White)
-- Title: "Sign In" / "Create Account" based on active tab
-- Existing login/signup tab forms (preserved as-is)
-- Below form: "Forgot password?" link + "Need help?" link to `/help`
-- Centered vertically with `max-w-sm` constraint
-
-## Responsive Behavior
-
-- **Desktop** (`lg:`): `flex-row`, each panel 50%
-- **Tablet** (`md:`): stacked, left panel becomes a compact header (logo + headline only, ~200px height)
-- **Mobile**: left panel shrinks to logo + single tagline (~80px), form takes remaining space
-
----
+| POI | Current Icon | New Approach |
+|-----|-------------|-------------|
+| **Nature Sight** | `Waves` (Lucide) | Custom: two mountain peaks with jagged ridgeline (matching reference) |
+| **Island / Islet** | Custom triangle + 2 waves | Custom: small land mound with tiny house + flag on top, wavy water line below (matching reference) |
+| **Hotel** | `Hotel` (Lucide) | Keep as-is — Lucide `Hotel` already shows a bed icon matching the reference |
+| **Historic Site** | `Landmark` (Lucide) | Custom: castle tower/turret with crenellations (matching reference) |
+| **Gallery** | `GalleryVerticalEnd` (Lucide) | Custom: framed portrait on wall with rope stanchions below (matching reference) |
+| **Bridge** | Custom arch + water line | Custom: wider flatter arch bridge with visible deck surface (matching reference — current is close but needs the flat top deck added back) |
 
 ## File Changes
 
-### `src/pages/Auth.tsx` -- Full rewrite of the return JSX
+### `src/pages/tokens/TokensIcons.tsx`
 
-1. Replace the outer `div > Card` with a two-pane flex layout
-2. Extract the left branded panel as an inline section (no separate component needed -- it's static content)
-3. Keep all existing form logic, state, and handlers untouched
-4. Update the title from "Curated Lens" to "The Curated Lens"
-5. Add subtle `animate-in` fade on the left panel using Tailwind's `animate` utilities
-6. Add "Need help?" link below the forgot password button, linking to `/help`
-7. Use `font-display` for headings, `font-body` for body text, `text-bronze` for accent markers
+1. **Add 4 new custom SVG components** (same pattern as `BeachParasol`/`BridgeIcon`):
+   - `NatureSightIcon` — two mountain peaks with connecting ridgeline
+   - `HistoricSiteIcon` — castle turret with crenellations on top, rectangular base
+   - `GalleryIcon` — framed picture on wall + rope barrier with two stanchion posts
+   - Update `IslandIcon` — small rounded land mass with tiny house and flag, single wavy water line below
 
-### No other files need changes
+2. **Update `BridgeIcon`** — add a flat deck/road surface on top of the arch (reference shows a flat-topped bridge profile with arch underneath)
 
-All styling uses existing Tailwind tokens (`primary`, `primary-foreground`, `bronze`, `font-display`, `font-body`, spacing tokens). No new dependencies or components required.
+3. **Update POI groups** to use new custom icons instead of Lucide ones:
+   - `"Nature Sight"` → `NatureSightIcon`
+   - `"Historic Site"` → `HistoricSiteIcon`
+   - `"Gallery"` → `GalleryIcon`
 
----
+4. **Remove unused Lucide imports**: `Landmark`, `GalleryVerticalEnd`, `Waves` (if no longer used elsewhere)
 
-## Accessibility
-
-- Tab order: left panel is decorative/informational, focus starts on the first form field in the right panel
-- Left panel content uses semantic `h1` for the headline, `p` for descriptions
-- Form labels and inputs remain properly associated
-- Color contrast: warm-white on deep-green meets WCAG AA
-
-## Acceptance Criteria
-
-- Desktop shows side-by-side layout with branded left panel and login form on right
-- Left panel displays headline, subhead, benefit bullets, and bronze accent
-- Mobile/tablet gracefully stacks with condensed intro
-- All existing auth functionality (login, signup, forgot password) works unchanged
-- Title reads "The Curated Lens" throughout
-- No gradients, no heavy animation -- calm editorial feel
+All custom icons follow the established pattern: 24x24 viewBox, `stroke="currentColor"`, no fills, `strokeLinecap="round"`, `strokeLinejoin="round"`, 1.5-2px stroke weight.
 
