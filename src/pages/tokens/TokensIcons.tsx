@@ -563,7 +563,7 @@ const TokensIcons = () => {
 
               {/* Hover */}
               <div className="absolute" style={{ top: "20%", left: "45%" }}>
-                <MapMarker state="hover" size={40} icon={Landmark} />
+                <MapMarker state="hover" size={40} icon={HistoricSiteIcon as unknown as LucideIcon} />
                 <p className="text-[9px] font-body text-muted-foreground text-center mt-1">Hover</p>
               </div>
 
