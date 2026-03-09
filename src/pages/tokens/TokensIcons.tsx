@@ -121,7 +121,7 @@ const poiGroups = [
     label: "Nature Experiences",
     icons: [
       { name: "Nature Walk", icon: TreePine },
-      { name: "Beach", icon: Umbrella },
+      { name: "Beach", icon: BeachParasol as unknown as LucideIcon },
     ],
   },
   {
