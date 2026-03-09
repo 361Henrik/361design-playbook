@@ -182,20 +182,30 @@ function MapMarker({
             boxShadow: shadow,
           }}
         >
-          {clusterCount !== undefined ? (
-            <span
-              className="font-body font-medium text-foreground"
-              style={{ fontSize: size * 0.38 }}
-            >
-              {clusterCount}
-            </span>
-          ) : Icon ? (
-            <Icon
-              className="text-foreground"
-              strokeWidth={2}
-              size={size * 0.45}
-            />
-          ) : null}
+          {/* Inner white plate for map background isolation */}
+          <div
+            className="rounded-full flex items-center justify-center bg-background"
+            style={{
+              width: size * 0.82,
+              height: size * 0.82,
+              boxShadow: "inset 0 0 0 1px hsl(var(--border) / 0.08)",
+            }}
+          >
+            {clusterCount !== undefined ? (
+              <span
+                className="font-body font-medium text-foreground"
+                style={{ fontSize: size * 0.38 }}
+              >
+                {clusterCount}
+              </span>
+            ) : Icon ? (
+              <Icon
+                className="text-foreground"
+                strokeWidth={size <= 32 ? 2.25 : 2.5}
+                size={size <= 32 ? 16 : size <= 40 ? 20 : 24}
+              />
+            ) : null}
+          </div>
         </div>
         {/* Pointer tip */}
         <div
