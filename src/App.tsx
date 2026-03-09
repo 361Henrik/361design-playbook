@@ -26,6 +26,7 @@ import ChangelogPage from "./pages/Changelog";
 import CopilotPage from "./pages/Copilot";
 import ChannelKitsPage from "./pages/ChannelKits";
 import StudioPage from "./pages/Studio";
+import NarrativePatternsPage from "./pages/NarrativePatterns";
 import HelpPage from "./pages/Help";
 import AuthPage from "./pages/Auth";
 import ResetPassword from "./pages/ResetPassword";
@@ -62,6 +63,7 @@ function ProtectedRoutes() {
           <Route path="/components" element={<ComponentsPage />} />
           <Route path="/components/:id" element={<ComponentDetailPage />} />
           <Route path="/guidelines" element={<GuidelinesPage />} />
+          <Route path="/narrative-patterns" element={<NarrativePatternsPage />} />
           <Route path="/guardrails" element={<GuardrailsPage />} />
           <Route path="/export" element={<ExportPage />} />
           <Route path="/channel-kits" element={<Navigate to="/studio" replace />} />

@@ -42,6 +42,7 @@ import {
   MessageSquare,
   PanelTop,
   HelpCircle,
+  Route,
 } from "lucide-react";
 
 const mainNav = [
@@ -61,6 +62,7 @@ const tokenNav = [
 const systemNav = [
   { title: "Components", url: "/components", icon: Component },
   { title: "Guidelines", url: "/guidelines", icon: BookOpen },
+  { title: "Narrative Patterns", url: "/narrative-patterns", icon: Route },
   { title: "Guardrails", url: "/guardrails", icon: ShieldCheck },
   { title: "Export", url: "/export", icon: Download },
   { title: "Studio", url: "/studio", icon: PanelTop },
