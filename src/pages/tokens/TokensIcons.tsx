@@ -12,6 +12,7 @@ import {
   Mountain, Waves, Binoculars, TreePine, Umbrella, Waypoints, ShoppingBag,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import type { LucideIcon } from "lucide-react";
 
 // ── Existing icon groups ──
 const iconGroups = [
