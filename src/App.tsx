@@ -26,6 +26,7 @@ import ChangelogPage from "./pages/Changelog";
 import CopilotPage from "./pages/Copilot";
 import ChannelKitsPage from "./pages/ChannelKits";
 import StudioPage from "./pages/Studio";
+import NarrativePatternsPage from "./pages/NarrativePatterns";
 import HelpPage from "./pages/Help";
 import AuthPage from "./pages/Auth";
 import ResetPassword from "./pages/ResetPassword";
