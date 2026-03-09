@@ -73,7 +73,7 @@ const IslandIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: num
     {/* Mountain peak */}
     <path d="M12 4L4 16h16L12 4Z" />
     {/* Single horizontal wave */}
-    <path d="M3 20c3 0 4-2 6-2s3 2 6 2 3-2 6-2" />
+    <path d="M1 21c3 0 5-2 7-2s4 2 7 2 4-2 7-2" />
   </svg>
 );
 
