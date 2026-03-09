@@ -155,7 +155,7 @@ const poiGroups = [
     label: "Scenic & Landscape",
     icons: [
       { name: "View", icon: Eye },
-      { name: "Island / Islet", icon: Mountain },
+      { name: "Island / Islet", icon: IslandIcon as unknown as LucideIcon },
       { name: "Nature Sight", icon: Waves },
       { name: "Lookout", icon: Binoculars },
     ],
