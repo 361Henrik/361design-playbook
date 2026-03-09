@@ -8,8 +8,8 @@ import {
   Search, Menu, X, Plus, Minus, Check, ChevronDown, ChevronRight,
   Settings, User, Mail, Calendar, Download, Upload, Eye, EyeOff,
   Palette, Type, Ruler, LayoutGrid, Zap, Hexagon, Copy, ExternalLink,
-  Hotel, Coffee, UtensilsCrossed, Info, Landmark, Building2, GalleryVerticalEnd,
-  Waves, Binoculars, TreePine, ShoppingBag,
+  Hotel, Coffee, UtensilsCrossed, Info, Building2,
+  Binoculars, TreePine, ShoppingBag,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { LucideIcon } from "lucide-react";
