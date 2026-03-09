@@ -51,7 +51,7 @@ const BridgeIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: num
     {/* Bridge deck */}
     <line x1="2" y1="8" x2="22" y2="8" />
     {/* Arch */}
-    <path d="M5 8c0 5 3.5 8 7 8s7-3 7-8" />
+    <path d="M5 16c0-5 3.5-8 7-8s7 3 7 8" />
     {/* Water line */}
     <line x1="2" y1="20" x2="22" y2="20" />
   </svg>
