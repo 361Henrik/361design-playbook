@@ -68,6 +68,16 @@ function ProtectedRoutes() {
           <Route path="/tokens/spacing" element={<TokensSpacing />} />
           <Route path="/tokens/layout" element={<TokensLayout />} />
           <Route path="/tokens/motion" element={<TokensMotion />} />
+          <Route path="/maps/principles" element={<MapPrinciples />} />
+          <Route path="/maps/corridor" element={<DynamicScenicCorridor />} />
+          <Route path="/maps/layers" element={<MapLayers />} />
+          <Route path="/maps/visual-style" element={<MapVisualStyle />} />
+          <Route path="/maps/labels" element={<MapLabelsGeography />} />
+          <Route path="/maps/route-position" element={<RoutePosition />} />
+          <Route path="/maps/interaction" element={<MapInteraction />} />
+          <Route path="/maps/filtering" element={<FilteringCategories />} />
+          <Route path="/maps/guest-experience" element={<GuestExperience />} />
+          <Route path="/maps/examples" element={<MapExamples />} />
           <Route path="/tokens/icons" element={<TokensIcons />} />
           <Route path="/tokens/voice" element={<TokensVoice />} />
           <Route path="/components" element={<ComponentsPage />} />
