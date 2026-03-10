@@ -37,51 +37,75 @@ const NatureSightIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?
 // Custom Island icon — land mound with house + flag, water below
 const IslandIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <line x1="15" y1="4" x2="15" y2="12" />
-    <path d="M15 4l3.5 1.8L15 7.5" />
-    <path d="M7 12l2.5-3 2.5 3" />
-    <rect x="7.5" y="12" width="4" height="3" />
-    <line x1="9.5" y1="15" x2="9.5" y2="13.5" />
-    <path d="M3 16c1.5-1.5 4-2.5 9-2.5s7.5 1 9 2.5" />
-    <path d="M2 19c2.5 0 4-1 6-1s3.5 1 6 1 3.5-1 6-1" />
+    {/* Flag pole */}
+    <line x1="14" y1="5" x2="14" y2="14" />
+    {/* Flag */}
+    <path d="M14 5l4 1.5L14 8" />
+    {/* House body */}
+    <rect x="8" y="11" width="5" height="3.5" />
+    {/* House roof */}
+    <path d="M7.5 11l3-2.5 3 2.5" />
+    {/* Door */}
+    <line x1="10.5" y1="14.5" x2="10.5" y2="12.5" />
+    {/* Land mound */}
+    <path d="M4 17c1-2 4-3.5 8-3.5s7 1.5 8 3.5" />
+    {/* Water line */}
+    <path d="M3 20c2-1 4.5-1 6.5 0s4.5 1 6.5 0 4.5-1 6.5 0" />
   </svg>
 );
 
-// Custom Hotel icon — bed with headboard
+// Custom Hotel icon — bed with headboard, pillow, blanket
 const HotelIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M3 7v11" />
-    <path d="M3 11h18" />
-    <path d="M21 11v7" />
-    <path d="M3 18h18" />
-    <rect x="5" y="8" width="4" height="3" rx="1" />
-    <path d="M11 11c0-2 1.5-3 4-3s4 1 4 3" />
-    <line x1="3" y1="18" x2="3" y2="20" />
-    <line x1="21" y1="18" x2="21" y2="20" />
+    {/* Headboard */}
+    <path d="M3 6v12" />
+    <path d="M3 6h2v5H3" />
+    {/* Mattress platform */}
+    <line x1="3" y1="16" x2="21" y2="16" />
+    {/* Pillow */}
+    <rect x="5.5" y="11" width="3.5" height="2.5" rx="1" />
+    {/* Blanket curve */}
+    <path d="M10 13.5c0-2.5 2-4 5.5-4s5.5 1.5 5.5 4" />
+    {/* Bed frame line */}
+    <line x1="21" y1="11" x2="21" y2="16" />
+    {/* Legs */}
+    <line x1="3" y1="16" x2="3" y2="19" />
+    <line x1="21" y1="16" x2="21" y2="19" />
   </svg>
 );
 
 // Custom Historic Site icon — castle turret with crenellations
 const HistoricSiteIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M6 21V8h12v13" />
-    <path d="M6 8V5h3v3M9 8V5h3v3M12 8V5h3v3M15 8V5h3v3" />
-    <line x1="6" y1="8" x2="18" y2="8" />
-    <path d="M10 21v-5a2 2 0 0 1 4 0v5" />
-    <circle cx="12" cy="12" r="1" />
+    {/* Tower walls */}
+    <line x1="6" y1="9" x2="6" y2="21" />
+    <line x1="18" y1="9" x2="18" y2="21" />
+    {/* Crenellations — 4 merlons */}
+    <path d="M5 9v-3h2.5v3M8.5 9v-3h3v3M12.5 9v-3h3v3M16.5 9v-3H19v3" />
+    {/* Battlement base line */}
+    <line x1="5" y1="9" x2="19" y2="9" />
+    {/* Arched door */}
+    <path d="M10 21v-4a2 2 0 0 1 4 0v4" />
+    {/* Window */}
+    <line x1="12" y1="12" x2="12" y2="14" />
   </svg>
 );
 
 // Custom Gallery icon — framed picture with rope stanchions
 const GalleryIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <rect x="6" y="2" width="12" height="10" rx="0.5" />
-    <path d="M6 10l3-3 2 1.5 3-4 4 5.5H6z" />
+    {/* Picture frame */}
+    <rect x="5" y="2" width="14" height="11" rx="0.5" />
+    {/* Mountain scene inside frame */}
+    <path d="M5 11l4-4 2.5 2 3.5-5 4 7H5z" />
+    {/* Left stanchion post */}
     <line x1="7" y1="16" x2="7" y2="21" />
-    <circle cx="7" cy="15.5" r="0.7" />
+    <circle cx="7" cy="15.5" r="0.8" />
+    {/* Right stanchion post */}
     <line x1="17" y1="16" x2="17" y2="21" />
-    <circle cx="17" cy="15.5" r="0.7" />
-    <path d="M7 16.5c3 2 7 2 10 0" />
+    <circle cx="17" cy="15.5" r="0.8" />
+    {/* Rope between stanchions — catenary curve */}
+    <path d="M7 16c2 3 8 3 10 0" />
   </svg>
 );
 
@@ -417,7 +441,7 @@ const TokensIcons = () => {
                   <div className="absolute top-0 left-[12px] w-[96px] h-[96px] rounded-full border-2 border-dashed border-accent" />
                   {/* Body */}
                   <div className="absolute top-[8px] left-[20px] w-[80px] h-[80px] rounded-full border border-foreground bg-background flex items-center justify-center">
-                    <HistoricSiteIcon className="h-8 w-8 text-foreground" strokeWidth={2} />
+                    <Coffee className="h-8 w-8 text-foreground" strokeWidth={2} />
                   </div>
                   {/* Pointer */}
                   <div className="absolute bottom-[28px] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-r-[8px] border-t-[10px] border-l-transparent border-r-transparent border-t-border" />
@@ -478,7 +502,7 @@ const TokensIcons = () => {
                     <MapMarker
                       state={item.state}
                       size={40}
-                      icon={item.state === "cluster" ? undefined : HistoricSiteIcon as unknown as LucideIcon}
+                      icon={item.state === "cluster" ? undefined : Coffee}
                       clusterCount={item.state === "cluster" ? 5 : undefined}
                     />
                     <div className="text-center mt-2">
@@ -549,7 +573,7 @@ const TokensIcons = () => {
 
               {/* Hover */}
               <div className="absolute" style={{ top: "20%", left: "45%" }}>
-                <MapMarker state="hover" size={40} icon={HistoricSiteIcon as unknown as LucideIcon} />
+                <MapMarker state="hover" size={40} icon={Coffee} />
                 <p className="text-[9px] font-body text-muted-foreground text-center mt-1">Hover</p>
               </div>
 
