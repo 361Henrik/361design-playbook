@@ -34,7 +34,7 @@ const NatureSightIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?
 const IslandIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
     <path d="M8 14l4-8 4 8" />
-    <path d="M2 19c2-2 5-3.5 10-3.5s8 1.5 10 3.5" />
+    <path d="M2 18c1.5-1 2.5 1 4 0s2.5-1 4 0 2.5 1 4 0 2.5-1 4 0 2.5 1 4 0" />
   </svg>
 );
 
