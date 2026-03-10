@@ -43,6 +43,7 @@ import {
   PanelTop,
   HelpCircle,
   Route,
+  Map,
 } from "lucide-react";
 
 const mainNav = [
