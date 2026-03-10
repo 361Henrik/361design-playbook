@@ -77,11 +77,17 @@ const HotelIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: numb
 // Custom Historic Site icon — castle turret with crenellations
 const HistoricSiteIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M6 21V8h12v13" />
-    <path d="M6 8V5h3v3M9 8V5h3v3M12 8V5h3v3M15 8V5h3v3" />
-    <line x1="6" y1="8" x2="18" y2="8" />
-    <path d="M10 21v-5a2 2 0 0 1 4 0v5" />
-    <circle cx="12" cy="12" r="1" />
+    {/* Tower walls */}
+    <line x1="6" y1="9" x2="6" y2="21" />
+    <line x1="18" y1="9" x2="18" y2="21" />
+    {/* Crenellations — 4 merlons */}
+    <path d="M5 9v-3h2.5v3M8.5 9v-3h3v3M12.5 9v-3h3v3M16.5 9v-3H19v3" />
+    {/* Battlement base line */}
+    <line x1="5" y1="9" x2="19" y2="9" />
+    {/* Arched door */}
+    <path d="M10 21v-4a2 2 0 0 1 4 0v4" />
+    {/* Window */}
+    <line x1="12" y1="12" x2="12" y2="14" />
   </svg>
 );
 
