@@ -1,108 +1,95 @@
 
 
-# Maps Section — Implementation Plan
+# Two-Pane Login Page Redesign
 
-## Overview
+Redesign the Auth page from a centered card into a split-panel editorial layout: branded intro on the left, login form on the right.
 
-Add a new "Maps" sidebar group with 10 documentation pages to the design system hub. Each page follows the existing page pattern (PageHeader + card sections). No changes to icons or markers.
+---
 
-## Structure
-
-### Sidebar (AppSidebar.tsx)
-
-Add a new nav group "Maps" between Tokens and System, using the `Map` icon from lucide-react:
+## Layout Structure
 
 ```text
-Tokens
-  Colors, Typography, ...
+Desktop (>=1024px):
++---------------------------+---------------------+
+|                           |                     |
+|   LEFT PANEL (50%)        |  RIGHT PANEL (50%)  |
+|   bg-primary (Deep Green) |  bg-background      |
+|                           |                     |
+|   Logo                    |  "Sign In" heading   |
+|   Headline                |  Login/Signup tabs   |
+|   Subhead                 |  Form fields         |
+|   Description paragraph   |  CTA button          |
+|   3 benefit bullets       |  Forgot password     |
+|   Bronze accent line      |  Help link           |
+|                           |                     |
++---------------------------+---------------------+
 
-Maps                        ← NEW GROUP
-  Map Principles
-  Dynamic Scenic Corridor
-  Map Layers
-  Map Visual Style
-  Map Labels & Geography
-  Route & Position
-  Map Interaction
-  Filtering & Categories
-  Guest Experience
-  Map Examples
-
-System
-  Components, Guidelines, ...
+Tablet (768-1023px): Stacked -- intro panel on top (compact), form below
+Mobile (<768px): Stacked -- intro collapses to logo + one-liner, form fills viewport
 ```
 
-Routes: `/maps/principles`, `/maps/corridor`, `/maps/layers`, `/maps/visual-style`, `/maps/labels`, `/maps/route-position`, `/maps/interaction`, `/maps/filtering`, `/maps/guest-experience`, `/maps/examples`
+---
 
-### Files to Create (10 pages)
+## Left Panel Content
 
-All pages follow the existing pattern: `PageHeader` + content sections in cards with `font-display` headings, `font-body` text, and `max-w-5xl` layout.
+- **Logo**: "The Curated Lens" in `font-display` (Playfair Display), warm-white text
+- **Headline**: "Your Design System. Defined. Applied."
+- **Subhead**: "The single source of truth for design tokens, rules, components, and interactive guidance."
+- **Description** (3 benefit lines with subtle bronze bullet markers):
+  - Browse tokens and patterns with live previews
+  - Run guided reviews backed by brand guardrails
+  - Export production-ready code for any channel
+- **Accent**: A thin horizontal bronze line separator between headline block and benefits
+- **Background**: `bg-primary` (Deep Forest Green) with `text-primary-foreground` (Warm White)
+- **Spacing**: generous padding (`p-12 lg:p-16`), editorial whitespace
 
-**1. `src/pages/maps/MapPrinciples.tsx`**
-- Purpose statement: landscape awareness and storytelling tool, not navigation
-- Six principle cards: Route First, Landscape Before Data, Calm Base Map, Corridor Only, Curated Discovery, Readable at a Glance
-- Visual feeling reference (Apple Maps clarity)
+## Right Panel
 
-**2. `src/pages/maps/DynamicScenicCorridor.tsx`**
-- Three corridor states with specs: Standard (3–6km river / 5–10km coastal), Scenic Expansion (landmark widening), Tight Corridor (clutter reduction)
-- Corridor Editing section for operator controls
+- Clean `bg-background` (Warm White)
+- Title: "Sign In" / "Create Account" based on active tab
+- Existing login/signup tab forms (preserved as-is)
+- Below form: "Forgot password?" link + "Need help?" link to `/help`
+- Centered vertically with `max-w-sm` constraint
 
-**3. `src/pages/maps/MapLayers.tsx`**
-- Five layers documented: Base Geography, Landscape Labels, Route Layer, POI Layer, Interaction Layer
-- Layer stack diagram
+## Responsive Behavior
 
-**4. `src/pages/maps/MapVisualStyle.tsx`**
-- Color palette for map elements (water, land, route, markers)
-- Typography rules for map labels
-- Styling constraints
+- **Desktop** (`lg:`): `flex-row`, each panel 50%
+- **Tablet** (`md:`): stacked, left panel becomes a compact header (logo + headline only, ~200px height)
+- **Mobile**: left panel shrinks to logo + single tagline (~80px), form takes remaining space
 
-**5. `src/pages/maps/MapLabelsGeography.tsx`**
-- Label hierarchy and sizing rules
-- Geographic feature naming conventions
-- Visibility rules per zoom level
+---
 
-**6. `src/pages/maps/RoutePosition.tsx`**
-- Route line styling (completed, upcoming, active)
-- Vessel position marker behavior
-- Progress indication
+## File Changes
 
-**7. `src/pages/maps/MapInteraction.tsx`**
-- Tap/click behavior on markers and map
-- Pan and zoom constraints
-- Information card behavior
+### `src/pages/Auth.tsx` -- Full rewrite of the return JSX
 
-**8. `src/pages/maps/FilteringCategories.tsx`**
-- POI category system
-- Filter UI behavior
-- Default visibility rules
+1. Replace the outer `div > Card` with a two-pane flex layout
+2. Extract the left branded panel as an inline section (no separate component needed -- it's static content)
+3. Keep all existing form logic, state, and handlers untouched
+4. Update the title from "Curated Lens" to "The Curated Lens"
+5. Add subtle `animate-in` fade on the left panel using Tailwind's `animate` utilities
+6. Add "Need help?" link below the forgot password button, linking to `/help`
+7. Use `font-display` for headings, `font-body` for body text, `text-bronze` for accent markers
 
-**9. `src/pages/maps/GuestExperience.tsx`**
-- Accessibility for 65–85 age group
-- Touch target sizes, font sizes, contrast
-- Simplified interaction model
+### No other files need changes
 
-**10. `src/pages/maps/MapExamples.tsx`**
-- Example scenarios: river cruise, coastal voyage, fjord navigation
-- Corridor behavior illustrations per scenario
+All styling uses existing Tailwind tokens (`primary`, `primary-foreground`, `bronze`, `font-display`, `font-body`, spacing tokens). No new dependencies or components required.
 
-### Files to Modify
+---
 
-**`src/components/AppSidebar.tsx`**
-- Import `Map` from lucide-react
-- Add `mapsNav` array with 10 items
-- Add new SidebarGroup "Maps" between Tokens and System
+## Accessibility
 
-**`src/App.tsx`**
-- Import all 10 map pages
-- Add 10 routes under `/maps/*`
+- Tab order: left panel is decorative/informational, focus starts on the first form field in the right panel
+- Left panel content uses semantic `h1` for the headline, `p` for descriptions
+- Form labels and inputs remain properly associated
+- Color contrast: warm-white on deep-green meets WCAG AA
 
-### Content Approach
+## Acceptance Criteria
 
-Each page uses the same visual language as existing pages (Guidelines, NarrativePatterns):
-- Card containers with `border-border bg-card`
-- Section headings in `font-display text-lg`
-- Body text in `font-body text-sm text-muted-foreground`
-- Principle/rule cards in grids
-- Do/Don't patterns where appropriate
-- Badge components for labels and categories
+- Desktop shows side-by-side layout with branded left panel and login form on right
+- Left panel displays headline, subhead, benefit bullets, and bronze accent
+- Mobile/tablet gracefully stacks with condensed intro
+- All existing auth functionality (login, signup, forgot password) works unchanged
+- Title reads "The Curated Lens" throughout
+- No gradients, no heavy animation -- calm editorial feel
 
