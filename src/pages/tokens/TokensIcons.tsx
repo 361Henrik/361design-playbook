@@ -37,13 +37,20 @@ const NatureSightIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?
 // Custom Island icon — land mound with house + flag, water below
 const IslandIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <line x1="15" y1="4" x2="15" y2="12" />
-    <path d="M15 4l3.5 1.8L15 7.5" />
-    <path d="M7 12l2.5-3 2.5 3" />
-    <rect x="7.5" y="12" width="4" height="3" />
-    <line x1="9.5" y1="15" x2="9.5" y2="13.5" />
-    <path d="M3 16c1.5-1.5 4-2.5 9-2.5s7.5 1 9 2.5" />
-    <path d="M2 19c2.5 0 4-1 6-1s3.5 1 6 1 3.5-1 6-1" />
+    {/* Flag pole */}
+    <line x1="14" y1="5" x2="14" y2="14" />
+    {/* Flag */}
+    <path d="M14 5l4 1.5L14 8" />
+    {/* House body */}
+    <rect x="8" y="11" width="5" height="3.5" />
+    {/* House roof */}
+    <path d="M7.5 11l3-2.5 3 2.5" />
+    {/* Door */}
+    <line x1="10.5" y1="14.5" x2="10.5" y2="12.5" />
+    {/* Land mound */}
+    <path d="M4 17c1-2 4-3.5 8-3.5s7 1.5 8 3.5" />
+    {/* Water line */}
+    <path d="M3 20c2-1 4.5-1 6.5 0s4.5 1 6.5 0 4.5-1 6.5 0" />
   </svg>
 );
 
