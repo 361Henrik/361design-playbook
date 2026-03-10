@@ -8,8 +8,8 @@ import {
   Search, Menu, X, Plus, Minus, Check, ChevronDown, ChevronRight,
   Settings, User, Mail, Calendar, Download, Upload, Eye, EyeOff,
   Palette, Type, Ruler, LayoutGrid, Zap, Hexagon, Copy, ExternalLink,
-  Coffee, UtensilsCrossed, Info, Building2,
-  Binoculars, TreePine, ShoppingBag,
+  Coffee, UtensilsCrossed, Info,
+  Binoculars, ShoppingBag,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { LucideIcon } from "lucide-react";
@@ -23,100 +23,75 @@ const BeachParasol = ({ size = 24, strokeWidth = 2, className = "" }: { size?: n
   </svg>
 );
 
-// Custom Nature Sight icon — low landform with wave, birds, sun
+// Custom Nature Sight icon — two mountain peaks with shared ridgeline
 const NatureSightIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <circle cx="18" cy="5" r="2.5" />
-    <path d="M4 6c.8-.8 1.5-.8 2.3 0" />
-    <path d="M8 4.5c.8-.8 1.5-.8 2.3 0" />
-    <path d="M2 18c2-4 5-6 8-6s6 2 8 4l2 2H2z" />
-    <path d="M2 20c2.5 0 4-1 6.5-1s4 1 6.5 1 4-1 6.5-1" />
+    <path d="M2 20l7-14 4 6 3-4 6 12H2z" />
   </svg>
 );
 
-// Custom Island icon — land mound with house + flag, water below
+// Custom Island icon — land mound with one wave underneath
 const IslandIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
-    {/* Flag pole */}
-    <line x1="14" y1="5" x2="14" y2="14" />
-    {/* Flag */}
-    <path d="M14 5l4 1.5L14 8" />
-    {/* House body */}
-    <rect x="8" y="11" width="5" height="3.5" />
-    {/* House roof */}
-    <path d="M7.5 11l3-2.5 3 2.5" />
-    {/* Door */}
-    <line x1="10.5" y1="14.5" x2="10.5" y2="12.5" />
-    {/* Land mound */}
-    <path d="M4 17c1-2 4-3.5 8-3.5s7 1.5 8 3.5" />
-    {/* Water line */}
-    <path d="M3 20c2-1 4.5-1 6.5 0s4.5 1 6.5 0 4.5-1 6.5 0" />
+    <path d="M4 14c2-4 5-6 8-6s6 2 8 6" />
+    <path d="M2 19c3-1.5 5.5-1.5 8.5 0s5.5 1.5 8.5 0" />
   </svg>
 );
 
-// Custom Hotel icon — bed with headboard, pillow, blanket
+// Custom Hotel icon — bed (headboard + mattress + legs)
 const HotelIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
-    {/* Headboard */}
-    <path d="M3 6v12" />
-    <path d="M3 6h2v5H3" />
-    {/* Mattress platform */}
-    <line x1="3" y1="16" x2="21" y2="16" />
-    {/* Pillow */}
-    <rect x="5.5" y="11" width="3.5" height="2.5" rx="1" />
-    {/* Blanket curve */}
-    <path d="M10 13.5c0-2.5 2-4 5.5-4s5.5 1.5 5.5 4" />
-    {/* Bed frame line */}
-    <line x1="21" y1="11" x2="21" y2="16" />
-    {/* Legs */}
-    <line x1="3" y1="16" x2="3" y2="19" />
-    <line x1="21" y1="16" x2="21" y2="19" />
+    <path d="M3 7v11M3 7h2v4h16v4H3M21 11v7" />
+    <line x1="3" y1="18" x2="3" y2="20" />
+    <line x1="21" y1="18" x2="21" y2="20" />
   </svg>
 );
 
 // Custom Historic Site icon — castle turret with crenellations
 const HistoricSiteIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
-    {/* Tower walls */}
-    <line x1="6" y1="9" x2="6" y2="21" />
-    <line x1="18" y1="9" x2="18" y2="21" />
-    {/* Crenellations — 4 merlons */}
-    <path d="M5 9v-3h2.5v3M8.5 9v-3h3v3M12.5 9v-3h3v3M16.5 9v-3H19v3" />
-    {/* Battlement base line */}
-    <line x1="5" y1="9" x2="19" y2="9" />
-    {/* Arched door */}
-    <path d="M10 21v-4a2 2 0 0 1 4 0v4" />
-    {/* Window */}
-    <line x1="12" y1="12" x2="12" y2="14" />
+    <path d="M6 21V9h12v12" />
+    <path d="M6 9V5h3v4M9 9V5h3v4M12 9V5h3v4M15 9V5h3v4" />
+    <path d="M10 21v-4h4v4" />
   </svg>
 );
 
-// Custom Gallery icon — framed picture with rope stanchions
+// Custom Gallery icon — simple square picture frame
 const GalleryIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
-    {/* Picture frame */}
-    <rect x="5" y="2" width="14" height="11" rx="0.5" />
-    {/* Mountain scene inside frame */}
-    <path d="M5 11l4-4 2.5 2 3.5-5 4 7H5z" />
-    {/* Left stanchion post */}
-    <line x1="7" y1="16" x2="7" y2="21" />
-    <circle cx="7" cy="15.5" r="0.8" />
-    {/* Right stanchion post */}
-    <line x1="17" y1="16" x2="17" y2="21" />
-    <circle cx="17" cy="15.5" r="0.8" />
-    {/* Rope between stanchions — catenary curve */}
-    <path d="M7 16c2 3 8 3 10 0" />
+    <rect x="3" y="3" width="18" height="18" rx="1" />
+    <path d="M3 16l5-5 3 3 4-4 6 6" />
   </svg>
 );
 
 // Custom Bridge icon — flat deck with arch underneath
 const BridgeIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <line x1="2" y1="10" x2="22" y2="10" />
-    <path d="M4 10c0 5 4 8 8 8s8-3 8-8" />
-    <line x1="4" y1="10" x2="4" y2="20" />
-    <line x1="20" y1="10" x2="20" y2="20" />
-    <path d="M1 21c2.5 0 4-1 6.5-1s4 1 6.5 1 4-1 6.5-1" />
+    <line x1="2" y1="8" x2="22" y2="8" />
+    <path d="M5 8c0 5 3.5 8 7 8s7-3 7-8" />
+    <line x1="5" y1="8" x2="5" y2="20" />
+    <line x1="19" y1="8" x2="19" y2="20" />
+  </svg>
+);
+
+// Custom Museum icon — temple with triangular roof and columns
+const MuseumIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M3 10l9-7 9 7" />
+    <line x1="5" y1="10" x2="5" y2="20" />
+    <line x1="9.5" y1="10" x2="9.5" y2="20" />
+    <line x1="14.5" y1="10" x2="14.5" y2="20" />
+    <line x1="19" y1="10" x2="19" y2="20" />
+    <line x1="3" y1="20" x2="21" y2="20" />
+  </svg>
+);
+
+// Custom Nature Walk icon — signpost
+const NatureWalkIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <line x1="12" y1="3" x2="12" y2="21" />
+    <path d="M6 6h10l2 2.5L16 11H6V6z" />
+    <path d="M18 14H8l-2 2.5L8 19h10V14z" />
   </svg>
 );
 
@@ -190,7 +165,7 @@ const poiGroups = [
     label: "Culture & Heritage",
     icons: [
       { name: "Historic Site", icon: HistoricSiteIcon as unknown as LucideIcon },
-      { name: "Museum", icon: Building2 },
+      { name: "Museum", icon: MuseumIcon as unknown as LucideIcon },
       { name: "Gallery", icon: GalleryIcon as unknown as LucideIcon },
     ],
   },
@@ -206,7 +181,7 @@ const poiGroups = [
   {
     label: "Nature Experiences",
     icons: [
-      { name: "Nature Walk", icon: TreePine },
+      { name: "Nature Walk", icon: NatureWalkIcon as unknown as LucideIcon },
       { name: "Beach", icon: BeachParasol as unknown as LucideIcon },
     ],
   },
@@ -579,7 +554,7 @@ const TokensIcons = () => {
 
               {/* Selected */}
               <div className="absolute" style={{ top: "55%", left: "60%" }}>
-                <MapMarker state="selected" size={48} icon={Building2} />
+                <MapMarker state="selected" size={48} icon={MuseumIcon as unknown as LucideIcon} />
                 <p className="text-[9px] font-body text-muted-foreground text-center mt-1">Selected</p>
               </div>
 
