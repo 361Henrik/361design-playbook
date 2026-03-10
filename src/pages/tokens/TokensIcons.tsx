@@ -47,12 +47,12 @@ const HotelIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: numb
   </svg>
 );
 
-// Custom Historic Site icon — castle turret with crenellations
+// Custom Historic Site icon — classical column with base and capital
 const HistoricSiteIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M6 21V9h12v12" />
-    <path d="M6 9V5h3v4M9 9V5h3v4M12 9V5h3v4M15 9V5h3v4" />
-    <path d="M10 21v-4h4v4" />
+    <line x1="8" y1="21" x2="16" y2="21" />
+    <path d="M9.5 21V19h5v2M10 19V5h4v14" />
+    <path d="M8 5h8M9.5 5V3h5v2" />
   </svg>
 );
 
