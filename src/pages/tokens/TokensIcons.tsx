@@ -165,7 +165,7 @@ const poiGroups = [
     label: "Culture & Heritage",
     icons: [
       { name: "Historic Site", icon: HistoricSiteIcon as unknown as LucideIcon },
-      { name: "Museum", icon: Building2 },
+      { name: "Museum", icon: MuseumIcon as unknown as LucideIcon },
       { name: "Gallery", icon: GalleryIcon as unknown as LucideIcon },
     ],
   },
