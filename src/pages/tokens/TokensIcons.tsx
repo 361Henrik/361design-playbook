@@ -86,12 +86,12 @@ const MuseumIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: num
   </svg>
 );
 
-// Custom Nature Walk icon — signpost
+// Custom Nature Walk icon — signpost with extended pole
 const NatureWalkIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <line x1="12" y1="3" x2="12" y2="21" />
-    <path d="M6 6h10l2 2.5L16 11H6V6z" />
-    <path d="M18 14H8l-2 2.5L8 19h10V14z" />
+    <line x1="12" y1="2" x2="12" y2="22" />
+    <path d="M6 5h10l2 2-2 2H6V5z" />
+    <path d="M18 12H8l-2 2 2 2h10V12z" />
   </svg>
 );
 
