@@ -54,17 +54,23 @@ const IslandIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: num
   </svg>
 );
 
-// Custom Hotel icon — bed with headboard
+// Custom Hotel icon — bed with headboard, pillow, blanket
 const HotelIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M3 7v11" />
-    <path d="M3 11h18" />
-    <path d="M21 11v7" />
-    <path d="M3 18h18" />
-    <rect x="5" y="8" width="4" height="3" rx="1" />
-    <path d="M11 11c0-2 1.5-3 4-3s4 1 4 3" />
-    <line x1="3" y1="18" x2="3" y2="20" />
-    <line x1="21" y1="18" x2="21" y2="20" />
+    {/* Headboard */}
+    <path d="M3 6v12" />
+    <path d="M3 6h2v5H3" />
+    {/* Mattress platform */}
+    <line x1="3" y1="16" x2="21" y2="16" />
+    {/* Pillow */}
+    <rect x="5.5" y="11" width="3.5" height="2.5" rx="1" />
+    {/* Blanket curve */}
+    <path d="M10 13.5c0-2.5 2-4 5.5-4s5.5 1.5 5.5 4" />
+    {/* Bed frame line */}
+    <line x1="21" y1="11" x2="21" y2="16" />
+    {/* Legs */}
+    <line x1="3" y1="16" x2="3" y2="19" />
+    <line x1="21" y1="16" x2="21" y2="19" />
   </svg>
 );
 
