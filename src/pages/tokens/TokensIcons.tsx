@@ -554,7 +554,7 @@ const TokensIcons = () => {
 
               {/* Selected */}
               <div className="absolute" style={{ top: "55%", left: "60%" }}>
-                <MapMarker state="selected" size={48} icon={Building2} />
+                <MapMarker state="selected" size={48} icon={MuseumIcon as unknown as LucideIcon} />
                 <p className="text-[9px] font-body text-muted-foreground text-center mt-1">Selected</p>
               </div>
 
