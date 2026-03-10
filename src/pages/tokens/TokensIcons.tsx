@@ -441,7 +441,7 @@ const TokensIcons = () => {
                   <div className="absolute top-0 left-[12px] w-[96px] h-[96px] rounded-full border-2 border-dashed border-accent" />
                   {/* Body */}
                   <div className="absolute top-[8px] left-[20px] w-[80px] h-[80px] rounded-full border border-foreground bg-background flex items-center justify-center">
-                    <HistoricSiteIcon className="h-8 w-8 text-foreground" strokeWidth={2} />
+                    <Coffee className="h-8 w-8 text-foreground" strokeWidth={2} />
                   </div>
                   {/* Pointer */}
                   <div className="absolute bottom-[28px] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-r-[8px] border-t-[10px] border-l-transparent border-r-transparent border-t-border" />
