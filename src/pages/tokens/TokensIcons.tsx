@@ -30,11 +30,11 @@ const NatureSightIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?
   </svg>
 );
 
-// Custom Island icon — land mound with one wave underneath
+// Custom Island icon — small mound with wide curved wave underneath
 const IslandIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M4 14c2-4 5-6 8-6s6 2 8 6" />
-    <path d="M2 19c3-1.5 5.5-1.5 8.5 0s5.5 1.5 8.5 0" />
+    <path d="M8 13c1-3 3-5 4-5s3 2 4 5" />
+    <path d="M3 18c3-3 6-4.5 9-4.5s6 1.5 9 4.5" />
   </svg>
 );
 
