@@ -94,13 +94,18 @@ const HistoricSiteIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size
 // Custom Gallery icon — framed picture with rope stanchions
 const GalleryIcon = ({ size = 24, strokeWidth = 2, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <rect x="6" y="2" width="12" height="10" rx="0.5" />
-    <path d="M6 10l3-3 2 1.5 3-4 4 5.5H6z" />
+    {/* Picture frame */}
+    <rect x="5" y="2" width="14" height="11" rx="0.5" />
+    {/* Mountain scene inside frame */}
+    <path d="M5 11l4-4 2.5 2 3.5-5 4 7H5z" />
+    {/* Left stanchion post */}
     <line x1="7" y1="16" x2="7" y2="21" />
-    <circle cx="7" cy="15.5" r="0.7" />
+    <circle cx="7" cy="15.5" r="0.8" />
+    {/* Right stanchion post */}
     <line x1="17" y1="16" x2="17" y2="21" />
-    <circle cx="17" cy="15.5" r="0.7" />
-    <path d="M7 16.5c3 2 7 2 10 0" />
+    <circle cx="17" cy="15.5" r="0.8" />
+    {/* Rope between stanchions — catenary curve */}
+    <path d="M7 16c2 3 8 3 10 0" />
   </svg>
 );
 
