@@ -139,6 +139,82 @@ function serializeScenario(block: Extract<ContentBlock, { type: "scenario" }>): 
   return lines.join("\n");
 }
 
+/* ── Component spec serializer ── */
+
+function serializeComponentSpec(block: Extract<ContentBlock, { type: "component-spec" }>): string {
+  const lines: string[] = [];
+  if (block.heading) lines.push(`## ${block.heading}\n`);
+  for (const comp of block.components) {
+    lines.push(`### ${comp.name}\n`);
+    lines.push(comp.description);
+    lines.push("");
+    if (comp.anatomy) {
+      lines.push(`**Anatomy:** ${comp.anatomy}\n`);
+    }
+    if (comp.accessibilityNotes) {
+      lines.push(`**Accessibility:** ${comp.accessibilityNotes}\n`);
+    }
+    if (comp.responsiveNotes) {
+      lines.push(`**Responsive:** ${comp.responsiveNotes}\n`);
+    }
+    if (comp.dos.length > 0) {
+      lines.push("**✓ Do:**\n");
+      for (const d of comp.dos) lines.push(`- ${d}`);
+      lines.push("");
+    }
+    if (comp.donts.length > 0) {
+      lines.push("**✗ Don't:**\n");
+      for (const d of comp.donts) lines.push(`- ${d}`);
+      lines.push("");
+    }
+    if (comp.code) {
+      lines.push("**Code:**\n");
+      lines.push("```tsx");
+      lines.push(comp.code);
+      lines.push("```");
+      lines.push("");
+    }
+  }
+  return lines.join("\n");
+}
+
+/* ── Channel kit serializer ── */
+
+function serializeChannelKit(block: Extract<ContentBlock, { type: "channel-kit" }>): string {
+  const lines: string[] = [];
+  if (block.heading) lines.push(`## ${block.heading}\n`);
+  for (const kit of block.kits) {
+    lines.push(`### ${kit.name}\n`);
+    lines.push(`> ${kit.description}\n`);
+    lines.push("| Constraint | Value |");
+    lines.push("|-----------|-------|");
+    lines.push(`| Tone | ${kit.toneModifiers.join(", ")} |`);
+    lines.push(`| Max heading | ${kit.maxHeadingLength} chars |`);
+    lines.push(`| Max body | ${kit.maxBodyLength ? `${kit.maxBodyLength} chars` : "No limit"} |`);
+    lines.push(`| CTA rules | ${kit.ctaRules} |`);
+    lines.push(`| Headline size | ${kit.typographyOverrides.maxHeadlineSize} |`);
+    lines.push(`| Body size | ${kit.typographyOverrides.bodySize} |`);
+    lines.push(`| Spacing | ${kit.spacingProfile} |`);
+    lines.push(`| Color emphasis | ${kit.colorEmphasis} |`);
+    lines.push("");
+    lines.push(`**Allowed components:** ${kit.allowedComponents.join(", ")}\n`);
+    for (const t of kit.templates) {
+      lines.push(`#### Template: ${t.name}\n`);
+      lines.push(t.description);
+      lines.push("");
+      lines.push(`**Layout:** ${t.layoutSpec}\n`);
+      lines.push(`**Copy:** ${t.copySpec}\n`);
+      if (t.code) {
+        lines.push("```tsx");
+        lines.push(t.code);
+        lines.push("```");
+        lines.push("");
+      }
+    }
+  }
+  return lines.join("\n");
+}
+
 /* ── Block dispatcher ── */
 
 function serializeBlock(block: ContentBlock): string {
@@ -153,6 +229,8 @@ function serializeBlock(block: ContentBlock): string {
     case "layer-stack": return serializeLayerStack(block);
     case "category-list": return serializeCategoryList(block);
     case "scenario": return serializeScenario(block);
+    case "component-spec": return serializeComponentSpec(block);
+    case "channel-kit": return serializeChannelKit(block);
     default: return "";
   }
 }
@@ -267,7 +345,9 @@ export interface ExportFile {
 const sectionFolderMap: Record<string, string> = {
   Principles: "01-principles",
   Tokens: "02-tokens",
+  Components: "03-components",
   Patterns: "04-patterns",
+  "Channel Kits": "04b-channel-kits",
   Maps: "05-maps",
   Guardrails: "06-guardrails",
   Guidelines: "07-guidelines",

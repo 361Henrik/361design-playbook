@@ -17,8 +17,19 @@ import { motionPlaybook } from "./tokens/motion";
 import { iconsPlaybook } from "./tokens/icons";
 import { voicePlaybook } from "./tokens/voice";
 
+// Components
+import { buttonsPlaybook } from "./components/buttons";
+import { cardsPlaybook } from "./components/cards";
+import { formsPlaybook } from "./components/forms";
+import { dataDisplayPlaybook } from "./components/data-display";
+import { layoutComponentsPlaybook } from "./components/layout";
+import { navigationPlaybook } from "./components/navigation";
+
 // Patterns
 import { narrativePatterns } from "./patterns/narrative-patterns";
+
+// Channel Kits
+import { channelKitsPlaybook } from "./channels/channel-kits";
 
 // Maps
 import { mapPrinciplesPlaybook } from "./maps/principles";
@@ -51,8 +62,19 @@ export const allPlaybookPages: PlaybookPage[] = [
   iconsPlaybook,
   voicePlaybook,
 
-  // 03 — Patterns
+  // 03 — Components
+  buttonsPlaybook,
+  cardsPlaybook,
+  formsPlaybook,
+  dataDisplayPlaybook,
+  layoutComponentsPlaybook,
+  navigationPlaybook,
+
+  // 04 — Patterns
   narrativePatterns,
+
+  // 04b — Channel Kits
+  channelKitsPlaybook,
 
   // 05 — Maps
   mapPrinciplesPlaybook,
