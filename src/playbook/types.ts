@@ -87,6 +87,45 @@ export interface ScenarioBlock {
   }[];
 }
 
+export interface ComponentSpecBlock {
+  type: "component-spec";
+  heading?: string;
+  components: {
+    name: string;
+    description: string;
+    anatomy?: string;
+    accessibilityNotes?: string;
+    responsiveNotes?: string;
+    dos: string[];
+    donts: string[];
+    code: string;
+  }[];
+}
+
+export interface ChannelKitBlock {
+  type: "channel-kit";
+  heading?: string;
+  kits: {
+    name: string;
+    description: string;
+    toneModifiers: string[];
+    maxHeadingLength: number;
+    maxBodyLength: number | null;
+    ctaRules: string;
+    allowedComponents: string[];
+    typographyOverrides: { maxHeadlineSize: string; bodySize: string };
+    spacingProfile: string;
+    colorEmphasis: string;
+    templates: {
+      name: string;
+      description: string;
+      layoutSpec: string;
+      copySpec: string;
+      code: string;
+    }[];
+  }[];
+}
+
 export type ContentBlock =
   | TextBlock
   | PrincipleListBlock
@@ -97,7 +136,9 @@ export type ContentBlock =
   | ColorSwatchBlock
   | LayerStackBlock
   | CategoryListBlock
-  | ScenarioBlock;
+  | ScenarioBlock
+  | ComponentSpecBlock
+  | ChannelKitBlock;
 
 export interface PlaybookPage {
   section: string;
