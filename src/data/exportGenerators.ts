@@ -289,7 +289,7 @@ CSS, Tailwind, JSON, and TypeScript outputs.
 
 | Name             | Hex     | Usage   |
 |------------------|---------|---------|
-| Deep Forest Green| #1B3D2F | 30%     |
+| Deep Forest Green| #2E5A1C | 30%     |
 | Warm White       | #FBFAF8 | 60%     |
 | Warm Off-White   | #F5F3EF | Cards   |
 | Near Black       | #1A1A2E | Text    |
