@@ -5,11 +5,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TokenExamplesTab } from "@/components/tokens/TokenExamplesTab";
 
 const tokensData = [
-  { name: "Deep Forest Green", variable: "--primary", hex: "#1B3D2F", hsl: "153 38% 17%", tailwind: "primary", usage: "Primary anchor, sidebar, panels. Use at 20–30% of visible area.", swatch: "bg-primary", ratio: "20–30%" },
-  { name: "Warm White", variable: "--background", hex: "#FBFAF8", hsl: "40 33% 97%", tailwind: "background", usage: "Dominant background. The canvas for everything. Never compete with it.", swatch: "bg-background", ratio: "60–70%" },
-  { name: "Warm Off-White", variable: "--card", hex: "#F5F3EF", hsl: "37 21% 95%", tailwind: "card", usage: "Cards, secondary surfaces, subtle separation from Warm White.", swatch: "bg-card", ratio: "within the 60–70%" },
-  { name: "Near Black", variable: "--foreground", hex: "#1A1A2E", hsl: "240 29% 14%", tailwind: "foreground", usage: "Body text and headings. Rich, warm near-black — not pure #000.", swatch: "bg-foreground", ratio: "text only" },
-  { name: "Antique Bronze", variable: "--accent", hex: "#C49A5C", hsl: "36 42% 56%", tailwind: "accent", usage: "Accent only — a thin rule, an icon highlight, a subtle label. Bronze is jewelry, never paint.", swatch: "bg-accent", ratio: "<8%" },
+  { name: "Deep Forest Green", variable: "--primary", hex: "#2E5A1C", hsl: "103 53% 23%", tailwind: "primary", usage: "Primary structural color. Used for buttons, outlines, navigation anchors, route lines in maps, icons, UI accents, and occasional section framing. Green is structural, not decorative.", swatch: "bg-primary", ratio: "20–30%" },
+  { name: "Warm White", variable: "--background", hex: "#FBFAF8", hsl: "40 33% 97%", tailwind: "background", usage: "Primary background color. Used for page backgrounds, large layout surfaces, the main visual canvas. Should dominate the interface. Never compete visually with strong colors.", swatch: "bg-background", ratio: "60–70%" },
+  { name: "Warm Off-White", variable: "--card", hex: "#F5F3EF", hsl: "37 21% 95%", tailwind: "card", usage: "Secondary surface color. Used for cards, secondary panels, and subtle surface separation. Creates gentle contrast with the Warm White background.", swatch: "bg-card", ratio: "within the 60–70%" },
+  { name: "Near Black", variable: "--foreground", hex: "#1A1A2E", hsl: "240 29% 14%", tailwind: "foreground", usage: "Primary text color. Used for body copy, headings, labels, and UI text. Avoid pure black — this tone provides warmth and readability.", swatch: "bg-foreground", ratio: "text only" },
+  { name: "Antique Bronze", variable: "--accent", hex: "#C49A5C", hsl: "36 42% 56%", tailwind: "accent", usage: "Accent color used sparingly. Icon highlights, POI highlight states on maps, thin divider lines, small emphasis words in headings, subtle labels. Bronze is jewelry, never paint.", swatch: "bg-accent", ratio: "<8%" },
 ];
 
 const TokensColors = () => {
