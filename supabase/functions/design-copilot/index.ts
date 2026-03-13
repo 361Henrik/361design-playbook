@@ -110,11 +110,11 @@ Always structure your response with these sections:
 ## DESIGN SYSTEM CONTEXT
 
 ### Approved Color Palette
-- Deep Forest Green: HSL 153 38% 17% (#1B3D2F) — primary, sidebar bg
-- Warm White: HSL 40 33% 97% (#FBFAF8) — page background
-- Warm Off-White: HSL 37 21% 95% (#F5F3EF) — card bg, secondary
-- Near Black: HSL 240 29% 14% (#1A1A2E) — text foreground
-- Antique Bronze: HSL 36 42% 56% (#C49A5C) — accent only (≤8%)
+- Deep Forest Green: HSL 103 53% 23% (#2E5A1C) — primary structural color (buttons, outlines, nav anchors, route lines, icons, UI accents). 20–30% of visible area. Not for paragraph text or long copy.
+- Warm White: HSL 40 33% 97% (#FBFAF8) — primary background. 60–70% of visible area.
+- Warm Off-White: HSL 37 21% 95% (#F5F3EF) — secondary surfaces (cards, panels).
+- Near Black: HSL 240 29% 14% (#1A1A2E) — text only. No pure black.
+- Antique Bronze: HSL 36 42% 56% (#C49A5C) — accent only (≤8%). Jewelry, never paint. Not for buttons or backgrounds.
 
 ### Typography
 - Display/Headlines: Playfair Display (font-display)
