@@ -5,11 +5,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TokenExamplesTab } from "@/components/tokens/TokenExamplesTab";
 
 const tokensData = [
-  { name: "Deep Forest Green", variable: "--primary", hex: "#1B3D2F", hsl: "153 38% 17%", tailwind: "primary", usage: "Primary anchor, sidebar, panels. Use at 20–30% of visible area.", swatch: "bg-primary", ratio: "20–30%" },
-  { name: "Warm White", variable: "--background", hex: "#FBFAF8", hsl: "40 33% 97%", tailwind: "background", usage: "Dominant background. The canvas for everything. Never compete with it.", swatch: "bg-background", ratio: "60–70%" },
-  { name: "Warm Off-White", variable: "--card", hex: "#F5F3EF", hsl: "37 21% 95%", tailwind: "card", usage: "Cards, secondary surfaces, subtle separation from Warm White.", swatch: "bg-card", ratio: "within the 60–70%" },
-  { name: "Near Black", variable: "--foreground", hex: "#1A1A2E", hsl: "240 29% 14%", tailwind: "foreground", usage: "Body text and headings. Rich, warm near-black — not pure #000.", swatch: "bg-foreground", ratio: "text only" },
-  { name: "Antique Bronze", variable: "--accent", hex: "#C49A5C", hsl: "36 42% 56%", tailwind: "accent", usage: "Accent only — a thin rule, an icon highlight, a subtle label. Bronze is jewelry, never paint.", swatch: "bg-accent", ratio: "<8%" },
+  { name: "Deep Forest Green", variable: "--primary", hex: "#2E5A1C", hsl: "103 53% 23%", tailwind: "primary", usage: "Primary structural color. Used for buttons, outlines, navigation anchors, route lines in maps, icons, UI accents, and occasional section framing. Green is structural, not decorative.", swatch: "bg-primary", ratio: "20–30%" },
+  { name: "Warm White", variable: "--background", hex: "#FBFAF8", hsl: "40 33% 97%", tailwind: "background", usage: "Primary background color. Used for page backgrounds, large layout surfaces, the main visual canvas. Should dominate the interface. Never compete visually with strong colors.", swatch: "bg-background", ratio: "60–70%" },
+  { name: "Warm Off-White", variable: "--card", hex: "#F5F3EF", hsl: "37 21% 95%", tailwind: "card", usage: "Secondary surface color. Used for cards, secondary panels, and subtle surface separation. Creates gentle contrast with the Warm White background.", swatch: "bg-card", ratio: "within the 60–70%" },
+  { name: "Near Black", variable: "--foreground", hex: "#1A1A2E", hsl: "240 29% 14%", tailwind: "foreground", usage: "Primary text color. Used for body copy, headings, labels, and UI text. Avoid pure black — this tone provides warmth and readability.", swatch: "bg-foreground", ratio: "text only" },
+  { name: "Antique Bronze", variable: "--accent", hex: "#C49A5C", hsl: "36 42% 56%", tailwind: "accent", usage: "Accent color used sparingly. Icon highlights, POI highlight states on maps, thin divider lines, small emphasis words in headings, subtle labels. Bronze is jewelry, never paint.", swatch: "bg-accent", ratio: "<8%" },
 ];
 
 const TokensColors = () => {
@@ -89,13 +89,16 @@ const TokensColors = () => {
             <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-4">Do / Don't</h2>
             <DosDonts
               dos={[
-                "Use Bronze sparingly — a thin rule, an icon highlight, a subtle label. It is jewelry.",
+                "Use Green for buttons, outlines, navigation anchors, route lines, icons, and UI accents.",
+                "Use Bronze sparingly — icon highlights, thin divider lines, subtle labels. It is jewelry.",
                 "Maintain the 60/30/8 distribution target across every page and section.",
                 "Use Warm Off-White for cards to create subtle separation from Warm White backgrounds.",
                 "Use the approved contrast pairs for text readability.",
+                "Use Near Black for all body copy, headings, labels, and UI text.",
               ]}
               donts={[
-                "Never use Bronze as a fill color, background, or large surface.",
+                "Never use Green for paragraph text, descriptive subtitles on beige backgrounds, or long blocks of copy.",
+                "Never use Bronze as a fill color, button, background, or large UI surface.",
                 "Never introduce gradients or additional near-whites beyond the five core colors.",
                 "Don't use pure black (#000). Use Near Black (#1A1A2E) for warmth.",
                 "Don't add new colors to the palette without design system approval.",

@@ -14,16 +14,16 @@
     --popover: 40 33% 97%;
     --popover-foreground: 240 29% 14%;
 
-    --primary: 153 38% 17%;           /* #1B3D2F Deep Forest Green */
+    --primary: 103 53% 23%;           /* #2E5A1C Deep Forest Green */
     --primary-foreground: 40 33% 97%;
 
     --secondary: 37 21% 95%;          /* #F5F3EF Warm Off-White */
-    --secondary-foreground: 153 38% 17%;
+    --secondary-foreground: 103 53% 23%;
 
     --muted: 37 21% 95%;
     --muted-foreground: 240 10% 44%;
 
-    --accent: 36 48% 60%;             /* #CFA563 Antique Bronze (brightened) */
+    --accent: 36 42% 56%;             /* #C49A5C Antique Bronze */
     --accent-foreground: 40 33% 97%;
 
     --destructive: 0 72% 51%;
@@ -31,21 +31,21 @@
 
     --border: 37 18% 88%;
     --input: 37 18% 88%;
-    --ring: 153 38% 17%;
+    --ring: 103 53% 23%;
 
     --radius: 0.375rem;
 
-    --sidebar-background: 153 38% 17%;
+    --sidebar-background: 103 53% 23%;
     --sidebar-foreground: 40 33% 97%;
     --sidebar-primary: 36 42% 56%;
     --sidebar-primary-foreground: 40 33% 97%;
-    --sidebar-accent: 153 32% 22%;
+    --sidebar-accent: 103 45% 28%;
     --sidebar-accent-foreground: 40 33% 97%;
-    --sidebar-border: 153 30% 24%;
+    --sidebar-border: 103 40% 30%;
     --sidebar-ring: 36 42% 56%;
 
     /* Custom tokens */
-    --forest: 153 38% 17%;
+    --forest: 103 53% 23%;
     --warm-white: 40 33% 97%;
     --off-white: 37 21% 95%;
     --near-black: 240 29% 14%;
@@ -63,7 +63,7 @@
     --popover-foreground: 40 33% 97%;
 
     --primary: 40 33% 97%;
-    --primary-foreground: 153 38% 17%;
+    --primary-foreground: 103 53% 23%;
 
     --secondary: 240 15% 16%;
     --secondary-foreground: 40 33% 97%;

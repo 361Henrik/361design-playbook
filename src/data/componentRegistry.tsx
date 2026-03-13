@@ -549,7 +549,7 @@ export const components: ComponentEntry[] = [
           <TableBody>
             <TableRow>
               <TableCell className="font-mono text-xs">--primary</TableCell>
-              <TableCell className="font-mono text-xs">153 38% 17%</TableCell>
+              <TableCell className="font-mono text-xs">103 53% 23%</TableCell>
               <TableCell className="text-right">30%</TableCell>
             </TableRow>
             <TableRow>
@@ -577,7 +577,7 @@ export const components: ComponentEntry[] = [
   <TableBody>
     <TableRow>
       <TableCell className="font-mono text-xs">--primary</TableCell>
-      <TableCell className="font-mono text-xs">153 38% 17%</TableCell>
+      <TableCell className="font-mono text-xs">103 53% 23%</TableCell>
       <TableCell className="text-right">30%</TableCell>
     </TableRow>
   </TableBody>
