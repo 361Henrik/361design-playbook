@@ -100,7 +100,7 @@ const typographyTokens = [
     lineHeight: "1.3",
     letterSpacing: "0.01em",
     size: "0.75rem (12px)",
-    example: "HSL: 153 38% 17%  •  Last updated 2 hours ago",
+    example: "HSL: 103 53% 23%  •  Last updated 2 hours ago",
     className: "font-body text-caption",
     tailwind: "font-body text-caption",
   },

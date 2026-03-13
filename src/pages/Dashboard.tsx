@@ -198,7 +198,7 @@ const Dashboard = () => {
                       <XAxis dataKey="name" tick={{ fontSize: 11 }} />
                       <YAxis tick={{ fontSize: 11 }} allowDecimals={false} />
                       <Tooltip />
-                      <Bar dataKey="value" fill="hsl(153 38% 17%)" radius={[4, 4, 0, 0]} />
+                      <Bar dataKey="value" fill="hsl(103 53% 23%)" radius={[4, 4, 0, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
                 </CardContent>
