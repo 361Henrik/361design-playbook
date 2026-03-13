@@ -7,7 +7,7 @@ const tokens = {
     accent: { name: "Antique Bronze", hsl: "36 42% 56%", hex: "#C49A5C", css: "--accent", tw: "accent" },
     background: { name: "Warm White", hsl: "40 33% 97%", hex: "#FBFAF8", css: "--background", tw: "background" },
     foreground: { name: "Near Black", hsl: "240 29% 14%", hex: "#1A1A2E", css: "--foreground", tw: "foreground" },
-    primary: { name: "Deep Forest Green", hsl: "153 38% 17%", hex: "#1B3D2F", css: "--primary", tw: "primary" },
+    primary: { name: "Deep Forest Green", hsl: "103 53% 23%", hex: "#2E5A1C", css: "--primary", tw: "primary" },
     secondary: { name: "Warm Off-White", hsl: "37 21% 95%", hex: "#F5F3EF", css: "--secondary", tw: "secondary" },
   },
   typography: {

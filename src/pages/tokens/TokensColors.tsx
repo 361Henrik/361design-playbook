@@ -89,13 +89,16 @@ const TokensColors = () => {
             <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-4">Do / Don't</h2>
             <DosDonts
               dos={[
-                "Use Bronze sparingly — a thin rule, an icon highlight, a subtle label. It is jewelry.",
+                "Use Green for buttons, outlines, navigation anchors, route lines, icons, and UI accents.",
+                "Use Bronze sparingly — icon highlights, thin divider lines, subtle labels. It is jewelry.",
                 "Maintain the 60/30/8 distribution target across every page and section.",
                 "Use Warm Off-White for cards to create subtle separation from Warm White backgrounds.",
                 "Use the approved contrast pairs for text readability.",
+                "Use Near Black for all body copy, headings, labels, and UI text.",
               ]}
               donts={[
-                "Never use Bronze as a fill color, background, or large surface.",
+                "Never use Green for paragraph text, descriptive subtitles on beige backgrounds, or long blocks of copy.",
+                "Never use Bronze as a fill color, button, background, or large UI surface.",
                 "Never introduce gradients or additional near-whites beyond the five core colors.",
                 "Don't use pure black (#000). Use Near Black (#1A1A2E) for warmth.",
                 "Don't add new colors to the palette without design system approval.",

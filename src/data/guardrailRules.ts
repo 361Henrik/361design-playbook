@@ -470,7 +470,7 @@ export function checkContrastRatio(
  */
 export function getContrastResults() {
   const palette = [
-    { name: "Deep Forest Green", hsl: "153 38% 17%", role: "primary" },
+    { name: "Deep Forest Green", hsl: "103 53% 23%", role: "primary" },
     { name: "Warm White", hsl: "40 33% 97%", role: "background" },
     { name: "Warm Off-White", hsl: "37 21% 95%", role: "secondary" },
     { name: "Near Black", hsl: "240 29% 14%", role: "foreground" },
