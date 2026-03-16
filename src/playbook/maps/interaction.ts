@@ -4,14 +4,19 @@ export const interactionPlaybook: PlaybookPage = {
   section: "Maps",
   page: "Map Interaction",
   slug: "maps/interaction",
-  description: "Tap, pan, and zoom behavior. Every interaction must feel calm and intentional — the map responds, never reacts. Designed for users 50+ with generous targets and clear feedback.",
+  description: "Guest-facing tap, pan, and zoom behavior. Every interaction must feel calm and intentional — the map responds, never reacts. Designed for users 50+ with generous targets and clear feedback.",
   status: "complete",
   openQuestions: [],
   content: [
     {
       type: "text",
+      heading: "Audience: Guest Experience (B2C)",
+      body: "This section defines map interaction behavior for the guest-facing experience. These rules govern how the map responds to touch input from travelers, many of whom are 50+ with varying levels of digital confidence.\n\nInteraction behavior is structural — it does not change per operator.",
+    },
+    {
+      type: "text",
       heading: "Interaction Philosophy",
-      body: "Map interactions must be immediately understandable to users who may have limited digital literacy or reduced motor precision. Every gesture produces clear, visible feedback. The map responds deliberately — it never reacts with bouncy, elastic, or surprising motion.",
+      body: "Map interactions must be immediately understandable to users who may have limited digital literacy or reduced motor precision. Every gesture produces clear, visible feedback. The map responds deliberately — it never reacts with bouncy, elastic, or surprising motion.\n\nAnimations should be subtle and slow enough to feel calm, never playful or attention-seeking.",
     },
     {
       type: "spec-table",

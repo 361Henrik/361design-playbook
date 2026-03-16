@@ -15,6 +15,11 @@ export const brandPrinciples: PlaybookPage = {
     },
     {
       type: "text",
+      heading: "Two Perspectives, One System",
+      body: "The design handbook maintains a clear separation between two perspectives:\n\n**Guest Experience (B2C)** — How the interface works for travelers. Covers typography, spacing, map design, interaction patterns, accessibility, and editorial quality. These rules are structural and constant across all operator configurations.\n\n**Operator Branding (B2B)** — How the platform adapts to each operator's identity. Covers logo placement, color overrides, tone modifiers, and welcome content. This is a platform configuration capability, not a UI behavior specification.\n\nThese perspectives must never be mixed. Sales messaging for operators and interface design rules for guests are separate concerns documented in separate sections.",
+    },
+    {
+      type: "text",
       heading: "Audience-Centered Design",
       body: "The platform serves mature travelers (typically 50+) who expect premium, intuitive experiences. The design must be optimized for clarity, readability, and ease of use — without ever feeling like a 'senior product.' Elegance and accessibility are the same gesture.",
     },

@@ -4,10 +4,15 @@ export const visualStylePlaybook: PlaybookPage = {
   section: "Maps",
   page: "Map Visual Style",
   slug: "maps/visual-style",
-  description: "Muted, desaturated, editorial. The map should feel like a premium illustrated guide — not a navigation screen. Designed for readability in all lighting conditions, including bright sunlight.",
+  description: "Guest-facing map aesthetic. Muted, desaturated, editorial. The map should feel like a premium illustrated guide — not a navigation screen. Designed for readability in all lighting conditions, including bright sunlight.",
   status: "complete",
   openQuestions: [],
   content: [
+    {
+      type: "text",
+      heading: "Audience: Guest Experience (B2C)",
+      body: "This section defines the visual style of the guest-facing map. These rules ensure the map is readable, calm, and elegant for mature travelers in outdoor environments.\n\nMap visual style is structural — the muted palette and marker design remain constant across all operator configurations. Operator branding does not affect map colors or marker appearance.",
+    },
     {
       type: "color-swatch",
       heading: "Map Color Palette",
