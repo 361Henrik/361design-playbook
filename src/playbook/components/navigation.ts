@@ -13,7 +13,7 @@ export const navigationPlaybook: PlaybookPage = {
     {
       type: "text",
       heading: "Purpose",
-      body: "Navigation components help users orient themselves within the application. They use Inter body text with restrained styling to stay out of the way while remaining clear and accessible.",
+      body: "Navigation components help users orient themselves within the application. They use Lexend body text with restrained styling to stay out of the way while remaining clear and accessible. All navigation targets must meet the 44px minimum tap target for senior-first accessibility.",
     },
     {
       type: "component-spec",

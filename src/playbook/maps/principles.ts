@@ -16,7 +16,7 @@ export const mapPrinciplesPlaybook: PlaybookPage = {
     {
       type: "text",
       heading: "Visual Feeling",
-      body: "The map must feel calm, elegant, editorial, minimal, and readable for older guests. The visual clarity should be closer to Apple Maps than to dense navigation or nautical charts. Every element earns its place through restraint.",
+      body: "The map must feel calm, elegant, editorial, minimal, and extremely readable — especially outdoors in bright sunlight. The visual clarity should be closer to Apple Maps than to dense navigation or nautical charts. Every element earns its place through restraint.\n\nAvoid cluttered maps with excessive markers. The map is a storytelling surface, not a data visualization.",
     },
     {
       type: "principle-list",
@@ -27,8 +27,14 @@ export const mapPrinciplesPlaybook: PlaybookPage = {
         { title: "Calm Base Map", description: "The base map uses muted, desaturated tones. No bright fills, no busy patterns. The terrain whispers — the route and POIs speak." },
         { title: "Corridor Only", description: "Only the scenic corridor around the route is shown. The map does not display the entire region. Irrelevant geography is hidden to maintain focus and elegance." },
         { title: "Curated Discovery", description: "Every marker, label, and POI is intentionally placed by the operator. Nothing appears automatically. The map is an editorial product, not a data dump." },
-        { title: "Readable at a Glance", description: "Guests aged 65–85 must understand the map instantly. Large labels, high contrast, minimal clutter. If it requires study, it has failed." },
+        { title: "Readable at a Glance", description: "Guests aged 50+ must understand the map instantly. Large labels, high contrast markers (white disk, black ring, black icon), minimal clutter. If it requires study, it has failed." },
+        { title: "Clear Contrast in All Conditions", description: "Map markers and labels must remain readable in bright sunlight, indoor lighting, and screen glare conditions. The white-on-black marker design ensures visibility in all environments." },
       ],
+    },
+    {
+      type: "text",
+      heading: "Minimal Marker Philosophy",
+      body: "Markers use a standard design: white circular disk with black outline ring and black icon centered inside. This provides:\n• High contrast against any map background\n• Readability in bright sunlight\n• Visual clarity for older users\n• A calm, visually quiet map surface\n\nColor is used sparingly — only for state changes (selected = bronze ring). Default markers are always monochrome. Markers should feel refined and understated, not playful.",
     },
     {
       type: "rule-list",
@@ -40,6 +46,8 @@ export const mapPrinciplesPlaybook: PlaybookPage = {
         "Display areas far outside the scenic corridor",
         "Use bright, saturated, or playful styling",
         "Require pinching, zooming, or effort to read",
+        "Use bright colored markers for category differentiation",
+        "Show too many markers at once — curate, don't flood",
       ],
     },
   ],
