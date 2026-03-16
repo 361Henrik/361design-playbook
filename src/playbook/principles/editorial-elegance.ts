@@ -5,14 +5,19 @@ export const editorialElegancePlaybook: PlaybookPage = {
   page: "Editorial Elegance",
   slug: "principles/editorial-elegance",
   description:
-    "Despite strong usability requirements, every interface must feel premium, calm, visually refined, and editorial rather than technical.",
+    "Guest-facing design philosophy (B2C). Despite strong usability requirements, every interface must feel premium, calm, visually refined, and editorial — like a travel magazine translated into a digital experience.",
   status: "complete",
   openQuestions: [],
   content: [
     {
       type: "text",
+      heading: "Audience: Guest Experience (B2C)",
+      body: "This section defines the visual and emotional quality standard for all guest-facing interfaces. These rules apply to every surface a traveler interacts with, regardless of which operator is configured.\n\nEditorial elegance is a guest experience principle — it governs how the interface feels to the person using it.",
+    },
+    {
+      type: "text",
       heading: "The Balance",
-      body: "The Curated Lens serves demanding accessibility and usability requirements — large text, high contrast, generous spacing, clear hierarchy. These constraints could easily produce a clinical, utilitarian interface.\n\nThe design system's job is to ensure that accessibility and beauty are the same gesture. Generous whitespace is both readable and elegant. Large type is both accessible and editorial. Restraint in color is both calm and premium.",
+      body: "The Curated Lens serves demanding accessibility and usability requirements — large text, high contrast, generous spacing, clear hierarchy. These constraints could easily produce a clinical, utilitarian interface.\n\nThe design system's job is to ensure that accessibility and beauty are the same gesture. Generous whitespace is both readable and elegant. Large type is both accessible and editorial. Restraint in color is both calm and premium.\n\nThe platform should feel like a premium travel magazine translated into a digital experience — not a software application.",
     },
     {
       type: "principle-list",
@@ -38,6 +43,11 @@ export const editorialElegancePlaybook: PlaybookPage = {
           description:
             "Use shadow-sm on cards, gentle border transitions on hover, and opacity shifts — not dramatic shadows, glows, or elevation changes.",
         },
+        {
+          title: "High-Quality Photography",
+          description:
+            "Imagery should be cinematic, contemplative, and premium. Integrated naturally into the layout, never competing with text for readability. Overlays on photography must maintain full text contrast.",
+        },
       ],
     },
     {
@@ -52,12 +62,18 @@ export const editorialElegancePlaybook: PlaybookPage = {
         "Gradient backgrounds on primary surfaces",
         "Rounded-everything aesthetic (keep border-radius restrained)",
         "Tech startup visual language (neon, glassmorphism, 3D)",
+        "Cluttered layouts that feel like software rather than editorial content",
       ],
     },
     {
       type: "text",
       heading: "Cross-Platform Application",
-      body: "These editorial principles apply across every surface: map design, location markers, story pages, onboarding flows, notifications, navigation, mobile exploration interface, editorial content layouts, and the CMS/editorial interface. No surface is exempt from the elegance standard.",
+      body: "These editorial principles apply across every guest-facing surface:\n\n• Map design and location markers\n• Story and article pages\n• Onboarding flows\n• Notifications\n• Navigation menus\n• Mobile exploration interface\n• Editorial content layouts\n\nNo surface is exempt from the elegance standard. The editorial quality must remain consistent whether the guest is viewing a map, reading a story, or browsing onboarding content.",
+    },
+    {
+      type: "text",
+      heading: "Distinction from Operator Branding",
+      body: "Editorial elegance is a constant — it applies to every operator configuration. While operators may customize colors, logos, and tone, the underlying editorial quality standard (whitespace, typography hierarchy, restraint, depth) does not change.\n\nOperator branding adapts personality. Editorial elegance defines quality.",
     },
   ],
 };

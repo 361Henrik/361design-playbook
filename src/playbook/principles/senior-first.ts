@@ -5,14 +5,19 @@ export const seniorFirstPlaybook: PlaybookPage = {
   page: "Senior-First UX",
   slug: "principles/senior-first-ux",
   description:
-    "The platform is optimized for mature users (50+) with reduced visual acuity and lower tolerance for confusing UI — while remaining elegant, editorial, and refined. The interface must never feel like a 'senior product.'",
+    "Guest-facing design principles for mature travelers (50+). Prioritizes clarity, contrast, calm hierarchy, and generous spacing — while remaining elegant and premium. The interface must never feel like a 'senior product.'",
   status: "complete",
   openQuestions: [],
   content: [
     {
       type: "text",
+      heading: "Audience: Guest Experience (B2C)",
+      body: "This section defines interface design rules for the guest-facing experience — the screens, maps, cards, and flows that travelers interact with directly.\n\nThese rules are not about how the platform is sold to operators. They are about how the interface behaves for the people using it.",
+    },
+    {
+      type: "text",
       heading: "Philosophy",
-      body: "The Curated Lens serves a predominantly mature audience — typically 50 and above. Many guests may have reduced visual acuity, slower interaction speed, limited patience for learning new digital systems, and less tolerance for confusing interfaces.\n\nHowever, the interface must never feel like a 'senior product.' It must remain elegant, editorial, and refined. The design earns trust through clarity, not condescension.",
+      body: "The guest experience serves a predominantly mature audience — typically 50 and above. Many guests may have reduced visual acuity, slower interaction speed, limited patience for learning new digital systems, and less tolerance for confusing interfaces.\n\nHowever, the interface must never feel like a 'senior product.' It must remain elegant, editorial, and refined. The design earns trust through clarity, not condescension.",
     },
     {
       type: "principle-list",
@@ -51,6 +56,11 @@ export const seniorFirstPlaybook: PlaybookPage = {
       ],
     },
     {
+      type: "text",
+      heading: "Design Tone",
+      body: "The guest interface should consistently feel:\n\n• Calm — no urgency, no pressure, no visual noise\n• Refined — premium materials, elegant spacing, considered typography\n• Editorial — like a travel magazine, not a software application\n• Trustworthy — predictable, consistent, reliable\n• Intuitive — self-teaching through constraints, never requiring a tutorial\n\nAvoid playful UI patterns, cluttered layouts, or anything that feels like a technology product rather than a curated experience.",
+    },
+    {
       type: "spec-table",
       heading: "Minimum Size & Contrast Rules",
       rows: [
@@ -65,7 +75,7 @@ export const seniorFirstPlaybook: PlaybookPage = {
     },
     {
       type: "do-dont",
-      heading: "Senior-First UI Rules",
+      heading: "Guest Interface Rules",
       dos: [
         "Use Body Large (18px) for primary guest-facing content",
         "Ensure all buttons have minimum 44px height",
