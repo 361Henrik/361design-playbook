@@ -7,6 +7,9 @@ import { playbookMeta } from "./_meta";
 
 // Principles
 import { brandPrinciples } from "./principles";
+import { seniorFirstPlaybook } from "./principles/senior-first";
+import { operatorBrandingPlaybook } from "./principles/operator-branding";
+import { editorialElegancePlaybook } from "./principles/editorial-elegance";
 
 // Tokens
 import { colorsPlaybook } from "./tokens/colors";
@@ -52,6 +55,9 @@ export { playbookMeta };
 export const allPlaybookPages: PlaybookPage[] = [
   // 01 — Principles
   brandPrinciples,
+  seniorFirstPlaybook,
+  operatorBrandingPlaybook,
+  editorialElegancePlaybook,
 
   // 02 — Tokens
   colorsPlaybook,
