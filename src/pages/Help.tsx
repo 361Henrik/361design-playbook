@@ -56,7 +56,7 @@ export default function Help() {
       {/* Quickstart */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-base font-display">Quickstart</CardTitle>
+          <CardTitle className="text-h3 font-display">Quickstart</CardTitle>
         </CardHeader>
         <CardContent>
           <ol className="space-y-3">
