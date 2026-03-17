@@ -117,6 +117,76 @@ const systemNav = [
   { title: "Help", url: "/help", icon: HelpCircle },
 ];
 
+function MapsAccordionNav() {
+  const location = useLocation();
+  const [openGroup, setOpenGroup] = useState<string | null>(() => {
+    // Auto-expand the group containing the current route
+    const match = mapsSubgroups.find((g) =>
+      g.items.some((i) => location.pathname === i.url)
+    );
+    return match?.label ?? null;
+  });
+
+  const toggle = (label: string) =>
+    setOpenGroup((prev) => (prev === label ? null : label));
+
+  return (
+    <SidebarGroup>
+      <SidebarGroupLabel className="px-3 text-[10px] uppercase tracking-widest text-sidebar-foreground/40 font-body font-medium mb-1">
+        Maps
+      </SidebarGroupLabel>
+      <SidebarGroupContent>
+        <SidebarMenu>
+          {mapsSubgroups.map((sub) => {
+            const isOpen = openGroup === sub.label;
+            const hasActive = sub.items.some((i) => location.pathname === i.url);
+            return (
+              <div key={sub.label}>
+                <SidebarMenuItem>
+                  <SidebarMenuButton
+                    onClick={() => toggle(sub.label)}
+                    className={`group flex items-center gap-3 px-3 py-2 rounded-md cursor-pointer transition-colors duration-ui ${
+                      hasActive
+                        ? "text-primary font-medium"
+                        : "text-foreground/70 hover:text-foreground hover:bg-sidebar-accent"
+                    }`}
+                  >
+                    <Map className="nav-icon h-4 w-4 shrink-0 text-primary/55 group-hover:text-primary/80 transition-colors duration-ui" strokeWidth={1.5} />
+                    <span className="font-body text-sm flex-1">{sub.label}</span>
+                    <ChevronRight
+                      className={`h-3 w-3 text-sidebar-foreground/40 transition-transform duration-ui ${
+                        isOpen ? "rotate-90" : ""
+                      }`}
+                      strokeWidth={1.5}
+                    />
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                {isOpen && (
+                  <div className="ml-4 border-l border-sidebar-border pl-1">
+                    {sub.items.map((item) => (
+                      <SidebarMenuItem key={item.title}>
+                        <SidebarMenuButton asChild>
+                          <NavLink
+                            to={item.url}
+                            className="group flex items-center gap-3 px-3 py-1.5 rounded-md text-foreground/70 hover:text-foreground hover:bg-sidebar-accent transition-colors duration-ui"
+                            activeClassName="bg-sidebar-accent text-primary font-medium"
+                          >
+                            <span className="font-body text-sm">{item.title}</span>
+                          </NavLink>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </SidebarMenu>
+      </SidebarGroupContent>
+    </SidebarGroup>
+  );
+}
+
 export function AppSidebar() {
   const location = useLocation();
   const { user, signOut } = useAuth();
