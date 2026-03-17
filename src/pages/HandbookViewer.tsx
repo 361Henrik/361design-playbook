@@ -145,7 +145,28 @@ export default function HandbookViewer() {
             <Eye className="h-3.5 w-3.5" />
             Full
           </Button>
+          <Button
+            variant={viewMode === "image" ? "default" : "outline"}
+            size="sm"
+            onClick={() => setViewMode("image")}
+            className="h-8 text-xs gap-1.5"
+          >
+            <Image className="h-3.5 w-3.5" />
+            Image
+          </Button>
         </div>
+
+        {viewMode === "image" && (
+          <div className="flex items-center gap-1">
+            <Button variant="outline" size="sm" onClick={handleExportPng} className="h-8 text-xs gap-1.5">
+              <Download className="h-3.5 w-3.5" />
+              Export PNG
+            </Button>
+            <Button variant="ghost" size="sm" onClick={toggleFullscreen} className="h-8 text-xs gap-1">
+              {isFullscreen ? <Minimize2 className="h-3.5 w-3.5" /> : <Maximize2 className="h-3.5 w-3.5" />}
+            </Button>
+          </div>
+        )}
 
         <div className="flex items-center gap-2">
           <Switch
