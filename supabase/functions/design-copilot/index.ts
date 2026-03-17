@@ -29,8 +29,8 @@ const COMPONENT_INDEX = [
 const GUARDRAIL_RULES = [
   { id: "color-bronze-ratio", name: "Bronze accent ≤ 8%", description: "Antique Bronze must remain an accent — never exceeding 8% of total visible area." },
   { id: "color-no-gradients", name: "No gradients", description: "Gradients are prohibited. Use flat, solid color fills only." },
-  { id: "color-approved-palette", name: "Approved palette only", description: "Only five approved colors: Deep Forest Green, Warm White, Warm Off-White, Near Black, Antique Bronze." },
-  { id: "color-60-30-8", name: "60/30/8 distribution", description: "60% Warm White / 30% Forest Green / 8% Bronze." },
+  { id: "color-approved-palette", name: "Approved palette only", description: "Only approved colors: Cream (#F7F4EF), Soft Ivory (#FBF9F6), Charcoal (#1A1A1A), Deep Marine Blue (#1F3A5F), Champagne Bronze (#C6A96B)." },
+  { id: "color-neutral-dominant", name: "Neutral base dominant", description: "Neutral surfaces (cream, ivory) dominant. Marine blue for interaction only. Bronze for highlights only. No colored backgrounds." },
   { id: "color-contrast", name: "WCAG AA contrast", description: "All text/background pairs must meet WCAG AA (4.5:1 body, 3:1 large)." },
   { id: "type-no-weight-300", name: "No weight 300", description: "Font weight 300 is never permitted." },
   { id: "type-headlines-playfair", name: "Headlines use Playfair Display", description: "All headlines (h1–h6) must use Playfair Display." },
