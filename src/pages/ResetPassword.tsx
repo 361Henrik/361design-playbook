@@ -129,7 +129,7 @@ const ResetPassword = () => {
         <CardContent>
           <form onSubmit={handleReset} className="space-y-4">
             <div className="space-y-2">
-              <Label className="text-xs font-body">New Password</Label>
+              <Label className="text-label font-body">New Password</Label>
               <Input
                 type="password"
                 value={password}
