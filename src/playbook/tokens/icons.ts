@@ -42,13 +42,23 @@ export const iconsPlaybook: PlaybookPage = {
     },
     {
       type: "spec-table",
+      heading: "Marker Anatomy (Outside → Inside)",
+      rows: [
+        { label: "Outer ring", value: "2px solid #1A1A1A (default) · 3px solid #C6A96B (selected)" },
+        { label: "White disk", value: "Solid #FFFFFF fill inside ring — no gradient, no transparency" },
+        { label: "Icon", value: "Outline style · 2–2.5px stroke · #1A1A1A · centered on white disk" },
+        { label: "Fills rule", value: "White disk (solid white background behind icon)" },
+      ],
+    },
+    {
+      type: "spec-table",
       heading: "Map Marker States",
       rows: [
-        { label: "Default", value: "2px foreground ring, white body, outline icon" },
-        { label: "Hover", value: "2.5px foreground ring" },
-        { label: "Selected", value: "3px bronze ring" },
-        { label: "Curated", value: "Double bronze ring (operator-highlighted)" },
-        { label: "Cluster", value: "Count number instead of icon" },
+        { label: "Default", value: "2px black ring, white disk, black outline icon. No label visible." },
+        { label: "Hover", value: "2.5px black ring. White disk and icon unchanged." },
+        { label: "Selected", value: "3px champagne bronze ring. White disk and icon unchanged." },
+        { label: "Curated", value: "Double bronze ring (operator-highlighted). White disk and icon unchanged." },
+        { label: "Cluster", value: "Count number on white disk instead of icon." },
       ],
     },
     {
