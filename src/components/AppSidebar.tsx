@@ -82,6 +82,17 @@ const systemNav = [
   { title: "Guardrails", url: "/guardrails", icon: ShieldCheck },
 ];
 
+const toolsNav = [
+  { title: "Export", url: "/export", icon: Download },
+  { title: "Studio", url: "/studio", icon: PanelTop },
+  { title: "Sources", url: "/sources", icon: Upload },
+  { title: "Library", url: "/library", icon: Library },
+  { title: "Changelog", url: "/changelog", icon: History },
+  { title: "Copilot", url: "/copilot", icon: Sparkles },
+  { title: "Settings", url: "/settings", icon: Settings },
+  { title: "Help", url: "/help", icon: HelpCircle },
+];
+
 const behaviorNav = [
   { title: "Signifiers & Clarity", url: "/behavior/signifiers", icon: MousePointer },
   { title: "Interaction States", url: "/behavior/interaction-states", icon: MousePointer },
