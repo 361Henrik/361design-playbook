@@ -238,7 +238,7 @@ const Dashboard = () => {
 
       {/* Using the System */}
       <section className="mb-10">
-        <h2 className="font-display text-h2 text-primary mb-4">
+        <h2 className="font-display text-h2 text-foreground mb-4">
           Using the System
         </h2>
         <p className="text-body font-body text-muted-foreground max-w-prose mb-6">
