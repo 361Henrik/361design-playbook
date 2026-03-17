@@ -121,7 +121,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display text-foreground;
+    @apply font-display;
   }
 
   /* Senior-first: enforce 48px touch targets on all form controls */
