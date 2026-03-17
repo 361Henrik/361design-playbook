@@ -233,7 +233,7 @@ const GuardrailsPage = () => {
             <div className="flex items-center gap-2">
               <Icon className="h-4 w-4 text-muted-foreground" strokeWidth={1.5} />
               <h2 className="font-display text-lg font-medium tracking-headline text-foreground">{meta.label}</h2>
-              <Badge variant="secondary" className="font-mono text-[10px]">{rules.length} rules</Badge>
+              <Badge variant="bronze" className="font-mono text-[10px]">{rules.length} rules</Badge>
             </div>
 
             <div className="space-y-2">

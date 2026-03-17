@@ -242,7 +242,7 @@ export function TokenExamplesTab({ tokenCategory }: TokenExamplesTabProps) {
 
                       {/* Tags */}
                       <div className="flex flex-wrap gap-1.5 mb-3">
-                        <Badge variant="secondary" className="text-[10px]">{v.slot_type}</Badge>
+                        <Badge variant="bronze" className="text-[10px]">{v.slot_type}</Badge>
                         {v.tags.map((t) => (
                           <Badge key={t} variant="outline" className="text-[10px]">{t}</Badge>
                         ))}

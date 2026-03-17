@@ -52,7 +52,7 @@ const ComponentDetailPage = () => {
             {component.name}
           </h1>
           {category && (
-            <Badge variant="secondary" className="text-xs font-body">
+            <Badge variant="bronze" className="text-xs font-body">
               {category.label}
             </Badge>
           )}

@@ -510,12 +510,14 @@ export const components: ComponentEntry[] = [
       <div className="flex flex-wrap gap-2">
         <Badge>Default</Badge>
         <Badge variant="secondary">Secondary</Badge>
+        <Badge variant="bronze">Bronze</Badge>
         <Badge variant="outline">Outline</Badge>
         <Badge variant="destructive">Error</Badge>
       </div>
     ),
     code: `<Badge>Default</Badge>
 <Badge variant="secondary">Secondary</Badge>
+<Badge variant="bronze">Bronze</Badge>
 <Badge variant="outline">Outline</Badge>
 <Badge variant="destructive">Error</Badge>`,
   },
