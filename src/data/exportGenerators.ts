@@ -4,11 +4,11 @@
 
 const tokens = {
   colors: {
-    accent: { name: "Antique Bronze", hsl: "36 42% 56%", hex: "#C49A5C", css: "--accent", tw: "accent" },
-    background: { name: "Warm White", hsl: "40 33% 97%", hex: "#FBFAF8", css: "--background", tw: "background" },
-    foreground: { name: "Near Black", hsl: "240 29% 14%", hex: "#1A1A2E", css: "--foreground", tw: "foreground" },
-    primary: { name: "Deep Forest Green", hsl: "103 53% 23%", hex: "#2E5A1C", css: "--primary", tw: "primary" },
-    secondary: { name: "Warm Off-White", hsl: "37 21% 95%", hex: "#F5F3EF", css: "--secondary", tw: "secondary" },
+    accent: { name: "Champagne Bronze", hsl: "40 42% 60%", hex: "#C6A96B", css: "--accent", tw: "accent" },
+    background: { name: "Cream", hsl: "36 24% 95%", hex: "#F7F4EF", css: "--background", tw: "background" },
+    foreground: { name: "Charcoal", hsl: "0 0% 10%", hex: "#1A1A1A", css: "--foreground", tw: "foreground" },
+    primary: { name: "Deep Marine Blue", hsl: "215 51% 25%", hex: "#1F3A5F", css: "--primary", tw: "primary" },
+    secondary: { name: "Soft Ivory", hsl: "40 33% 97%", hex: "#FBF9F6", css: "--secondary", tw: "secondary" },
   },
   typography: {
     body: { family: "Lexend", fallback: "system-ui, sans-serif", weight: "400", lineHeight: "1.6" },
@@ -79,7 +79,7 @@ export function generateCSS(overrideTokens?: typeof tokens): string {
       lines.push(`  --${key}: ${val.hsl};`);
       if (key === "primary") lines.push(`  --${key}-foreground: ${t.colors.background.hsl};`);
       if (key === "secondary") lines.push(`  --${key}-foreground: ${t.colors.primary.hsl};`);
-      if (key === "accent") lines.push(`  --${key}-foreground: ${t.colors.background.hsl};`);
+      if (key === "accent") lines.push(`  --${key}-foreground: ${t.colors.foreground.hsl};`);
       return lines.join("\n");
     })
     .join("\n");
@@ -88,15 +88,15 @@ export function generateCSS(overrideTokens?: typeof tokens): string {
   /* Colors (sorted alphabetically) */
 ${colorLines}
   --muted: ${t.colors.secondary.hsl};
-  --muted-foreground: 240 10% 44%;
+  --muted-foreground: 0 0% 36%;
   --destructive: 0 72% 51%;
   --destructive-foreground: ${t.colors.background.hsl};
   --card: ${t.colors.secondary.hsl};
   --card-foreground: ${t.colors.foreground.hsl};
   --popover: ${t.colors.background.hsl};
   --popover-foreground: ${t.colors.foreground.hsl};
-  --border: 37 18% 88%;
-  --input: 37 18% 88%;
+  --border: 36 10% 83%;
+  --input: 36 10% 83%;
   --ring: ${t.colors.primary.hsl};
   --radius: ${t.layout.radius};
 
@@ -270,7 +270,7 @@ export function generateStarterReadme(): string {
 2. Copy \`tokens.css\` into your global stylesheet
 3. Add the Tailwind config from \`tailwind.config.ts\`
 4. Import token constants from \`tokens.ts\` as needed
-5. Load fonts: Playfair Display (500) + Inter (400, 500) from Google Fonts
+5. Load fonts: Playfair Display (500) + Lexend (400, 500) from Google Fonts
 
 ## Files Included
 
@@ -287,22 +287,25 @@ CSS, Tailwind, JSON, and TypeScript outputs.
 
 ## Color Palette
 
-| Name             | Hex     | Usage   |
-|------------------|---------|---------|
-| Deep Forest Green| #2E5A1C | 30%     |
-| Warm White       | #FBFAF8 | 60%     |
-| Warm Off-White   | #F5F3EF | Cards   |
-| Near Black       | #1A1A2E | Text    |
-| Antique Bronze   | #C49A5C | 8% max  |
+| Name              | Hex     | Role            |
+|-------------------|---------|-----------------|
+| Cream             | #F7F4EF | Background      |
+| Soft Ivory        | #FBF9F6 | Cards / panels  |
+| Charcoal          | #1A1A1A | Text            |
+| Deep Marine Blue  | #1F3A5F | Interaction     |
+| Champagne Bronze  | #C6A96B | Highlight       |
+| Border Subtle     | #D9D6D1 | Borders         |
 
 ## Typography
 
 - **Headlines**: Playfair Display, weight 500, tracking −0.01em
-- **Body**: Inter, weight 400, line-height 1.65
+- **Body**: Lexend, weight 400, line-height 1.65
 
 ## Rules
 
-- Bronze is an accent — never exceed 8% of visible area
+- Neutral base always dominant — no colored backgrounds
+- Marine blue for interaction only — buttons, routes, active states
+- Bronze is a highlight accent — never exceed subtle usage
 - No gradients, no parallax, no bouncing animations
 - Max paragraph width: 52 characters
 - UI transitions: 300–400ms, ease-out

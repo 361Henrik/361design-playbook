@@ -15,8 +15,8 @@ export const brandPrinciples: PlaybookPage = {
     },
     {
       type: "text",
-      heading: "Two Perspectives, One System",
-      body: "The design handbook maintains a clear separation between two perspectives:\n\n**Guest Experience (B2C)** — How the interface works for travelers. Covers typography, spacing, map design, interaction patterns, accessibility, and editorial quality. These rules are structural and constant across all operator configurations.\n\n**Operator Branding (B2B)** — How the platform adapts to each operator's identity. Covers logo placement, color overrides, tone modifiers, and welcome content. This is a platform configuration capability, not a UI behavior specification.\n\nThese perspectives must never be mixed. Sales messaging for operators and interface design rules for guests are separate concerns documented in separate sections.",
+      heading: "Single System, Two Rendering Modes",
+      body: "The Curated Lens is a single design system with two rendering modes:\n\n**Curated Lens Signature Mode (B2B)** — How the system expresses its own identity in the Design System Hub, sales materials, and onboarding. Uses Deep Marine Blue + Champagne Bronze as accent colors.\n\n**Operator Expression Mode (B2C)** — How the system adapts to each operator's identity in guest-facing environments. Allows controlled color adaptation while structural rules (map, marker, layout, typography) remain immutable.\n\nThese modes share a single foundation: neutral backgrounds (cream, ivory), the same typography stack, the same spacing scale, and the same structural constraints.",
     },
     {
       type: "text",
@@ -36,7 +36,7 @@ export const brandPrinciples: PlaybookPage = {
         "No decorative or trend-driven styling",
         "No startup-techy aesthetics",
         "No over-animated layouts (no bouncy, scaling, dramatic motion)",
-        "No over-colored layouts or gradients",
+        "No colored backgrounds — all surfaces are neutral",
         "No multiple hero images per section",
         "One hero image OR one diagram, not both",
         "No overly playful or cartoon-style icons",

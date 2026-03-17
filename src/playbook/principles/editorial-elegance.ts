@@ -36,7 +36,7 @@ export const editorialElegancePlaybook: PlaybookPage = {
         {
           title: "Restrained Color",
           description:
-            "The 60/30/8 distribution (Warm White / Forest Green / Bronze) keeps the palette calm. Color is applied architecturally, not decoratively.",
+            "Neutral base always dominant. Marine blue for interaction only. Bronze for subtle highlights. No colored backgrounds — surfaces are always cream, ivory, or white.",
         },
         {
           title: "Subtle Depth",
@@ -59,7 +59,7 @@ export const editorialElegancePlaybook: PlaybookPage = {
         "Bright, saturated interface colors",
         "Dense dashboards with competing data",
         "Loud or attention-grabbing animations",
-        "Gradient backgrounds on primary surfaces",
+        "Colored backgrounds on primary surfaces — neutrals only",
         "Rounded-everything aesthetic (keep border-radius restrained)",
         "Tech startup visual language (neon, glassmorphism, 3D)",
         "Cluttered layouts that feel like software rather than editorial content",
@@ -73,7 +73,7 @@ export const editorialElegancePlaybook: PlaybookPage = {
     {
       type: "text",
       heading: "Distinction from Operator Branding",
-      body: "Editorial elegance is a constant — it applies to every operator configuration. While operators may customize colors, logos, and tone, the underlying editorial quality standard (whitespace, typography hierarchy, restraint, depth) does not change.\n\nOperator branding adapts personality. Editorial elegance defines quality.",
+      body: "Editorial elegance is a constant — it applies to every operator configuration. While operators may customize accent colors and tone, the underlying editorial quality standard (whitespace, typography hierarchy, restraint, depth) does not change.\n\nOperator branding adapts personality. Editorial elegance defines quality.",
     },
   ],
 };
