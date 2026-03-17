@@ -22,7 +22,7 @@ export const visualStylePlaybook: PlaybookPage = {
         { name: "Terrain shadow", value: "#E2DDD6", description: "Subtle hillshade for depth, not topographic detail." },
         { name: "Route — upcoming", value: "#8B8680", description: "Muted warm grey. Present but not dominant." },
         { name: "Route — active", value: "#1F3A5F", description: "Deep Marine Blue. Default route color, overridable per operator." },
-        { name: "Vessel position", value: "#1A1A1A", description: "Matches completed route. Solid, confident." },
+        { name: "Vessel position", value: "#1F3A5F", description: "Matches active route. Solid, confident." },
         { name: "POI marker background", value: "#FFFFFF", description: "White circular disk — high contrast against any map surface." },
         { name: "POI marker ring", value: "#1A1A1A", description: "Black outline ring (2px). Clear in all lighting conditions." },
         { name: "POI marker icon", value: "#1A1A1A", description: "Black icon centered inside white disk. Maximum readability." },
