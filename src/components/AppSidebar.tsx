@@ -192,21 +192,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        <SidebarGroup>
-          <SidebarGroupLabel className="px-3 text-[10px] uppercase tracking-widest text-sidebar-foreground/40 font-body font-medium mb-1">
-            Maps
-          </SidebarGroupLabel>
-          <SidebarGroupContent>
-            {mapsSubgroups.map((sub) => (
-              <div key={sub.label} className="mb-2">
-                <p className="px-3 pt-2 pb-1 text-[10px] uppercase tracking-widest text-sidebar-foreground/30 font-body font-medium">
-                  {sub.label}
-                </p>
-                <SidebarMenu>{renderItems(sub.items)}</SidebarMenu>
-              </div>
-            ))}
-          </SidebarGroupContent>
-        </SidebarGroup>
+        <MapsAccordionNav />
 
         <SidebarGroup>
           <SidebarGroupLabel className="px-3 text-[10px] uppercase tracking-widest text-sidebar-foreground/40 font-body font-medium mb-1">
