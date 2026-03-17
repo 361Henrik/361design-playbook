@@ -26,7 +26,7 @@ export const brandPrinciples: PlaybookPage = {
     {
       type: "text",
       heading: "Imagery Philosophy",
-      body: "Cinematic, contemplative, premium travel mood. Integrated product experience. Avoid staged corporate stock imagery. Avoid recognizable operator assets unless approved. Never use low-contrast overlays on photography that compromise text readability.",
+      body: "Cinematic, contemplative, premium travel mood. Integrated product experience. See the dedicated **Image System** page for the full three-layered image philosophy (Hero, Experience, Product in Use), mode-specific direction, and example prompts.",
     },
     {
       type: "rule-list",

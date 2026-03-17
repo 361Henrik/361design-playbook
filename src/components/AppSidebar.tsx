@@ -45,6 +45,7 @@ import {
   HelpCircle,
   Route,
   Map,
+  Camera,
 } from "lucide-react";
 
 const mainNav = [
@@ -77,6 +78,7 @@ const mapsNav = [
 const systemNav = [
   { title: "Components", url: "/components", icon: Component },
   { title: "Guidelines", url: "/guidelines", icon: BookOpen },
+  { title: "Image System", url: "/image-system", icon: Camera },
   { title: "Narrative Patterns", url: "/narrative-patterns", icon: Route },
   { title: "Guardrails", url: "/guardrails", icon: ShieldCheck },
   { title: "Export", url: "/export", icon: Download },

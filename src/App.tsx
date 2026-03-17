@@ -27,6 +27,7 @@ import TokensVoice from "./pages/tokens/TokensVoice";
 import ComponentsPage from "./pages/Components";
 import ComponentDetailPage from "./pages/ComponentDetail";
 import GuidelinesPage from "./pages/Guidelines";
+import ImageSystemPage from "./pages/ImageSystem";
 import GuardrailsPage from "./pages/Guardrails";
 import ExportPage from "./pages/Export";
 import SettingsPage from "./pages/Settings";
@@ -83,6 +84,7 @@ function ProtectedRoutes() {
           <Route path="/components" element={<ComponentsPage />} />
           <Route path="/components/:id" element={<ComponentDetailPage />} />
           <Route path="/guidelines" element={<GuidelinesPage />} />
+          <Route path="/image-system" element={<ImageSystemPage />} />
           <Route path="/narrative-patterns" element={<NarrativePatternsPage />} />
           <Route path="/guardrails" element={<GuardrailsPage />} />
           <Route path="/export" element={<ExportPage />} />
