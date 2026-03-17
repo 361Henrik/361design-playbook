@@ -45,6 +45,7 @@ import {
   HelpCircle,
   Route,
   Map,
+  Camera,
 } from "lucide-react";
 
 const mainNav = [
