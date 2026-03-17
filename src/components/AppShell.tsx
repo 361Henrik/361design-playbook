@@ -7,11 +7,11 @@ import {
   ResizablePanel,
   ResizableHandle,
 } from "@/components/ui/resizable";
-import { useCallback, useRef } from "react";
-import type { ImperativePanelHandle } from "react-resizable-panels";
+import { useCallback } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const SIDEBAR_STORAGE_KEY = "sidebar-panel-size";
-const DEFAULT_SIZE = 15; // ~15% of viewport ≈ 16rem at 1100px
+const DEFAULT_SIZE = 15;
 const MIN_SIZE = 12;
 const MAX_SIZE = 25;
 
@@ -31,7 +31,7 @@ interface AppShellProps {
 }
 
 export function AppShell({ children }: AppShellProps) {
-  const sidebarRef = useRef<ImperativePanelHandle>(null);
+  const isMobile = useIsMobile();
 
   const handleResize = useCallback((size: number) => {
     try {
@@ -39,39 +39,50 @@ export function AppShell({ children }: AppShellProps) {
     } catch {}
   }, []);
 
+  const mainContent = (
+    <div className="flex-1 flex flex-col min-w-0 h-full">
+      <header className="h-14 flex items-center border-b border-border px-6 bg-card shrink-0">
+        <SidebarTrigger className={isMobile ? "mr-4" : "mr-4 hidden"} />
+        <div className="flex-1" />
+        <kbd className="hidden sm:inline-flex items-center gap-1 rounded border border-border bg-muted px-2 py-0.5 text-[10px] font-mono text-muted-foreground">
+          ⌘K
+        </kbd>
+      </header>
+      <main className="flex-1 overflow-auto">
+        {children}
+      </main>
+    </div>
+  );
+
+  if (isMobile) {
+    return (
+      <SidebarProvider>
+        <div className="flex min-h-screen w-full">
+          <AppSidebar />
+          {mainContent}
+        </div>
+        <CommandSearch />
+        <OnboardingTour />
+      </SidebarProvider>
+    );
+  }
+
   return (
     <SidebarProvider>
       <ResizablePanelGroup direction="horizontal" className="min-h-screen w-full">
         <ResizablePanel
-          ref={sidebarRef}
           defaultSize={getStoredSize()}
           minSize={MIN_SIZE}
           maxSize={MAX_SIZE}
           onResize={handleResize}
-          className="hidden md:block"
         >
           <AppSidebar />
         </ResizablePanel>
-        <ResizableHandle className="hidden md:flex w-px bg-border hover:bg-primary/20 transition-colors data-[resize-handle-active]:bg-primary/30" />
+        <ResizableHandle className="w-px bg-border hover:bg-primary/20 active:bg-primary/30 transition-colors" />
         <ResizablePanel defaultSize={100 - getStoredSize()} minSize={60}>
-          <div className="flex-1 flex flex-col min-w-0 h-full">
-            <header className="h-14 flex items-center border-b border-border px-6 bg-card shrink-0">
-              <SidebarTrigger className="mr-4 md:hidden" />
-              <div className="flex-1" />
-              <kbd className="hidden sm:inline-flex items-center gap-1 rounded border border-border bg-muted px-2 py-0.5 text-[10px] font-mono text-muted-foreground">
-                ⌘K
-              </kbd>
-            </header>
-            <main className="flex-1 overflow-auto">
-              {children}
-            </main>
-          </div>
+          {mainContent}
         </ResizablePanel>
       </ResizablePanelGroup>
-      {/* Mobile sidebar still handled by Sheet inside Sidebar component */}
-      <div className="md:hidden">
-        <AppSidebar />
-      </div>
       <CommandSearch />
       <OnboardingTour />
     </SidebarProvider>
