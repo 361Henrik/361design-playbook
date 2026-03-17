@@ -196,7 +196,14 @@ export function AppSidebar() {
             Maps
           </SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu>{renderItems(mapsNav)}</SidebarMenu>
+            {mapsSubgroups.map((sub) => (
+              <div key={sub.label} className="mb-2">
+                <p className="px-3 pt-2 pb-1 text-[10px] uppercase tracking-widest text-sidebar-foreground/30 font-body font-medium">
+                  {sub.label}
+                </p>
+                <SidebarMenu>{renderItems(sub.items)}</SidebarMenu>
+              </div>
+            ))}
           </SidebarGroupContent>
         </SidebarGroup>
 
