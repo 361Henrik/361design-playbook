@@ -123,8 +123,8 @@ const ResetPassword = () => {
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="font-display text-2xl tracking-headline">Set New Password</CardTitle>
-          <CardDescription className="font-body text-sm">Enter your new password below.</CardDescription>
+          <CardTitle className="font-display text-h2 tracking-headline">Set New Password</CardTitle>
+          <CardDescription className="font-body text-body-sm">Enter your new password below.</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleReset} className="space-y-4">
