@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { PageHeader } from "@/components/PageHeader";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -8,9 +8,11 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { PlaybookBlockRenderer } from "@/components/PlaybookBlockRenderer";
+import { ImageCanvas } from "@/components/handbook/ImageCanvas";
 import { allPlaybookPages, getPlaybookSections } from "@/playbook/index";
 import type { PlaybookPage } from "@/playbook/types";
-import { Search, Eye, List, ChevronsDownUp, ChevronsUpDown } from "lucide-react";
+import { Search, Eye, List, Image, ChevronsDownUp, ChevronsUpDown, Download, Maximize2, Minimize2 } from "lucide-react";
+import { toPng } from "html-to-image";
 
 const STORAGE_KEY = "handbook-viewer-selection";
 
