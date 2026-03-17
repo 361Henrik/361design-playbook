@@ -179,17 +179,18 @@ export default function HandbookViewer() {
           </Label>
         </div>
 
-        <div className="flex items-center gap-1 ml-auto">
-          <Button variant="ghost" size="sm" onClick={expandAll} className="h-8 text-xs gap-1">
-            <ChevronsUpDown className="h-3.5 w-3.5" />
-            Expand
-          </Button>
-          <Button variant="ghost" size="sm" onClick={collapseAll} className="h-8 text-xs gap-1">
-            <ChevronsDownUp className="h-3.5 w-3.5" />
-            Collapse
-          </Button>
-        </div>
-      </div>
+        {viewMode !== "image" && (
+          <div className="flex items-center gap-1 ml-auto">
+            <Button variant="ghost" size="sm" onClick={expandAll} className="h-8 text-xs gap-1">
+              <ChevronsUpDown className="h-3.5 w-3.5" />
+              Expand
+            </Button>
+            <Button variant="ghost" size="sm" onClick={collapseAll} className="h-8 text-xs gap-1">
+              <ChevronsDownUp className="h-3.5 w-3.5" />
+              Collapse
+            </Button>
+          </div>
+        )}
 
       {/* Main layout */}
       <div className="flex gap-6 items-start">
