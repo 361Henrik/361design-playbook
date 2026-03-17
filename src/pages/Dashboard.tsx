@@ -168,7 +168,7 @@ const Dashboard = () => {
       {/* Analytics Section */}
       {hasData && (
         <section className="mb-10">
-          <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-6 flex items-center gap-2">
+          <h2 className="font-display text-xl font-medium tracking-headline leading-section text-primary mb-6 flex items-center gap-2">
             <Activity className="h-5 w-5 text-accent" strokeWidth={1.5} />
             System Health
           </h2>
