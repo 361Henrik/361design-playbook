@@ -96,7 +96,7 @@ export default function Help() {
       {/* FAQ */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-base font-display">FAQ</CardTitle>
+          <CardTitle className="text-h3 font-display">FAQ</CardTitle>
         </CardHeader>
         <CardContent>
           <Accordion type="single" collapsible className="w-full">

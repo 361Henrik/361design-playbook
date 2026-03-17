@@ -180,7 +180,7 @@ const SettingsPage = () => {
       {/* Email Digest */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-base flex items-center gap-2"><Mail className="h-4 w-4" strokeWidth={1.5} />Weekly Digest</CardTitle>
+          <CardTitle className="text-h3 font-display flex items-center gap-2"><Mail className="h-4 w-4" strokeWidth={1.5} />Weekly Digest</CardTitle>
           <CardDescription className="text-xs">Receive a weekly summary of design system activity.</CardDescription>
         </CardHeader>
         <CardContent>
