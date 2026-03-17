@@ -102,7 +102,7 @@ const ResetPassword = () => {
                 placeholder="you@example.com"
               />
             </div>
-            <Button onClick={handleResendLink} className="w-full" disabled={loading}>
+            <Button onClick={handleResendLink} className="w-full" size="lg" disabled={loading}>
               {loading && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
               Send Reset Link
             </Button>
