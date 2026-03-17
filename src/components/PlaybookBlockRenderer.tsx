@@ -2,6 +2,7 @@ import type { ContentBlock } from "@/playbook/types";
 import { DosDonts } from "@/components/DosDonts";
 import { CodeBlock } from "@/components/CodeBlock";
 import { Badge } from "@/components/ui/badge";
+import { SpacingVisualBlock, IconGridBlock, EnhancedColorSwatchBlock } from "@/components/playbook/VisualBlockRenderers";
 
 function TextBlock({ block }: { block: Extract<ContentBlock, { type: "text" }> }) {
   return (
