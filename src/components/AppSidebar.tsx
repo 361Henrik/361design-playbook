@@ -260,6 +260,15 @@ export function AppSidebar() {
             <SidebarMenu>{renderItems(systemNav)}</SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
+        <SidebarGroup>
+          <SidebarGroupLabel className="px-3 text-[10px] uppercase tracking-widest text-sidebar-foreground/40 font-body font-medium mb-1">
+            Tools
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>{renderItems(toolsNav)}</SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
       </SidebarContent>
 
       {/* User footer */}
