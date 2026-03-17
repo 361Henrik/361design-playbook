@@ -26,10 +26,10 @@ const COMPONENT_INDEX = [
 ];
 
 const GUARDRAIL_RULES = [
-  { id: "color-bronze-ratio", name: "Bronze accent ≤ 8%", severity: "error", description: "Antique Bronze must remain an accent — never exceeding 8% of total visible area." },
+  { id: "color-bronze-ratio", name: "Bronze highlight only", severity: "error", description: "Champagne Bronze must remain a subtle highlight accent — never for buttons, backgrounds, or large surfaces." },
   { id: "color-no-gradients", name: "No gradients", severity: "error", description: "Gradients are prohibited. Use flat, solid color fills only." },
-  { id: "color-approved-palette", name: "Approved palette only", severity: "error", description: "Only five approved colors: Deep Forest Green (#2E5A1C), Warm White (#FBFAF8), Warm Off-White (#F5F3EF), Near Black (#1A1A2E), Antique Bronze (#C49A5C)." },
-  { id: "color-60-30-8", name: "60/30/8 distribution", severity: "warning", description: "60% Warm White / 30% Forest Green / 8% Bronze." },
+  { id: "color-approved-palette", name: "Approved palette only", severity: "error", description: "Only approved colors: Cream (#F7F4EF), Soft Ivory (#FBF9F6), Charcoal (#1A1A1A), Deep Marine Blue (#1F3A5F), Champagne Bronze (#C6A96B)." },
+  { id: "color-neutral-dominant", name: "Neutral base dominant", severity: "warning", description: "Neutral surfaces (cream, ivory) dominant. Marine blue for interaction only. No colored backgrounds." },
   { id: "color-contrast", name: "WCAG AA contrast", severity: "error", description: "All text/background pairs must meet WCAG AA (4.5:1 body, 3:1 large). AAA (7:1) preferred for body text." },
   { id: "color-no-bright-markers", name: "No bright colored markers", severity: "error", description: "Map markers use white disk + black ring only. Color reserved for state changes (selected = bronze)." },
   { id: "type-no-weight-300", name: "No weight 300", severity: "error", description: "Font weight 300 is never permitted." },
