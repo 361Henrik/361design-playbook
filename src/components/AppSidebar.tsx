@@ -65,14 +65,11 @@ const tokenNav = [
 
 const mapsItems = [
   { title: "Map Principles", url: "/maps/principles", icon: Map },
+  { title: "Map Structure", url: "/maps/structure", icon: Map },
   { title: "Map Visual Style", url: "/maps/visual-style", icon: Map },
-  { title: "Map Layers", url: "/maps/layers", icon: Map },
-  { title: "Labels & Geography", url: "/maps/labels", icon: Map },
   { title: "Map Interaction", url: "/maps/interaction", icon: Map },
-  { title: "Filtering & Categories", url: "/maps/filtering", icon: Map },
-  { title: "Route & Position", url: "/maps/route-position", icon: Map },
-  { title: "Scenic Corridor", url: "/maps/corridor", icon: Map },
-  { title: "Guest Experience", url: "/maps/guest-experience", icon: Map },
+  { title: "Navigation Logic", url: "/maps/navigation-logic", icon: Map },
+  { title: "Experience Design", url: "/maps/experience-design", icon: Map },
   { title: "Map Examples", url: "/maps/examples", icon: Map },
 ];
 

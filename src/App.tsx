@@ -13,14 +13,11 @@ import TokensSpacing from "./pages/tokens/TokensSpacing";
 import TokensLayout from "./pages/tokens/TokensLayout";
 import TokensMotion from "./pages/tokens/TokensMotion";
 import MapPrinciples from "./pages/maps/MapPrinciples";
-import DynamicScenicCorridor from "./pages/maps/DynamicScenicCorridor";
-import MapLayers from "./pages/maps/MapLayers";
+import MapStructure from "./pages/maps/MapStructure";
 import MapVisualStyle from "./pages/maps/MapVisualStyle";
-import MapLabelsGeography from "./pages/maps/MapLabelsGeography";
-import RoutePosition from "./pages/maps/RoutePosition";
 import MapInteraction from "./pages/maps/MapInteraction";
-import FilteringCategories from "./pages/maps/FilteringCategories";
-import GuestExperience from "./pages/maps/GuestExperience";
+import NavigationLogic from "./pages/maps/NavigationLogic";
+import ExperienceDesign from "./pages/maps/ExperienceDesign";
 import MapExamples from "./pages/maps/MapExamples";
 import TokensIcons from "./pages/tokens/TokensIcons";
 import TokensVoice from "./pages/tokens/TokensVoice";
@@ -70,15 +67,19 @@ function ProtectedRoutes() {
           <Route path="/tokens/layout" element={<TokensLayout />} />
           <Route path="/tokens/motion" element={<TokensMotion />} />
           <Route path="/maps/principles" element={<MapPrinciples />} />
-          <Route path="/maps/corridor" element={<DynamicScenicCorridor />} />
-          <Route path="/maps/layers" element={<MapLayers />} />
+          <Route path="/maps/structure" element={<MapStructure />} />
           <Route path="/maps/visual-style" element={<MapVisualStyle />} />
-          <Route path="/maps/labels" element={<MapLabelsGeography />} />
-          <Route path="/maps/route-position" element={<RoutePosition />} />
           <Route path="/maps/interaction" element={<MapInteraction />} />
-          <Route path="/maps/filtering" element={<FilteringCategories />} />
-          <Route path="/maps/guest-experience" element={<GuestExperience />} />
+          <Route path="/maps/navigation-logic" element={<NavigationLogic />} />
+          <Route path="/maps/experience-design" element={<ExperienceDesign />} />
           <Route path="/maps/examples" element={<MapExamples />} />
+          {/* Redirects for old map routes */}
+          <Route path="/maps/layers" element={<Navigate to="/maps/structure" replace />} />
+          <Route path="/maps/labels" element={<Navigate to="/maps/structure" replace />} />
+          <Route path="/maps/filtering" element={<Navigate to="/maps/navigation-logic" replace />} />
+          <Route path="/maps/route-position" element={<Navigate to="/maps/navigation-logic" replace />} />
+          <Route path="/maps/corridor" element={<Navigate to="/maps/experience-design" replace />} />
+          <Route path="/maps/guest-experience" element={<Navigate to="/maps/experience-design" replace />} />
           <Route path="/tokens/icons" element={<TokensIcons />} />
           <Route path="/tokens/voice" element={<TokensVoice />} />
           <Route path="/components" element={<ComponentsPage />} />
