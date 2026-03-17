@@ -104,7 +104,7 @@ const SettingsPage = () => {
       {isAdmin && (
         <Card>
           <CardHeader>
-            <CardTitle className="text-base flex items-center gap-2"><Users className="h-4 w-4" strokeWidth={1.5} />User Roles</CardTitle>
+            <CardTitle className="text-h3 font-display flex items-center gap-2"><Users className="h-4 w-4" strokeWidth={1.5} />User Roles</CardTitle>
             <CardDescription className="text-xs">Manage who can edit, approve, or just view the design system.</CardDescription>
           </CardHeader>
           <CardContent>
