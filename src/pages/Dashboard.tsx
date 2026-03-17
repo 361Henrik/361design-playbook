@@ -15,8 +15,8 @@ import {
 } from "recharts";
 
 const categories = [
-  { title: "Colors", description: "Deep Forest Green, Warm White, Antique Bronze — exact values and usage ratios.", icon: Palette, href: "/tokens/colors" },
-  { title: "Typography", description: "Playfair Display headlines, Inter body — weights, line-heights, and discipline.", icon: Type, href: "/tokens/typography" },
+  { title: "Colors", description: "Cream, Marine Blue, Champagne Bronze — exact values and usage rules.", icon: Palette, href: "/tokens/colors" },
+  { title: "Typography", description: "Playfair Display headlines, Lexend body — weights, line-heights, and discipline.", icon: Type, href: "/tokens/typography" },
   { title: "Spacing", description: "Section padding, headline gaps, paragraph spacing ranges.", icon: Ruler, href: "/tokens/spacing" },
   { title: "Layout", description: "Content widths, column control, panel pairings.", icon: LayoutGrid, href: "/tokens/layout" },
   { title: "Motion", description: "UI transitions, hero loops, and prohibited patterns.", icon: Zap, href: "/tokens/motion" },
@@ -34,9 +34,9 @@ const onboardingSteps: Step[] = [
 ];
 
 const PIE_COLORS = [
-  "hsl(103 53% 23%)",   // primary
-  "hsl(36 42% 56%)",    // accent
-  "hsl(240 10% 44%)",   // muted-fg
+  "hsl(215 51% 25%)",   // primary (marine blue)
+  "hsl(40 42% 60%)",    // accent (bronze)
+  "hsl(0 0% 36%)",      // muted-fg
   "hsl(0 72% 51%)",     // destructive
 ];
 
@@ -198,7 +198,7 @@ const Dashboard = () => {
                       <XAxis dataKey="name" tick={{ fontSize: 11 }} />
                       <YAxis tick={{ fontSize: 11 }} allowDecimals={false} />
                       <Tooltip />
-                      <Bar dataKey="value" fill="hsl(103 53% 23%)" radius={[4, 4, 0, 0]} />
+                      <Bar dataKey="value" fill="hsl(215 51% 25%)" radius={[4, 4, 0, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
                 </CardContent>

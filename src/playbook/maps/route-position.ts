@@ -17,7 +17,7 @@ export const routePositionPlaybook: PlaybookPage = {
       type: "spec-table",
       heading: "Route Line Specs",
       rows: [
-        { label: "Completed segment", value: "2px solid · Near-black (#1A1A1A) · Full opacity" },
+        { label: "Active segment", value: "2px solid · Marine blue (#1F3A5F) · Full opacity" },
         { label: "Upcoming segment", value: "2px solid · Warm grey (#8B8680) · 60% opacity" },
         { label: "Line style", value: "Smooth curves · No dashes · No arrows · Round line caps" },
       ],
@@ -26,7 +26,7 @@ export const routePositionPlaybook: PlaybookPage = {
       type: "spec-table",
       heading: "Vessel Position",
       rows: [
-        { label: "Marker", value: "8px solid circle · Near-black (#1A1A1A) · No stroke" },
+        { label: "Marker", value: "8px solid circle · Marine blue (#1F3A5F) · No stroke" },
         { label: "Update frequency", value: "Every 30–60 seconds · Smooth interpolation between updates" },
         { label: "Map centering", value: "Map follows vessel by default · Guest can pan freely · 'Return to vessel' button appears" },
       ],
