@@ -242,7 +242,7 @@ export function AppSidebar() {
 
         <SidebarGroup>
           <SidebarGroupLabel className="px-3 text-[10px] uppercase tracking-widest text-sidebar-foreground/40 font-body font-medium mb-1">
-            Interface Behavior
+            Interaction
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>{renderItems(behaviorNav)}</SidebarMenu>
