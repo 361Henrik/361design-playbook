@@ -10,6 +10,7 @@ import { brandPrinciples } from "./principles";
 import { seniorFirstPlaybook } from "./principles/senior-first";
 import { operatorBrandingPlaybook } from "./principles/operator-branding";
 import { editorialElegancePlaybook } from "./principles/editorial-elegance";
+import { imageSystemPlaybook } from "./principles/image-system";
 
 // Tokens
 import { colorsPlaybook } from "./tokens/colors";
