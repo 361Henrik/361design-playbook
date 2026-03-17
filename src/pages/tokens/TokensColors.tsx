@@ -5,11 +5,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TokenExamplesTab } from "@/components/tokens/TokenExamplesTab";
 
 const tokensData = [
-  { name: "Deep Forest Green", variable: "--primary", hex: "#2E5A1C", hsl: "103 53% 23%", tailwind: "primary", usage: "Primary structural color. Used for buttons, outlines, navigation anchors, route lines in maps, icons, UI accents, and occasional section framing. Green is structural, not decorative.", swatch: "bg-primary", ratio: "20–30%" },
-  { name: "Warm White", variable: "--background", hex: "#FBFAF8", hsl: "40 33% 97%", tailwind: "background", usage: "Primary background color. Used for page backgrounds, large layout surfaces, the main visual canvas. Should dominate the interface. Never compete visually with strong colors.", swatch: "bg-background", ratio: "60–70%" },
-  { name: "Warm Off-White", variable: "--card", hex: "#F5F3EF", hsl: "37 21% 95%", tailwind: "card", usage: "Secondary surface color. Used for cards, secondary panels, and subtle surface separation. Creates gentle contrast with the Warm White background.", swatch: "bg-card", ratio: "within the 60–70%" },
-  { name: "Near Black", variable: "--foreground", hex: "#1A1A2E", hsl: "240 29% 14%", tailwind: "foreground", usage: "Primary text color. Used for body copy, headings, labels, and UI text. Avoid pure black — this tone provides warmth and readability.", swatch: "bg-foreground", ratio: "text only" },
-  { name: "Antique Bronze", variable: "--accent", hex: "#C49A5C", hsl: "36 42% 56%", tailwind: "accent", usage: "Accent color used sparingly. Icon highlights, POI highlight states on maps, thin divider lines, small emphasis words in headings, subtle labels. Bronze is jewelry, never paint.", swatch: "bg-accent", ratio: "<8%" },
+  { name: "Cream", variable: "--background", hex: "#F7F4EF", hsl: "36 24% 95%", tailwind: "background", usage: "Primary background color. Used for page backgrounds, large layout surfaces, the main visual canvas. Should dominate the interface. Never compete visually with strong colors.", swatch: "bg-background", ratio: "dominant" },
+  { name: "Soft Ivory", variable: "--card", hex: "#FBF9F6", hsl: "40 33% 97%", tailwind: "card", usage: "Secondary surface color. Used for cards, secondary panels, and subtle surface separation. Creates gentle contrast with the Cream background.", swatch: "bg-card", ratio: "secondary" },
+  { name: "Charcoal", variable: "--foreground", hex: "#1A1A1A", hsl: "0 0% 10%", tailwind: "foreground", usage: "Primary text color. Used for body copy, headings, labels, and UI text. Provides warmth and readability without pure black.", swatch: "bg-foreground", ratio: "text only" },
+  { name: "Muted Grey", variable: "--muted-foreground", hex: "#5C5C5C", hsl: "0 0% 36%", tailwind: "muted-foreground", usage: "Secondary text color. Used for supporting copy, descriptions, captions, and de-emphasized labels.", swatch: "bg-muted-foreground", ratio: "secondary text" },
+  { name: "Deep Marine Blue", variable: "--primary", hex: "#1F3A5F", hsl: "215 51% 25%", tailwind: "primary", usage: "Accent interaction color. Used for buttons, active states, route lines on maps, navigation anchors, and focused UI elements. Marine blue signals interaction, not decoration.", swatch: "bg-primary", ratio: "interaction" },
+  { name: "Champagne Bronze", variable: "--accent", hex: "#C6A96B", hsl: "40 42% 60%", tailwind: "accent", usage: "Subtle highlight accent. Used for icon highlights, POI selected states on maps, thin divider lines, and small emphasis words. Bronze is jewelry, never paint.", swatch: "bg-accent", ratio: "highlight only" },
+  { name: "Border Subtle", variable: "--border", hex: "#D9D6D1", hsl: "36 10% 83%", tailwind: "border", usage: "Default border color for cards, inputs, and dividers. Maintains calm separation without visual noise.", swatch: "bg-border", ratio: "structural" },
 ];
 
 const TokensColors = () => {
@@ -17,7 +19,7 @@ const TokensColors = () => {
     <div className="px-8 py-10 max-w-5xl">
       <PageHeader
         title="Color Tokens"
-        description="The Curated Lens palette uses five core colors with strict distribution: 60–70% Warm White, 20–30% Deep Forest Green, and less than 8% Antique Bronze."
+        description="The Curated Lens uses a neutral foundation with marine blue for interaction and champagne bronze for subtle highlights. No colored backgrounds — neutrals dominate."
       />
 
       <Tabs defaultValue="tokens" className="mt-6">
@@ -27,21 +29,30 @@ const TokensColors = () => {
         </TabsList>
 
         <TabsContent value="tokens">
-          {/* Distribution bar */}
+          {/* System Modes */}
           <div className="mb-10 p-5 rounded-md border border-border bg-card">
-            <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-4">Color Distribution</h3>
-            <div className="flex rounded-md overflow-hidden h-10 border border-border">
-              <div className="bg-background flex-[65] flex items-center justify-center">
-                <span className="text-xs font-body font-medium text-muted-foreground">Warm White 60–70%</span>
+            <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-4">System Modes</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="p-4 rounded-md border border-border bg-background">
+                <h4 className="font-display text-sm font-medium text-foreground mb-1">Curated Lens Signature</h4>
+                <p className="text-xs font-body text-muted-foreground">B2B — Design System Hub, sales, onboarding. Uses marine blue + bronze accents. Expresses the Curated Lens identity.</p>
               </div>
-              <div className="bg-primary flex-[25] flex items-center justify-center">
-                <span className="text-xs font-body font-medium text-primary-foreground">Green 20–30%</span>
-              </div>
-              <div className="bg-accent flex-[7] flex items-center justify-center">
-                <span className="text-xs font-body font-medium text-accent-foreground">Bronze &lt;8%</span>
+              <div className="p-4 rounded-md border border-border bg-background">
+                <h4 className="font-display text-sm font-medium text-foreground mb-1">Operator Expression</h4>
+                <p className="text-xs font-body text-muted-foreground">B2C — Guest-facing. Allows controlled color adaptation (accent override, optional route color) while map, marker, layout, and typography rules remain immutable.</p>
               </div>
             </div>
-            <p className="mt-3 text-xs font-body text-muted-foreground">Near Black is used only for text. Off-White lives within the Warm White zone as a subtle surface variation.</p>
+          </div>
+
+          {/* Color Usage Rules */}
+          <div className="mb-10 p-5 rounded-md border border-border bg-card">
+            <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-4">Color Usage Rules</h3>
+            <ul className="space-y-2 text-sm font-body text-muted-foreground">
+              <li>• <strong className="text-foreground">Neutral base always dominant</strong> — cream and ivory fill 80%+ of visible surface</li>
+              <li>• <strong className="text-foreground">Marine blue = interaction only</strong> — buttons, route lines, active states, focused elements</li>
+              <li>• <strong className="text-foreground">Bronze = subtle highlight only</strong> — selected markers, icon accents, thin dividers</li>
+              <li>• <strong className="text-foreground">No colored backgrounds</strong> — surfaces are always neutral (cream, ivory, white)</li>
+            </ul>
           </div>
 
           {/* Color tokens */}
@@ -71,10 +82,10 @@ const TokensColors = () => {
             <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-4">Approved Contrast Pairs</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
-                { bg: "bg-background", fg: "text-foreground", label: "Near Black on Warm White" },
-                { bg: "bg-primary", fg: "text-primary-foreground", label: "Warm White on Forest Green" },
-                { bg: "bg-card", fg: "text-card-foreground", label: "Near Black on Off-White" },
-                { bg: "bg-background", fg: "text-accent", label: "Bronze on Warm White (accent only)" },
+                { bg: "bg-background", fg: "text-foreground", label: "Charcoal on Cream" },
+                { bg: "bg-primary", fg: "text-primary-foreground", label: "Cream on Marine Blue" },
+                { bg: "bg-card", fg: "text-card-foreground", label: "Charcoal on Ivory" },
+                { bg: "bg-background", fg: "text-accent", label: "Bronze on Cream (accent only)" },
               ].map((pair) => (
                 <div key={pair.label} className={`p-5 rounded-md border border-border ${pair.bg}`}>
                   <p className={`text-sm font-body font-medium ${pair.fg}`}>{pair.label}</p>
@@ -84,24 +95,42 @@ const TokensColors = () => {
             </div>
           </section>
 
+          {/* Operator Adaptation */}
+          <section className="mt-12">
+            <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-4">Operator Adaptation Rules</h2>
+            <DosDonts
+              dos={[
+                "Allow accent color override for buttons and highlights in Operator Expression mode.",
+                "Allow optional route color override (controlled, must pass contrast checks).",
+                "Maintain structural consistency: 'The Curated Lens system remains structurally consistent across all operator implementations.'",
+              ]}
+              donts={[
+                "Never allow marker redesign — black/white with optional bronze highlight only.",
+                "Never allow map base color changes — land remains light grey, water remains soft blue.",
+                "Never allow typography changes — Playfair Display + Lexend are constant.",
+                "Never allow layout restructuring — spacing scale and widths are immutable.",
+              ]}
+            />
+          </section>
+
           {/* Do / Don't */}
           <section className="mt-12">
             <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-4">Do / Don't</h2>
             <DosDonts
               dos={[
-                "Use Green for buttons, outlines, navigation anchors, route lines, icons, and UI accents.",
-                "Use Bronze sparingly — icon highlights, thin divider lines, subtle labels. It is jewelry.",
-                "Maintain the 60/30/8 distribution target across every page and section.",
-                "Use Warm Off-White for cards to create subtle separation from Warm White backgrounds.",
+                "Use marine blue for buttons, active states, route lines, and focused elements.",
+                "Use bronze sparingly — icon highlights, selected markers, thin divider lines. It is jewelry.",
+                "Keep neutral surfaces dominant — cream and ivory form the visual foundation.",
+                "Use charcoal for all body copy, headings, labels, and UI text.",
+                "Use muted grey for secondary text and supporting descriptions.",
                 "Use the approved contrast pairs for text readability.",
-                "Use Near Black for all body copy, headings, labels, and UI text.",
               ]}
               donts={[
-                "Never use Green for paragraph text, descriptive subtitles on beige backgrounds, or long blocks of copy.",
-                "Never use Bronze as a fill color, button, background, or large UI surface.",
-                "Never introduce gradients or additional near-whites beyond the five core colors.",
-                "Don't use pure black (#000). Use Near Black (#1A1A2E) for warmth.",
-                "Don't add new colors to the palette without design system approval.",
+                "Never use marine blue as a background fill — it is for interaction elements only.",
+                "Never use bronze as a fill color, button, background, or large UI surface.",
+                "Never introduce gradients or additional colors beyond the defined palette.",
+                "Don't use pure black (#000). Use charcoal (#1A1A1A) for warmth.",
+                "Don't add colored backgrounds to any surface — neutrals only.",
               ]}
             />
           </section>
