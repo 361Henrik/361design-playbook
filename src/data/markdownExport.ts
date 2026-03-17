@@ -215,6 +215,24 @@ function serializeChannelKit(block: Extract<ContentBlock, { type: "channel-kit" 
   return lines.join("\n");
 }
 
+function serializeSpacingVisual(block: Extract<ContentBlock, { type: "spacing-visual" }>): string {
+  const lines: string[] = [];
+  if (block.heading) lines.push(`### ${block.heading}`, "");
+  lines.push("| Token | Value |", "|---|---|");
+  block.steps.forEach(s => lines.push(`| ${s.token} | ${s.px}px |`));
+  lines.push("");
+  return lines.join("\n");
+}
+
+function serializeIconGrid(block: Extract<ContentBlock, { type: "icon-grid" }>): string {
+  const lines: string[] = [];
+  if (block.heading) lines.push(`### ${block.heading}`, "");
+  block.groups.forEach(g => {
+    lines.push(`**${g.category}**: ${g.icons.map(i => i.name).join(", ")}`, "");
+  });
+  return lines.join("\n");
+}
+
 /* ── Block dispatcher ── */
 
 function serializeBlock(block: ContentBlock): string {
