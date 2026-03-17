@@ -92,6 +92,7 @@ const systemNav = [
 export function AppSidebar() {
   const location = useLocation();
   const { user, signOut } = useAuth();
+  const isMobile = useIsMobile();
   const { workspaces, activeWorkspace, setActiveWorkspaceId } = useWorkspace();
   const [tourOpen, setTourOpen] = useState(false);
   const [onboardingCompleted, setOnboardingCompleted] = useState(false);
