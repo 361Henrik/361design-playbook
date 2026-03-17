@@ -96,7 +96,7 @@ export const components: ComponentEntry[] = [
     id: "button-secondary",
     name: "Secondary Button",
     category: "buttons",
-    description: "Used alongside primary buttons for supporting actions. Warm Off-White background with Forest Green text.",
+    description: "Used alongside primary buttons for supporting actions. Ivory background with marine blue text.",
     anatomy: "Same structure as Primary Button but with variant='secondary'.",
     accessibilityNotes: "Same focus and disabled behavior as Primary. Ensure sufficient contrast on both light and dark backgrounds.",
     responsiveNotes: "Follows the same sizing rules as Primary Button.",
