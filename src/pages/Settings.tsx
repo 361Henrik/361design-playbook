@@ -84,7 +84,7 @@ const SettingsPage = () => {
   };
 
   return (
-    <div className="px-8 py-10 max-w-5xl space-y-8">
+    <div className="px-space-5 md:px-space-8 py-space-8 max-w-content space-y-space-8">
       <PageHeader title="Settings" description="User management, roles, tags, and system configuration." />
 
       {/* Account */}
