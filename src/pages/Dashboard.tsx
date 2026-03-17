@@ -264,7 +264,7 @@ const Dashboard = () => {
 
       {/* Sample Route */}
       <section className="mb-10">
-        <h2 className="font-display text-h2 text-foreground mb-2">
+        <h2 className="font-display text-h2 text-primary mb-2">
           Sample Route
         </h2>
         <p className="text-body-sm font-body text-muted-foreground mb-6 max-w-prose">
