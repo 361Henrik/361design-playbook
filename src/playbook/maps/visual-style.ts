@@ -40,7 +40,8 @@ export const visualStylePlaybook: PlaybookPage = {
       type: "spec-table",
       heading: "Marker Specifications",
       rows: [
-        { label: "Marker shape", value: "Circular disk with pointer tip", notes: "White background, no green fill" },
+        { label: "Marker shape", value: "Circular disk with pointer tip", notes: "Solid white disk fill (#FFFFFF) behind icon" },
+        { label: "White disk fill", value: "#FFFFFF solid — no gradient, no transparency", notes: "Ensures icon legibility on all map backgrounds" },
         { label: "Default ring", value: "2px solid #1A1A1A", notes: "Black outline for maximum contrast" },
         { label: "Hover ring", value: "2.5px solid #1A1A1A", notes: "Subtle expansion, no color change" },
         { label: "Selected ring", value: "3px solid #C6A96B", notes: "Bronze accent — the only color state" },
