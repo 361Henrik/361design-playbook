@@ -120,22 +120,7 @@ function TokenRefBlock({ block }: { block: Extract<ContentBlock, { type: "token-
 }
 
 function ColorSwatchBlock({ block }: { block: Extract<ContentBlock, { type: "color-swatch" }> }) {
-  return (
-    <div className="space-y-2">
-      {block.heading && (
-        <h4 className="font-display text-base font-semibold text-foreground">{block.heading}</h4>
-      )}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-        {block.colors.map((c, i) => (
-          <div key={i} className="space-y-1">
-            <div className="w-full h-12 rounded-md border border-border" style={{ backgroundColor: c.value }} />
-            <p className="font-body text-xs font-medium text-foreground">{c.name}</p>
-            <p className="font-mono text-[10px] text-muted-foreground">{c.value}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+  return <EnhancedColorSwatchBlock block={block} />;
 }
 
 function LayerStackBlock({ block }: { block: Extract<ContentBlock, { type: "layer-stack" }> }) {
