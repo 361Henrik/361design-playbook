@@ -117,7 +117,7 @@ const systemNav = [
   { title: "Help", url: "/help", icon: HelpCircle },
 ];
 
-function MapsAccordionNav() {
+function MapsAccordionNav(): JSX.Element {
   const location = useLocation();
   const [openGroup, setOpenGroup] = useState<string | null>(() => {
     // Auto-expand the group containing the current route
