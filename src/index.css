@@ -4,50 +4,50 @@
 
 @layer base {
   :root {
-    /* Curated Lens Design System — Neutral Foundation */
-    --background: 36 24% 95%;           /* #F7F4EF Cream */
+    /* Curated Lens Design System — Warm Cream Foundation */
+    --background: 37 26% 92%;           /* #F2EDE4 Deeper warm cream */
     --foreground: 0 0% 10%;             /* #1A1A1A Charcoal */
 
-    --card: 40 33% 97%;                 /* #FBF9F6 Soft Ivory */
+    --card: 38 28% 94%;                 /* #F7F2E9 Soft layered cream */
     --card-foreground: 0 0% 10%;
 
-    --popover: 36 24% 95%;
+    --popover: 38 28% 94%;
     --popover-foreground: 0 0% 10%;
 
     --primary: 215 51% 25%;             /* #1F3A5F Deep Marine Blue */
-    --primary-foreground: 36 24% 95%;
+    --primary-foreground: 37 26% 92%;
 
-    --secondary: 40 33% 97%;            /* #FBF9F6 Soft Ivory */
+    --secondary: 38 28% 94%;            /* #F7F2E9 Soft layered cream */
     --secondary-foreground: 215 51% 25%;
 
-    --muted: 40 33% 97%;
-    --muted-foreground: 0 0% 36%;       /* #5C5C5C */
+    --muted: 38 28% 94%;
+    --muted-foreground: 0 0% 40%;       /* rgba(0,0,0,0.6) equivalent */
 
     --accent: 40 42% 60%;              /* #C6A96B Champagne Bronze */
     --accent-foreground: 0 0% 10%;
 
     --destructive: 0 72% 51%;
-    --destructive-foreground: 36 24% 95%;
+    --destructive-foreground: 37 26% 92%;
 
-    --border: 36 10% 83%;              /* #D9D6D1 */
-    --input: 36 10% 83%;
+    --border: 0 0% 0% / 0.06;          /* Subtle warm border */
+    --input: 37 18% 82%;
     --ring: 215 51% 25%;
 
     --radius: 0.375rem;
 
-    --sidebar-background: 36 24% 95%;
+    --sidebar-background: 37 26% 92%;
     --sidebar-foreground: 0 0% 10%;
     --sidebar-primary: 215 51% 25%;
-    --sidebar-primary-foreground: 36 24% 95%;
-    --sidebar-accent: 36 18% 90%;
+    --sidebar-primary-foreground: 37 26% 92%;
+    --sidebar-accent: 38 22% 89%;
     --sidebar-accent-foreground: 0 0% 10%;
-    --sidebar-border: 36 10% 83%;
+    --sidebar-border: 0 0% 0% / 0.06;
     --sidebar-ring: 215 51% 25%;
 
     /* Custom tokens */
     --marine: 215 51% 25%;
-    --cream: 36 24% 95%;
-    --ivory: 40 33% 97%;
+    --cream: 37 26% 92%;
+    --ivory: 38 28% 94%;
     --charcoal: 0 0% 10%;
     --bronze: 40 42% 60%;
     --bronze-muted: 36 16% 51%;
@@ -62,26 +62,26 @@
   }
 
   .dark {
-    --background: 0 0% 6%;
-    --foreground: 36 24% 95%;
+    --background: 30 10% 8%;
+    --foreground: 37 26% 92%;
 
-    --card: 0 0% 9%;
-    --card-foreground: 36 24% 95%;
+    --card: 30 8% 11%;
+    --card-foreground: 37 26% 92%;
 
-    --popover: 0 0% 9%;
-    --popover-foreground: 36 24% 95%;
+    --popover: 30 8% 11%;
+    --popover-foreground: 37 26% 92%;
 
-    --primary: 36 24% 95%;
+    --primary: 37 26% 92%;
     --primary-foreground: 215 51% 25%;
 
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 36 24% 95%;
+    --secondary: 30 8% 14%;
+    --secondary-foreground: 37 26% 92%;
 
-    --muted: 0 0% 12%;
+    --muted: 30 8% 14%;
     --muted-foreground: 36 15% 65%;
 
-    --accent: 40 42% 60%;              /* #C6A96B Champagne Bronze */
-    --accent-foreground: 36 24% 95%;
+    --accent: 40 42% 60%;
+    --accent-foreground: 37 26% 92%;
 
     --bronze: 40 42% 60%;
     --bronze-muted: 36 16% 51%;
@@ -94,19 +94,19 @@
     --pill-active-border: 40 42% 60% / 0.4;
 
     --destructive: 0 62% 30%;
-    --destructive-foreground: 36 24% 95%;
+    --destructive-foreground: 37 26% 92%;
 
-    --border: 0 0% 16%;
-    --input: 0 0% 16%;
-    --ring: 36 24% 95%;
+    --border: 30 6% 18%;
+    --input: 30 6% 18%;
+    --ring: 37 26% 92%;
 
-    --sidebar-background: 0 0% 8%;
-    --sidebar-foreground: 36 24% 95%;
+    --sidebar-background: 30 8% 9%;
+    --sidebar-foreground: 37 26% 92%;
     --sidebar-primary: 40 42% 60%;
-    --sidebar-primary-foreground: 36 24% 95%;
-    --sidebar-accent: 0 0% 12%;
-    --sidebar-accent-foreground: 36 24% 95%;
-    --sidebar-border: 0 0% 16%;
+    --sidebar-primary-foreground: 37 26% 92%;
+    --sidebar-accent: 30 8% 14%;
+    --sidebar-accent-foreground: 37 26% 92%;
+    --sidebar-border: 30 6% 18%;
     --sidebar-ring: 40 42% 60%;
   }
 }
@@ -121,6 +121,6 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display;
+    @apply font-display text-primary;
   }
 }

@@ -168,7 +168,7 @@ const Dashboard = () => {
       {/* Analytics Section */}
       {hasData && (
         <section className="mb-10">
-          <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-6 flex items-center gap-2">
+          <h2 className="font-display text-xl font-medium tracking-headline leading-section text-primary mb-6 flex items-center gap-2">
             <Activity className="h-5 w-5 text-accent" strokeWidth={1.5} />
             System Health
           </h2>
@@ -238,7 +238,7 @@ const Dashboard = () => {
 
       {/* Using the System */}
       <section className="mb-10">
-        <h2 className="font-display text-h2 text-foreground mb-4">
+        <h2 className="font-display text-h2 text-primary mb-4">
           Using the System
         </h2>
         <p className="text-body font-body text-muted-foreground max-w-prose mb-6">
@@ -264,7 +264,7 @@ const Dashboard = () => {
 
       {/* Sample Route */}
       <section className="mb-10">
-        <h2 className="font-display text-h2 text-foreground mb-2">
+        <h2 className="font-display text-h2 text-primary mb-2">
           Sample Route
         </h2>
         <p className="text-body-sm font-body text-muted-foreground mb-6 max-w-prose">
@@ -300,7 +300,7 @@ const Dashboard = () => {
       </section>
 
       <section>
-        <h2 className="font-display text-h2 text-foreground mb-6">
+        <h2 className="font-display text-h2 text-primary mb-6">
           Token Categories
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
