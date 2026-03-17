@@ -1,95 +1,48 @@
 
 
-# Two-Pane Login Page Redesign
+## Color Mismatch on Auth Page — Root Cause & Fix
 
-Redesign the Auth page from a centered card into a split-panel editorial layout: branded intro on the left, login form on the right.
+### The Problem
 
----
+The screenshot shows **dark/black text on the marine blue panel**, which violates the playbook's approved contrast pair: **"Cream on Marine Blue"**.
 
-## Layout Structure
+### Root Cause
 
-```text
-Desktop (>=1024px):
-+---------------------------+---------------------+
-|                           |                     |
-|   LEFT PANEL (50%)        |  RIGHT PANEL (50%)  |
-|   bg-primary (Deep Green) |  bg-background      |
-|                           |                     |
-|   Logo                    |  "Sign In" heading   |
-|   Headline                |  Login/Signup tabs   |
-|   Subhead                 |  Form fields         |
-|   Description paragraph   |  CTA button          |
-|   3 benefit bullets       |  Forgot password     |
-|   Bronze accent line      |  Help link           |
-|                           |                     |
-+---------------------------+---------------------+
-
-Tablet (768-1023px): Stacked -- intro panel on top (compact), form below
-Mobile (<768px): Stacked -- intro collapses to logo + one-liner, form fills viewport
+Line 123-125 of `src/index.css`:
+```css
+h1, h2, h3, h4, h5, h6 {
+  @apply font-display text-foreground;
+}
 ```
 
----
+This global base rule forces **all headings to `text-foreground` (charcoal/black)**, which overrides the `text-primary-foreground` (cream) set on the parent `<section>` in the Auth page. CSS specificity means the base layer `h1` selector wins over inherited color from the parent container.
 
-## Left Panel Content
+The Auth page headline "Your Design System. Defined. Applied." is an `<h1>`, so it renders in charcoal instead of cream — breaking the approved "Cream on Marine Blue" contrast pair.
 
-- **Logo**: "The Curated Lens" in `font-display` (Playfair Display), warm-white text
-- **Headline**: "Your Design System. Defined. Applied."
-- **Subhead**: "The single source of truth for design tokens, rules, components, and interactive guidance."
-- **Description** (3 benefit lines with subtle bronze bullet markers):
-  - Browse tokens and patterns with live previews
-  - Run guided reviews backed by brand guardrails
-  - Export production-ready code for any channel
-- **Accent**: A thin horizontal bronze line separator between headline block and benefits
-- **Background**: `bg-primary` (Deep Forest Green) with `text-primary-foreground` (Warm White)
-- **Spacing**: generous padding (`p-12 lg:p-16`), editorial whitespace
+### The Fix
 
-## Right Panel
+**`src/index.css`** — Change the heading rule to only set `font-display` (the font family), and remove `text-foreground` so headings can inherit color from their parent context:
 
-- Clean `bg-background` (Warm White)
-- Title: "Sign In" / "Create Account" based on active tab
-- Existing login/signup tab forms (preserved as-is)
-- Below form: "Forgot password?" link + "Need help?" link to `/help`
-- Centered vertically with `max-w-sm` constraint
+```css
+h1, h2, h3, h4, h5, h6 {
+  @apply font-display;
+}
+```
 
-## Responsive Behavior
+This is the correct approach because:
+- Headings on cream/ivory backgrounds already inherit `text-foreground` from the `body` rule
+- Headings inside colored panels (like the marine blue auth panel) will correctly inherit `text-primary-foreground` from their parent
+- No other pages break because `text-foreground` is already set on `body` and flows down naturally
 
-- **Desktop** (`lg:`): `flex-row`, each panel 50%
-- **Tablet** (`md:`): stacked, left panel becomes a compact header (logo + headline only, ~200px height)
-- **Mobile**: left panel shrinks to logo + single tagline (~80px), form takes remaining space
+**No other file changes needed.** This single line fix resolves the contrast violation globally.
 
----
+### Playbook Compliance Check
 
-## File Changes
-
-### `src/pages/Auth.tsx` -- Full rewrite of the return JSX
-
-1. Replace the outer `div > Card` with a two-pane flex layout
-2. Extract the left branded panel as an inline section (no separate component needed -- it's static content)
-3. Keep all existing form logic, state, and handlers untouched
-4. Update the title from "Curated Lens" to "The Curated Lens"
-5. Add subtle `animate-in` fade on the left panel using Tailwind's `animate` utilities
-6. Add "Need help?" link below the forgot password button, linking to `/help`
-7. Use `font-display` for headings, `font-body` for body text, `text-bronze` for accent markers
-
-### No other files need changes
-
-All styling uses existing Tailwind tokens (`primary`, `primary-foreground`, `bronze`, `font-display`, `font-body`, spacing tokens). No new dependencies or components required.
-
----
-
-## Accessibility
-
-- Tab order: left panel is decorative/informational, focus starts on the first form field in the right panel
-- Left panel content uses semantic `h1` for the headline, `p` for descriptions
-- Form labels and inputs remain properly associated
-- Color contrast: warm-white on deep-green meets WCAG AA
-
-## Acceptance Criteria
-
-- Desktop shows side-by-side layout with branded left panel and login form on right
-- Left panel displays headline, subhead, benefit bullets, and bronze accent
-- Mobile/tablet gracefully stacks with condensed intro
-- All existing auth functionality (login, signup, forgot password) works unchanged
-- Title reads "The Curated Lens" throughout
-- No gradients, no heavy animation -- calm editorial feel
+| Rule | Status |
+|------|--------|
+| Cream on Marine Blue (approved pair) | Will be fixed by this change |
+| Charcoal on Cream (approved pair) | Still works via body inheritance |
+| Charcoal on Ivory (approved pair) | Still works via body inheritance |
+| Bronze on Cream (accent only) | Unaffected |
+| No pure black (#000) | Correct — using #111111 charcoal |
 
