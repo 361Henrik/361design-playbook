@@ -143,7 +143,7 @@ const SettingsPage = () => {
       {/* Tag Vocabulary */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-base flex items-center gap-2"><Tag className="h-4 w-4" strokeWidth={1.5} />Tag Vocabulary</CardTitle>
+          <CardTitle className="text-h3 font-display flex items-center gap-2"><Tag className="h-4 w-4" strokeWidth={1.5} />Tag Vocabulary</CardTitle>
           <CardDescription className="text-xs">Manage the controlled vocabulary for tagging library entries.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
