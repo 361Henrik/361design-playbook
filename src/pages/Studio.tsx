@@ -108,7 +108,7 @@ export default function StudioPage() {
   }
 
   return (
-    <div>
+    <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
       <PageHeader
         title="Studio"
         description="Compose layouts, swap content variants, and validate against guardrails before exporting."

@@ -41,14 +41,14 @@ export function AppShell({ children }: AppShellProps) {
 
   const mainContent = (
     <div className="flex-1 flex flex-col min-w-0 h-full">
-      <header className="h-14 flex items-center border-b border-border px-6 bg-card shrink-0">
+      <header className="h-14 flex items-center border-b border-border px-space-5 bg-card shrink-0">
         <SidebarTrigger className={isMobile ? "mr-4" : "mr-4 hidden"} />
         <div className="flex-1" />
-        <kbd className="hidden sm:inline-flex items-center gap-1 rounded border border-border bg-muted px-2 py-0.5 text-[10px] font-mono text-muted-foreground">
+        <kbd className="hidden sm:inline-flex items-center gap-1 rounded border border-border bg-muted px-2 py-0.5 text-caption font-mono text-muted-foreground">
           ⌘K
         </kbd>
       </header>
-      <main className="flex-1 overflow-auto">
+      <main className="flex-1 overflow-auto animate-in fade-in duration-300">
         {children}
       </main>
     </div>

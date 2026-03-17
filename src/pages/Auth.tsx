@@ -80,36 +80,36 @@ const AuthPage = () => {
         className="
           bg-primary text-primary-foreground
           flex flex-col justify-center
-          px-8 py-8
-          md:px-12 md:py-12
-          lg:w-1/2 lg:px-16 lg:py-16
-          animate-in fade-in duration-700
+          px-space-5 py-space-7
+          md:px-space-8 md:py-space-8
+          lg:w-1/2 lg:px-space-9 lg:py-space-9
+          animate-in fade-in slide-in-from-left-4 duration-500
         "
       >
         {/* Logo */}
-        <p className="font-display text-lg tracking-headline opacity-80 mb-6 lg:mb-10">
+        <p className="font-display text-body-lg tracking-headline opacity-80 mb-space-5 lg:mb-space-7">
           The Curated Lens
         </p>
 
         {/* Headline */}
-        <h1 className="font-display text-3xl md:text-4xl lg:text-[2.75rem] leading-hero tracking-headline font-medium mb-4">
+        <h1 className="font-display text-display leading-hero tracking-headline font-medium mb-space-4">
           Your Design System.
           <br className="hidden md:block" />
           {" "}Defined. Applied.
         </h1>
 
         {/* Subhead — hidden on mobile */}
-        <p className="font-body text-base lg:text-lg leading-reading opacity-90 max-w-prose mb-6 lg:mb-8 hidden md:block">
+        <p className="font-body text-body-lg leading-reading opacity-90 max-w-prose mb-space-5 lg:mb-space-7 hidden md:block">
           The single source of truth for design tokens, rules, components, and interactive guidance.
         </p>
 
         {/* Bronze accent line */}
-        <div className="w-12 h-px bg-bronze mb-6 lg:mb-8 hidden md:block" />
+        <div className="w-12 h-px bg-bronze mb-space-5 lg:mb-space-7 hidden md:block" />
 
         {/* Benefit bullets — hidden on mobile */}
-        <ul className="space-y-3 hidden md:block">
+        <ul className="space-y-space-3 hidden md:block">
           {benefits.map((b) => (
-            <li key={b} className="flex items-start gap-3 font-body text-sm lg:text-base leading-reading opacity-85">
+            <li key={b} className="flex items-start gap-space-3 font-body text-body leading-reading opacity-85">
               <span className="mt-1.5 block h-1.5 w-1.5 rounded-full bg-bronze shrink-0" />
               {b}
             </li>
@@ -117,75 +117,78 @@ const AuthPage = () => {
         </ul>
 
         {/* Mobile-only tagline */}
-        <p className="font-body text-sm opacity-80 md:hidden">
+        <p className="font-body text-body-sm opacity-80 md:hidden">
           Design tokens, components &amp; guardrails — one&nbsp;place.
         </p>
       </section>
 
       {/* Right Panel — Auth Form */}
-      <main className="flex-1 flex items-center justify-center bg-background px-6 py-12 lg:py-0">
+      <main className="flex-1 flex items-center justify-center bg-card px-space-5 py-space-8 lg:py-0 animate-in fade-in slide-in-from-right-4 duration-500">
         <div className="w-full max-w-sm">
-          <Tabs defaultValue="login" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-6">
-              <TabsTrigger value="login">Sign In</TabsTrigger>
-              <TabsTrigger value="signup">Create Account</TabsTrigger>
-            </TabsList>
+          {/* Inner card container */}
+          <div className="rounded-lg border border-border bg-background p-space-6 md:p-space-7">
+            <Tabs defaultValue="login" className="w-full">
+              <TabsList className="grid w-full grid-cols-2 mb-space-6">
+                <TabsTrigger value="login" className="font-body text-label">Sign In</TabsTrigger>
+                <TabsTrigger value="signup" className="font-body text-label">Create Account</TabsTrigger>
+              </TabsList>
 
-            <TabsContent value="login">
-              <form onSubmit={handleLogin} className="space-y-4">
-                <div className="space-y-2">
-                  <Label className="text-xs font-body">Email</Label>
-                  <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-xs font-body">Password</Label>
-                  <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                </div>
-                <Button type="submit" className="w-full" disabled={loading}>
-                  {loading && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
-                  Sign In
-                </Button>
-                <div className="flex flex-col items-center gap-1 pt-2">
-                  <button
-                    type="button"
-                    onClick={handleForgotPassword}
-                    className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    Forgot password?
-                  </button>
-                  <Link to="/help" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
-                    Need help?
-                  </Link>
-                </div>
-              </form>
-            </TabsContent>
+              <TabsContent value="login">
+                <form onSubmit={handleLogin} className="space-y-space-5">
+                  <div className="space-y-space-2">
+                    <Label className="text-label font-body">Email</Label>
+                    <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className="h-12" />
+                  </div>
+                  <div className="space-y-space-2">
+                    <Label className="text-label font-body">Password</Label>
+                    <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required className="h-12" />
+                  </div>
+                  <Button type="submit" className="w-full font-body font-medium" size="lg" disabled={loading}>
+                    {loading && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
+                    Sign In
+                  </Button>
+                  <div className="flex flex-col items-center gap-space-2 pt-space-2">
+                    <button
+                      type="button"
+                      onClick={handleForgotPassword}
+                      className="text-caption font-body text-muted-foreground hover:text-bronze transition-colors duration-ui"
+                    >
+                      Forgot password?
+                    </button>
+                    <Link to="/help" className="text-caption font-body text-muted-foreground hover:text-bronze transition-colors duration-ui">
+                      Need help?
+                    </Link>
+                  </div>
+                </form>
+              </TabsContent>
 
-            <TabsContent value="signup">
-              <form onSubmit={handleSignup} className="space-y-4">
-                <div className="space-y-2">
-                  <Label className="text-xs font-body">Display Name</Label>
-                  <Input value={displayName} onChange={(e) => setDisplayName(e.target.value)} placeholder="Optional" />
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-xs font-body">Email</Label>
-                  <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-xs font-body">Password</Label>
-                  <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} />
-                </div>
-                <Button type="submit" className="w-full" disabled={loading}>
-                  {loading && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
-                  Create Account
-                </Button>
-                <div className="flex justify-center pt-2">
-                  <Link to="/help" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
-                    Need help?
-                  </Link>
-                </div>
-              </form>
-            </TabsContent>
-          </Tabs>
+              <TabsContent value="signup">
+                <form onSubmit={handleSignup} className="space-y-space-5">
+                  <div className="space-y-space-2">
+                    <Label className="text-label font-body">Display Name</Label>
+                    <Input value={displayName} onChange={(e) => setDisplayName(e.target.value)} placeholder="Optional" className="h-12" />
+                  </div>
+                  <div className="space-y-space-2">
+                    <Label className="text-label font-body">Email</Label>
+                    <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className="h-12" />
+                  </div>
+                  <div className="space-y-space-2">
+                    <Label className="text-label font-body">Password</Label>
+                    <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} className="h-12" />
+                  </div>
+                  <Button type="submit" className="w-full font-body font-medium" size="lg" disabled={loading}>
+                    {loading && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
+                    Create Account
+                  </Button>
+                  <div className="flex justify-center pt-space-2">
+                    <Link to="/help" className="text-caption font-body text-muted-foreground hover:text-bronze transition-colors duration-ui">
+                      Need help?
+                    </Link>
+                  </div>
+                </form>
+              </TabsContent>
+            </Tabs>
+          </div>
         </div>
       </main>
     </div>

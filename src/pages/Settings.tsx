@@ -84,13 +84,13 @@ const SettingsPage = () => {
   };
 
   return (
-    <div className="px-8 py-10 max-w-5xl space-y-8">
+    <div className="px-space-5 md:px-space-8 py-space-8 max-w-content space-y-space-8">
       <PageHeader title="Settings" description="User management, roles, tags, and system configuration." />
 
       {/* Account */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-base flex items-center gap-2"><Shield className="h-4 w-4" strokeWidth={1.5} />Account</CardTitle>
+          <CardTitle className="text-h3 font-display flex items-center gap-2"><Shield className="h-4 w-4" strokeWidth={1.5} />Account</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
           <p className="text-sm font-body text-muted-foreground">Signed in as <strong>{user?.email}</strong></p>
@@ -104,7 +104,7 @@ const SettingsPage = () => {
       {isAdmin && (
         <Card>
           <CardHeader>
-            <CardTitle className="text-base flex items-center gap-2"><Users className="h-4 w-4" strokeWidth={1.5} />User Roles</CardTitle>
+            <CardTitle className="text-h3 font-display flex items-center gap-2"><Users className="h-4 w-4" strokeWidth={1.5} />User Roles</CardTitle>
             <CardDescription className="text-xs">Manage who can edit, approve, or just view the design system.</CardDescription>
           </CardHeader>
           <CardContent>
@@ -143,7 +143,7 @@ const SettingsPage = () => {
       {/* Tag Vocabulary */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-base flex items-center gap-2"><Tag className="h-4 w-4" strokeWidth={1.5} />Tag Vocabulary</CardTitle>
+          <CardTitle className="text-h3 font-display flex items-center gap-2"><Tag className="h-4 w-4" strokeWidth={1.5} />Tag Vocabulary</CardTitle>
           <CardDescription className="text-xs">Manage the controlled vocabulary for tagging library entries.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -180,7 +180,7 @@ const SettingsPage = () => {
       {/* Email Digest */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-base flex items-center gap-2"><Mail className="h-4 w-4" strokeWidth={1.5} />Weekly Digest</CardTitle>
+          <CardTitle className="text-h3 font-display flex items-center gap-2"><Mail className="h-4 w-4" strokeWidth={1.5} />Weekly Digest</CardTitle>
           <CardDescription className="text-xs">Receive a weekly summary of design system activity.</CardDescription>
         </CardHeader>
         <CardContent>

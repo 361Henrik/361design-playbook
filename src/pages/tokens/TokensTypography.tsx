@@ -108,7 +108,7 @@ const typographyTokens = [
 
 const TokensTypography = () => {
   return (
-    <div className="px-8 py-10 max-w-5xl">
+    <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
       <PageHeader
         title="Typography Tokens"
         description="Playfair Display for headlines and editorial authority. Lexend for body, UI, and utility. Nine defined roles. No substitutions. Never use weight 300."

@@ -6,7 +6,7 @@ const examplePromptClass =
 
 const ImageSystem = () => {
   return (
-    <div className="px-8 py-10 max-w-5xl">
+    <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
       <PageHeader
         title="Image System"
         description="A three-layered image philosophy: Hero, Experience, and Product in Use. The landscape is the hero — the product is a natural extension of the journey."

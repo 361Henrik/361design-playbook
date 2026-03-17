@@ -26,7 +26,7 @@ const spacingRules = [
 
 const TokensSpacing = () => {
   return (
-    <div className="px-8 py-10 max-w-5xl">
+    <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
       <PageHeader
         title="Spacing Tokens"
         description="A nine-step spacing scale from 4px to 96px. Named tokens replace subjective terms like 'generous whitespace' with enforceable values."

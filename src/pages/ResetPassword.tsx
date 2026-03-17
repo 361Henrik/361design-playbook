@@ -94,7 +94,7 @@ const ResetPassword = () => {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label className="text-xs font-body">Email</Label>
+              <Label className="text-label font-body">Email</Label>
               <Input
                 type="email"
                 value={email}
@@ -102,14 +102,14 @@ const ResetPassword = () => {
                 placeholder="you@example.com"
               />
             </div>
-            <Button onClick={handleResendLink} className="w-full" disabled={loading}>
+            <Button onClick={handleResendLink} className="w-full" size="lg" disabled={loading}>
               {loading && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
               Send Reset Link
             </Button>
             <button
               type="button"
               onClick={() => navigate("/auth")}
-              className="w-full text-xs text-muted-foreground hover:text-foreground transition-colors mt-2"
+              className="w-full text-caption font-body text-muted-foreground hover:text-bronze transition-colors duration-ui mt-space-2"
             >
               Back to Sign In
             </button>
@@ -123,13 +123,13 @@ const ResetPassword = () => {
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="font-display text-2xl tracking-headline">Set New Password</CardTitle>
-          <CardDescription className="font-body text-sm">Enter your new password below.</CardDescription>
+          <CardTitle className="font-display text-h2 tracking-headline">Set New Password</CardTitle>
+          <CardDescription className="font-body text-body-sm">Enter your new password below.</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleReset} className="space-y-4">
             <div className="space-y-2">
-              <Label className="text-xs font-body">New Password</Label>
+              <Label className="text-label font-body">New Password</Label>
               <Input
                 type="password"
                 value={password}
@@ -138,7 +138,7 @@ const ResetPassword = () => {
                 minLength={6}
               />
             </div>
-            <Button type="submit" className="w-full" disabled={loading}>
+            <Button type="submit" className="w-full" size="lg" disabled={loading}>
               {loading && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
               Update Password
             </Button>

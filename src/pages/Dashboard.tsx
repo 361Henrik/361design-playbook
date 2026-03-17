@@ -123,7 +123,7 @@ const Dashboard = () => {
   const hasData = stats && stats.totalEntries > 0;
 
   return (
-    <div className="px-8 py-10 max-w-5xl">
+    <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
       <PageHeader
         title="Design System Hub"
         description="The single source of truth for Curated Lens. Browse tokens, components, and guidelines — all enforced with brand guardrails."
@@ -167,8 +167,8 @@ const Dashboard = () => {
 
       {/* Analytics Section */}
       {hasData && (
-        <section className="mb-10">
-          <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-6 flex items-center gap-2">
+        <section className="mb-space-8">
+          <h2 className="font-display text-h2 tracking-headline leading-heading text-foreground mb-space-5 flex items-center gap-2">
             <Activity className="h-5 w-5 text-accent" strokeWidth={1.5} />
             System Health
           </h2>
@@ -237,8 +237,8 @@ const Dashboard = () => {
       )}
 
       {/* Using the System */}
-      <section className="mb-10">
-        <h2 className="font-display text-h2 text-foreground mb-4">
+      <section className="mb-space-8">
+        <h2 className="font-display text-h2 text-foreground mb-space-4">
           Using the System
         </h2>
         <p className="text-body font-body text-muted-foreground max-w-prose mb-6">
@@ -263,8 +263,8 @@ const Dashboard = () => {
       </section>
 
       {/* Sample Route */}
-      <section className="mb-10">
-        <h2 className="font-display text-h2 text-foreground mb-2">
+      <section className="mb-space-8">
+        <h2 className="font-display text-h2 text-foreground mb-space-2">
           Sample Route
         </h2>
         <p className="text-body-sm font-body text-muted-foreground mb-6 max-w-prose">
@@ -331,8 +331,8 @@ function StatCard({ icon: Icon, label, value, sub, alert = false }: {
           <Icon className={`h-4 w-4 ${alert ? "text-destructive" : "text-primary"}`} strokeWidth={1.5} />
         </div>
         <div>
-          <p className="text-2xl font-display font-medium text-foreground">{value}</p>
-          <p className="text-xs font-body text-muted-foreground">{label}</p>
+          <p className="text-h1 font-display font-medium text-foreground">{value}</p>
+          <p className="text-caption font-body text-muted-foreground">{label}</p>
           <p className={`text-[10px] font-mono mt-0.5 ${alert ? "text-destructive" : "text-muted-foreground"}`}>{sub}</p>
         </div>
       </CardContent>

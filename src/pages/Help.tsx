@@ -44,7 +44,7 @@ export default function Help() {
   const navigate = useNavigate();
 
   return (
-    <div className="p-6 max-w-4xl mx-auto space-y-8">
+    <div className="px-space-5 md:px-space-8 py-space-8 max-w-content space-y-space-8">
       <div className="flex items-start justify-between">
         <PageHeader title="Help" description="Quickstart guides, glossary, and answers to common questions." />
         <Button variant="outline" size="sm" onClick={() => setTourOpen(true)} className="shrink-0 mt-1">
@@ -56,7 +56,7 @@ export default function Help() {
       {/* Quickstart */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-base font-display">Quickstart</CardTitle>
+          <CardTitle className="text-h3 font-display">Quickstart</CardTitle>
         </CardHeader>
         <CardContent>
           <ol className="space-y-3">
@@ -65,10 +65,10 @@ export default function Help() {
                 <span className="text-xs font-mono text-muted-foreground w-4 shrink-0 pt-0.5">{i + 1}.</span>
                 <s.icon className="h-4 w-4 text-muted-foreground shrink-0 mt-0.5" strokeWidth={1.5} />
                 <div>
-                  <button onClick={() => navigate(s.href)} className="text-sm font-medium text-foreground hover:text-primary transition-colors">
+                  <button onClick={() => navigate(s.href)} className="text-body font-body font-medium text-foreground hover:text-primary transition-colors duration-ui">
                     {s.step}
                   </button>
-                  <p className="text-xs text-muted-foreground mt-0.5">{s.description}</p>
+                  <p className="text-body-sm font-body text-muted-foreground mt-0.5">{s.description}</p>
                 </div>
               </li>
             ))}
@@ -79,14 +79,14 @@ export default function Help() {
       {/* Glossary */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-base font-display">Glossary</CardTitle>
+          <CardTitle className="text-h3 font-display">Glossary</CardTitle>
         </CardHeader>
         <CardContent>
-          <dl className="space-y-3">
+          <dl className="space-y-space-3">
             {glossary.map((g) => (
               <div key={g.term}>
-                <dt className="text-sm font-medium text-foreground">{g.term}</dt>
-                <dd className="text-xs text-muted-foreground mt-0.5">{g.definition}</dd>
+                <dt className="text-label font-body text-foreground">{g.term}</dt>
+                <dd className="text-body-sm font-body text-muted-foreground mt-0.5">{g.definition}</dd>
               </div>
             ))}
           </dl>
@@ -96,7 +96,7 @@ export default function Help() {
       {/* FAQ */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-base font-display">FAQ</CardTitle>
+          <CardTitle className="text-h3 font-display">FAQ</CardTitle>
         </CardHeader>
         <CardContent>
           <Accordion type="single" collapsible className="w-full">

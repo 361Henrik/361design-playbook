@@ -12,7 +12,7 @@ const categories = [
 
 const NavigationLogic = () => {
   return (
-    <div className="px-8 py-10 max-w-5xl">
+    <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
       <PageHeader
         title="Navigation Logic"
         description="Filtering behavior, category structure, route display, and position handling. The operational rules that govern how the map functions."

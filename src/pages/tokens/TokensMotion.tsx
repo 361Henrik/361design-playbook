@@ -9,7 +9,7 @@ const TokensMotion = () => {
   const [hovered, setHovered] = useState(false);
 
   return (
-    <div className="px-8 py-10 max-w-5xl">
+    <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
       <PageHeader
         title="Motion Tokens"
         description="UI transitions 300–400ms with ease-out. Hero movement 8–20s subtle loop. Restraint in every interaction."

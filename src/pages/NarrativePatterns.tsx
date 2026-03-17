@@ -4,7 +4,7 @@ import { MapPin, BookOpen, Compass, UserCheck } from "lucide-react";
 
 const NarrativePatterns = () => {
   return (
-    <div className="px-8 py-10 max-w-5xl">
+    <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
       <PageHeader
         title="Narrative Patterns"
         description="A graphic pattern for representing progression — use it for storytelling, explanations, journeys, and onboarding."
