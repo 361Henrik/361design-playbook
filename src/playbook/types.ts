@@ -150,7 +150,9 @@ export type ContentBlock =
   | CategoryListBlock
   | ScenarioBlock
   | ComponentSpecBlock
-  | ChannelKitBlock;
+  | ChannelKitBlock
+  | SpacingVisualBlock
+  | IconGridBlock;
 
 export interface PlaybookPage {
   section: string;

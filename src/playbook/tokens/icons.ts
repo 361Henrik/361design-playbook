@@ -20,13 +20,60 @@ export const iconsPlaybook: PlaybookPage = {
       ],
     },
     {
-      type: "spec-table",
+      type: "icon-grid",
       heading: "Icon Groups",
-      rows: [
-        { label: "Navigation", value: "Menu, Close, Chevron Down/Right, Arrow Right/Left/Up, External Link" },
-        { label: "Actions", value: "Search, Plus, Minus, Check, Copy, Download, Upload, Settings" },
-        { label: "Content", value: "User, Mail, Calendar, Eye, Eye Off, Palette, Type, Layout" },
-        { label: "Shapes", value: "Circle, Square, Triangle, Star, Hexagon, Ruler, Zap" },
+      groups: [
+        {
+          category: "Navigation",
+          icons: [
+            { name: "Menu", lucideId: "Menu" },
+            { name: "Close", lucideId: "X" },
+            { name: "Chevron Down", lucideId: "ChevronDown" },
+            { name: "Chevron Right", lucideId: "ChevronRight" },
+            { name: "Arrow Right", lucideId: "ArrowRight" },
+            { name: "Arrow Left", lucideId: "ArrowLeft" },
+            { name: "Arrow Up", lucideId: "ArrowUp" },
+            { name: "External Link", lucideId: "ExternalLink" },
+          ],
+        },
+        {
+          category: "Actions",
+          icons: [
+            { name: "Search", lucideId: "Search" },
+            { name: "Plus", lucideId: "Plus" },
+            { name: "Minus", lucideId: "Minus" },
+            { name: "Check", lucideId: "Check" },
+            { name: "Copy", lucideId: "Copy" },
+            { name: "Download", lucideId: "Download" },
+            { name: "Upload", lucideId: "Upload" },
+            { name: "Settings", lucideId: "Settings" },
+          ],
+        },
+        {
+          category: "Content",
+          icons: [
+            { name: "User", lucideId: "User" },
+            { name: "Mail", lucideId: "Mail" },
+            { name: "Calendar", lucideId: "Calendar" },
+            { name: "Eye", lucideId: "Eye" },
+            { name: "Eye Off", lucideId: "EyeOff" },
+            { name: "Palette", lucideId: "Palette" },
+            { name: "Type", lucideId: "Type" },
+            { name: "Layout", lucideId: "LayoutGrid" },
+          ],
+        },
+        {
+          category: "Shapes",
+          icons: [
+            { name: "Circle", lucideId: "Circle" },
+            { name: "Square", lucideId: "Square" },
+            { name: "Triangle", lucideId: "Triangle" },
+            { name: "Star", lucideId: "Star" },
+            { name: "Hexagon", lucideId: "Hexagon" },
+            { name: "Ruler", lucideId: "Ruler" },
+            { name: "Zap", lucideId: "Zap" },
+          ],
+        },
       ],
     },
     {
