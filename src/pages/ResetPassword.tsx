@@ -94,7 +94,7 @@ const ResetPassword = () => {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label className="text-xs font-body">Email</Label>
+              <Label className="text-label font-body">Email</Label>
               <Input
                 type="email"
                 value={email}
