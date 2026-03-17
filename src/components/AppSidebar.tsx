@@ -80,6 +80,9 @@ const systemNav = [
   { title: "Image System", url: "/image-system", icon: Camera },
   { title: "Narrative Patterns", url: "/narrative-patterns", icon: Route },
   { title: "Guardrails", url: "/guardrails", icon: ShieldCheck },
+];
+
+const toolsNav = [
   { title: "Export", url: "/export", icon: Download },
   { title: "Studio", url: "/studio", icon: PanelTop },
   { title: "Sources", url: "/sources", icon: Upload },
@@ -233,7 +236,7 @@ export function AppSidebar() {
 
         <SidebarGroup>
           <SidebarGroupLabel className="px-3 text-[10px] uppercase tracking-widest text-sidebar-foreground/40 font-body font-medium mb-1">
-            Tokens
+            Foundations
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>{renderItems(tokenNav)}</SidebarMenu>
@@ -242,7 +245,7 @@ export function AppSidebar() {
 
         <SidebarGroup>
           <SidebarGroupLabel className="px-3 text-[10px] uppercase tracking-widest text-sidebar-foreground/40 font-body font-medium mb-1">
-            Interface Behavior
+            Interaction
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>{renderItems(behaviorNav)}</SidebarMenu>
@@ -255,6 +258,15 @@ export function AppSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>{renderItems(systemNav)}</SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarGroup>
+          <SidebarGroupLabel className="px-3 text-[10px] uppercase tracking-widest text-sidebar-foreground/40 font-body font-medium mb-1">
+            Tools
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>{renderItems(toolsNav)}</SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
