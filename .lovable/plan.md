@@ -1,95 +1,54 @@
 
 
-# Two-Pane Login Page Redesign
+## Simplifying the Handbook Viewer
 
-Redesign the Auth page from a centered card into a split-panel editorial layout: branded intro on the left, login form on the right.
+### Current pain points
 
----
+1. **Three view modes are confusing** — Overview shows 1 block, Full shows all blocks, Image is a separate canvas. The difference between Overview and Full is subtle, and switching between them adds friction.
+2. **Selection-first workflow is backwards** — Users must check boxes before seeing anything. The default should show everything, with filtering as the refinement step.
+3. **Mobile is broken** — The selection panel is `hidden lg:block`, so on the current 440px viewport the user has no way to select/deselect items.
+4. **Too many toolbar controls** — Search, 3 view buttons, Selected Only switch, Expand/Collapse, plus conditional Export/Fullscreen buttons. This feels like an admin panel.
+5. **"Selected only" toggle is redundant** — If you've already selected items, why would you want to see unselected ones cluttering the sidebar?
 
-## Layout Structure
+### Proposed simplifications
 
-```text
-Desktop (>=1024px):
-+---------------------------+---------------------+
-|                           |                     |
-|   LEFT PANEL (50%)        |  RIGHT PANEL (50%)  |
-|   bg-primary (Deep Green) |  bg-background      |
-|                           |                     |
-|   Logo                    |  "Sign In" heading   |
-|   Headline                |  Login/Signup tabs   |
-|   Subhead                 |  Form fields         |
-|   Description paragraph   |  CTA button          |
-|   3 benefit bullets       |  Forgot password     |
-|   Bronze accent line      |  Help link           |
-|                           |                     |
-+---------------------------+---------------------+
+**A. Merge Overview and Full into one view with inline expand**
+- Remove the Overview/Full toggle entirely
+- Each card starts collapsed (title + description + status)
+- Click a card to expand it and see all content blocks
+- "Expand All" / "Collapse All" remain as utility buttons
+- This is more intuitive — one interaction model instead of a global mode switch
 
-Tablet (768-1023px): Stacked -- intro panel on top (compact), form below
-Mobile (<768px): Stacked -- intro collapses to logo + one-liner, form fills viewport
-```
+**B. Default to "show all" and use the sidebar as a filter**
+- On first load, all items are selected (already the case)
+- Rename the left panel from "selection" to "filter" — it filters what's visible, not what's "selected"
+- Remove the "Selected only" toggle — the sidebar always shows all items, checked ones appear in the preview
 
----
+**C. Mobile: use a drawer for the filter panel**
+- On small screens, show a floating filter button that opens a bottom Drawer (already have the `drawer.tsx` component)
+- The drawer contains the same section/checkbox list
+- This makes the feature fully usable on mobile
 
-## Left Panel Content
+**D. Flatten the toolbar**
+- Row 1: Search input + View toggle (List / Image) + filter drawer trigger (mobile only)
+- Row 2 (contextual): Expand/Collapse (list view) or Export/Fullscreen (image view)
+- Remove the Switch component for "Selected only" entirely
 
-- **Logo**: "The Curated Lens" in `font-display` (Playfair Display), warm-white text
-- **Headline**: "Your Design System. Defined. Applied."
-- **Subhead**: "The single source of truth for design tokens, rules, components, and interactive guidance."
-- **Description** (3 benefit lines with subtle bronze bullet markers):
-  - Browse tokens and patterns with live previews
-  - Run guided reviews backed by brand guardrails
-  - Export production-ready code for any channel
-- **Accent**: A thin horizontal bronze line separator between headline block and benefits
-- **Background**: `bg-primary` (Deep Forest Green) with `text-primary-foreground` (Warm White)
-- **Spacing**: generous padding (`p-12 lg:p-16`), editorial whitespace
+**E. Keep Image view as-is**
+- Image mode is a distinct use case (presentation/export) and stays separate
+- But simplify the toggle to just two buttons: **Browse** and **Present**
 
-## Right Panel
+### Summary of changes
 
-- Clean `bg-background` (Warm White)
-- Title: "Sign In" / "Create Account" based on active tab
-- Existing login/signup tab forms (preserved as-is)
-- Below form: "Forgot password?" link + "Need help?" link to `/help`
-- Centered vertically with `max-w-sm` constraint
+| File | What changes |
+|------|-------------|
+| `HandbookViewer.tsx` | Remove `overview`/`full` split → single list view with collapsible cards. Remove `showSelectedOnly` state. Simplify toolbar. Add mobile drawer for filter panel. Rename view modes to "Browse" / "Present". |
+| New: mobile filter using `Drawer` | Wrap the filter panel in a Drawer on small screens, triggered by a filter icon button visible only on mobile. |
 
-## Responsive Behavior
-
-- **Desktop** (`lg:`): `flex-row`, each panel 50%
-- **Tablet** (`md:`): stacked, left panel becomes a compact header (logo + headline only, ~200px height)
-- **Mobile**: left panel shrinks to logo + single tagline (~80px), form takes remaining space
-
----
-
-## File Changes
-
-### `src/pages/Auth.tsx` -- Full rewrite of the return JSX
-
-1. Replace the outer `div > Card` with a two-pane flex layout
-2. Extract the left branded panel as an inline section (no separate component needed -- it's static content)
-3. Keep all existing form logic, state, and handlers untouched
-4. Update the title from "Curated Lens" to "The Curated Lens"
-5. Add subtle `animate-in` fade on the left panel using Tailwind's `animate` utilities
-6. Add "Need help?" link below the forgot password button, linking to `/help`
-7. Use `font-display` for headings, `font-body` for body text, `text-bronze` for accent markers
-
-### No other files need changes
-
-All styling uses existing Tailwind tokens (`primary`, `primary-foreground`, `bronze`, `font-display`, `font-body`, spacing tokens). No new dependencies or components required.
-
----
-
-## Accessibility
-
-- Tab order: left panel is decorative/informational, focus starts on the first form field in the right panel
-- Left panel content uses semantic `h1` for the headline, `p` for descriptions
-- Form labels and inputs remain properly associated
-- Color contrast: warm-white on deep-green meets WCAG AA
-
-## Acceptance Criteria
-
-- Desktop shows side-by-side layout with branded left panel and login form on right
-- Left panel displays headline, subhead, benefit bullets, and bronze accent
-- Mobile/tablet gracefully stacks with condensed intro
-- All existing auth functionality (login, signup, forgot password) works unchanged
-- Title reads "The Curated Lens" throughout
-- No gradients, no heavy animation -- calm editorial feel
+### What stays the same
+- Visual identity, typography, spacing, colour palette
+- Image canvas and export functionality
+- localStorage persistence
+- Section grouping and checkbox interaction
+- PlaybookBlockRenderer and ImageCanvas components
 
