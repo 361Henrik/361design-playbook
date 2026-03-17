@@ -130,7 +130,7 @@ export function AppSidebar() {
     ));
 
   return (
-    <Sidebar className="w-60 border-r-0" collapsible="icon">
+    <Sidebar className="w-full border-r-0" collapsible="none">
       <div className="px-5 py-6 border-b border-sidebar-border">
         {workspaces.length > 1 ? (
           <Select value={activeWorkspace?.id || ""} onValueChange={setActiveWorkspaceId}>
