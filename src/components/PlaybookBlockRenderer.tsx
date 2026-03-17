@@ -249,6 +249,8 @@ export function PlaybookBlockRenderer({ block }: { block: ContentBlock }) {
     case "scenario": return <ScenarioBlock block={block} />;
     case "component-spec": return <ComponentSpecBlock block={block} />;
     case "channel-kit": return <ChannelKitBlock block={block} />;
+    case "spacing-visual": return <SpacingVisualBlock block={block} />;
+    case "icon-grid": return <IconGridBlock block={block} />;
     default: return null;
   }
 }
