@@ -302,27 +302,50 @@ const ExportPage = () => {
             </div>
           </div>
 
-          {/* Export button */}
-          <Card className="border-primary/20 bg-primary/5">
-            <CardContent className="p-6 flex items-center gap-6">
-              <div className="shrink-0">
-                <div className="h-12 w-12 rounded-lg bg-primary flex items-center justify-center">
-                  <BookOpen className="h-6 w-6 text-primary-foreground" strokeWidth={1.5} />
+          {/* Export buttons */}
+          <div className="space-y-4">
+            <Card className="border-primary/20 bg-primary/5">
+              <CardContent className="p-6 flex items-center gap-6">
+                <div className="shrink-0">
+                  <div className="h-12 w-12 rounded-lg bg-primary flex items-center justify-center">
+                    <BookOpen className="h-6 w-6 text-primary-foreground" strokeWidth={1.5} />
+                  </div>
                 </div>
-              </div>
-              <div className="flex-1 space-y-1">
-                <h3 className="font-display text-base font-medium text-foreground">Export Design Playbook</h3>
-                <p className="text-sm font-body text-muted-foreground leading-reading">
-                  Download {selectedSlugs.length} page{selectedSlugs.length !== 1 ? "s" : ""} as a structured Markdown ZIP.
-                  Upload this into your IDE as the design system source of truth.
-                </p>
-              </div>
-              <Button onClick={handlePlaybookExport} className="shrink-0" disabled={selectedSlugs.length === 0}>
-                <Download className="h-4 w-4" strokeWidth={1.5} />
-                Download ZIP
-              </Button>
-            </CardContent>
-          </Card>
+                <div className="flex-1 space-y-1">
+                  <h3 className="font-display text-base font-medium text-foreground">Export Design Playbook</h3>
+                  <p className="text-sm font-body text-muted-foreground leading-reading">
+                    Download {selectedSlugs.length} page{selectedSlugs.length !== 1 ? "s" : ""} as a structured Markdown ZIP.
+                    Upload this into your IDE as the design system source of truth.
+                  </p>
+                </div>
+                <Button onClick={handlePlaybookExport} className="shrink-0" disabled={selectedSlugs.length === 0}>
+                  <Download className="h-4 w-4" strokeWidth={1.5} />
+                  Download ZIP
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="border-accent/20 bg-accent/5">
+              <CardContent className="p-6 flex items-center gap-6">
+                <div className="shrink-0">
+                  <div className="h-12 w-12 rounded-lg bg-accent flex items-center justify-center">
+                    <Bot className="h-6 w-6 text-accent-foreground" strokeWidth={1.5} />
+                  </div>
+                </div>
+                <div className="flex-1 space-y-1">
+                  <h3 className="font-display text-base font-medium text-foreground">AI Context File</h3>
+                  <p className="text-sm font-body text-muted-foreground leading-reading">
+                    Single-file design system context for AI coding assistants (Claude, Cursor, Gemini).
+                    Includes an instruction preamble that constrains the AI to your tokens, components, and patterns.
+                  </p>
+                </div>
+                <Button variant="outline" onClick={() => downloadFile(generateAIContextFile(), "CLAUDE.md")} className="shrink-0">
+                  <Download className="h-4 w-4" strokeWidth={1.5} />
+                  Download CLAUDE.md
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
         </TabsContent>
       </Tabs>
     </div>
