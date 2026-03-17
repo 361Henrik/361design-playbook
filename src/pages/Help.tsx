@@ -44,7 +44,7 @@ export default function Help() {
   const navigate = useNavigate();
 
   return (
-    <div className="p-6 max-w-4xl mx-auto space-y-8">
+    <div className="px-space-5 md:px-space-8 py-space-8 max-w-content space-y-space-8">
       <div className="flex items-start justify-between">
         <PageHeader title="Help" description="Quickstart guides, glossary, and answers to common questions." />
         <Button variant="outline" size="sm" onClick={() => setTourOpen(true)} className="shrink-0 mt-1">
