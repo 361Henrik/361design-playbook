@@ -65,10 +65,10 @@ export default function Help() {
                 <span className="text-xs font-mono text-muted-foreground w-4 shrink-0 pt-0.5">{i + 1}.</span>
                 <s.icon className="h-4 w-4 text-muted-foreground shrink-0 mt-0.5" strokeWidth={1.5} />
                 <div>
-                  <button onClick={() => navigate(s.href)} className="text-sm font-medium text-foreground hover:text-primary transition-colors">
+                  <button onClick={() => navigate(s.href)} className="text-body font-body font-medium text-foreground hover:text-primary transition-colors duration-ui">
                     {s.step}
                   </button>
-                  <p className="text-xs text-muted-foreground mt-0.5">{s.description}</p>
+                  <p className="text-body-sm font-body text-muted-foreground mt-0.5">{s.description}</p>
                 </div>
               </li>
             ))}
