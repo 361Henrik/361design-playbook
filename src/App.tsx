@@ -27,6 +27,7 @@ import TokensVoice from "./pages/tokens/TokensVoice";
 import ComponentsPage from "./pages/Components";
 import ComponentDetailPage from "./pages/ComponentDetail";
 import GuidelinesPage from "./pages/Guidelines";
+import ImageSystemPage from "./pages/ImageSystem";
 import GuardrailsPage from "./pages/Guardrails";
 import ExportPage from "./pages/Export";
 import SettingsPage from "./pages/Settings";
