@@ -50,6 +50,15 @@
     --ivory: 40 33% 97%;
     --charcoal: 0 0% 10%;
     --bronze: 40 42% 60%;
+    --bronze-muted: 36 16% 51%;
+
+    /* Bronze pill tokens */
+    --pill-bg: 40 42% 60% / 0.12;
+    --pill-text: 36 45% 30%;
+    --pill-border: 40 42% 60% / 0.25;
+    --pill-active-bg: 40 42% 60% / 0.22;
+    --pill-active-text: 34 44% 22%;
+    --pill-active-border: 40 42% 60% / 0.4;
   }
 
   .dark {
@@ -71,8 +80,18 @@
     --muted: 0 0% 12%;
     --muted-foreground: 36 15% 65%;
 
-    --accent: 40 42% 60%;
+    --accent: 40 42% 60%;              /* #C6A96B Champagne Bronze */
     --accent-foreground: 36 24% 95%;
+
+    --bronze: 40 42% 60%;
+    --bronze-muted: 36 16% 51%;
+
+    --pill-bg: 40 42% 60% / 0.12;
+    --pill-text: 36 45% 60%;
+    --pill-border: 40 42% 60% / 0.25;
+    --pill-active-bg: 40 42% 60% / 0.22;
+    --pill-active-text: 36 45% 70%;
+    --pill-active-border: 40 42% 60% / 0.4;
 
     --destructive: 0 62% 30%;
     --destructive-foreground: 36 24% 95%;

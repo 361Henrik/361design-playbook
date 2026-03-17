@@ -129,7 +129,7 @@ const SettingsPage = () => {
                         <SelectItem value="viewer">Viewer</SelectItem>
                       </SelectContent>
                     </Select>
-                    <Badge variant="secondary" className="text-[10px] font-mono">{p.roles[0] || "no role"}</Badge>
+                    <Badge variant="bronze" className="text-[10px] font-mono">{p.roles[0] || "no role"}</Badge>
                   </div>
                 ))}
               </div>

@@ -252,7 +252,7 @@ const SourcesPage = () => {
                     </p>
                   )}
                 </div>
-                <Badge variant="secondary" className="text-[10px] font-mono uppercase">{source.file_type}</Badge>
+                <Badge variant="bronze" className="text-[10px] font-mono uppercase">{source.file_type}</Badge>
                 <div className="flex items-center gap-1.5">
                   {statusIcon(source.status)}
                   <span className="text-[10px] font-body text-muted-foreground capitalize">{source.status === "not_relevant" ? "Not Relevant" : source.status}</span>

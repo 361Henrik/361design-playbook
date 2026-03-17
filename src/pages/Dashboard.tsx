@@ -135,7 +135,7 @@ const Dashboard = () => {
           <CardContent className="p-5">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-display text-sm font-medium text-foreground">Getting Started</h3>
-              <Badge variant="secondary" className="text-[10px] font-mono">{completedCount}/{onboardingSteps.length}</Badge>
+              <Badge variant="bronze" className="text-[10px] font-mono">{completedCount}/{onboardingSteps.length}</Badge>
             </div>
             <div className="space-y-2">
               {onboardingSteps.map((step) => (
