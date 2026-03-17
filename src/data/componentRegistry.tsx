@@ -364,7 +364,7 @@ export const components: ComponentEntry[] = [
     id: "input-text",
     name: "Text Input",
     category: "forms",
-    description: "Standard text input field. Uses Inter at the body weight, with a subtle border and focus ring in Forest Green.",
+    description: "Standard text input field. Uses Lexend at the body weight, with a subtle border and focus ring in marine blue.",
     accessibilityNotes: "Always pair with a <Label>. Use htmlFor to associate label with input. Placeholder text is not a substitute for labels.",
     dos: [
       "Always pair with a visible Label above the input",
