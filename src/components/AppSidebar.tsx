@@ -83,6 +83,7 @@ const systemNav = [
 ];
 
 const toolsNav = [
+  { title: "Handbook Viewer", url: "/handbook", icon: BookOpen },
   { title: "Export", url: "/export", icon: Download },
   { title: "Studio", url: "/studio", icon: PanelTop },
   { title: "Sources", url: "/sources", icon: Upload },
