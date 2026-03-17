@@ -474,24 +474,3 @@ export function generateAIContextFile(): string {
 
   return lines.join("\n");
 }
-  const pages = selectedSlugs
-    ? allPlaybookPages.filter((p) => selectedSlugs.includes(p.slug))
-    : allPlaybookPages;
-
-  const files: ExportFile[] = [];
-
-  // README
-  files.push({ path: "README.md", content: generatePlaybookReadme() });
-
-  // Open Questions
-  files.push({ path: "08-handoff/open-questions.md", content: generateOpenQuestionsFile() });
-
-  // Pages
-  for (const page of pages) {
-    const folder = sectionFolderMap[page.section] || "99-other";
-    const filename = slugToFilename(page.slug);
-    files.push({ path: `${folder}/${filename}`, content: serializePage(page) });
-  }
-
-  return files;
-}
