@@ -12,6 +12,8 @@ const badgeVariants = cva(
         secondary: "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
         destructive: "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
         outline: "text-foreground",
+        bronze: "bg-[hsl(var(--pill-bg))] text-[hsl(var(--pill-text))] border-[hsl(var(--pill-border))]",
+        "bronze-active": "bg-[hsl(var(--pill-active-bg))] text-[hsl(var(--pill-active-text))] border-[hsl(var(--pill-active-border))]",
       },
     },
     defaultVariants: {

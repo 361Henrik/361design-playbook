@@ -77,6 +77,7 @@ export default {
         ivory: "hsl(var(--ivory))",
         charcoal: "hsl(var(--charcoal))",
         bronze: "hsl(var(--bronze))",
+        "bronze-muted": "hsl(var(--bronze-muted))",
       },
       maxWidth: {
         prose: "52ch",

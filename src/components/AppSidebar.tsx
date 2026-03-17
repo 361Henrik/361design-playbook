@@ -119,10 +119,10 @@ export function AppSidebar() {
           <NavLink
             to={item.url}
             end={item.url === "/"}
-            className="flex items-center gap-3 px-3 py-2 rounded-md text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent transition-colors duration-ui"
-            activeClassName="bg-sidebar-accent text-sidebar-foreground font-medium"
+            className="group flex items-center gap-3 px-3 py-2 rounded-md text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent transition-colors duration-ui"
+            activeClassName="bg-sidebar-accent text-sidebar-foreground font-medium [&_.nav-icon]:text-bronze"
           >
-            <item.icon className="h-4 w-4 shrink-0" strokeWidth={1.5} />
+            <item.icon className="nav-icon h-4 w-4 shrink-0 text-bronze-muted group-hover:text-bronze transition-colors duration-ui" strokeWidth={1.5} />
             <span className="font-body text-sm">{item.title}</span>
           </NavLink>
         </SidebarMenuButton>
