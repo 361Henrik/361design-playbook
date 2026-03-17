@@ -331,8 +331,8 @@ function StatCard({ icon: Icon, label, value, sub, alert = false }: {
           <Icon className={`h-4 w-4 ${alert ? "text-destructive" : "text-primary"}`} strokeWidth={1.5} />
         </div>
         <div>
-          <p className="text-2xl font-display font-medium text-foreground">{value}</p>
-          <p className="text-xs font-body text-muted-foreground">{label}</p>
+          <p className="text-h1 font-display font-medium text-foreground">{value}</p>
+          <p className="text-caption font-body text-muted-foreground">{label}</p>
           <p className={`text-[10px] font-mono mt-0.5 ${alert ? "text-destructive" : "text-muted-foreground"}`}>{sub}</p>
         </div>
       </CardContent>
