@@ -62,26 +62,26 @@
   }
 
   .dark {
-    --background: 0 0% 6%;
-    --foreground: 36 24% 95%;
+    --background: 30 10% 8%;
+    --foreground: 37 26% 92%;
 
-    --card: 0 0% 9%;
-    --card-foreground: 36 24% 95%;
+    --card: 30 8% 11%;
+    --card-foreground: 37 26% 92%;
 
-    --popover: 0 0% 9%;
-    --popover-foreground: 36 24% 95%;
+    --popover: 30 8% 11%;
+    --popover-foreground: 37 26% 92%;
 
-    --primary: 36 24% 95%;
+    --primary: 37 26% 92%;
     --primary-foreground: 215 51% 25%;
 
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 36 24% 95%;
+    --secondary: 30 8% 14%;
+    --secondary-foreground: 37 26% 92%;
 
-    --muted: 0 0% 12%;
+    --muted: 30 8% 14%;
     --muted-foreground: 36 15% 65%;
 
-    --accent: 40 42% 60%;              /* #C6A96B Champagne Bronze */
-    --accent-foreground: 36 24% 95%;
+    --accent: 40 42% 60%;
+    --accent-foreground: 37 26% 92%;
 
     --bronze: 40 42% 60%;
     --bronze-muted: 36 16% 51%;
@@ -94,19 +94,19 @@
     --pill-active-border: 40 42% 60% / 0.4;
 
     --destructive: 0 62% 30%;
-    --destructive-foreground: 36 24% 95%;
+    --destructive-foreground: 37 26% 92%;
 
-    --border: 0 0% 16%;
-    --input: 0 0% 16%;
-    --ring: 36 24% 95%;
+    --border: 30 6% 18%;
+    --input: 30 6% 18%;
+    --ring: 37 26% 92%;
 
-    --sidebar-background: 0 0% 8%;
-    --sidebar-foreground: 36 24% 95%;
+    --sidebar-background: 30 8% 9%;
+    --sidebar-foreground: 37 26% 92%;
     --sidebar-primary: 40 42% 60%;
-    --sidebar-primary-foreground: 36 24% 95%;
-    --sidebar-accent: 0 0% 12%;
-    --sidebar-accent-foreground: 36 24% 95%;
-    --sidebar-border: 0 0% 16%;
+    --sidebar-primary-foreground: 37 26% 92%;
+    --sidebar-accent: 30 8% 14%;
+    --sidebar-accent-foreground: 37 26% 92%;
+    --sidebar-border: 30 6% 18%;
     --sidebar-ring: 40 42% 60%;
   }
 }
