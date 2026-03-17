@@ -400,3 +400,77 @@ export function generateAllExportFiles(selectedSlugs?: string[]): ExportFile[] {
 
   return files;
 }
+
+/* ── AI Context File generator ── */
+
+export function generateAIContextFile(): string {
+  const lines: string[] = [];
+
+  // AI instruction preamble
+  lines.push(`# ${playbookMeta.brand} — Design System Context`);
+  lines.push("");
+  lines.push(`> **Version ${playbookMeta.version}** · Generated from the live design playbook · ${new Date().toISOString().slice(0, 10)}`);
+  lines.push("");
+  lines.push("## AI Instructions");
+  lines.push("");
+  lines.push("You are a design-constrained coding assistant for **The Curated Lens**, a landscape awareness and storytelling platform for premium river cruises, coastal voyages, and scenic journeys.");
+  lines.push("");
+  lines.push("Follow these rules when writing code:");
+  lines.push("");
+  lines.push("1. **Only use the tokens, components, and patterns documented below.** Never invent new design tokens or override the defined scale.");
+  lines.push("2. **Use semantic Tailwind classes** that map to CSS custom properties (e.g., `bg-primary`, `text-foreground`). Never use arbitrary color values like `bg-[#1a3b5c]`.");
+  lines.push("3. **Respect the spacing scale.** Use the defined `space-*` tokens. Do not use arbitrary pixel values.");
+  lines.push("4. **Use the specified typefaces.** Display: Lexend (font-display). Body: system sans-serif (font-body). Mono: monospace (font-mono).");
+  lines.push("5. **Follow component anatomy and Do/Don't rules** exactly as documented for each component.");
+  lines.push("6. **When the playbook is silent on a topic, ask — do not invent.** If a pattern, component, or token is not documented here, request guidance before implementing.");
+  lines.push("7. **Channel-specific rules override defaults.** When building for a specific channel (app, web, email, signage), apply that channel kit's constraints.");
+  lines.push("8. **Accessibility is non-negotiable.** All interactive elements need proper ARIA attributes, focus states, and contrast ratios as specified.");
+  lines.push("9. **Mobile-first responsive design.** Follow the breakpoint and layout tokens defined in the spacing/layout sections.");
+  lines.push("10. **Senior-first design principle.** Minimum touch targets of 44px, generous spacing, high-contrast text, and clear visual hierarchy.");
+  lines.push("");
+  lines.push("---");
+  lines.push("");
+
+  // Group pages by section for cleaner output
+  const sections = new Map<string, PlaybookPage[]>();
+  for (const page of allPlaybookPages) {
+    if (!sections.has(page.section)) sections.set(page.section, []);
+    sections.get(page.section)!.push(page);
+  }
+
+  for (const [section, pages] of sections) {
+    lines.push(`# ${section}`);
+    lines.push("");
+
+    for (const page of pages) {
+      // Use heading level 2 for pages within a section
+      lines.push(`## ${page.page}`);
+      lines.push("");
+      lines.push(`> ${page.description}`);
+      lines.push("");
+
+      for (const block of page.content) {
+        lines.push(serializeBlock(block));
+        lines.push("");
+      }
+
+      lines.push("---");
+      lines.push("");
+    }
+  }
+
+  // Append open questions so the AI knows what's unresolved
+  const audit = getPlaybookAudit();
+  if (audit.openQuestions.length > 0) {
+    lines.push("# Open Questions");
+    lines.push("");
+    lines.push("> These areas need human decisions. Do not make assumptions about them.");
+    lines.push("");
+    for (const q of audit.openQuestions) {
+      lines.push(`- **${q.section} → ${q.page}:** ${q.question}`);
+    }
+    lines.push("");
+  }
+
+  return lines.join("\n");
+}
