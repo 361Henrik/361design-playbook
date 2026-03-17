@@ -59,6 +59,7 @@ export const allPlaybookPages: PlaybookPage[] = [
   seniorFirstPlaybook,
   operatorBrandingPlaybook,
   editorialElegancePlaybook,
+  imageSystemPlaybook,
 
   // 02 — Tokens
   colorsPlaybook,
