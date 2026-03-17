@@ -1,95 +1,70 @@
 
 
-# Two-Pane Login Page Redesign
+## Findings: AI Context File & Design Skill
 
-Redesign the Auth page from a centered card into a split-panel editorial layout: branded intro on the left, login form on the right.
+### What exists today
 
----
+1. **`curated-lens-system.md`** (314 lines, root of project) — A **static, hand-written** single-file design system reference. It covers colors, typography, spacing, layout, components, patterns, and channel rules. However:
+   - It is **not generated from the playbook data**. It's a separate static file that can drift out of sync.
+   - It references outdated color values (e.g., "Deep Forest Green" for `--primary`, "Antique Bronze" for `--accent`) that don't match the current playbook tokens ("Deep Marine Blue", "Champagne Bronze").
+   - It has no AI-specific instructions (no "you are a design assistant" preamble, no constraint framing).
 
-## Layout Structure
+2. **Playbook ZIP export** (`markdownExport.ts`) — Generates ~31 individual `.md` files in a folder structure. Great for browsing, but too many files for a single AI context window.
 
-```text
-Desktop (>=1024px):
-+---------------------------+---------------------+
-|                           |                     |
-|   LEFT PANEL (50%)        |  RIGHT PANEL (50%)  |
-|   bg-primary (Deep Green) |  bg-background      |
-|                           |                     |
-|   Logo                    |  "Sign In" heading   |
-|   Headline                |  Login/Signup tabs   |
-|   Subhead                 |  Form fields         |
-|   Description paragraph   |  CTA button          |
-|   3 benefit bullets       |  Forgot password     |
-|   Bronze accent line      |  Help link           |
-|                           |                     |
-+---------------------------+---------------------+
+3. **No `CLAUDE.md` or `Gemini.md`** exists anywhere in the project.
 
-Tablet (768-1023px): Stacked -- intro panel on top (compact), form below
-Mobile (<768px): Stacked -- intro collapses to logo + one-liner, form fills viewport
-```
+### What's missing
 
----
+| Gap | Impact |
+|-----|--------|
+| No auto-generated single-file AI context | `curated-lens-system.md` drifts from playbook data |
+| No AI preamble/instructions | Claude/Gemini don't know they're constrained to the design system |
+| No export option on the Export page | Users can't download it from the UI |
+| Stale color values in the static file | AI gets wrong tokens |
 
-## Left Panel Content
+### Recommendation
 
-- **Logo**: "The Curated Lens" in `font-display` (Playfair Display), warm-white text
-- **Headline**: "Your Design System. Defined. Applied."
-- **Subhead**: "The single source of truth for design tokens, rules, components, and interactive guidance."
-- **Description** (3 benefit lines with subtle bronze bullet markers):
-  - Browse tokens and patterns with live previews
-  - Run guided reviews backed by brand guardrails
-  - Export production-ready code for any channel
-- **Accent**: A thin horizontal bronze line separator between headline block and benefits
-- **Background**: `bg-primary` (Deep Forest Green) with `text-primary-foreground` (Warm White)
-- **Spacing**: generous padding (`p-12 lg:p-16`), editorial whitespace
+**Add a "Generate AI Context File" feature to the Export page** that:
 
-## Right Panel
+1. Serializes the entire playbook into a **single consolidated Markdown file** (generated from the same `allPlaybookPages` data, not static).
+2. Prepends an **AI instruction preamble** that tells the AI:
+   - "You are a design-constrained coding assistant for The Curated Lens."
+   - "Only use the tokens, components, and patterns documented below."
+   - "When the playbook is silent, ask — do not invent."
+   - "Never use arbitrary Tailwind values outside the defined token scale."
+3. Offers the download as `CLAUDE.md` (for Claude Projects / `.claude/` convention) or as a generic `design-system.md`.
 
-- Clean `bg-background` (Warm White)
-- Title: "Sign In" / "Create Account" based on active tab
-- Existing login/signup tab forms (preserved as-is)
-- Below form: "Forgot password?" link + "Need help?" link to `/help`
-- Centered vertically with `max-w-sm` constraint
+This replaces the static `curated-lens-system.md` with a dynamically generated version that always matches the playbook.
 
-## Responsive Behavior
+### Should there be a "Claude design skill" inside the app?
 
-- **Desktop** (`lg:`): `flex-row`, each panel 50%
-- **Tablet** (`md:`): stacked, left panel becomes a compact header (logo + headline only, ~200px height)
-- **Mobile**: left panel shrinks to logo + single tagline (~80px), form takes remaining space
+**No — leave that to the IDE.** Here's why:
 
----
+- The app already has a **Design Copilot** (the in-app AI assistant) that answers questions about the design system. That's the in-app skill.
+- A "Claude design skill" means giving Claude (in Cursor, Windsurf, or Claude Projects) the design system context so it **writes code** that follows the playbook. That's an IDE concern, not an app concern.
+- The right approach is: **this app exports the file, the IDE consumes it.** The app is the authoring tool; the IDE is the execution environment.
+- The Export page already says "Upload this into your IDE as the design system source of truth" — we just need to make that file AI-optimized.
 
-## File Changes
+### Implementation plan
 
-### `src/pages/Auth.tsx` -- Full rewrite of the return JSX
+**`src/data/markdownExport.ts`** — Add a new function `generateAIContextFile()` that:
+- Writes an AI instruction preamble (10-15 lines of constraints)
+- Iterates through `allPlaybookPages` and serializes each using the existing `serializePage()` function
+- Concatenates everything into one string with section dividers
+- Returns the full string
 
-1. Replace the outer `div > Card` with a two-pane flex layout
-2. Extract the left branded panel as an inline section (no separate component needed -- it's static content)
-3. Keep all existing form logic, state, and handlers untouched
-4. Update the title from "Curated Lens" to "The Curated Lens"
-5. Add subtle `animate-in` fade on the left panel using Tailwind's `animate` utilities
-6. Add "Need help?" link below the forgot password button, linking to `/help`
-7. Use `font-display` for headings, `font-body` for body text, `text-bronze` for accent markers
+**`src/pages/Export.tsx`** — Add a third card in the Playbook tab:
+- "AI Context File" card with a download button
+- Downloads as `CLAUDE.md` (single file, no ZIP needed)
+- Brief description: "Single-file design system context for AI coding assistants (Claude, Cursor, Gemini)."
 
-### No other files need changes
+**Delete `curated-lens-system.md`** — Replace it with the generated version so it can't drift.
 
-All styling uses existing Tailwind tokens (`primary`, `primary-foreground`, `bronze`, `font-display`, `font-body`, spacing tokens). No new dependencies or components required.
+### Files to edit
 
----
-
-## Accessibility
-
-- Tab order: left panel is decorative/informational, focus starts on the first form field in the right panel
-- Left panel content uses semantic `h1` for the headline, `p` for descriptions
-- Form labels and inputs remain properly associated
-- Color contrast: warm-white on deep-green meets WCAG AA
-
-## Acceptance Criteria
-
-- Desktop shows side-by-side layout with branded left panel and login form on right
-- Left panel displays headline, subhead, benefit bullets, and bronze accent
-- Mobile/tablet gracefully stacks with condensed intro
-- All existing auth functionality (login, signup, forgot password) works unchanged
-- Title reads "The Curated Lens" throughout
-- No gradients, no heavy animation -- calm editorial feel
+| File | Change |
+|------|--------|
+| `src/data/markdownExport.ts` | Add `generateAIContextFile()` function |
+| `src/pages/Export.tsx` | Add AI Context File download card |
+| `curated-lens-system.md` | Delete (replaced by generated output) |
 
