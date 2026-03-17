@@ -26,7 +26,7 @@ export const visualStylePlaybook: PlaybookPage = {
         { name: "POI marker background", value: "#FFFFFF", description: "White circular disk — high contrast against any map surface." },
         { name: "POI marker ring", value: "#1A1A1A", description: "Black outline ring (2px). Clear in all lighting conditions." },
         { name: "POI marker icon", value: "#1A1A1A", description: "Black icon centered inside white disk. Maximum readability." },
-        { name: "POI marker — selected", value: "#C49A5C", description: "Antique Bronze ring (3px). State change indicated by color." },
+        { name: "POI marker — selected", value: "#C6A96B", description: "Champagne Bronze ring (3px). State change indicated by color." },
         { name: "Label text", value: "#6B6560", description: "Warm mid-grey. Readable but quiet." },
         { name: "Corridor boundary", value: "transparent", description: "The corridor is implied, never drawn." },
       ],
