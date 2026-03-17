@@ -77,25 +77,10 @@ const mapsSubgroups = [
       { title: "Map Layers", url: "/maps/layers", icon: Map },
       { title: "Map Visual Style", url: "/maps/visual-style", icon: Map },
       { title: "Labels & Geography", url: "/maps/labels", icon: Map },
-    ],
-  },
-  {
-    label: "Map Behavior",
-    items: [
       { title: "Route & Position", url: "/maps/route-position", icon: Map },
       { title: "Map Interaction", url: "/maps/interaction", icon: Map },
       { title: "Filtering & Categories", url: "/maps/filtering", icon: Map },
-    ],
-  },
-  {
-    label: "Map Experience",
-    items: [
       { title: "Guest Experience", url: "/maps/guest-experience", icon: Map },
-    ],
-  },
-  {
-    label: "Examples",
-    items: [
       { title: "Map Examples", url: "/maps/examples", icon: Map },
     ],
   },
