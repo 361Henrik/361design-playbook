@@ -37,9 +37,11 @@ const statusColor: Record<string, string> = {
 export default function HandbookViewer() {
   const [selectedSlugs, setSelectedSlugs] = useState<Set<string>>(loadSelection);
   const [searchQuery, setSearchQuery] = useState("");
-  const [viewMode, setViewMode] = useState<"overview" | "full">("overview");
+  const [viewMode, setViewMode] = useState<"overview" | "full" | "image">("overview");
   const [showSelectedOnly, setShowSelectedOnly] = useState(false);
   const [collapsedCards, setCollapsedCards] = useState<Set<string>>(new Set());
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const canvasRef = useRef<HTMLDivElement>(null);
 
   const sections = useMemo(() => getPlaybookSections(), []);
 
