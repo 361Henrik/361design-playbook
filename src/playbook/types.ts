@@ -102,6 +102,18 @@ export interface ComponentSpecBlock {
   }[];
 }
 
+export interface SpacingVisualBlock {
+  type: "spacing-visual";
+  heading?: string;
+  steps: { token: string; px: number; description?: string }[];
+}
+
+export interface IconGridBlock {
+  type: "icon-grid";
+  heading?: string;
+  groups: { category: string; icons: { name: string; lucideId: string }[] }[];
+}
+
 export interface ChannelKitBlock {
   type: "channel-kit";
   heading?: string;
