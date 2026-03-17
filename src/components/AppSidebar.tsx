@@ -6,6 +6,7 @@ import { useWorkspace } from "@/hooks/useWorkspace";
 import { NotificationCenter } from "@/components/NotificationCenter";
 import { WelcomePanel } from "@/components/WelcomePanel";
 import { OnboardingTour } from "@/components/OnboardingTour";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Sidebar,
