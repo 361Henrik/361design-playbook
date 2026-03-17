@@ -12,7 +12,7 @@ const ComponentDetailPage = () => {
 
   if (!component) {
     return (
-      <div className="px-8 py-10 max-w-5xl">
+      <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
         <p className="text-sm font-body text-muted-foreground">Component not found.</p>
         <Link to="/components" className="text-sm font-body text-primary hover:underline mt-2 inline-block">
           ← Back to catalog
