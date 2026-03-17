@@ -47,6 +47,7 @@ import {
   Map,
   Camera,
   ChevronRight,
+  MousePointer,
 } from "lucide-react";
 
 const mainNav = [
@@ -87,6 +88,16 @@ const systemNav = [
   { title: "Copilot", url: "/copilot", icon: Sparkles },
   { title: "Settings", url: "/settings", icon: Settings },
   { title: "Help", url: "/help", icon: HelpCircle },
+];
+
+const behaviorNav = [
+  { title: "Signifiers & Clarity", url: "/behavior/signifiers", icon: MousePointer },
+  { title: "Interaction States", url: "/behavior/interaction-states", icon: MousePointer },
+  { title: "Feedback & Micro-interactions", url: "/behavior/feedback", icon: MousePointer },
+  { title: "Motion & Transitions", url: "/behavior/motion", icon: MousePointer },
+  { title: "Semantic Colour Usage", url: "/behavior/semantic-color", icon: MousePointer },
+  { title: "Depth & Surfaces", url: "/behavior/depth", icon: MousePointer },
+  { title: "Dark Mode Principles", url: "/behavior/dark-mode", icon: MousePointer },
 ];
 
 function MapsAccordionNav(): JSX.Element {
@@ -226,6 +237,15 @@ export function AppSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>{renderItems(tokenNav)}</SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarGroup>
+          <SidebarGroupLabel className="px-3 text-[10px] uppercase tracking-widest text-sidebar-foreground/40 font-body font-medium mb-1">
+            Interface Behavior
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>{renderItems(behaviorNav)}</SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
 
