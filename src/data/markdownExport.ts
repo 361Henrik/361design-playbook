@@ -231,6 +231,8 @@ function serializeBlock(block: ContentBlock): string {
     case "scenario": return serializeScenario(block);
     case "component-spec": return serializeComponentSpec(block);
     case "channel-kit": return serializeChannelKit(block);
+    case "spacing-visual": return serializeSpacingVisual(block);
+    case "icon-grid": return serializeIconGrid(block);
     default: return "";
   }
 }
