@@ -63,27 +63,17 @@ const tokenNav = [
   { title: "Voice", url: "/tokens/voice", icon: MessageSquare },
 ];
 
-const mapsSubgroups = [
-  {
-    label: "Overview",
-    items: [
-      { title: "Map Principles", url: "/maps/principles", icon: Map },
-    ],
-  },
-  {
-    label: "Map Design",
-    items: [
-      { title: "Scenic Corridor", url: "/maps/corridor", icon: Map },
-      { title: "Map Layers", url: "/maps/layers", icon: Map },
-      { title: "Map Visual Style", url: "/maps/visual-style", icon: Map },
-      { title: "Labels & Geography", url: "/maps/labels", icon: Map },
-      { title: "Route & Position", url: "/maps/route-position", icon: Map },
-      { title: "Map Interaction", url: "/maps/interaction", icon: Map },
-      { title: "Filtering & Categories", url: "/maps/filtering", icon: Map },
-      { title: "Guest Experience", url: "/maps/guest-experience", icon: Map },
-      { title: "Map Examples", url: "/maps/examples", icon: Map },
-    ],
-  },
+const mapsItems = [
+  { title: "Map Principles", url: "/maps/principles", icon: Map },
+  { title: "Map Visual Style", url: "/maps/visual-style", icon: Map },
+  { title: "Map Layers", url: "/maps/layers", icon: Map },
+  { title: "Labels & Geography", url: "/maps/labels", icon: Map },
+  { title: "Map Interaction", url: "/maps/interaction", icon: Map },
+  { title: "Filtering & Categories", url: "/maps/filtering", icon: Map },
+  { title: "Route & Position", url: "/maps/route-position", icon: Map },
+  { title: "Scenic Corridor", url: "/maps/corridor", icon: Map },
+  { title: "Guest Experience", url: "/maps/guest-experience", icon: Map },
+  { title: "Map Examples", url: "/maps/examples", icon: Map },
 ];
 
 const systemNav = [
