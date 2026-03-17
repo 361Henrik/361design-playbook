@@ -104,6 +104,13 @@ function ProtectedRoutes() {
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/copilot" element={<CopilotPage />} />
           <Route path="/help" element={<HelpPage />} />
+          <Route path="/behavior/signifiers" element={<SignifiersClarityPage />} />
+          <Route path="/behavior/interaction-states" element={<InteractionStatesPage />} />
+          <Route path="/behavior/feedback" element={<FeedbackMicroPage />} />
+          <Route path="/behavior/motion" element={<MotionTransitionsPage />} />
+          <Route path="/behavior/semantic-color" element={<SemanticColorPage />} />
+          <Route path="/behavior/depth" element={<DepthSurfacesPage />} />
+          <Route path="/behavior/dark-mode" element={<DarkModePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AppShell>

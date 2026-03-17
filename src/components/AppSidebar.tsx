@@ -47,6 +47,7 @@ import {
   Map,
   Camera,
   ChevronRight,
+  MousePointer,
 } from "lucide-react";
 
 const mainNav = [
