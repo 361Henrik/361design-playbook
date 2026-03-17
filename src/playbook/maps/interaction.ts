@@ -25,7 +25,7 @@ export const interactionPlaybook: PlaybookPage = {
         { label: "Default state", value: "Minimal — white disk, black ring (2px), black icon. No label visible." },
         { label: "First tap", value: "Marker expands slightly (32→40px or 40→48px). Label appears below. Ring thickens to 2.5px." },
         { label: "Second tap (on expanded)", value: "Opens story/location card sliding up from bottom of screen." },
-        { label: "Selected state", value: "Ring changes to 3px bronze (#C49A5C). Other markers dim slightly (opacity 0.6)." },
+        { label: "Selected state", value: "Ring changes to 3px bronze (#C6A96B). Other markers dim slightly (opacity 0.6)." },
         { label: "Tap empty area", value: "Dismisses open card. Returns all markers to default state." },
         { label: "Animation", value: "300ms ease-out for all marker state transitions. Never bouncy or elastic." },
       ],

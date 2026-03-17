@@ -470,11 +470,11 @@ export function checkContrastRatio(
  */
 export function getContrastResults() {
   const palette = [
-    { name: "Deep Forest Green", hsl: "103 53% 23%", role: "primary" },
-    { name: "Warm White", hsl: "40 33% 97%", role: "background" },
-    { name: "Warm Off-White", hsl: "37 21% 95%", role: "secondary" },
-    { name: "Near Black", hsl: "240 29% 14%", role: "foreground" },
-    { name: "Antique Bronze", hsl: "36 42% 56%", role: "accent" },
+    { name: "Deep Marine Blue", hsl: "215 51% 25%", role: "primary" },
+    { name: "Cream", hsl: "36 24% 95%", role: "background" },
+    { name: "Soft Ivory", hsl: "40 33% 97%", role: "secondary" },
+    { name: "Charcoal", hsl: "0 0% 10%", role: "foreground" },
+    { name: "Champagne Bronze", hsl: "40 42% 60%", role: "accent" },
   ];
 
   const results: {

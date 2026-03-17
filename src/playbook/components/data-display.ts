@@ -45,7 +45,7 @@ export const dataDisplayPlaybook: PlaybookPage = {
             "Avoid zebra striping — use subtle borders instead",
             "Don't embed complex interactions inside table cells",
           ],
-          code: `<Table>\n  <TableHeader>\n    <TableRow>\n      <TableHead>Token</TableHead>\n      <TableHead>Value</TableHead>\n      <TableHead className="text-right">Usage</TableHead>\n    </TableRow>\n  </TableHeader>\n  <TableBody>\n    <TableRow>\n      <TableCell className="font-mono text-xs">--primary</TableCell>\n      <TableCell className="font-mono text-xs">103 53% 23%</TableCell>\n      <TableCell className="text-right">30%</TableCell>\n    </TableRow>\n  </TableBody>\n</Table>`,
+          code: `<Table>\n  <TableHeader>\n    <TableRow>\n      <TableHead>Token</TableHead>\n      <TableHead>Value</TableHead>\n      <TableHead className="text-right">Role</TableHead>\n    </TableRow>\n  </TableHeader>\n  <TableBody>\n    <TableRow>\n      <TableCell className="font-mono text-xs">--primary</TableCell>\n      <TableCell className="font-mono text-xs">215 51% 25%</TableCell>\n      <TableCell className="text-right">Interaction</TableCell>\n    </TableRow>\n  </TableBody>\n</Table>`,
         },
         {
           name: "Stat Block",

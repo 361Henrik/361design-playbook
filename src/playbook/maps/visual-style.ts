@@ -43,7 +43,7 @@ export const visualStylePlaybook: PlaybookPage = {
         { label: "Marker shape", value: "Circular disk with pointer tip", notes: "White background, no green fill" },
         { label: "Default ring", value: "2px solid #1A1A1A", notes: "Black outline for maximum contrast" },
         { label: "Hover ring", value: "2.5px solid #1A1A1A", notes: "Subtle expansion, no color change" },
-        { label: "Selected ring", value: "3px solid #C49A5C", notes: "Bronze accent — the only color state" },
+        { label: "Selected ring", value: "3px solid #C6A96B", notes: "Bronze accent — the only color state" },
         { label: "Marker size — small", value: "32px body / 16px icon", notes: "Dense map views" },
         { label: "Marker size — medium", value: "40px body / 20px icon", notes: "Default size" },
         { label: "Marker size — large", value: "48px body / 24px icon", notes: "Featured POIs, minimum tap target" },
