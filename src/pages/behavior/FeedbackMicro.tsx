@@ -1,7 +1,7 @@
 import { PageHeader } from "@/components/PageHeader";
 
 const FeedbackMicro = () => (
-  <div className="px-8 py-10 max-w-5xl">
+  <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
     <PageHeader
       title="Feedback & Micro-interactions"
       description="Feedback should feel immediate, quiet, and reassuring — like a gentle confirmation that the system understood."

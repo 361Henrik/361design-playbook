@@ -44,7 +44,7 @@ const labelHierarchy = [
 
 const MapStructure = () => {
   return (
-    <div className="px-8 py-10 max-w-5xl">
+    <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
       <PageHeader
         title="Map Structure"
         description="Layer hierarchy, label logic, and geographic representation rules. The structural foundation that defines how the map is built."

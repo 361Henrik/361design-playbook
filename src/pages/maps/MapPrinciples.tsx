@@ -29,7 +29,7 @@ const principles = [
 
 const MapPrinciples = () => {
   return (
-    <div className="px-8 py-10 max-w-5xl">
+    <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
       <PageHeader
         title="Map Principles"
         description="The map is not a navigation tool. It is a landscape awareness and storytelling tool that helps guests understand where they are, what they see, what is nearby, and where they are along the journey."

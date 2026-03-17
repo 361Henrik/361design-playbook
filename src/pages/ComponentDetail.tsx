@@ -24,7 +24,7 @@ const ComponentDetailPage = () => {
   const category = getCategoryById(component.category);
 
   return (
-    <div className="px-8 py-10 max-w-5xl space-y-8">
+    <div className="px-space-5 md:px-space-8 py-space-8 max-w-content space-y-space-8">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-1.5 text-sm font-body">
         <Link to="/components" className="text-muted-foreground hover:text-foreground transition-colors">

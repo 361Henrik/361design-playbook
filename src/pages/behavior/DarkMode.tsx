@@ -1,7 +1,7 @@
 import { PageHeader } from "@/components/PageHeader";
 
 const DarkMode = () => (
-  <div className="px-8 py-10 max-w-5xl">
+  <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
     <PageHeader
       title="Dark Mode Principles"
       description="Dark mode is not an inversion — it is a different atmosphere. The same calm, editorial quality must carry through."

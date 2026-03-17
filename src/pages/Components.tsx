@@ -10,7 +10,7 @@ const ComponentsPage = () => {
   const activeCategory = searchParams.get("category");
 
   return (
-    <div className="px-8 py-10 max-w-5xl">
+    <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
       <PageHeader
         title="Component Catalog"
         description="A browsable registry of approved components, each with live previews, usage guidance, and exportable code."

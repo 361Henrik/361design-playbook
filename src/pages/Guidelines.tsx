@@ -2,7 +2,7 @@ import { PageHeader } from "@/components/PageHeader";
 
 const GuidelinesPage = () => {
   return (
-    <div className="px-8 py-10 max-w-5xl">
+    <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
       <PageHeader
         title="Brand Guidelines"
         description="Calm, architectural, intelligent, editorial authority, controlled luxury. Restraint signals confidence."

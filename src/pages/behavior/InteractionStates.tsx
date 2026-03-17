@@ -29,7 +29,7 @@ const elements = [
 ];
 
 const InteractionStates = () => (
-  <div className="px-8 py-10 max-w-5xl">
+  <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
     <PageHeader
       title="Interaction States"
       description="Every interactive element moves through a quiet choreography of states. Each state should feel intentional, never dramatic."

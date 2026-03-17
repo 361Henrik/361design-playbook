@@ -15,7 +15,7 @@ const colorTokens = [
 
 const MapVisualStyle = () => {
   return (
-    <div className="px-8 py-10 max-w-5xl">
+    <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
       <PageHeader
         title="Map Visual Style"
         description="Muted, desaturated, editorial. The map should feel like a premium illustrated guide — not a navigation screen."

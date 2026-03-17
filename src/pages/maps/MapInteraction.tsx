@@ -2,7 +2,7 @@ import { PageHeader } from "@/components/PageHeader";
 
 const MapInteraction = () => {
   return (
-    <div className="px-8 py-10 max-w-5xl">
+    <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
       <PageHeader
         title="Map Interaction"
         description="Tap, pan, and zoom behavior. Every interaction must feel calm and intentional — the map responds, never reacts."
