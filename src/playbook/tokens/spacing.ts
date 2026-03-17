@@ -9,19 +9,18 @@ export const spacingPlaybook: PlaybookPage = {
   openQuestions: [],
   content: [
     {
-      type: "spec-table",
+      type: "spacing-visual",
       heading: "Spacing Scale",
-      columns: ["Token", "Value"],
-      rows: [
-        { label: "space-1", value: "4px" },
-        { label: "space-2", value: "8px" },
-        { label: "space-3", value: "12px" },
-        { label: "space-4", value: "16px" },
-        { label: "space-5", value: "24px" },
-        { label: "space-6", value: "32px" },
-        { label: "space-7", value: "48px" },
-        { label: "space-8", value: "64px" },
-        { label: "space-9", value: "96px" },
+      steps: [
+        { token: "space-1", px: 4 },
+        { token: "space-2", px: 8 },
+        { token: "space-3", px: 12 },
+        { token: "space-4", px: 16 },
+        { token: "space-5", px: 24 },
+        { token: "space-6", px: 32 },
+        { token: "space-7", px: 48 },
+        { token: "space-8", px: 64 },
+        { token: "space-9", px: 96 },
       ],
     },
     {

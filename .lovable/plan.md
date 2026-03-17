@@ -1,58 +1,95 @@
 
 
-## Live Visual Examples in the Handbook Viewer
+# Two-Pane Login Page Redesign
 
-### The Problem
+Redesign the Auth page from a centered card into a split-panel editorial layout: branded intro on the left, login form on the right.
 
-When you select Color, Spacing, or Icon pages in the Handbook Viewer, you see **spec tables with text values** (e.g., "space-5 → 24px", "Stroke Width → 1.5–2px"). But the dedicated token pages (`/tokens/colors`, `/tokens/spacing`, `/tokens/icons`) already render rich visuals — actual color swatches, spacing bars, and live Lucide icons.
+---
 
-The Handbook Viewer's `PlaybookBlockRenderer` doesn't know how to render these visual previews because the playbook data uses generic `spec-table` blocks for spacing and icons, and while `color-swatch` blocks do render swatches, they're small and basic.
-
-### Solution: Add Visual Preview Block Types
-
-Add three new content block types to the playbook schema and corresponding renderers, then update the playbook data files to use them.
-
-**1. New block types in `src/playbook/types.ts`**
+## Layout Structure
 
 ```text
-SpacingVisualBlock  → { type: "spacing-visual", heading?, steps: { token, px, description? }[] }
-IconGridBlock       → { type: "icon-grid", heading?, groups: { category, icons: { name, lucideId }[] }[] }
+Desktop (>=1024px):
++---------------------------+---------------------+
+|                           |                     |
+|   LEFT PANEL (50%)        |  RIGHT PANEL (50%)  |
+|   bg-primary (Deep Green) |  bg-background      |
+|                           |                     |
+|   Logo                    |  "Sign In" heading   |
+|   Headline                |  Login/Signup tabs   |
+|   Subhead                 |  Form fields         |
+|   Description paragraph   |  CTA button          |
+|   3 benefit bullets       |  Forgot password     |
+|   Bronze accent line      |  Help link           |
+|                           |                     |
++---------------------------+---------------------+
+
+Tablet (768-1023px): Stacked -- intro panel on top (compact), form below
+Mobile (<768px): Stacked -- intro collapses to logo + one-liner, form fills viewport
 ```
 
-Also enhance the existing `color-swatch` renderer to show contrast pairs and usage context inline.
+---
 
-**2. New renderers in `src/components/PlaybookBlockRenderer.tsx`**
+## Left Panel Content
 
-| Block type | What it renders |
-|-----------|----------------|
-| `spacing-visual` | Horizontal bars at actual pixel widths (like the TokensSpacing page), with token name and px label |
-| `icon-grid` | Actual Lucide icons rendered at 24px with name labels, grouped by category |
-| Enhanced `color-swatch` | Larger swatches (h-16 instead of h-12), plus a small text sample showing the color as foreground |
+- **Logo**: "The Curated Lens" in `font-display` (Playfair Display), warm-white text
+- **Headline**: "Your Design System. Defined. Applied."
+- **Subhead**: "The single source of truth for design tokens, rules, components, and interactive guidance."
+- **Description** (3 benefit lines with subtle bronze bullet markers):
+  - Browse tokens and patterns with live previews
+  - Run guided reviews backed by brand guardrails
+  - Export production-ready code for any channel
+- **Accent**: A thin horizontal bronze line separator between headline block and benefits
+- **Background**: `bg-primary` (Deep Forest Green) with `text-primary-foreground` (Warm White)
+- **Spacing**: generous padding (`p-12 lg:p-16`), editorial whitespace
 
-**3. Update playbook data files**
+## Right Panel
 
-| File | Change |
-|------|--------|
-| `src/playbook/tokens/spacing.ts` | Replace the first `spec-table` (Spacing Scale) with a `spacing-visual` block |
-| `src/playbook/tokens/icons.ts` | Replace the "Icon Groups" `spec-table` with an `icon-grid` block using Lucide icon names |
-| `src/playbook/tokens/colors.ts` | Already uses `color-swatch` — enhance the renderer only, no data change needed |
+- Clean `bg-background` (Warm White)
+- Title: "Sign In" / "Create Account" based on active tab
+- Existing login/signup tab forms (preserved as-is)
+- Below form: "Forgot password?" link + "Need help?" link to `/help`
+- Centered vertically with `max-w-sm` constraint
 
-**4. Icon rendering approach**
+## Responsive Behavior
 
-The `icon-grid` renderer will import a curated map of Lucide icons (the same ones already imported in `TokensIcons.tsx`) and render them by name. Icons not found in the map will show a placeholder badge with the name.
+- **Desktop** (`lg:`): `flex-row`, each panel 50%
+- **Tablet** (`md:`): stacked, left panel becomes a compact header (logo + headline only, ~200px height)
+- **Mobile**: left panel shrinks to logo + single tagline (~80px), form takes remaining space
 
-### Files to edit
+---
 
-| File | Scope |
-|------|-------|
-| `src/playbook/types.ts` | Add `SpacingVisualBlock` and `IconGridBlock` interfaces, add to `ContentBlock` union |
-| `src/components/PlaybookBlockRenderer.tsx` | Add `SpacingVisualBlock` and `IconGridBlock` renderers, enhance `ColorSwatchBlock` renderer |
-| `src/playbook/tokens/spacing.ts` | Replace first spec-table with `spacing-visual` block |
-| `src/playbook/tokens/icons.ts` | Replace "Icon Groups" spec-table with `icon-grid` block |
+## File Changes
 
-### What stays the same
-- All existing block types and renderers continue working
-- Dedicated token pages (`/tokens/*`) are unaffected
-- Handbook Viewer layout, filter panel, Browse/Present modes unchanged
-- ImageCanvas export still works (renders whatever the blocks produce)
+### `src/pages/Auth.tsx` -- Full rewrite of the return JSX
+
+1. Replace the outer `div > Card` with a two-pane flex layout
+2. Extract the left branded panel as an inline section (no separate component needed -- it's static content)
+3. Keep all existing form logic, state, and handlers untouched
+4. Update the title from "Curated Lens" to "The Curated Lens"
+5. Add subtle `animate-in` fade on the left panel using Tailwind's `animate` utilities
+6. Add "Need help?" link below the forgot password button, linking to `/help`
+7. Use `font-display` for headings, `font-body` for body text, `text-bronze` for accent markers
+
+### No other files need changes
+
+All styling uses existing Tailwind tokens (`primary`, `primary-foreground`, `bronze`, `font-display`, `font-body`, spacing tokens). No new dependencies or components required.
+
+---
+
+## Accessibility
+
+- Tab order: left panel is decorative/informational, focus starts on the first form field in the right panel
+- Left panel content uses semantic `h1` for the headline, `p` for descriptions
+- Form labels and inputs remain properly associated
+- Color contrast: warm-white on deep-green meets WCAG AA
+
+## Acceptance Criteria
+
+- Desktop shows side-by-side layout with branded left panel and login form on right
+- Left panel displays headline, subhead, benefit bullets, and bronze accent
+- Mobile/tablet gracefully stacks with condensed intro
+- All existing auth functionality (login, signup, forgot password) works unchanged
+- Title reads "The Curated Lens" throughout
+- No gradients, no heavy animation -- calm editorial feel
 
