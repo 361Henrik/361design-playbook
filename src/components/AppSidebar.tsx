@@ -90,6 +90,16 @@ const systemNav = [
   { title: "Help", url: "/help", icon: HelpCircle },
 ];
 
+const behaviorNav = [
+  { title: "Signifiers & Clarity", url: "/behavior/signifiers", icon: MousePointer },
+  { title: "Interaction States", url: "/behavior/interaction-states", icon: MousePointer },
+  { title: "Feedback & Micro-interactions", url: "/behavior/feedback", icon: MousePointer },
+  { title: "Motion & Transitions", url: "/behavior/motion", icon: MousePointer },
+  { title: "Semantic Colour Usage", url: "/behavior/semantic-color", icon: MousePointer },
+  { title: "Depth & Surfaces", url: "/behavior/depth", icon: MousePointer },
+  { title: "Dark Mode Principles", url: "/behavior/dark-mode", icon: MousePointer },
+];
+
 function MapsAccordionNav(): JSX.Element {
   const location = useLocation();
   const hasActive = mapsItems.some((i) => location.pathname === i.url);
