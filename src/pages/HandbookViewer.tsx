@@ -92,6 +92,21 @@ export default function HandbookViewer() {
   const expandAll = () => setCollapsedCards(new Set());
   const collapseAll = () => setCollapsedCards(new Set(selectedPages.map((p) => p.slug)));
 
+  const handleExportPng = useCallback(async () => {
+    if (!canvasRef.current) return;
+    try {
+      const dataUrl = await toPng(canvasRef.current, { pixelRatio: 2, backgroundColor: "#fafaf8" });
+      const link = document.createElement("a");
+      link.download = "design-handbook.png";
+      link.href = dataUrl;
+      link.click();
+    } catch (err) {
+      console.error("Export failed", err);
+    }
+  }, []);
+
+  const toggleFullscreen = () => setIsFullscreen((prev) => !prev);
+
   return (
     <div className="space-y-6">
       <PageHeader
