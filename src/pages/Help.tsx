@@ -79,14 +79,14 @@ export default function Help() {
       {/* Glossary */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-base font-display">Glossary</CardTitle>
+          <CardTitle className="text-h3 font-display">Glossary</CardTitle>
         </CardHeader>
         <CardContent>
-          <dl className="space-y-3">
+          <dl className="space-y-space-3">
             {glossary.map((g) => (
               <div key={g.term}>
-                <dt className="text-sm font-medium text-foreground">{g.term}</dt>
-                <dd className="text-xs text-muted-foreground mt-0.5">{g.definition}</dd>
+                <dt className="text-label font-body text-foreground">{g.term}</dt>
+                <dd className="text-body-sm font-body text-muted-foreground mt-0.5">{g.definition}</dd>
               </div>
             ))}
           </dl>
