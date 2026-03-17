@@ -21,7 +21,7 @@ import {
 } from "@/data/exportGenerators";
 import { generateAllExportFiles, generateAIContextFile } from "@/data/markdownExport";
 import { allPlaybookPages, getPlaybookSections, getPlaybookAudit } from "@/playbook";
-import { Download, FileCode, FileJson, FileText, Package, Crown, BookOpen, CheckCircle, AlertTriangle, CircleDot } from "lucide-react";
+import { Download, FileCode, FileJson, FileText, Package, Crown, BookOpen, CheckCircle, AlertTriangle, CircleDot, Bot } from "lucide-react";
 import JSZip from "jszip";
 import { useEffect } from "react";
 
