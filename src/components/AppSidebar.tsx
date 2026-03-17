@@ -6,6 +6,7 @@ import { useWorkspace } from "@/hooks/useWorkspace";
 import { NotificationCenter } from "@/components/NotificationCenter";
 import { WelcomePanel } from "@/components/WelcomePanel";
 import { OnboardingTour } from "@/components/OnboardingTour";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Sidebar,
@@ -91,6 +92,7 @@ const systemNav = [
 export function AppSidebar() {
   const location = useLocation();
   const { user, signOut } = useAuth();
+  const isMobile = useIsMobile();
   const { workspaces, activeWorkspace, setActiveWorkspaceId } = useWorkspace();
   const [tourOpen, setTourOpen] = useState(false);
   const [onboardingCompleted, setOnboardingCompleted] = useState(false);
@@ -130,7 +132,7 @@ export function AppSidebar() {
     ));
 
   return (
-    <Sidebar className="w-60 border-r-0" collapsible="icon">
+    <Sidebar className="w-full border-r-0" collapsible={isMobile ? "offcanvas" : "none"}>
       <div className="px-5 py-6 border-b border-sidebar-border">
         {workspaces.length > 1 ? (
           <Select value={activeWorkspace?.id || ""} onValueChange={setActiveWorkspaceId}>
