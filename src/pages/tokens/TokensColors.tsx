@@ -74,7 +74,7 @@ const TokensColors = () => {
                     <CopyButton value={`var(${token.variable})`} label={`var(${token.variable})`} />
                     <CopyButton value={token.tailwind} label={`tw: ${token.tailwind}`} />
                   </div>
-                  <p className="mt-3 text-sm font-body leading-reading text-muted-foreground max-w-prose">{token.usage}</p>
+                  <p className="mt-3 text-sm font-body leading-reading text-foreground max-w-prose">{token.usage}</p>
                 </div>
               </div>
             ))}
