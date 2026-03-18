@@ -110,17 +110,17 @@ const TokensTypography = () => {
   return (
     <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
       <PageHeader
-        title="Typography Tokens"
+        title="Foundations · Typography"
         description="Playfair Display for headlines and editorial authority. Lexend for body, UI, and utility. Nine defined roles. No substitutions. Never use weight 300."
       />
 
-      <Tabs defaultValue="tokens" className="mt-6">
+      <Tabs defaultValue="system" className="mt-6">
         <TabsList>
-          <TabsTrigger value="tokens">Tokens</TabsTrigger>
+          <TabsTrigger value="system">Type System</TabsTrigger>
           <TabsTrigger value="examples">Examples</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="tokens">
+        <TabsContent value="system">
           {/* Font stack overview */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
             <div className="p-5 rounded-md border border-border bg-card">
