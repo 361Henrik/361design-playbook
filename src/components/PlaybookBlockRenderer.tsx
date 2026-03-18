@@ -23,7 +23,7 @@ function PrincipleListBlock({ block }: { block: Extract<ContentBlock, { type: "p
         <h4 className="font-display text-base font-semibold text-foreground">{block.heading}</h4>
       )}
       {block.description && (
-        <p className="font-body text-sm text-muted-foreground">{block.description}</p>
+        <p className="font-body text-sm text-foreground">{block.description}</p>
       )}
       <div className="space-y-2">
         {block.items.map((item, i) => (
