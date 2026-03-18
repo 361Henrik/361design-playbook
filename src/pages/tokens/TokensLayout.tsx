@@ -527,7 +527,7 @@ const TokensLayout = () => {
                 donts={[
                   "Don't use green as the primary reading surface for long text.",
                   "Don't mix more than two surface colors in a single view.",
-                  "Don't use arbitrary background colors outside the token palette.",
+                  "Don't use arbitrary background colors outside the defined palette.",
                   "Don't place green callouts directly adjacent to green sidebars.",
                 ]}
               />

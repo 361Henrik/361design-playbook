@@ -116,10 +116,10 @@ const TokensSpacing = () => {
                 "Maintain hierarchy: section > block > component > text stack > tight.",
               ]}
               donts={[
-                "Don't use subjective terms like 'generous' or 'compact' — use the token name.",
+                "Don't use subjective terms like 'generous' or 'compact' — use the defined name.",
                 "Don't use arbitrary pixel values (e.g. px-7, mt-[37px]) outside the scale.",
                 "Don't skip more than two scale steps in adjacent elements.",
-                "Don't reduce spacing on mobile — maintain the same tokens at all breakpoints.",
+                "Don't reduce spacing on mobile — maintain the same values at all breakpoints.",
               ]}
             />
           </section>
