@@ -5,7 +5,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useWorkspace } from "@/hooks/useWorkspace";
 import { NotificationCenter } from "@/components/NotificationCenter";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { supabase } from "@/integrations/supabase/client";
+
 import {
   Sidebar,
   SidebarContent,
