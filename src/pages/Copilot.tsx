@@ -463,7 +463,7 @@ export default function CopilotPage() {
                 <h3 className="font-display text-lg font-medium text-foreground mb-2">
                   Design Copilot
                 </h3>
-                <p className="text-sm font-body text-muted-foreground max-w-md leading-relaxed">
+                <p className="text-sm font-body text-foreground max-w-md leading-relaxed">
                   Ask about your design system — colors, typography, components, guidelines.
                   Every answer is grounded in your workspace's actual tokens and rules.
                 </p>
