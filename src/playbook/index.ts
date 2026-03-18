@@ -61,7 +61,7 @@ export const allPlaybookPages: PlaybookPage[] = [
   editorialElegancePlaybook,
   imageSystemPlaybook,
 
-  // 02 — Tokens
+  // 02 — Foundations
   colorsPlaybook,
   typographyPlaybook,
   spacingPlaybook,
