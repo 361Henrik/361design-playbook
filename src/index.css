@@ -52,12 +52,12 @@
     --bronze-muted: 38 36% 51%;
 
     /* Bronze pill tokens */
-    --pill-bg: 32 28% 90%;
+    --pill-bg: 34 22% 93%;
     --pill-text: 0 0% 7%;
-    --pill-border: 40 46% 53% / 0.3;
-    --pill-active-bg: 40 46% 53% / 0.18;
-    --pill-active-text: 0 0% 0%;
-    --pill-active-border: 40 46% 53% / 0.5;
+    --pill-border: 40 46% 53%;
+    --pill-active-bg: 40 46% 53%;
+    --pill-active-text: 0 0% 7%;
+    --pill-active-border: 40 46% 53%;
   }
 
   .dark {
