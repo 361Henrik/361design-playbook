@@ -1,8 +1,6 @@
 import { PageHeader } from "@/components/PageHeader";
 import { CopyButton } from "@/components/CopyButton";
 import { DosDonts } from "@/components/DosDonts";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { TokenExamplesTab } from "@/components/tokens/TokenExamplesTab";
 
 const tokensData = [
   { name: "Cream Beige", variable: "--background", hex: "#F2EDE6", hsl: "34 22% 93%", tailwind: "background", usage: "Primary background. Every main surface uses this color. It is the canvas of the system.", swatch: "bg-background", role: "background" },
@@ -22,125 +20,112 @@ const TokensColors = () => {
         description="Four neutrals, each with a single purpose. Marine blue for interaction. Bronze for highlights. No overlapping roles."
       />
 
-      <Tabs defaultValue="system" className="mt-6">
-        <TabsList>
-          <TabsTrigger value="system">Color System</TabsTrigger>
-          <TabsTrigger value="examples">Examples</TabsTrigger>
-        </TabsList>
+      {/* System Modes */}
+      <div className="mt-6 mb-10 p-5 rounded-md border border-border bg-card">
+        <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-4">System Modes</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="p-4 rounded-md border border-border bg-background">
+            <h4 className="font-display text-sm font-medium text-foreground mb-1">Curated Lens Signature</h4>
+            <p className="text-xs font-body text-muted-foreground">B2B — Design System Hub, sales, onboarding. Marine blue + bronze accents.</p>
+          </div>
+          <div className="p-4 rounded-md border border-border bg-background">
+            <h4 className="font-display text-sm font-medium text-foreground mb-1">Operator Expression</h4>
+            <p className="text-xs font-body text-muted-foreground">B2C — Guest-facing. Controlled color adaptation while structure remains immutable.</p>
+          </div>
+        </div>
+      </div>
 
-        <TabsContent value="system">
-          {/* System Modes */}
-          <div className="mb-10 p-5 rounded-md border border-border bg-card">
-            <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-4">System Modes</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="p-4 rounded-md border border-border bg-background">
-                <h4 className="font-display text-sm font-medium text-foreground mb-1">Curated Lens Signature</h4>
-                <p className="text-xs font-body text-muted-foreground">B2B — Design System Hub, sales, onboarding. Marine blue + bronze accents.</p>
+      {/* Color Usage Rules */}
+      <div className="mb-10 p-5 rounded-md border border-border bg-card">
+        <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-4">Color Usage Rules</h3>
+        <ul className="space-y-2 text-sm font-body text-muted-foreground">
+          <li>• <strong className="text-foreground">Cream Beige = background</strong> — all main surfaces, 80%+ of visible area</li>
+          <li>• <strong className="text-foreground">Warm Stone = secondary surface</strong> — cards, panels, layered sections</li>
+          <li>• <strong className="text-foreground">Near-Black = primary text</strong> — one text color, no variations</li>
+          <li>• <strong className="text-foreground">Muted = secondary text</strong> — the only secondary tone, no additional greys</li>
+          <li>• <strong className="text-foreground">Marine Blue = interaction</strong> — buttons, route lines, active states</li>
+          <li>• <strong className="text-foreground">Bronze = highlight</strong> — selected markers, icon accents, thin dividers</li>
+          <li>• <strong className="text-foreground">Warm Border = borders</strong> — single border color, no variations</li>
+        </ul>
+      </div>
+
+      {/* Color tokens */}
+      <div className="space-y-4">
+        {tokensData.map((token) => (
+          <div key={token.name} className="flex items-start gap-5 p-5 rounded-md border border-border bg-white">
+            <div className={`w-20 h-20 rounded-md shrink-0 ${token.swatch} border border-border`} />
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-3 mb-1.5">
+                <h3 className="font-display text-base font-medium tracking-headline text-foreground">{token.name}</h3>
+                <span className="text-xs font-body font-medium text-foreground px-2 py-0.5 rounded bg-background border border-accent">{token.role}</span>
               </div>
-              <div className="p-4 rounded-md border border-border bg-background">
-                <h4 className="font-display text-sm font-medium text-foreground mb-1">Operator Expression</h4>
-                <p className="text-xs font-body text-muted-foreground">B2C — Guest-facing. Controlled color adaptation while structure remains immutable.</p>
+              <div className="flex flex-wrap gap-2 mt-2">
+                <CopyButton value={token.hex} label={token.hex} />
+                <CopyButton value={`hsl(${token.hsl})`} label={`HSL`} />
+                <CopyButton value={`var(${token.variable})`} label={`var(${token.variable})`} />
+                <CopyButton value={token.tailwind} label={`tw: ${token.tailwind}`} />
               </div>
+              <p className="mt-3 text-sm font-body leading-reading text-foreground max-w-prose">{token.usage}</p>
             </div>
           </div>
+        ))}
+      </div>
 
-          {/* Color Usage Rules */}
-          <div className="mb-10 p-5 rounded-md border border-border bg-card">
-            <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-4">Color Usage Rules</h3>
-            <ul className="space-y-2 text-sm font-body text-muted-foreground">
-              <li>• <strong className="text-foreground">Cream Beige = background</strong> — all main surfaces, 80%+ of visible area</li>
-              <li>• <strong className="text-foreground">Warm Stone = secondary surface</strong> — cards, panels, layered sections</li>
-              <li>• <strong className="text-foreground">Near-Black = primary text</strong> — one text color, no variations</li>
-              <li>• <strong className="text-foreground">Muted = secondary text</strong> — the only secondary tone, no additional greys</li>
-              <li>• <strong className="text-foreground">Marine Blue = interaction</strong> — buttons, route lines, active states</li>
-              <li>• <strong className="text-foreground">Bronze = highlight</strong> — selected markers, icon accents, thin dividers</li>
-              <li>• <strong className="text-foreground">Warm Border = borders</strong> — single border color, no variations</li>
-            </ul>
-          </div>
-
-          {/* Color tokens */}
-          <div className="space-y-4">
-            {tokensData.map((token) => (
-              <div key={token.name} className="flex items-start gap-5 p-5 rounded-md border border-border bg-white">
-                <div className={`w-20 h-20 rounded-md shrink-0 ${token.swatch} border border-border`} />
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-3 mb-1.5">
-                    <h3 className="font-display text-base font-medium tracking-headline text-foreground">{token.name}</h3>
-                    <span className="text-xs font-body font-medium text-foreground px-2 py-0.5 rounded bg-background border border-accent">{token.role}</span>
-                  </div>
-                  <div className="flex flex-wrap gap-2 mt-2">
-                    <CopyButton value={token.hex} label={token.hex} />
-                    <CopyButton value={`hsl(${token.hsl})`} label={`HSL`} />
-                    <CopyButton value={`var(${token.variable})`} label={`var(${token.variable})`} />
-                    <CopyButton value={token.tailwind} label={`tw: ${token.tailwind}`} />
-                  </div>
-                  <p className="mt-3 text-sm font-body leading-reading text-foreground max-w-prose">{token.usage}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Contrast pairs */}
-          <section className="mt-12">
-            <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-4">Approved Contrast Pairs</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {[
-                { bg: "bg-background", fg: "text-foreground", label: "Near-Black on Cream Beige" },
-                { bg: "bg-primary", fg: "text-primary-foreground", label: "Cream on Marine Blue" },
-                { bg: "bg-card", fg: "text-card-foreground", label: "Near-Black on Warm Stone" },
-                { bg: "bg-background", fg: "text-accent", label: "Bronze on Cream Beige (accent only)" },
-              ].map((pair) => (
-                <div key={pair.label} className={`p-5 rounded-md border border-border ${pair.bg}`}>
-                  <p className={`text-sm font-body font-medium ${pair.fg}`}>{pair.label}</p>
-                  <p className={`text-xs font-body mt-1 ${pair.fg} opacity-70`}>Aa Bb Cc 123</p>
-                </div>
-              ))}
+      {/* Contrast pairs */}
+      <section className="mt-12">
+        <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-4">Approved Contrast Pairs</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {[
+            { bg: "bg-background", fg: "text-foreground", label: "Near-Black on Cream Beige" },
+            { bg: "bg-primary", fg: "text-primary-foreground", label: "Cream on Marine Blue" },
+            { bg: "bg-card", fg: "text-card-foreground", label: "Near-Black on Warm Stone" },
+            { bg: "bg-background", fg: "text-accent", label: "Bronze on Cream Beige (accent only)" },
+          ].map((pair) => (
+            <div key={pair.label} className={`p-5 rounded-md border border-border ${pair.bg}`}>
+              <p className={`text-sm font-body font-medium ${pair.fg}`}>{pair.label}</p>
+              <p className={`text-xs font-body mt-1 ${pair.fg} opacity-70`}>Aa Bb Cc 123</p>
             </div>
-          </section>
+          ))}
+        </div>
+      </section>
 
-          {/* Operator Adaptation */}
-          <section className="mt-12">
-            <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-4">Operator Adaptation Rules</h2>
-            <DosDonts
-              dos={[
-                "Allow accent color override for buttons and highlights in Operator Expression mode.",
-                "Allow optional route color override (controlled, must pass contrast checks).",
-              ]}
-              donts={[
-                "Never allow marker redesign — black/white with optional bronze highlight only.",
-                "Never allow map base color changes — land remains light grey, water remains soft blue.",
-                "Never allow typography changes — Playfair Display + Lexend are constant.",
-                "Never allow layout restructuring — spacing scale and widths are immutable.",
-              ]}
-            />
-          </section>
+      {/* Operator Adaptation */}
+      <section className="mt-12">
+        <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-4">Operator Adaptation Rules</h2>
+        <DosDonts
+          dos={[
+            "Allow accent color override for buttons and highlights in Operator Expression mode.",
+            "Allow optional route color override (controlled, must pass contrast checks).",
+          ]}
+          donts={[
+            "Never allow marker redesign — black/white with optional bronze highlight only.",
+            "Never allow map base color changes — land remains light grey, water remains soft blue.",
+            "Never allow typography changes — Playfair Display + Lexend are constant.",
+            "Never allow layout restructuring — spacing scale and widths are immutable.",
+          ]}
+        />
+      </section>
 
-          {/* Do / Don't */}
-          <section className="mt-12">
-            <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-4">Do / Don't</h2>
-            <DosDonts
-              dos={[
-                "Use marine blue exclusively for interactive elements — buttons, links, active states.",
-                "Use bronze sparingly — icon highlights, selected markers, thin dividers.",
-                "Keep Cream Beige dominant — it is the visual foundation.",
-                "Use Near-Black for all primary text. One weight of black, no variations.",
-                "Use the single Muted tone for all secondary text. No additional greys.",
-              ]}
-              donts={[
-                "Never introduce additional neutral tones beyond the four defined.",
-                "Never use marine blue as a background fill.",
-                "Never use bronze as a fill color, button, or large surface.",
-                "Never use pure black (#000). Near-Black (#111) provides warmth.",
-                "Never add colored backgrounds — neutrals only.",
-              ]}
-            />
-          </section>
-        </TabsContent>
-
-        <TabsContent value="examples">
-          <TokenExamplesTab tokenCategory="color" />
-        </TabsContent>
-      </Tabs>
+      {/* Do / Don't */}
+      <section className="mt-12">
+        <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-4">Do / Don't</h2>
+        <DosDonts
+          dos={[
+            "Use marine blue exclusively for interactive elements — buttons, links, active states.",
+            "Use bronze sparingly — icon highlights, selected markers, thin dividers.",
+            "Keep Cream Beige dominant — it is the visual foundation.",
+            "Use Near-Black for all primary text. One weight of black, no variations.",
+            "Use the single Muted tone for all secondary text. No additional greys.",
+          ]}
+          donts={[
+            "Never introduce additional neutral tones beyond the four defined.",
+            "Never use marine blue as a background fill.",
+            "Never use bronze as a fill color, button, or large surface.",
+            "Never use pure black (#000). Near-Black (#111) provides warmth.",
+            "Never add colored backgrounds — neutrals only.",
+          ]}
+        />
+      </section>
     </div>
   );
 };
