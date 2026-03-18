@@ -115,10 +115,10 @@ const TokensTypography = () => {
       {/* Font stack overview */}
       <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
         <div className="p-5 rounded-md border border-border bg-card">
-          <p className="text-caption font-body font-medium text-muted-foreground uppercase tracking-widest mb-3">Display Font</p>
+          <p className="text-caption font-body font-medium text-foreground uppercase tracking-widest mb-3">Display Font</p>
           <p className="font-display text-h1 text-card-foreground">Playfair Display</p>
-          <p className="mt-2 text-caption font-body text-muted-foreground">Weight 500 (default) · 600 (rare, emphasis only)</p>
-          <p className="mt-1 text-caption font-body text-muted-foreground">Used for: Display, H1, H2, H3</p>
+          <p className="mt-2 text-body-sm font-body text-foreground">Weight 500 (default) · 600 (rare, emphasis only)</p>
+          <p className="mt-1 text-body-sm font-body text-foreground">Used for: Display, H1, H2, H3</p>
           <div className="mt-3">
             <CopyButton value='font-family: "Playfair Display", Georgia, serif' label="CSS" />
           </div>
