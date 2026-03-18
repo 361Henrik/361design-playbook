@@ -85,12 +85,12 @@
     --bronze: 40 46% 53%;
     --bronze-muted: 38 36% 51%;
 
-    --pill-bg: 40 46% 53% / 0.12;
-    --pill-text: 36 45% 60%;
-    --pill-border: 40 46% 53% / 0.25;
-    --pill-active-bg: 40 46% 53% / 0.22;
-    --pill-active-text: 36 45% 70%;
-    --pill-active-border: 40 46% 53% / 0.5;
+    --pill-bg: 30 10% 8%;
+    --pill-text: 34 22% 93%;
+    --pill-border: 40 46% 53%;
+    --pill-active-bg: 40 46% 53%;
+    --pill-active-text: 0 0% 7%;
+    --pill-active-border: 40 46% 53%;
 
     --destructive: 0 62% 30%;
     --destructive-foreground: 34 22% 93%;

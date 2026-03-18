@@ -66,7 +66,7 @@ const TokensColors = () => {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-3 mb-1.5">
                     <h3 className="font-display text-base font-medium tracking-headline text-card-foreground">{token.name}</h3>
-                    <span className="text-xs font-body font-medium text-accent px-2 py-0.5 rounded bg-accent/10 border border-accent/20">{token.role}</span>
+                    <span className="text-xs font-body font-medium text-foreground px-2 py-0.5 rounded bg-background border border-accent">{token.role}</span>
                   </div>
                   <div className="flex flex-wrap gap-2 mt-2">
                     <CopyButton value={token.hex} label={token.hex} />
