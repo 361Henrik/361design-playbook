@@ -124,10 +124,10 @@ const TokensTypography = () => {
           </div>
         </div>
         <div className="p-5 rounded-md border border-border bg-card">
-          <p className="text-caption font-body font-medium text-muted-foreground uppercase tracking-widest mb-3">Body Font</p>
+          <p className="text-caption font-body font-medium text-foreground uppercase tracking-widest mb-3">Body Font</p>
           <p className="font-body text-h1 font-medium text-card-foreground">Lexend</p>
-          <p className="mt-2 text-caption font-body text-muted-foreground">Weight 400 (body) · 500 (label/CTA) · Never 300</p>
-          <p className="mt-1 text-caption font-body text-muted-foreground">Used for: Body Large, Body, Body Small, Label, Caption</p>
+          <p className="mt-2 text-body-sm font-body text-foreground">Weight 400 (body) · 500 (label/CTA) · Never 300</p>
+          <p className="mt-1 text-body-sm font-body text-foreground">Used for: Body Large, Body, Body Small, Label, Caption</p>
           <div className="mt-3">
             <CopyButton value='font-family: Lexend, system-ui, sans-serif' label="CSS" />
           </div>
