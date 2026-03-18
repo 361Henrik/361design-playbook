@@ -204,7 +204,7 @@ function ComponentSpecBlock({ block }: { block: Extract<ContentBlock, { type: "c
           <p className="font-display text-sm font-semibold text-foreground">{comp.name}</p>
           <p className="font-body text-xs text-foreground">{comp.description}</p>
           {comp.anatomy && (
-            <p className="font-body text-xs text-muted-foreground"><span className="font-medium">Anatomy:</span> {comp.anatomy}</p>
+            <p className="font-body text-xs text-foreground"><span className="font-medium">Anatomy:</span> {comp.anatomy}</p>
           )}
           <DosDonts dos={comp.dos} donts={comp.donts} />
           {comp.code && <CodeBlock code={comp.code} language="tsx" />}
