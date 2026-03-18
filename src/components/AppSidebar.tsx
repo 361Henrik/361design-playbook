@@ -265,7 +265,7 @@ export function AppSidebar() {
           <p className="text-[10px] font-mono text-sidebar-primary/50 mt-2">⌘K to search</p>
         </div>
       )}
-      <OnboardingTour forceOpen={tourOpen} onClose={() => setTourOpen(false)} onTourComplete={handleTourComplete} />
+      
     </Sidebar>
   );
 }
