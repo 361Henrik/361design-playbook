@@ -121,8 +121,8 @@ function MapsAccordionNav(): JSX.Element {
               onClick={() => setIsOpen((prev) => !prev)}
               className={`group flex items-center gap-3 px-3 py-2 rounded-md cursor-pointer transition-colors duration-ui ${
                 hasActive
-                  ? "text-primary font-medium"
-                  : "text-foreground/70 hover:text-foreground hover:bg-sidebar-accent"
+                  ? "text-foreground font-semibold"
+                  : "text-sidebar-foreground hover:text-foreground hover:bg-sidebar-accent"
               }`}
             >
               <Map className="nav-icon h-4 w-4 shrink-0 text-sidebar-primary/85 group-hover:text-sidebar-primary transition-colors duration-ui" strokeWidth={1.5} />
