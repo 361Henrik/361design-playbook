@@ -1,4 +1,5 @@
 import { PageHeader } from "@/components/PageHeader";
+import { AppliedExampleRenderer } from "@/components/playbook/AppliedExampleRenderer";
 
 const SignifiersClarity = () => (
   <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
