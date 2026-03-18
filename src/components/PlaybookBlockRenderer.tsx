@@ -223,7 +223,7 @@ function ChannelKitBlock({ block }: { block: Extract<ContentBlock, { type: "chan
       {block.kits.map((kit, i) => (
         <div key={i} className="p-4 rounded-md border border-border bg-card space-y-2">
           <p className="font-display text-sm font-semibold text-foreground">{kit.name}</p>
-          <p className="font-body text-xs text-muted-foreground">{kit.description}</p>
+          <p className="font-body text-xs text-foreground">{kit.description}</p>
           <div className="flex flex-wrap gap-1">
             {kit.toneModifiers.map((t, j) => (
               <Badge key={j} variant="secondary" className="text-[10px]">{t}</Badge>
