@@ -158,7 +158,7 @@ export function AppSidebar() {
   const isMobile = useIsMobile();
   const { workspaces, activeWorkspace, setActiveWorkspaceId } = useWorkspace();
 
-  const renderItems = (items: typeof mainNav) =>
+  const renderItems = (items: typeof tokenNav) =>
     items.map((item) => (
       <SidebarMenuItem key={item.title}>
         <SidebarMenuButton asChild>
