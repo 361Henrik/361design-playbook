@@ -307,19 +307,19 @@ const TokensIcons = () => {
   return (
     <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
       <PageHeader
-        title="Icon System"
+        title="Foundations · Icons"
         description="Thin stroke (1.5–2px), geometric, no fills, no gradients. Lucide icons aligned with the system's architectural sensibility."
       />
 
-      <Tabs defaultValue="tokens" className="mt-6">
+      <Tabs defaultValue="system" className="mt-6">
         <TabsList>
-          <TabsTrigger value="tokens">Tokens</TabsTrigger>
+          <TabsTrigger value="system">Icon System</TabsTrigger>
           <TabsTrigger value="poi">POI Map Icons</TabsTrigger>
           <TabsTrigger value="examples">Examples</TabsTrigger>
         </TabsList>
 
-        {/* ────────── TOKENS TAB ────────── */}
-        <TabsContent value="tokens">
+        {/* ────────── ICON SYSTEM TAB ────────── */}
+        <TabsContent value="system">
           {/* Spec card */}
           <div className="mb-10 p-5 rounded-md border border-border bg-card">
             <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-3">Icon Specifications</h3>
