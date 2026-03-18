@@ -61,11 +61,11 @@ const TokensColors = () => {
           {/* Color tokens */}
           <div className="space-y-4">
             {tokensData.map((token) => (
-              <div key={token.name} className="flex items-start gap-5 p-5 rounded-md border border-border bg-card">
+              <div key={token.name} className="flex items-start gap-5 p-5 rounded-md border border-border bg-white">
                 <div className={`w-20 h-20 rounded-md shrink-0 ${token.swatch} border border-border`} />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-3 mb-1.5">
-                    <h3 className="font-display text-base font-medium tracking-headline text-card-foreground">{token.name}</h3>
+                    <h3 className="font-display text-base font-medium tracking-headline text-foreground">{token.name}</h3>
                     <span className="text-xs font-body font-medium text-foreground px-2 py-0.5 rounded bg-background border border-accent">{token.role}</span>
                   </div>
                   <div className="flex flex-wrap gap-2 mt-2">
