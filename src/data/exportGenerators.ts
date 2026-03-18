@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------------ */
-/*  Token export generators — Deterministic & Canonical-aware          */
+/*  Design foundation export generators — Deterministic & Canonical-aware */
 /* ------------------------------------------------------------------ */
 
 const tokens = {
