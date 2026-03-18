@@ -74,7 +74,7 @@ export default {
         },
         marine: "hsl(var(--marine))",
         cream: "hsl(var(--cream))",
-        ivory: "hsl(var(--ivory))",
+        
         charcoal: "hsl(var(--charcoal))",
         bronze: "hsl(var(--bronze))",
         "bronze-muted": "hsl(var(--bronze-muted))",

@@ -4,24 +4,24 @@
 
 @layer base {
   :root {
-    /* Curated Lens Design System — Warm Beige Foundation */
-    --background: 34 22% 93%;            /* #F2EDE6 warm beige */
-    --foreground: 0 0% 7%;               /* #111111 Deep Black */
+    /* Curated Lens Design System — Simplified Neutral Foundation */
+    --background: 34 22% 93%;            /* #F2EDE6 Cream Beige — primary background */
+    --foreground: 0 0% 7%;               /* #111111 Near-black — primary text */
 
-    --card: 34 18% 95%;                  /* #F7F4EF soft surface */
+    --card: 33 16% 89%;                  /* #E8E2D9 Warm Stone — secondary surface */
     --card-foreground: 0 0% 7%;
 
-    --popover: 34 18% 95%;
+    --popover: 33 16% 89%;
     --popover-foreground: 0 0% 7%;
 
     --primary: 218 38% 18%;              /* #1A2744 Marine Blue */
     --primary-foreground: 37 33% 95%;    /* #F8F5F0 warm white */
 
-    --secondary: 34 18% 95%;             /* #F7F4EF soft surface */
+    --secondary: 33 16% 89%;
     --secondary-foreground: 218 38% 18%;
 
-    --muted: 34 18% 95%;
-    --muted-foreground: 0 0% 29%;        /* #4A4A4A */
+    --muted: 33 16% 89%;
+    --muted-foreground: 0 0% 42%;        /* #6B6B6B — secondary text */
 
     --accent: 40 46% 53%;               /* #C9A962 Strong Gold */
     --accent-foreground: 0 0% 7%;
@@ -29,32 +29,31 @@
     --destructive: 0 72% 51%;
     --destructive-foreground: 37 33% 95%;
 
-    --border: 33 18% 86%;               /* #E5DFD6 warm border */
-    --input: 33 18% 86%;
+    --border: 32 14% 80%;               /* #D4CCC1 — single warm border */
+    --input: 32 14% 80%;
     --ring: 218 38% 18%;
 
     --radius: 0.375rem;
 
-    --sidebar-background: 0 0% 100%;     /* #FFFFFF clean white */
+    --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 0 0% 7%;
-    --sidebar-primary: 40 46% 53%;       /* #C9A962 Strong Gold */
+    --sidebar-primary: 40 46% 53%;
     --sidebar-primary-foreground: 0 0% 7%;
-    --sidebar-accent: 34 22% 93% / 0.5;  /* warm beige tint */
+    --sidebar-accent: 34 22% 93% / 0.5;
     --sidebar-accent-foreground: 0 0% 7%;
-    --sidebar-border: 33 18% 86%;
+    --sidebar-border: 32 14% 80%;
     --sidebar-ring: 40 46% 53%;
 
     /* Custom tokens */
     --marine: 218 38% 18%;
     --cream: 34 22% 93%;
-    --ivory: 34 18% 95%;
     --charcoal: 0 0% 7%;
-    --bronze: 40 46% 53%;               /* #C9A962 Strong Gold */
-    --bronze-muted: 38 36% 51%;         /* #B8964F Muted Gold */
+    --bronze: 40 46% 53%;
+    --bronze-muted: 38 36% 51%;
 
     /* Bronze pill tokens */
-    --pill-bg: 32 28% 90%;              /* #EFE7DC light beige */
-    --pill-text: 0 0% 7%;               /* #111111 */
+    --pill-bg: 32 28% 90%;
+    --pill-text: 0 0% 7%;
     --pill-border: 40 46% 53% / 0.3;
     --pill-active-bg: 40 46% 53% / 0.18;
     --pill-active-text: 0 0% 0%;
@@ -65,19 +64,19 @@
     --background: 30 10% 8%;
     --foreground: 34 22% 93%;
 
-    --card: 30 8% 11%;
+    --card: 30 8% 13%;
     --card-foreground: 34 22% 93%;
 
-    --popover: 30 8% 11%;
+    --popover: 30 8% 13%;
     --popover-foreground: 34 22% 93%;
 
     --primary: 34 22% 93%;
     --primary-foreground: 218 38% 18%;
 
-    --secondary: 30 8% 14%;
+    --secondary: 30 8% 13%;
     --secondary-foreground: 34 22% 93%;
 
-    --muted: 30 8% 14%;
+    --muted: 30 8% 13%;
     --muted-foreground: 36 15% 65%;
 
     --accent: 40 46% 53%;
@@ -96,8 +95,8 @@
     --destructive: 0 62% 30%;
     --destructive-foreground: 34 22% 93%;
 
-    --border: 30 6% 18%;
-    --input: 30 6% 18%;
+    --border: 30 6% 20%;
+    --input: 30 6% 20%;
     --ring: 34 22% 93%;
 
     --sidebar-background: 30 10% 10%;
