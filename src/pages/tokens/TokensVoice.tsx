@@ -86,7 +86,7 @@ const TokensVoice = () => {
           <TabsTrigger value="examples">Examples</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="tokens">
+        <TabsContent value="system">
           {loading ? (
             <div className="space-y-6">
               {[1, 2, 3].map((i) => (
