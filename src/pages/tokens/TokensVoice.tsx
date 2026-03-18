@@ -76,13 +76,13 @@ const TokensVoice = () => {
   return (
     <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
       <PageHeader
-        title="Voice tokens"
-        description="The atomic building blocks of how the brand speaks — pillars, prohibited patterns, CTA rules, and grammar conventions."
+        title="Foundations · Voice & Tone"
+        description="The building blocks of how the brand speaks — pillars, prohibited patterns, CTA rules, and grammar conventions."
       />
 
-      <Tabs defaultValue="tokens" className="mt-6">
+      <Tabs defaultValue="system" className="mt-6">
         <TabsList>
-          <TabsTrigger value="tokens">Tokens</TabsTrigger>
+          <TabsTrigger value="system">Voice System</TabsTrigger>
           <TabsTrigger value="examples">Examples</TabsTrigger>
         </TabsList>
 
