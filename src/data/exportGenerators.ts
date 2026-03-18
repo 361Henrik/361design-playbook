@@ -267,21 +267,21 @@ export function generateStarterReadme(): string {
 ## Quick Start
 
 1. Install dependencies: \`npm install\`
-2. Copy \`tokens.css\` into your global stylesheet
+2. Copy \`foundations.css\` into your global stylesheet
 3. Add the Tailwind config from \`tailwind.config.ts\`
-4. Import token constants from \`tokens.ts\` as needed
+4. Import foundation constants from \`foundations.ts\` as needed
 5. Load fonts: Playfair Display (500) + Lexend (400, 500) from Google Fonts
 
 ## Files Included
 
-- \`tokens.css\` — CSS custom properties for all design tokens
-- \`tailwind.config.ts\` — Tailwind CSS configuration with all tokens
-- \`tokens.json\` — Machine-readable token definitions
-- \`tokens.ts\` — TypeScript constants for programmatic access
+- \`foundations.css\` — CSS custom properties for all design foundations
+- \`tailwind.config.ts\` — Tailwind CSS configuration with all system values
+- \`foundations.json\` — Machine-readable design definitions for tooling
+- \`foundations.ts\` — TypeScript constants for programmatic access
 
-## Canonical Tokens
+## Canonical Entries
 
-Tokens marked as "canonical" in the library are the single source of truth.
+Entries marked as "canonical" in the library are the single source of truth.
 Exports always pull from these canonical entries, ensuring consistency across
 CSS, Tailwind, JSON, and TypeScript outputs.
 
