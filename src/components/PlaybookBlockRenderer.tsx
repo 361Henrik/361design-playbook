@@ -92,7 +92,7 @@ function RuleListBlock({ block }: { block: Extract<ContentBlock, { type: "rule-l
       )}
       <ul className="space-y-1">
         {block.items.map((item, i) => (
-          <li key={i} className="font-body text-sm text-muted-foreground">
+          <li key={i} className="font-body text-sm text-foreground">
             <span className={`${color} mr-2`}>{marker}</span>{item}
           </li>
         ))}
