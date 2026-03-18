@@ -163,7 +163,7 @@ function CategoryListBlock({ block }: { block: Extract<ContentBlock, { type: "ca
         {block.categories.map((cat, i) => (
           <div key={i} className="p-2 rounded-md border border-border bg-card text-xs">
             <span className="font-body font-medium text-foreground">{cat.name}</span>
-            <span className="font-body text-muted-foreground ml-1">— {cat.description}</span>
+            <span className="font-body text-foreground ml-1">— {cat.description}</span>
           </div>
         ))}
       </div>
