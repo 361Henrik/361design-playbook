@@ -139,7 +139,7 @@ const ExportPage = () => {
             <div className="flex items-center gap-2 px-3 py-2 rounded-md bg-primary/5 border border-primary/20">
               <Crown className="h-3.5 w-3.5 text-primary" strokeWidth={1.5} />
               <span className="text-xs font-body text-foreground">
-                <strong>{canonicalCount}</strong> canonical token(s) merged into exports as the single source of truth.
+                <strong>{canonicalCount}</strong> canonical entry/entries merged into exports as the single source of truth.
               </span>
             </div>
           )}
