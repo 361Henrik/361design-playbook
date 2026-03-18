@@ -53,5 +53,11 @@ export const layoutPlaybook: PlaybookPage = {
         "Don't compress layout to fit more content — edit the content instead.",
       ],
     },
+    {
+      type: "applied-example",
+      heading: "Applied Example",
+      description: "A page layout showing header, sidebar, content area, and margin structure with width tokens.",
+      variant: "layout-page",
+    },
   ],
 };

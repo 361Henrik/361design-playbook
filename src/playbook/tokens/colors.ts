@@ -109,5 +109,11 @@ export const colorsPlaybook: PlaybookPage = {
       heading: "Palette Philosophy",
       body: "The palette evokes exploration, cartography, travel storytelling, and editorial clarity. The system should feel warm, calm, architectural, and editorially precise — never trendy, loud, or digitally generic.\n\nThe Curated Lens system remains structurally consistent across all operator implementations.",
     },
+    {
+      type: "applied-example",
+      heading: "Applied Example",
+      description: "System colors applied to buttons, alerts, and status messages.",
+      variant: "color-usage",
+    },
   ],
 };

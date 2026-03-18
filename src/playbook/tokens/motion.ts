@@ -59,5 +59,11 @@ export const motionPlaybook: PlaybookPage = {
         "No spring physics or playful motion curves.",
       ],
     },
+    {
+      type: "applied-example",
+      heading: "Applied Example",
+      description: "A three-frame visual sequence showing a UI element transitioning through before, mid-transition, and after states.",
+      variant: "motion-sequence",
+    },
   ],
 };

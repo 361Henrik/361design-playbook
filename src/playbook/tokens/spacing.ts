@@ -49,5 +49,11 @@ export const spacingPlaybook: PlaybookPage = {
         "Don't reduce spacing on mobile — maintain the same tokens at all breakpoints.",
       ],
     },
+    {
+      type: "applied-example",
+      heading: "Applied Example",
+      description: "A card layout using correct spacing tokens between title, body text, and action button.",
+      variant: "spacing-card",
+    },
   ],
 };
