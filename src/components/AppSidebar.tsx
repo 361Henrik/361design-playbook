@@ -125,7 +125,7 @@ function MapsAccordionNav(): JSX.Element {
                   : "text-sidebar-foreground hover:text-foreground"
               }`}
             >
-              <Map className="nav-icon h-4 w-4 shrink-0 text-bronze-muted group-hover:text-accent transition-colors duration-ui" strokeWidth={1.5} />
+              <Map className="nav-icon h-4 w-4 shrink-0 text-accent group-hover:text-accent transition-colors duration-ui" strokeWidth={1.5} />
               <span className="font-body text-sm flex-1">MAP</span>
               <ChevronRight
                 className={`h-3 w-3 text-sidebar-primary/60 transition-transform duration-ui ${
