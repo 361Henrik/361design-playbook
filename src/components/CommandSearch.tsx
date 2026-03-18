@@ -91,7 +91,7 @@ export function CommandSearch() {
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
       <CommandInput
-        placeholder="Search pages, tokens, library entries…"
+        placeholder="Search pages, foundations, library entries…"
         value={query}
         onValueChange={setQuery}
       />

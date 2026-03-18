@@ -28,7 +28,7 @@ type Step = { key: string; label: string; icon: any; href: string; check: () => 
 const onboardingSteps: Step[] = [
   { key: "upload", label: "Upload your first source", icon: Upload, href: "/sources", check: async () => { const { count } = await supabase.from("sources").select("*", { count: "exact", head: true }); return (count ?? 0) > 0; } },
   { key: "review", label: "Review draft entries", icon: BookOpen, href: "/library", check: async () => { const { count } = await supabase.from("library_entries").select("*", { count: "exact", head: true }).eq("status", "approved"); return (count ?? 0) > 0; } },
-  { key: "tokens", label: "Browse design tokens", icon: Palette, href: "/tokens/colors", check: async () => { const v = localStorage.getItem("onboarding_tokens"); return v === "true"; } },
+  { key: "tokens", label: "Browse design foundations", icon: Palette, href: "/tokens/colors", check: async () => { const v = localStorage.getItem("onboarding_tokens"); return v === "true"; } },
   { key: "guardrails", label: "Check guardrails", icon: ShieldCheck, href: "/guardrails", check: async () => { const v = localStorage.getItem("onboarding_guardrails"); return v === "true"; } },
   { key: "export", label: "Export starter kit", icon: Download, href: "/export", check: async () => { const v = localStorage.getItem("onboarding_export"); return v === "true"; } },
 ];
@@ -126,7 +126,7 @@ const Dashboard = () => {
     <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
       <PageHeader
         title="Design System Hub"
-        description="The single source of truth for Curated Lens. Browse tokens, components, and guidelines — all enforced with brand guardrails."
+        description="The single source of truth for Curated Lens. Browse foundations, components, and guidelines — all enforced with brand guardrails."
       />
 
       {/* Onboarding checklist */}
@@ -246,7 +246,7 @@ const Dashboard = () => {
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
           {[
-            { num: "1", rule: "Use named spacing tokens (space-1 through space-9) — never arbitrary pixel values." },
+            { num: "1", rule: "Use named spacing values (space-1 through space-9) — never arbitrary pixel values." },
             { num: "2", rule: "Follow the nine typography roles — never invent new sizes or weights." },
             { num: "3", rule: "Constrain content width: max-w-reading (720px) for text, max-w-content (1100px) for pages." },
             { num: "4", rule: "One primary CTA per section. Labels: verb-first, 1–3 words." },
@@ -301,7 +301,7 @@ const Dashboard = () => {
 
       <section>
         <h2 className="font-display text-h2 text-foreground mb-6">
-          Token Categories
+          Foundations Overview
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {categories.map((cat) => (

@@ -121,12 +121,12 @@ const ExportPage = () => {
     <div className="px-space-5 md:px-space-8 py-space-8 max-w-content space-y-space-8">
       <PageHeader
         title="Code Export"
-        description="Export tokens as CSS, Tailwind, JSON, or TypeScript — or export the full design playbook as Markdown for IDE handoff."
+        description="Export design foundations as CSS, Tailwind, JSON, or TypeScript — or export the full design playbook as Markdown for IDE handoff."
       />
 
-      <Tabs defaultValue="tokens">
+      <Tabs defaultValue="foundations">
         <TabsList>
-          <TabsTrigger value="tokens">Token Export</TabsTrigger>
+          <TabsTrigger value="foundations">Design Foundations</TabsTrigger>
           <TabsTrigger value="playbook" className="flex items-center gap-1.5">
             <BookOpen className="h-3.5 w-3.5" strokeWidth={1.5} />
             Design Playbook
@@ -134,12 +134,12 @@ const ExportPage = () => {
         </TabsList>
 
         {/* ── Token Export Tab ── */}
-        <TabsContent value="tokens" className="space-y-10">
+        <TabsContent value="foundations" className="space-y-10">
           {canonicalCount > 0 && (
             <div className="flex items-center gap-2 px-3 py-2 rounded-md bg-primary/5 border border-primary/20">
               <Crown className="h-3.5 w-3.5 text-primary" strokeWidth={1.5} />
               <span className="text-xs font-body text-foreground">
-                <strong>{canonicalCount}</strong> canonical token(s) merged into exports as the single source of truth.
+                <strong>{canonicalCount}</strong> canonical entry/entries merged into exports as the single source of truth.
               </span>
             </div>
           )}
@@ -336,7 +336,7 @@ const ExportPage = () => {
                   <h3 className="font-display text-base font-medium text-foreground">AI Context File</h3>
                   <p className="text-sm font-body text-muted-foreground leading-reading">
                     Single-file design system context for AI coding assistants (Claude, Cursor, Gemini).
-                    Includes an instruction preamble that constrains the AI to your tokens, components, and patterns.
+                    Includes an instruction preamble that constrains the AI to your design foundations, components, and patterns.
                   </p>
                 </div>
                 <Button variant="outline" onClick={() => downloadFile(generateAIContextFile(), "CLAUDE.md")} className="shrink-0">

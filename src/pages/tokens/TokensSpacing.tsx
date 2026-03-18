@@ -28,18 +28,18 @@ const TokensSpacing = () => {
   return (
     <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
       <PageHeader
-        title="Spacing Tokens"
-        description="A nine-step spacing scale from 4px to 96px. Named tokens replace subjective terms like 'generous whitespace' with enforceable values."
+        title="Foundations · Spacing"
+        description="A nine-step spacing scale from 4px to 96px. Named values replace subjective terms like 'generous whitespace' with enforceable design rules."
       />
 
-      <Tabs defaultValue="tokens" className="mt-6">
+      <Tabs defaultValue="scale" className="mt-6">
         <TabsList>
-          <TabsTrigger value="tokens">Tokens</TabsTrigger>
+          <TabsTrigger value="scale">Spacing Scale</TabsTrigger>
           <TabsTrigger value="rules">Rules</TabsTrigger>
           <TabsTrigger value="examples">Examples</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="tokens">
+        <TabsContent value="scale">
           {/* Visual spacing scale */}
           <div className="mb-10 p-5 rounded-md border border-border bg-card">
             <h3 className="font-display text-h3 text-card-foreground mb-4">Spacing Scale</h3>
@@ -110,16 +110,16 @@ const TokensSpacing = () => {
             <h2 className="font-display text-h2 text-foreground mb-4">Do / Don't</h2>
             <DosDonts
               dos={[
-                "Always use named spacing tokens (space-1 through space-9) instead of arbitrary pixel values.",
+                "Always use named spacing values (space-1 through space-9) instead of arbitrary pixel values.",
                 "Use space-8 (64px) between major sections for clear separation.",
                 "Use space-4 (16px) as the default component internal padding.",
                 "Maintain hierarchy: section > block > component > text stack > tight.",
               ]}
               donts={[
-                "Don't use subjective terms like 'generous' or 'compact' — use the token name.",
+                "Don't use subjective terms like 'generous' or 'compact' — use the defined name.",
                 "Don't use arbitrary pixel values (e.g. px-7, mt-[37px]) outside the scale.",
                 "Don't skip more than two scale steps in adjacent elements.",
-                "Don't reduce spacing on mobile — maintain the same tokens at all breakpoints.",
+                "Don't reduce spacing on mobile — maintain the same values at all breakpoints.",
               ]}
             />
           </section>

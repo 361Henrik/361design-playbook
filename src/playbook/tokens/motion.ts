@@ -1,8 +1,8 @@
 import type { PlaybookPage } from "../types";
 
 export const motionPlaybook: PlaybookPage = {
-  section: "Tokens",
-  page: "Motion Tokens",
+  section: "Foundations",
+  page: "Motion",
   slug: "tokens/motion",
   description: "UI transitions 300–400ms with ease-out. Hero movement 8–20s subtle loop. Restraint in every interaction.",
   status: "complete",

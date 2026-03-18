@@ -76,17 +76,17 @@ const TokensVoice = () => {
   return (
     <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
       <PageHeader
-        title="Voice tokens"
-        description="The atomic building blocks of how the brand speaks — pillars, prohibited patterns, CTA rules, and grammar conventions."
+        title="Foundations · Voice & Tone"
+        description="The building blocks of how the brand speaks — pillars, prohibited patterns, CTA rules, and grammar conventions."
       />
 
-      <Tabs defaultValue="tokens" className="mt-6">
+      <Tabs defaultValue="system" className="mt-6">
         <TabsList>
-          <TabsTrigger value="tokens">Tokens</TabsTrigger>
+          <TabsTrigger value="system">Voice System</TabsTrigger>
           <TabsTrigger value="examples">Examples</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="tokens">
+        <TabsContent value="system">
           {loading ? (
             <div className="space-y-6">
               {[1, 2, 3].map((i) => (
@@ -97,7 +97,7 @@ const TokensVoice = () => {
             <Card>
               <CardContent className="py-12 text-center">
                 <p className="text-sm font-body text-muted-foreground">
-                  No voice tokens defined yet.
+                  No voice rules defined yet.
                 </p>
               </CardContent>
             </Card>

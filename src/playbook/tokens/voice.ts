@@ -1,10 +1,10 @@
 import type { PlaybookPage } from "../types";
 
 export const voicePlaybook: PlaybookPage = {
-  section: "Tokens",
-  page: "Voice Tokens",
+  section: "Foundations",
+  page: "Voice & Tone",
   slug: "tokens/voice",
-  description: "The atomic building blocks of how the brand speaks — pillars, prohibited patterns, CTA rules, and grammar conventions.",
+  description: "The building blocks of how the brand speaks — pillars, prohibited patterns, CTA rules, and grammar conventions.",
   status: "draft",
   openQuestions: [
     "Voice tokens are stored in the database and loaded dynamically. The Markdown export captures the structure but not live data.",

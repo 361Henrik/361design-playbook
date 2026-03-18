@@ -21,21 +21,21 @@ const TokensLayout = () => {
   return (
     <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
       <PageHeader
-        title="Layout Tokens"
-        description="Page widths, grid columns, and gutters defined as tokens. Keep text in controlled columns. Never use full-width paragraphs."
+        title="Foundations · Layout"
+        description="Page widths, grid columns, and gutters that define the spatial framework. Keep text in controlled columns. Never use full-width paragraphs."
       />
 
-      <Tabs defaultValue="tokens" className="mt-6">
+      <Tabs defaultValue="system" className="mt-6">
         <TabsList>
-          <TabsTrigger value="tokens">Tokens</TabsTrigger>
+          <TabsTrigger value="system">Layout System</TabsTrigger>
           <TabsTrigger value="widths">Width Examples</TabsTrigger>
           <TabsTrigger value="grids">Grid Examples</TabsTrigger>
           <TabsTrigger value="surfaces">Surface Pairing</TabsTrigger>
           <TabsTrigger value="examples">Code Examples</TabsTrigger>
         </TabsList>
 
-        {/* ── Tokens tab (existing) ── */}
-        <TabsContent value="tokens">
+        {/* ── Layout System tab ── */}
+        <TabsContent value="system">
           <div className="p-5 rounded-md border border-border bg-card mb-8">
             <h3 className="font-display text-h3 text-card-foreground mb-4">Page Width Tokens</h3>
             <div className="space-y-4">
@@ -527,7 +527,7 @@ const TokensLayout = () => {
                 donts={[
                   "Don't use green as the primary reading surface for long text.",
                   "Don't mix more than two surface colors in a single view.",
-                  "Don't use arbitrary background colors outside the token palette.",
+                  "Don't use arbitrary background colors outside the defined palette.",
                   "Don't place green callouts directly adjacent to green sidebars.",
                 ]}
               />

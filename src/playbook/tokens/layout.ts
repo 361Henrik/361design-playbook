@@ -1,10 +1,10 @@
 import type { PlaybookPage } from "../types";
 
 export const layoutPlaybook: PlaybookPage = {
-  section: "Tokens",
-  page: "Layout Tokens",
+  section: "Foundations",
+  page: "Layout",
   slug: "tokens/layout",
-  description: "Page widths, grid columns, and gutters defined as tokens. Keep text in controlled columns. Never use full-width paragraphs.",
+  description: "Page widths, grid columns, and gutters that define the spatial framework. Keep text in controlled columns. Never use full-width paragraphs.",
   status: "complete",
   openQuestions: [],
   content: [

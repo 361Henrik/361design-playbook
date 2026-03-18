@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------------ */
-/*  Token export generators — Deterministic & Canonical-aware          */
+/*  Design foundation export generators — Deterministic & Canonical-aware */
 /* ------------------------------------------------------------------ */
 
 const tokens = {
@@ -217,7 +217,7 @@ export function generateTypeScript(overrideTokens?: typeof tokens): string {
     )
     .join(",\n");
 
-  return `// Curated Lens Design System — Token Constants
+  return `// Curated Lens Design System — Foundation Constants
 // Auto-generated. Deterministic output — safe to commit.
 
 export const colors = {
@@ -267,21 +267,21 @@ export function generateStarterReadme(): string {
 ## Quick Start
 
 1. Install dependencies: \`npm install\`
-2. Copy \`tokens.css\` into your global stylesheet
+2. Copy \`foundations.css\` into your global stylesheet
 3. Add the Tailwind config from \`tailwind.config.ts\`
-4. Import token constants from \`tokens.ts\` as needed
+4. Import foundation constants from \`foundations.ts\` as needed
 5. Load fonts: Playfair Display (500) + Lexend (400, 500) from Google Fonts
 
 ## Files Included
 
-- \`tokens.css\` — CSS custom properties for all design tokens
-- \`tailwind.config.ts\` — Tailwind CSS configuration with all tokens
-- \`tokens.json\` — Machine-readable token definitions
-- \`tokens.ts\` — TypeScript constants for programmatic access
+- \`foundations.css\` — CSS custom properties for all design foundations
+- \`tailwind.config.ts\` — Tailwind CSS configuration with all system values
+- \`foundations.json\` — Machine-readable design definitions for tooling
+- \`foundations.ts\` — TypeScript constants for programmatic access
 
-## Canonical Tokens
+## Canonical Entries
 
-Tokens marked as "canonical" in the library are the single source of truth.
+Entries marked as "canonical" in the library are the single source of truth.
 Exports always pull from these canonical entries, ensuring consistency across
 CSS, Tailwind, JSON, and TypeScript outputs.
 
@@ -333,10 +333,10 @@ export function downloadFile(content: string, filename: string, mimeType = "text
 export type ExportFormat = "css" | "tailwind" | "json" | "typescript";
 
 export const exportFormats: { id: ExportFormat; label: string; filename: string; description: string }[] = [
-  { id: "css", label: "CSS Custom Properties", filename: "tokens.css", description: "Ready-to-use CSS variables for any framework." },
-  { id: "json", label: "JSON", filename: "tokens.json", description: "Machine-readable token definitions for tooling." },
+  { id: "css", label: "CSS Custom Properties", filename: "foundations.css", description: "Ready-to-use CSS variables for any framework." },
+  { id: "json", label: "JSON", filename: "foundations.json", description: "Machine-readable design definitions for tooling." },
   { id: "tailwind", label: "Tailwind Config", filename: "tailwind.config.ts", description: "Drop-in Tailwind CSS configuration file." },
-  { id: "typescript", label: "TypeScript", filename: "tokens.ts", description: "Typed constants for programmatic token access." },
+  { id: "typescript", label: "TypeScript", filename: "foundations.ts", description: "Typed constants for programmatic access." },
 ];
 
 export function getExportContent(format: ExportFormat): string {
