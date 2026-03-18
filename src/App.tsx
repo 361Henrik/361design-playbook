@@ -68,7 +68,7 @@ function ProtectedRoutes() {
     <WorkspaceProvider>
       <AppShell>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<Navigate to="/maps/principles" replace />} />
           <Route path="/tokens/colors" element={<TokensColors />} />
           <Route path="/tokens/typography" element={<TokensTypography />} />
           <Route path="/tokens/spacing" element={<TokensSpacing />} />

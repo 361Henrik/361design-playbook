@@ -48,11 +48,6 @@ import {
   MousePointer,
 } from "lucide-react";
 
-const mainNav = [
-  { title: "Dashboard", url: "/", icon: LayoutDashboard },
-];
-
-const tokenNav = [
   { title: "Colors", url: "/tokens/colors", icon: Palette },
   { title: "Typography", url: "/tokens/typography", icon: Type },
   { title: "Spacing", url: "/tokens/spacing", icon: Ruler },
