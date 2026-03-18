@@ -100,14 +100,14 @@
     --input: 30 6% 18%;
     --ring: 37 26% 92%;
 
-    --sidebar-background: 30 8% 9%;
+    --sidebar-background: 30 10% 10%;
     --sidebar-foreground: 37 26% 92%;
-    --sidebar-primary: 40 42% 60%;
+    --sidebar-primary: 43 44% 60%;
     --sidebar-primary-foreground: 37 26% 92%;
-    --sidebar-accent: 30 8% 14%;
+    --sidebar-accent: 43 44% 60% / 0.15;
     --sidebar-accent-foreground: 37 26% 92%;
-    --sidebar-border: 30 6% 18%;
-    --sidebar-ring: 40 42% 60%;
+    --sidebar-border: 43 44% 60% / 0.12;
+    --sidebar-ring: 43 44% 60%;
   }
 }
 

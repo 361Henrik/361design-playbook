@@ -284,7 +284,7 @@ export function AppSidebar() {
               <LogOut className="h-3.5 w-3.5" strokeWidth={1.5} />
             </button>
           </div>
-          <p className="text-[10px] font-mono text-sidebar-foreground/30 mt-2">⌘K to search</p>
+          <p className="text-[10px] font-mono text-sidebar-primary/50 mt-2">⌘K to search</p>
         </div>
       )}
       <OnboardingTour forceOpen={tourOpen} onClose={() => setTourOpen(false)} onTourComplete={handleTourComplete} />
