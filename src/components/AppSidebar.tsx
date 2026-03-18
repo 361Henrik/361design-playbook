@@ -139,11 +139,11 @@ function MapsAccordionNav(): JSX.Element {
             <div className="ml-4 border-l border-sidebar-border pl-1">
               {mapsItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
+            <SidebarMenuButton asChild>
                     <NavLink
                       to={item.url}
-                      className="group flex items-center gap-3 px-3 py-1.5 rounded-md text-foreground/70 hover:text-foreground hover:bg-sidebar-accent transition-colors duration-ui"
-                      activeClassName="bg-sidebar-accent text-primary font-medium"
+                      className="group flex items-center gap-3 px-3 py-1.5 rounded-md text-sidebar-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors duration-ui"
+                      activeClassName="bg-sidebar-accent text-foreground font-semibold"
                     >
                       <span className="font-body text-sm">{item.title}</span>
                     </NavLink>
