@@ -1,7 +1,7 @@
 import type { PlaybookPage } from "../types";
 
 export const iconsPlaybook: PlaybookPage = {
-  section: "Tokens",
+  section: "Foundations",
   page: "Icon System",
   slug: "tokens/icons",
   description: "Thin stroke (1.5–2px), geometric, no fills, no gradients. Lucide icons aligned with the system's architectural sensibility.",

@@ -1,10 +1,10 @@
 import type { PlaybookPage } from "../types";
 
 export const spacingPlaybook: PlaybookPage = {
-  section: "Tokens",
-  page: "Spacing Tokens",
+  section: "Foundations",
+  page: "Spacing",
   slug: "tokens/spacing",
-  description: "A nine-step spacing scale from 4px to 96px. Named tokens replace subjective terms like 'generous whitespace' with enforceable values.",
+  description: "A nine-step spacing scale from 4px to 96px. Named values replace subjective terms like 'generous whitespace' with enforceable design rules.",
   status: "complete",
   openQuestions: [],
   content: [

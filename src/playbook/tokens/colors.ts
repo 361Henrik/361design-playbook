@@ -1,8 +1,8 @@
 import type { PlaybookPage } from "../types";
 
 export const colorsPlaybook: PlaybookPage = {
-  section: "Tokens",
-  page: "Color Tokens",
+  section: "Foundations",
+  page: "Color",
   slug: "tokens/colors",
   description: "The Curated Lens palette uses a neutral foundation (cream, ivory) with Deep Marine Blue for interaction and Champagne Bronze for subtle highlights. No colored backgrounds — neutrals dominate.",
   status: "complete",

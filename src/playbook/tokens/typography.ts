@@ -1,8 +1,8 @@
 import type { PlaybookPage } from "../types";
 
 export const typographyPlaybook: PlaybookPage = {
-  section: "Tokens",
-  page: "Typography Tokens",
+  section: "Foundations",
+  page: "Typography",
   slug: "tokens/typography",
   description: "Playfair Display for headlines and editorial authority. Lexend for body, UI, and utility. Nine defined roles. No substitutions. Never use weight 300.",
   status: "complete",
