@@ -82,7 +82,7 @@ const TokensSpacing = () => {
         <TabsContent value="rules">
           <div className="mb-8">
             <h2 className="font-display text-h2 text-foreground mb-6">Spacing Rules</h2>
-            <p className="text-body font-body text-muted-foreground max-w-prose mb-8">
+            <p className="text-body font-body text-foreground max-w-prose mb-8">
               Use these rules to remove ambiguity. Each context maps to a specific spacing token.
             </p>
 
@@ -98,7 +98,7 @@ const TokensSpacing = () => {
                       <CopyButton value={r.token} label={`tw: ${r.token}`} />
                       <CopyButton value={r.value} label={r.value} />
                     </div>
-                    <p className="mt-2 text-body-sm font-body text-muted-foreground max-w-prose">{r.description}</p>
+                    <p className="mt-2 text-body-sm font-body text-foreground max-w-prose">{r.description}</p>
                   </div>
                 </div>
               ))}

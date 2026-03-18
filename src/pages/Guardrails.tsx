@@ -317,7 +317,7 @@ function RuleRow({ rule, exception, isEditor, onAddException }: {
               <span className="text-[10px] font-mono text-muted-foreground/40">w:{rule.weight}</span>
             )}
           </div>
-          <p className="text-xs font-body text-muted-foreground leading-reading">{rule.description}</p>
+          <p className="text-xs font-body text-foreground leading-reading">{rule.description}</p>
           <p className="text-[11px] font-mono text-muted-foreground/70">Check: {rule.checkDescription}</p>
           {rule.details && <p className="text-[11px] font-body text-accent italic">{rule.details}</p>}
         </div>

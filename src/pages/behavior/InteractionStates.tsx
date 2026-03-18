@@ -45,7 +45,7 @@ const InteractionStates = () => (
           {stateRows.map((r) => (
             <div key={r.state} className="p-4 rounded-md border border-border bg-card flex gap-4 items-baseline">
               <span className="font-body text-sm font-medium text-card-foreground w-28 shrink-0">{r.state}</span>
-              <p className="text-sm font-body leading-reading text-muted-foreground">{r.description}</p>
+              <p className="text-sm font-body leading-reading text-foreground">{r.description}</p>
             </div>
           ))}
         </div>
@@ -59,7 +59,7 @@ const InteractionStates = () => (
           {elements.map((el) => (
             <div key={el.name} className="p-5 rounded-md border border-border bg-card">
               <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-2">{el.name}</h3>
-              <p className="text-sm font-body leading-reading text-muted-foreground">{el.note}</p>
+              <p className="text-sm font-body leading-reading text-foreground">{el.note}</p>
             </div>
           ))}
         </div>
@@ -78,7 +78,7 @@ const InteractionStates = () => (
         <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-2">
           A Note on Consistency
         </h3>
-        <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose">
+        <p className="text-sm font-body leading-reading text-foreground max-w-prose">
           Every element in the system follows the same progression. This consistency means users never have to relearn how things behave — the interface becomes predictable in the best way. Predictability, in this context, is a form of elegance.
         </p>
       </div>

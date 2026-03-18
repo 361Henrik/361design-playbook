@@ -241,7 +241,7 @@ const Dashboard = () => {
         <h2 className="font-display text-h2 text-foreground mb-space-4">
           Using the System
         </h2>
-        <p className="text-body font-body text-muted-foreground max-w-prose mb-6">
+        <p className="text-body font-body text-foreground max-w-prose mb-6">
           Follow the path: Foundations → Components → Patterns. These five rules prevent inconsistency.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
@@ -255,7 +255,7 @@ const Dashboard = () => {
             <Card key={r.num} className="p-4">
               <CardContent className="p-0 flex items-start gap-3">
                 <span className="text-h3 font-display text-accent font-medium">{r.num}</span>
-                <p className="text-body-sm font-body text-muted-foreground">{r.rule}</p>
+                <p className="text-body-sm font-body text-foreground">{r.rule}</p>
               </CardContent>
             </Card>
           ))}
@@ -267,7 +267,7 @@ const Dashboard = () => {
         <h2 className="font-display text-h2 text-foreground mb-space-2">
           Sample Route
         </h2>
-        <p className="text-body-sm font-body text-muted-foreground mb-6 max-w-prose">
+        <p className="text-body-sm font-body text-foreground mb-6 max-w-prose">
           A five-stop walking route demonstrating how content flows through the guest experience.
         </p>
         <div className="flex flex-col gap-0">
@@ -292,7 +292,7 @@ const Dashboard = () => {
                   <h3 className="font-display text-h3 text-foreground">{stop.title}</h3>
                   <Badge variant="outline" className="text-[10px] font-body">{stop.tag}</Badge>
                 </div>
-                <p className="text-body-sm font-body text-muted-foreground max-w-prose">{stop.desc}</p>
+                <p className="text-body-sm font-body text-foreground max-w-prose">{stop.desc}</p>
               </div>
             </div>
           ))}
@@ -312,7 +312,7 @@ const Dashboard = () => {
             >
               <cat.icon className="h-5 w-5 text-accent mb-3" strokeWidth={1.5} />
               <h3 className="font-display text-h3 text-card-foreground">{cat.title}</h3>
-              <p className="mt-1.5 text-body-sm font-body text-muted-foreground">{cat.description}</p>
+              <p className="mt-1.5 text-body-sm font-body text-foreground">{cat.description}</p>
             </Link>
           ))}
         </div>

@@ -39,7 +39,7 @@ const SemanticColor = () => (
         <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-2">
           Principle
         </h3>
-        <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose">
+        <p className="text-sm font-body leading-reading text-foreground max-w-prose">
           Semantic colours exist outside the brand palette. They serve a single purpose: to convey meaning quickly and without ambiguity. Their tones are deliberately muted so they integrate with the editorial aesthetic rather than disrupting it.
         </p>
       </div>
@@ -55,7 +55,7 @@ const SemanticColor = () => (
                 <span className={`w-3 h-3 rounded-full ${m.dot}`} />
                 <h3 className="font-display text-base font-medium tracking-headline text-card-foreground">{m.name}</h3>
               </div>
-              <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose">{m.description}</p>
+              <p className="text-sm font-body leading-reading text-foreground max-w-prose">{m.description}</p>
             </div>
           ))}
         </div>
@@ -66,7 +66,7 @@ const SemanticColor = () => (
           Usage Principles
         </h2>
         <div className="p-5 rounded-md border border-border bg-card">
-          <ul className="space-y-2 text-sm font-body leading-reading text-muted-foreground">
+          <ul className="space-y-2 text-sm font-body leading-reading text-foreground">
             <li>Use semantic colour for the indicator only — a border, an icon, or a small badge. Never flood an entire card or section.</li>
             <li>Pair every colour signal with a text label. Colour alone is not accessible.</li>
             <li>Keep saturation low. These tones should feel like part of the palette, not interruptions to it.</li>

@@ -12,7 +12,7 @@ const DarkMode = () => (
         <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-2">
           Philosophy
         </h3>
-        <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose">
+        <p className="text-sm font-body leading-reading text-foreground max-w-prose">
           A dark environment should feel like reading in a dimly lit, well-designed room — not like staring at a screen in the dark. Every surface, every colour, and every piece of text must be adjusted to maintain readability and visual calm without harshness.
         </p>
       </div>
@@ -22,7 +22,7 @@ const DarkMode = () => (
           Surface Treatment
         </h2>
         <div className="p-5 rounded-md border border-border bg-card">
-          <ul className="space-y-2 text-sm font-body leading-reading text-muted-foreground">
+          <ul className="space-y-2 text-sm font-body leading-reading text-foreground">
             <li>The background should be a deep, warm grey — never pure black. Pure black creates harsh contrast that strains the eyes.</li>
             <li>Cards and elevated surfaces are slightly lighter than the background, creating gentle separation through subtle luminance shifts.</li>
             <li>Borders become softer — reduced from solid lines to faint separators. They guide the eye without cutting through the surface.</li>
@@ -55,7 +55,7 @@ const DarkMode = () => (
           ].map((c) => (
             <div key={c.title} className="p-5 rounded-md border border-border bg-card">
               <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-2">{c.title}</h3>
-              <p className="text-sm font-body leading-reading text-muted-foreground">{c.body}</p>
+              <p className="text-sm font-body leading-reading text-foreground">{c.body}</p>
             </div>
           ))}
         </div>
@@ -66,7 +66,7 @@ const DarkMode = () => (
           Readability
         </h2>
         <div className="p-5 rounded-md border border-border bg-card">
-          <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose">
+          <p className="text-sm font-body leading-reading text-foreground max-w-prose">
             Long-form reading in dark mode requires particular care. Line spacing should remain generous, and paragraph width should stay within the comfortable prose measure. The goal is that a user could read for twenty minutes without fatigue — the same standard as light mode.
           </p>
         </div>
@@ -74,7 +74,7 @@ const DarkMode = () => (
 
       <div className="p-5 rounded-md border-2 border-destructive/20 bg-card">
         <h3 className="font-display text-base font-medium tracking-headline text-destructive mb-2">Avoid</h3>
-        <ul className="space-y-1.5 text-sm font-body leading-reading text-muted-foreground">
+        <ul className="space-y-1.5 text-sm font-body leading-reading text-foreground">
           <li>• Pure black (#000) backgrounds</li>
           <li>• Pure white (#fff) text</li>
           <li>• Glowing or neon accent colours</li>

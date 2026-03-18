@@ -403,7 +403,7 @@ const TokensIcons = () => {
           <section className="mb-10">
             <h2 className="font-display text-lg font-medium tracking-headline leading-section text-foreground mb-4">Marker Anatomy</h2>
             <div className="p-6 rounded-md border border-border bg-card">
-              <p className="text-sm font-body text-muted-foreground mb-6 max-w-prose">
+              <p className="text-sm font-body text-foreground mb-6 max-w-prose">
                 Every map marker is composed of four parts: a <strong className="text-foreground">circular body</strong> (white fill),
                 a <strong className="text-foreground">center icon</strong> (outline stroke),
                 an <strong className="text-foreground">outer ring</strong> (state indicator), and

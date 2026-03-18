@@ -132,7 +132,7 @@ const LandingHeroTemplate = () => (
         <h1 className="font-display text-4xl font-medium tracking-headline leading-hero">
           Design with purpose
         </h1>
-        <p className="text-sm font-body leading-reading opacity-85 max-w-prose">
+        <p className="text-sm font-body leading-reading text-primary-foreground/90 max-w-prose">
           Every decision should be intentional. A system that provides the rails without prescribing the destination.
         </p>
         <div className="flex gap-3 pt-2">
@@ -251,7 +251,7 @@ const SocialPostTemplate = () => (
         <h2 className="font-display text-2xl font-medium tracking-headline leading-section">
           Consistency is a design decision, not an accident
         </h2>
-        <p className="text-sm font-body leading-reading opacity-85">
+        <p className="text-sm font-body leading-reading text-primary-foreground/90">
           When every token traces back to a single source of truth, your team moves faster and your product feels intentional.
         </p>
       </div>
@@ -474,7 +474,7 @@ export function LandingHero() {
           <h1 className="font-display text-4xl font-medium tracking-headline leading-hero">
             Design with purpose
           </h1>
-          <p className="text-sm font-body leading-reading opacity-85 max-w-prose">
+          <p className="text-sm font-body leading-reading text-primary-foreground/90 max-w-prose">
             Every decision should be intentional. A system that provides the rails without prescribing the destination.
           </p>
           <div className="flex gap-3 pt-2">
@@ -680,7 +680,7 @@ export function SocialPost() {
         <h2 className="font-display text-2xl font-medium tracking-headline leading-section">
           Consistency is a design decision, not an accident
         </h2>
-        <p className="text-sm font-body leading-reading opacity-85">
+        <p className="text-sm font-body leading-reading text-primary-foreground/90">
           When every token traces back to a single source of truth, your team moves faster and your product feels intentional.
         </p>
       </div>

@@ -10,7 +10,7 @@ export function PageHeader({ title, description }: PageHeaderProps) {
         {title}
       </h1>
       {description && (
-        <p className="mt-space-3 font-body text-body-lg leading-reading text-muted-foreground max-w-prose">
+        <p className="mt-space-3 font-body text-body-lg leading-reading text-foreground max-w-prose">
           {description}
         </p>
       )}

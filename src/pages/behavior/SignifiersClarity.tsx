@@ -13,7 +13,7 @@ const SignifiersClarity = () => (
         <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-2">
           Guiding Principle
         </h3>
-        <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose">
+        <p className="text-sm font-body leading-reading text-foreground max-w-prose">
           Clarity is the highest form of respect for the user. Every element should reveal its purpose through its appearance — not through labels, tooltips, or instructions. When the interface is well-designed, guidance becomes invisible.
         </p>
       </div>
@@ -23,10 +23,10 @@ const SignifiersClarity = () => (
           Active States
         </h2>
         <div className="p-5 rounded-md border border-border bg-card">
-          <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose mb-3">
+          <p className="text-sm font-body leading-reading text-foreground max-w-prose mb-3">
             Selected items should be unmistakable. Use a combination of background contrast, a subtle accent border, and slightly bolder text weight to distinguish active elements from their surroundings.
           </p>
-          <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose">
+          <p className="text-sm font-body leading-reading text-foreground max-w-prose">
             The difference should feel natural — like a quiet emphasis rather than a loud highlight.
           </p>
         </div>
@@ -49,7 +49,7 @@ const SignifiersClarity = () => (
           Hover States
         </h2>
         <div className="p-5 rounded-md border border-border bg-card">
-          <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose">
+          <p className="text-sm font-body leading-reading text-foreground max-w-prose">
             Hover should feel like a gentle invitation. A slight background shift or a soft underline is enough to signal interactivity. Avoid colour changes that feel aggressive or animations that draw excessive attention. The transition should be barely perceptible — 200ms ease-out at most.
           </p>
         </div>
@@ -60,10 +60,10 @@ const SignifiersClarity = () => (
           Disabled States
         </h2>
         <div className="p-5 rounded-md border border-border bg-card">
-          <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose mb-3">
+          <p className="text-sm font-body leading-reading text-foreground max-w-prose mb-3">
             Disabled elements should recede into the background. Reduce opacity to approximately 40%, remove interactive cursors, and let the surrounding active elements take visual priority.
           </p>
-          <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose">
+          <p className="text-sm font-body leading-reading text-foreground max-w-prose">
             A disabled element should never confuse — it should simply feel unavailable, like a door that is clearly closed.
           </p>
         </div>
@@ -91,7 +91,7 @@ const SignifiersClarity = () => (
           Containers & Contrast
         </h2>
         <div className="p-5 rounded-md border border-border bg-card">
-          <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose">
+          <p className="text-sm font-body leading-reading text-foreground max-w-prose">
             Use containers to group related information and create visual hierarchy. A card with a subtle border separates content from its surroundings without demanding attention. Contrast — not decoration — is the primary tool for guiding the eye.
           </p>
         </div>

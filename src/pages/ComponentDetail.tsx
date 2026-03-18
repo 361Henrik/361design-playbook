@@ -57,7 +57,7 @@ const ComponentDetailPage = () => {
             </Badge>
           )}
         </div>
-        <p className="font-body text-base leading-reading text-muted-foreground max-w-prose">
+        <p className="font-body text-base leading-reading text-foreground max-w-prose">
           {component.description}
         </p>
       </div>
@@ -78,7 +78,7 @@ const ComponentDetailPage = () => {
           {component.anatomy && (
             <div className="space-y-2">
               <h3 className="font-display text-sm font-medium text-foreground">Anatomy</h3>
-              <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose">
+              <p className="text-sm font-body leading-reading text-foreground max-w-prose">
                 {component.anatomy}
               </p>
             </div>
@@ -95,7 +95,7 @@ const ComponentDetailPage = () => {
           {component.accessibilityNotes && (
             <div className="space-y-2">
               <h3 className="font-display text-sm font-medium text-foreground">Accessibility</h3>
-              <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose">
+              <p className="text-sm font-body leading-reading text-foreground max-w-prose">
                 {component.accessibilityNotes}
               </p>
             </div>
@@ -104,7 +104,7 @@ const ComponentDetailPage = () => {
           {component.responsiveNotes && (
             <div className="space-y-2">
               <h3 className="font-display text-sm font-medium text-foreground">Responsive Behavior</h3>
-              <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose">
+              <p className="text-sm font-body leading-reading text-foreground max-w-prose">
                 {component.responsiveNotes}
               </p>
             </div>

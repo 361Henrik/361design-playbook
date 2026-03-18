@@ -11,7 +11,7 @@ function TextBlock({ block }: { block: Extract<ContentBlock, { type: "text" }> }
       {block.heading && (
         <h4 className="font-display text-base font-semibold text-foreground">{block.heading}</h4>
       )}
-      <p className="font-body text-sm leading-reading text-muted-foreground whitespace-pre-line">{block.body}</p>
+      <p className="font-body text-sm leading-reading text-foreground whitespace-pre-line">{block.body}</p>
     </div>
   );
 }
@@ -23,13 +23,13 @@ function PrincipleListBlock({ block }: { block: Extract<ContentBlock, { type: "p
         <h4 className="font-display text-base font-semibold text-foreground">{block.heading}</h4>
       )}
       {block.description && (
-        <p className="font-body text-sm text-muted-foreground">{block.description}</p>
+        <p className="font-body text-sm text-foreground">{block.description}</p>
       )}
       <div className="space-y-2">
         {block.items.map((item, i) => (
           <div key={i} className="pl-3 border-l-2 border-primary/20">
             <p className="font-body text-sm font-medium text-foreground">{item.title}</p>
-            <p className="font-body text-xs text-muted-foreground">{item.description}</p>
+            <p className="font-body text-xs text-foreground">{item.description}</p>
           </div>
         ))}
       </div>
@@ -56,7 +56,7 @@ function SpecTableBlock({ block }: { block: Extract<ContentBlock, { type: "spec-
         <h4 className="font-display text-base font-semibold text-foreground">{block.heading}</h4>
       )}
       {block.description && (
-        <p className="font-body text-xs text-muted-foreground mb-2">{block.description}</p>
+        <p className="font-body text-xs text-foreground mb-2">{block.description}</p>
       )}
       <div className="overflow-x-auto rounded-md border border-border">
         <table className="w-full text-sm">
@@ -92,7 +92,7 @@ function RuleListBlock({ block }: { block: Extract<ContentBlock, { type: "rule-l
       )}
       <ul className="space-y-1">
         {block.items.map((item, i) => (
-          <li key={i} className="font-body text-sm text-muted-foreground">
+          <li key={i} className="font-body text-sm text-foreground">
             <span className={`${color} mr-2`}>{marker}</span>{item}
           </li>
         ))}
@@ -112,7 +112,7 @@ function TokenRefBlock({ block }: { block: Extract<ContentBlock, { type: "token-
           <div key={i} className="p-3 rounded-md border border-border bg-card">
             <p className="font-mono text-xs text-foreground">{t.name}</p>
             <p className="font-mono text-xs text-muted-foreground">{t.value}</p>
-            {t.description && <p className="font-body text-xs text-muted-foreground mt-1">{t.description}</p>}
+            {t.description && <p className="font-body text-xs text-foreground mt-1">{t.description}</p>}
           </div>
         ))}
       </div>
@@ -131,7 +131,7 @@ function LayerStackBlock({ block }: { block: Extract<ContentBlock, { type: "laye
         <h4 className="font-display text-base font-semibold text-foreground">{block.heading}</h4>
       )}
       {block.description && (
-        <p className="font-body text-xs text-muted-foreground">{block.description}</p>
+        <p className="font-body text-xs text-foreground">{block.description}</p>
       )}
       <div className="space-y-2">
         {block.layers.map((l, i) => (
@@ -140,7 +140,7 @@ function LayerStackBlock({ block }: { block: Extract<ContentBlock, { type: "laye
               <Badge variant="outline" className="text-[10px]">{l.number}</Badge>
               <span className="font-body text-sm font-medium text-foreground">{l.title}</span>
             </div>
-            <p className="font-body text-xs text-muted-foreground mb-1">{l.description}</p>
+            <p className="font-body text-xs text-foreground mb-1">{l.description}</p>
             <div className="flex flex-wrap gap-1">
               {l.items.map((item, j) => (
                 <Badge key={j} variant="secondary" className="text-[10px]">{item}</Badge>
@@ -163,7 +163,7 @@ function CategoryListBlock({ block }: { block: Extract<ContentBlock, { type: "ca
         {block.categories.map((cat, i) => (
           <div key={i} className="p-2 rounded-md border border-border bg-card text-xs">
             <span className="font-body font-medium text-foreground">{cat.name}</span>
-            <span className="font-body text-muted-foreground ml-1">— {cat.description}</span>
+            <span className="font-body text-foreground ml-1">— {cat.description}</span>
           </div>
         ))}
       </div>
@@ -181,10 +181,10 @@ function ScenarioBlock({ block }: { block: Extract<ContentBlock, { type: "scenar
         <div key={i} className="p-3 rounded-md border border-border bg-card">
           <p className="font-body text-sm font-medium text-foreground">{s.title}</p>
           {s.type && <Badge variant="outline" className="text-[10px] mt-1">{s.type}</Badge>}
-          <p className="font-body text-xs text-muted-foreground mt-1">{s.description}</p>
+          <p className="font-body text-xs text-foreground mt-1">{s.description}</p>
           <ul className="mt-2 space-y-0.5">
             {s.features.map((f, j) => (
-              <li key={j} className="font-body text-xs text-muted-foreground">• {f}</li>
+              <li key={j} className="font-body text-xs text-foreground">• {f}</li>
             ))}
           </ul>
         </div>
@@ -202,9 +202,9 @@ function ComponentSpecBlock({ block }: { block: Extract<ContentBlock, { type: "c
       {block.components.map((comp, i) => (
         <div key={i} className="p-4 rounded-md border border-border bg-card space-y-2">
           <p className="font-display text-sm font-semibold text-foreground">{comp.name}</p>
-          <p className="font-body text-xs text-muted-foreground">{comp.description}</p>
+          <p className="font-body text-xs text-foreground">{comp.description}</p>
           {comp.anatomy && (
-            <p className="font-body text-xs text-muted-foreground"><span className="font-medium">Anatomy:</span> {comp.anatomy}</p>
+            <p className="font-body text-xs text-foreground"><span className="font-medium">Anatomy:</span> {comp.anatomy}</p>
           )}
           <DosDonts dos={comp.dos} donts={comp.donts} />
           {comp.code && <CodeBlock code={comp.code} language="tsx" />}
@@ -223,13 +223,13 @@ function ChannelKitBlock({ block }: { block: Extract<ContentBlock, { type: "chan
       {block.kits.map((kit, i) => (
         <div key={i} className="p-4 rounded-md border border-border bg-card space-y-2">
           <p className="font-display text-sm font-semibold text-foreground">{kit.name}</p>
-          <p className="font-body text-xs text-muted-foreground">{kit.description}</p>
+          <p className="font-body text-xs text-foreground">{kit.description}</p>
           <div className="flex flex-wrap gap-1">
             {kit.toneModifiers.map((t, j) => (
               <Badge key={j} variant="secondary" className="text-[10px]">{t}</Badge>
             ))}
           </div>
-          <p className="font-body text-xs text-muted-foreground">Spacing: {kit.spacingProfile} · Colour emphasis: {kit.colorEmphasis}</p>
+          <p className="font-body text-xs text-foreground">Spacing: {kit.spacingProfile} · Colour emphasis: {kit.colorEmphasis}</p>
         </div>
       ))}
     </div>

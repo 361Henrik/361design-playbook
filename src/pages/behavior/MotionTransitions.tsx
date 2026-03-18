@@ -12,7 +12,7 @@ const MotionTransitions = () => (
         <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-2">
           Core Philosophy
         </h3>
-        <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose">
+        <p className="text-sm font-body leading-reading text-foreground max-w-prose">
           Stillness is the default. Motion is used only when it clarifies a spatial relationship or confirms an action. If removing an animation changes nothing about the user's understanding, the animation should not exist.
         </p>
       </div>
@@ -30,7 +30,7 @@ const MotionTransitions = () => (
             <div key={t.label} className="p-5 rounded-md border border-border bg-card">
               <p className="text-xs uppercase tracking-widest font-body font-medium text-muted-foreground/60 mb-1">{t.label}</p>
               <p className="font-display text-lg font-medium text-card-foreground mb-2">{t.value}</p>
-              <p className="text-sm font-body leading-reading text-muted-foreground">{t.note}</p>
+              <p className="text-sm font-body leading-reading text-foreground">{t.note}</p>
             </div>
           ))}
         </div>
@@ -41,10 +41,10 @@ const MotionTransitions = () => (
           Easing
         </h2>
         <div className="p-5 rounded-md border border-border bg-card">
-          <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose">
+          <p className="text-sm font-body leading-reading text-foreground max-w-prose">
             Use <span className="font-medium text-card-foreground">ease-out</span> for elements entering view — they arrive quickly and settle gently. Use <span className="font-medium text-card-foreground">ease-in-out</span> for ambient, looping movement where both start and end should feel soft.
           </p>
-          <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose mt-2">
+          <p className="text-sm font-body leading-reading text-foreground max-w-prose mt-2">
             Avoid linear timing (feels mechanical) and spring physics (feels playful). The system's personality is architectural calm, not energetic bounce.
           </p>
         </div>
@@ -63,7 +63,7 @@ const MotionTransitions = () => (
           ].map((p) => (
             <div key={p.pattern} className="p-4 rounded-md border border-border bg-card flex gap-4 items-baseline">
               <span className="font-body text-sm font-medium text-card-foreground w-44 shrink-0">{p.pattern}</span>
-              <p className="text-sm font-body leading-reading text-muted-foreground">{p.description}</p>
+              <p className="text-sm font-body leading-reading text-foreground">{p.description}</p>
             </div>
           ))}
         </div>
@@ -71,7 +71,7 @@ const MotionTransitions = () => (
 
       <div className="p-5 rounded-md border-2 border-destructive/20 bg-card">
         <h3 className="font-display text-base font-medium tracking-headline text-destructive mb-2">Never</h3>
-        <ul className="space-y-1.5 text-sm font-body leading-reading text-muted-foreground">
+        <ul className="space-y-1.5 text-sm font-body leading-reading text-foreground">
           <li>• Parallax scroll effects</li>
           <li>• Page route transitions with sliding or fading</li>
           <li>• Bouncing, elastic, or overshoot animations</li>

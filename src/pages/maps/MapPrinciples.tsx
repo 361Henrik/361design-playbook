@@ -39,10 +39,10 @@ const MapPrinciples = () => {
         {/* Purpose */}
         <div className="p-5 rounded-md border border-border bg-card">
           <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-2">Purpose</h3>
-          <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose">
+          <p className="text-sm font-body leading-reading text-foreground max-w-prose">
             The Curated Lens map exists to create a sense of place. It answers four questions for the guest:
           </p>
-          <ul className="mt-3 space-y-1.5 text-sm font-body leading-reading text-muted-foreground">
+          <ul className="mt-3 space-y-1.5 text-sm font-body leading-reading text-foreground">
             <li>• Where am I right now?</li>
             <li>• What am I seeing outside the window?</li>
             <li>• What is nearby worth knowing about?</li>
@@ -53,7 +53,7 @@ const MapPrinciples = () => {
         {/* Feeling */}
         <div className="p-5 rounded-md border border-border bg-card">
           <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-2">Visual Feeling</h3>
-          <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose">
+          <p className="text-sm font-body leading-reading text-foreground max-w-prose">
             The map must feel calm, elegant, editorial, minimal, and readable for older guests. The visual clarity should be closer to Apple Maps than to dense navigation or nautical charts. Every element earns its place through restraint.
           </p>
         </div>
@@ -65,7 +65,7 @@ const MapPrinciples = () => {
             {principles.map((p) => (
               <div key={p.title} className="p-5 rounded-md border border-border bg-card">
                 <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-2">{p.title}</h3>
-                <p className="text-sm font-body leading-reading text-muted-foreground">{p.description}</p>
+                <p className="text-sm font-body leading-reading text-foreground">{p.description}</p>
               </div>
             ))}
           </div>
@@ -74,7 +74,7 @@ const MapPrinciples = () => {
         {/* Anti-patterns */}
         <div className="p-5 rounded-md border-2 border-destructive/20 bg-card">
           <p className="text-sm font-body font-medium text-destructive mb-3">✗ The Map Must Never</p>
-          <ul className="space-y-2 text-sm font-body leading-reading text-muted-foreground">
+          <ul className="space-y-2 text-sm font-body leading-reading text-foreground">
             <li className="flex gap-2"><span className="text-destructive">✗</span> Feel like a GPS or car navigation system</li>
             <li className="flex gap-2"><span className="text-destructive">✗</span> Show dense, unfiltered geographic data</li>
             <li className="flex gap-2"><span className="text-destructive">✗</span> Display areas far outside the scenic corridor</li>

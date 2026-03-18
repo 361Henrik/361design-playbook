@@ -16,14 +16,14 @@ const ExperienceDesign = () => {
 
           <div className="p-5 rounded-md border border-border bg-card">
             <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-2">Concept</h3>
-            <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose">
+            <p className="text-sm font-body leading-reading text-foreground max-w-prose">
               The scenic corridor is a curated envelope around the route. It determines what the guest sees on the map at any point along the journey. Rather than showing a fixed-width strip, the corridor expands and contracts based on what is actually visible and worth showing.
             </p>
           </div>
 
           <div className="p-5 rounded-md border border-border bg-card">
             <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-3">Standard Corridor</h3>
-            <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose mb-4">
+            <p className="text-sm font-body leading-reading text-foreground max-w-prose mb-4">
               The default route view. Shows landscape near the vessel — nearby islands, villages, bridges, hills, and local POIs.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -40,7 +40,7 @@ const ExperienceDesign = () => {
 
           <div className="p-5 rounded-md border border-border bg-card">
             <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-3">Scenic Expansion</h3>
-            <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose mb-4">
+            <p className="text-sm font-body leading-reading text-foreground max-w-prose mb-4">
               Used when important landmarks are visible farther away. The corridor widens locally to include the distant landmark, and its label appears.
             </p>
             <div className="space-y-2">
@@ -53,7 +53,7 @@ const ExperienceDesign = () => {
             </div>
             <div className="mt-4 space-y-2">
               <p className="text-xs font-body font-medium text-card-foreground">Behavior</p>
-              <ul className="space-y-1.5 text-sm font-body leading-reading text-muted-foreground">
+              <ul className="space-y-1.5 text-sm font-body leading-reading text-foreground">
                 <li>• Corridor widens locally around the landmark</li>
                 <li>• Distant landmark becomes visible on the map</li>
                 <li>• Labels appear for that landmark</li>
@@ -72,7 +72,7 @@ const ExperienceDesign = () => {
 
           <div className="p-5 rounded-md border border-border bg-card">
             <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-3">Tight Corridor</h3>
-            <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose mb-3">
+            <p className="text-sm font-body leading-reading text-foreground max-w-prose mb-3">
               Used when there are no important distant features. Reduces clutter, keeps the map elegant, and emphasizes immediate surroundings.
             </p>
             <div className="flex flex-wrap gap-2">
@@ -84,10 +84,10 @@ const ExperienceDesign = () => {
 
           <div className="p-5 rounded-md border border-border bg-card">
             <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-3">Corridor Editing</h3>
-            <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose mb-3">
+            <p className="text-sm font-body leading-reading text-foreground max-w-prose mb-3">
               Operators must be able to manually adjust corridor width. Route designers should be able to:
             </p>
-            <ul className="space-y-1.5 text-sm font-body leading-reading text-muted-foreground">
+            <ul className="space-y-1.5 text-sm font-body leading-reading text-foreground">
               <li>• Widen corridor locally to include distant landmarks</li>
               <li>• Narrow corridor locally to reduce clutter</li>
               <li>• Include specific distant landmarks by exception</li>
@@ -105,7 +105,7 @@ const ExperienceDesign = () => {
 
           <div className="p-5 rounded-md border border-border bg-card">
             <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-2">Core Principle</h3>
-            <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose">
+            <p className="text-sm font-body leading-reading text-foreground max-w-prose">
               If a guest needs to ask how to use the map, the map has failed. The interface must be immediately obvious, forgiving of imprecise gestures, and readable without glasses in good lighting conditions.
             </p>
           </div>
@@ -148,7 +148,7 @@ const ExperienceDesign = () => {
 
           <div className="p-5 rounded-md border border-border bg-card">
             <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-3">Simplified Interaction Model</h3>
-            <ul className="space-y-2 text-sm font-body leading-reading text-muted-foreground">
+            <ul className="space-y-2 text-sm font-body leading-reading text-foreground">
               <li>• Single-tap only — no double-tap, long-press, or multi-finger gestures required</li>
               <li>• Pinch-to-zoom snaps to discrete levels — prevents "lost in zoom" state</li>
               <li>• "Return to vessel" button is always one tap away</li>
@@ -160,7 +160,7 @@ const ExperienceDesign = () => {
 
           <div className="p-5 rounded-md border border-border bg-card">
             <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-2">Error Tolerance</h3>
-            <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose">
+            <p className="text-sm font-body leading-reading text-foreground max-w-prose">
               Older guests often tap imprecisely. The map must be forgiving: expanded hit areas, no destructive actions, easy undo of any state change, and a single "reset" gesture that returns everything to default.
             </p>
           </div>

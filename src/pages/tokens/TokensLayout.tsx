@@ -47,7 +47,7 @@ const TokensLayout = () => {
                       <CopyButton value={w.tailwind} label={`tw: ${w.tailwind}`} />
                       <CopyButton value={w.value} label={w.value} />
                     </div>
-                    <p className="text-body-sm font-body text-muted-foreground">{w.desc}</p>
+                    <p className="text-body-sm font-body text-foreground">{w.desc}</p>
                   </div>
                 </div>
               ))}
@@ -87,7 +87,7 @@ const TokensLayout = () => {
 
           <div className="p-5 rounded-md border border-border bg-card mb-8">
             <h3 className="font-display text-h3 text-card-foreground mb-3">Text Density Rules</h3>
-            <ul className="space-y-2 text-body-sm font-body text-muted-foreground max-w-prose">
+            <ul className="space-y-2 text-body-sm font-body text-foreground max-w-prose">
               <li className="flex gap-2"><span className="text-accent shrink-0">→</span> One idea per section. No multi-topic paragraphs.</li>
               <li className="flex gap-2"><span className="text-accent shrink-0">→</span> Headings kept short — ideally under 6 words.</li>
               <li className="flex gap-2"><span className="text-accent shrink-0">→</span> Max paragraph width: 52 characters (max-w-prose).</li>
@@ -389,7 +389,7 @@ const TokensLayout = () => {
           <div className="space-y-10">
             <div className="mb-2">
               <h2 className="font-display text-h2 text-foreground mb-2">Surface Pairing</h2>
-              <p className="text-body-sm font-body text-muted-foreground max-w-prose">
+              <p className="text-body-sm font-body text-foreground max-w-prose">
                 Two approved surface types create visual rhythm and information hierarchy. White panels carry primary reading content. Green panels anchor navigation, context, and emphasis.
               </p>
             </div>
@@ -401,7 +401,7 @@ const TokensLayout = () => {
                 <div className="p-8 bg-background">
                   <p className="text-caption font-body font-medium text-muted-foreground uppercase tracking-widest mb-2">Primary Surface</p>
                   <p className="text-label font-body text-foreground mb-1">bg-background</p>
-                  <p className="text-body-sm font-body text-muted-foreground max-w-prose">Main content, editorial text, forms, data tables. Default reading context.</p>
+                  <p className="text-body-sm font-body text-foreground max-w-prose">Main content, editorial text, forms, data tables. Default reading context.</p>
                 </div>
                 <div className="p-8 bg-primary text-primary-foreground">
                   <p className="text-caption font-body font-medium text-primary-foreground/60 uppercase tracking-widest mb-2">Anchor Surface</p>
