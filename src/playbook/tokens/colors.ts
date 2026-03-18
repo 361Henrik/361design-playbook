@@ -40,12 +40,12 @@ export const colorsPlaybook: PlaybookPage = {
         {
           name: "Deep Marine Blue",
           value: "#1A2744 (HSL 218 38% 18%)",
-          description: "Interaction color. Buttons, active states, route lines, navigation anchors, focused elements. Signals interactivity, never decoration. CSS: --primary, Tailwind: primary",
+          description: "Interaction color. Buttons, active states, route lines, navigation anchors and focused elements. Marine blue also serves as a surface for emphasis — information panels, highlight sections or areas requiring stronger contrast within a page. When used as a background, pair with light text and bronze headings. Signals importance and structure, never decoration. CSS: --primary, Tailwind: primary",
         },
         {
           name: "Champagne Bronze",
           value: "#C9A962 (HSL 40 46% 53%)",
-          description: "Highlight accent. Icon highlights, selected markers, thin dividers, small emphasis. Bronze is jewelry, never paint. CSS: --accent, Tailwind: accent",
+          description: "Highlight accent. Icon highlights, selected markers, thin dividers and small emphasis words. On marine blue surfaces, bronze is used for headings to create a refined, high-contrast hierarchy. Bronze is jewelry, never paint. CSS: --accent, Tailwind: accent",
         },
         {
           name: "Warm Border",
