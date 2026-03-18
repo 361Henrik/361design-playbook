@@ -336,7 +336,7 @@ const ExportPage = () => {
                   <h3 className="font-display text-base font-medium text-foreground">AI Context File</h3>
                   <p className="text-sm font-body text-muted-foreground leading-reading">
                     Single-file design system context for AI coding assistants (Claude, Cursor, Gemini).
-                    Includes an instruction preamble that constrains the AI to your tokens, components, and patterns.
+                    Includes an instruction preamble that constrains the AI to your design foundations, components, and patterns.
                   </p>
                 </div>
                 <Button variant="outline" onClick={() => downloadFile(generateAIContextFile(), "CLAUDE.md")} className="shrink-0">
