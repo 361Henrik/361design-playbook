@@ -1,4 +1,5 @@
 import { PageHeader } from "@/components/PageHeader";
+import { AppliedExampleRenderer } from "@/components/playbook/AppliedExampleRenderer";
 
 const stateRows = [
   { state: "Default", description: "The resting appearance. Calm, readable, clearly defined." },
