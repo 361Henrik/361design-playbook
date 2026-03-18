@@ -11,7 +11,7 @@ const tokensData = [
   { name: "Muted", variable: "--muted-foreground", hex: "#6B6B6B", hsl: "0 0% 42%", tailwind: "muted-foreground", usage: "Secondary text. Descriptions, captions, supporting labels. The only secondary text tone — no additional greys.", swatch: "bg-muted-foreground", role: "secondary text" },
   { name: "Deep Marine Blue", variable: "--primary", hex: "#1A2744", hsl: "218 38% 18%", tailwind: "primary", usage: "Interaction color. Buttons, active states, route lines, navigation anchors and focused elements. Marine blue also serves as a surface for emphasis — information panels, highlight sections or areas requiring stronger contrast within a page. When used as a background, pair with light text and bronze headings. Signals importance and structure, never decoration.", swatch: "bg-primary", role: "interaction" },
   { name: "Champagne Bronze", variable: "--accent", hex: "#C9A962", hsl: "40 46% 53%", tailwind: "accent", usage: "Highlight accent. Icon highlights, selected markers, thin dividers and small emphasis words. On marine blue surfaces, bronze is used for headings to create a refined, high-contrast hierarchy. Bronze is jewelry, never paint.", swatch: "bg-accent", role: "highlight" },
-  { name: "Warm Border", variable: "--border", hex: "#D4CCC1", hsl: "32 14% 80%", tailwind: "border", usage: "The single border color. Cards, inputs, dividers. No border variations.", swatch: "bg-border", role: "structural" },
+  { name: "Warm Border", variable: "--border", hex: "#CCC4B8", hsl: "33 12% 76%", tailwind: "border", usage: "The single border color. Cards, inputs, dividers. Visible against both Cream Beige and Warm Stone surfaces. No border variations.", swatch: "bg-border", role: "structural" },
 ];
 
 const TokensColors = () => {
