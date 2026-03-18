@@ -18,7 +18,7 @@ export function CopyButton({ value, label }: CopyButtonProps) {
   return (
     <button
       onClick={handleCopy}
-      className="inline-flex items-center gap-1.5 px-2 py-1 rounded text-xs font-body text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors duration-ui"
+      className="inline-flex items-center gap-1.5 px-2 py-1 rounded text-xs font-body text-foreground hover:bg-secondary transition-colors duration-ui"
       title={`Copy ${label || value}`}
     >
       {copied ? (
