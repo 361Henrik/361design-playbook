@@ -111,7 +111,7 @@ function MapsAccordionNav(): JSX.Element {
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel className="px-3 text-[10px] uppercase tracking-widest text-sidebar-foreground/40 font-body font-medium mb-1">
+        <SidebarGroupLabel className="px-3 text-[10px] uppercase tracking-widest text-sidebar-primary/70 font-body font-medium mb-1">
         Maps
       </SidebarGroupLabel>
       <SidebarGroupContent>
