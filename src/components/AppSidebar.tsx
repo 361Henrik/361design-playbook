@@ -111,7 +111,7 @@ function MapsAccordionNav(): JSX.Element {
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel className="px-3 text-[10px] uppercase tracking-widest text-sidebar-foreground/40 font-body font-medium mb-1">
+        <SidebarGroupLabel className="px-3 text-[10px] uppercase tracking-widest text-sidebar-primary/70 font-body font-medium mb-1">
         Maps
       </SidebarGroupLabel>
       <SidebarGroupContent>
@@ -121,14 +121,14 @@ function MapsAccordionNav(): JSX.Element {
               onClick={() => setIsOpen((prev) => !prev)}
               className={`group flex items-center gap-3 px-3 py-2 rounded-md cursor-pointer transition-colors duration-ui ${
                 hasActive
-                  ? "text-primary font-medium"
-                  : "text-foreground/70 hover:text-foreground hover:bg-sidebar-accent"
+                  ? "text-foreground font-semibold"
+                  : "text-sidebar-foreground hover:text-foreground hover:bg-sidebar-accent"
               }`}
             >
-              <Map className="nav-icon h-4 w-4 shrink-0 text-primary/55 group-hover:text-primary/80 transition-colors duration-ui" strokeWidth={1.5} />
+              <Map className="nav-icon h-4 w-4 shrink-0 text-sidebar-primary/85 group-hover:text-sidebar-primary transition-colors duration-ui" strokeWidth={1.5} />
               <span className="font-body text-sm flex-1">MAP</span>
               <ChevronRight
-                className={`h-3 w-3 text-sidebar-foreground/40 transition-transform duration-ui ${
+                className={`h-3 w-3 text-sidebar-primary/60 transition-transform duration-ui ${
                   isOpen ? "rotate-90" : ""
                 }`}
                 strokeWidth={1.5}
@@ -139,11 +139,11 @@ function MapsAccordionNav(): JSX.Element {
             <div className="ml-4 border-l border-sidebar-border pl-1">
               {mapsItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
+            <SidebarMenuButton asChild>
                     <NavLink
                       to={item.url}
-                      className="group flex items-center gap-3 px-3 py-1.5 rounded-md text-foreground/70 hover:text-foreground hover:bg-sidebar-accent transition-colors duration-ui"
-                      activeClassName="bg-sidebar-accent text-primary font-medium"
+                      className="group flex items-center gap-3 px-3 py-1.5 rounded-md text-sidebar-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors duration-ui"
+                      activeClassName="bg-sidebar-accent text-foreground font-semibold"
                     >
                       <span className="font-body text-sm">{item.title}</span>
                     </NavLink>
@@ -187,13 +187,13 @@ export function AppSidebar() {
     items.map((item) => (
       <SidebarMenuItem key={item.title}>
         <SidebarMenuButton asChild>
-          <NavLink
+            <NavLink
             to={item.url}
             end={item.url === "/"}
-            className="group flex items-center gap-3 px-3 py-2 rounded-md text-foreground/70 hover:text-foreground hover:bg-sidebar-accent transition-colors duration-ui"
-            activeClassName="bg-sidebar-accent text-primary font-medium [&_.nav-icon]:text-primary [&_.nav-icon]:opacity-100"
+            className="group flex items-center gap-3 px-3 py-2 rounded-md text-sidebar-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors duration-ui"
+            activeClassName="bg-sidebar-accent text-foreground font-semibold [&_.nav-icon]:opacity-100"
           >
-            <item.icon className="nav-icon h-4 w-4 shrink-0 text-primary/55 group-hover:text-primary/80 transition-colors duration-ui" strokeWidth={1.5} />
+            <item.icon className="nav-icon h-4 w-4 shrink-0 text-sidebar-primary/85 group-hover:text-sidebar-primary transition-colors duration-ui" strokeWidth={1.5} />
             <span className="font-body text-sm">{item.title}</span>
           </NavLink>
         </SidebarMenuButton>
@@ -219,7 +219,7 @@ export function AppSidebar() {
             <h1 className="font-display text-lg font-medium tracking-headline text-sidebar-foreground leading-section">
               {activeWorkspace?.name || "The Curated Lens"}
             </h1>
-            <p className="text-xs font-body text-sidebar-foreground/50 mt-1">Design System Hub</p>
+            <p className="text-xs font-body text-sidebar-primary/70 mt-1">Design System Hub</p>
           </>
         )}
       </div>
@@ -236,7 +236,7 @@ export function AppSidebar() {
         <MapsAccordionNav />
 
         <SidebarGroup>
-          <SidebarGroupLabel className="px-3 text-[10px] uppercase tracking-widest text-sidebar-foreground/40 font-body font-medium mb-1">
+          <SidebarGroupLabel className="px-3 text-[10px] uppercase tracking-widest text-sidebar-primary/70 font-body font-medium mb-1">
             Foundations
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -245,7 +245,7 @@ export function AppSidebar() {
         </SidebarGroup>
 
         <SidebarGroup>
-          <SidebarGroupLabel className="px-3 text-[10px] uppercase tracking-widest text-sidebar-foreground/40 font-body font-medium mb-1">
+          <SidebarGroupLabel className="px-3 text-[10px] uppercase tracking-widest text-sidebar-primary/70 font-body font-medium mb-1">
             Interaction
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -254,7 +254,7 @@ export function AppSidebar() {
         </SidebarGroup>
 
         <SidebarGroup>
-          <SidebarGroupLabel className="px-3 text-[10px] uppercase tracking-widest text-sidebar-foreground/40 font-body font-medium mb-1">
+          <SidebarGroupLabel className="px-3 text-[10px] uppercase tracking-widest text-sidebar-primary/70 font-body font-medium mb-1">
             System
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -263,7 +263,7 @@ export function AppSidebar() {
         </SidebarGroup>
 
         <SidebarGroup>
-          <SidebarGroupLabel className="px-3 text-[10px] uppercase tracking-widest text-sidebar-foreground/40 font-body font-medium mb-1">
+          <SidebarGroupLabel className="px-3 text-[10px] uppercase tracking-widest text-sidebar-primary/70 font-body font-medium mb-1">
             Tools
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -284,7 +284,7 @@ export function AppSidebar() {
               <LogOut className="h-3.5 w-3.5" strokeWidth={1.5} />
             </button>
           </div>
-          <p className="text-[10px] font-mono text-sidebar-foreground/30 mt-2">⌘K to search</p>
+          <p className="text-[10px] font-mono text-sidebar-primary/50 mt-2">⌘K to search</p>
         </div>
       )}
       <OnboardingTour forceOpen={tourOpen} onClose={() => setTourOpen(false)} onTourComplete={handleTourComplete} />
