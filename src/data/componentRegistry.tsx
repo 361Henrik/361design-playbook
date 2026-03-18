@@ -268,7 +268,7 @@ export const components: ComponentEntry[] = [
         <h3 className="font-display text-lg font-medium tracking-headline leading-section">
           Anchor Context
         </h3>
-        <p className="text-sm font-body leading-reading opacity-85">
+        <p className="text-sm font-body leading-reading text-primary-foreground/90">
           This panel grounds the page. It's the visual anchor — calm, confident, and purposeful.
         </p>
         <Button variant="secondary" size="sm" className="mt-2">
@@ -280,7 +280,7 @@ export const components: ComponentEntry[] = [
   <h3 className="font-display text-lg font-medium tracking-headline leading-section">
     Anchor Context
   </h3>
-  <p className="text-sm font-body leading-reading opacity-85">
+  <p className="text-sm font-body leading-reading text-primary-foreground/90">
     This panel grounds the page.
   </p>
   <Button variant="secondary" size="sm">
@@ -312,7 +312,7 @@ export const components: ComponentEntry[] = [
           <h3 className="font-display text-lg font-medium tracking-headline leading-section">
             Design with Purpose
           </h3>
-          <p className="text-sm font-body leading-reading opacity-85">
+          <p className="text-sm font-body leading-reading text-primary-foreground/90">
             Every decision should be intentional. The system provides the rails — you provide the vision.
           </p>
           <Button variant="secondary" size="sm">Get Started</Button>
@@ -342,7 +342,7 @@ export const components: ComponentEntry[] = [
     <h3 className="font-display text-lg font-medium tracking-headline">
       Design with Purpose
     </h3>
-    <p className="text-sm font-body leading-reading opacity-85">
+    <p className="text-sm font-body leading-reading text-primary-foreground/90">
       Every decision should be intentional.
     </p>
     <Button variant="secondary" size="sm">Get Started</Button>

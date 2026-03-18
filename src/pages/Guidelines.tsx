@@ -37,7 +37,7 @@ const GuidelinesPage = () => {
           <h2 className="font-display text-xl font-medium tracking-headline text-foreground mb-4">
             Brand Essence
           </h2>
-          <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose">
+          <p className="text-sm font-body leading-reading text-foreground max-w-prose">
             Calm, architectural, intelligent, editorial authority, controlled luxury. Every decision should reinforce restraint as a signal of confidence.
           </p>
         </section>
@@ -47,7 +47,7 @@ const GuidelinesPage = () => {
           <h2 className="font-display text-xl font-medium tracking-headline text-foreground mb-4">
             Imagery Philosophy
           </h2>
-          <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose">
+          <p className="text-sm font-body leading-reading text-foreground max-w-prose">
             Cinematic, contemplative, premium travel mood. Integrated product experience. Avoid staged corporate stock imagery. Avoid recognisable operator assets unless approved.
           </p>
         </section>
@@ -57,7 +57,7 @@ const GuidelinesPage = () => {
           <h2 className="font-display text-xl font-medium tracking-headline text-foreground mb-4">
             Avoidance List
           </h2>
-          <ul className="space-y-2 text-sm font-body leading-reading text-muted-foreground max-w-prose">
+          <ul className="space-y-2 text-sm font-body leading-reading text-foreground max-w-prose">
             <li>No decorative or trend-driven styling</li>
             <li>No startup-techy aesthetics</li>
             <li>No over-animated layouts (no bouncy, scaling, dramatic motion)</li>

@@ -111,7 +111,7 @@ const TokensVoice = () => {
                       {meta.label}
                     </h2>
                   </div>
-                  <p className="text-sm font-body text-muted-foreground mb-5 max-w-prose">
+                  <p className="text-sm font-body text-foreground mb-5 max-w-prose">
                     {meta.description}
                   </p>
 
@@ -126,7 +126,7 @@ const TokensVoice = () => {
                             <CopyButton value={token.name} label="Copy name" />
                           </div>
                           {token.description && (
-                            <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose mt-1">
+                            <p className="text-sm font-body leading-reading text-foreground max-w-prose mt-1">
                               {token.description}
                             </p>
                           )}

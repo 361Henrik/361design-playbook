@@ -18,10 +18,10 @@ const ImageSystem = () => {
           <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-2">
             Core Principle
           </h3>
-          <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose">
+          <p className="text-sm font-body leading-reading text-foreground max-w-prose">
             Capture real travel moments in real places, where the landscape is the hero and the product is a natural extension of the experience — never dominating it.
           </p>
-          <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose mt-2">
+          <p className="text-sm font-body leading-reading text-foreground max-w-prose mt-2">
             The visual tone should feel calm, cinematic, elegant, and observational. Nothing staged, nothing loud.
           </p>
         </div>
@@ -32,10 +32,10 @@ const ImageSystem = () => {
             Layer 1 — Hero (Emotion & Place)
           </h2>
           <div className="p-5 rounded-md border border-border bg-card">
-            <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose mb-4">
+            <p className="text-sm font-body leading-reading text-foreground max-w-prose mb-4">
               Use wide, cinematic compositions that establish place and atmosphere before human activity enters the frame.
             </p>
-            <ul className="space-y-1.5 text-sm font-body leading-reading text-muted-foreground list-disc pl-5">
+            <ul className="space-y-1.5 text-sm font-body leading-reading text-foreground list-disc pl-5">
               <li>Show real, recognizable locations such as Geirangerfjord, Lake Thun, or the Wachau Valley</li>
               <li>Prioritize landscape over people</li>
               <li>Use no people or only minimal human presence</li>
@@ -60,10 +60,10 @@ const ImageSystem = () => {
             Layer 2 — Experience (Human Presence)
           </h2>
           <div className="p-5 rounded-md border border-border bg-card">
-            <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose mb-4">
+            <p className="text-sm font-body leading-reading text-foreground max-w-prose mb-4">
               Introduce people in a restrained, natural way so the image suggests experience without becoming lifestyle advertising.
             </p>
-            <ul className="space-y-1.5 text-sm font-body leading-reading text-muted-foreground list-disc pl-5">
+            <ul className="space-y-1.5 text-sm font-body leading-reading text-foreground list-disc pl-5">
               <li>People should feel present but understated</li>
               <li>Show them from behind or in profile rather than facing the camera</li>
               <li>Avoid posed, performative, or fashion-led imagery</li>
@@ -81,7 +81,7 @@ const ImageSystem = () => {
             ].map((mode) => (
               <div key={mode.title} className="p-4 rounded-md border border-border bg-card">
                 <p className="text-sm font-body font-medium text-card-foreground mb-1">{mode.title}</p>
-                <p className="text-sm font-body leading-reading text-muted-foreground">{mode.body}</p>
+                <p className="text-sm font-body leading-reading text-foreground">{mode.body}</p>
               </div>
             ))}
           </div>
@@ -106,10 +106,10 @@ const ImageSystem = () => {
             Layer 3 — Product in Use (Curated Lens Visible)
           </h2>
           <div className="p-5 rounded-md border border-border bg-card">
-            <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose mb-4">
+            <p className="text-sm font-body leading-reading text-foreground max-w-prose mb-4">
               Show the product as a subtle part of the journey, never the main subject.
             </p>
-            <ul className="space-y-1.5 text-sm font-body leading-reading text-muted-foreground list-disc pl-5">
+            <ul className="space-y-1.5 text-sm font-body leading-reading text-foreground list-disc pl-5">
               <li>Integrate the phone naturally into the scene</li>
               <li>Keep the device present but visually understated</li>
               <li>Show either a calm glance at the screen or the device resting alongside the environment</li>

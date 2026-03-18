@@ -68,7 +68,7 @@ export default function Help() {
                   <button onClick={() => navigate(s.href)} className="text-body font-body font-medium text-foreground hover:text-primary transition-colors duration-ui">
                     {s.step}
                   </button>
-                  <p className="text-body-sm font-body text-muted-foreground mt-0.5">{s.description}</p>
+                  <p className="text-body-sm font-body text-foreground mt-0.5">{s.description}</p>
                 </div>
               </li>
             ))}
@@ -86,7 +86,7 @@ export default function Help() {
             {glossary.map((g) => (
               <div key={g.term}>
                 <dt className="text-label font-body text-foreground">{g.term}</dt>
-                <dd className="text-body-sm font-body text-muted-foreground mt-0.5">{g.definition}</dd>
+                <dd className="text-body-sm font-body text-foreground mt-0.5">{g.definition}</dd>
               </div>
             ))}
           </dl>

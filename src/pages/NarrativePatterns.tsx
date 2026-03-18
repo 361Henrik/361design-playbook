@@ -13,7 +13,7 @@ const NarrativePatterns = () => {
       {/* Purpose */}
       <div className="mb-10">
         <h2 className="font-display text-lg font-medium tracking-headline leading-section text-foreground mb-4">Purpose</h2>
-        <p className="text-sm font-body text-muted-foreground max-w-prose mb-4">
+        <p className="text-sm font-body text-foreground max-w-prose mb-4">
           Use the narrative path style when content has a clear sequence or flow. It turns abstract steps into a visible journey.
         </p>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -39,7 +39,7 @@ const NarrativePatterns = () => {
         {/* Flowing path */}
         <div className="p-5 rounded-md border border-border bg-card mb-4">
           <p className="text-xs font-body font-medium text-foreground mb-1">Flowing path lines</p>
-          <p className="text-sm font-body text-muted-foreground mb-4">
+          <p className="text-sm font-body text-foreground mb-4">
             Use a single vertical or horizontal line to connect stops. The line represents progression — keep it thin (1px), using the border colour token.
           </p>
           <div className="rounded-md border border-border bg-muted/30 p-6">
@@ -62,7 +62,7 @@ const NarrativePatterns = () => {
         {/* Modular information */}
         <div className="p-5 rounded-md border border-border bg-card mb-4">
           <p className="text-xs font-body font-medium text-foreground mb-1">Modular information</p>
-          <p className="text-sm font-body text-muted-foreground mb-4">
+          <p className="text-sm font-body text-foreground mb-4">
             Each stop on the path is a self-contained module. It can represent a concept, a place, or a step — but always one idea only.
           </p>
           <div className="rounded-md border border-border bg-muted/30 p-6">
@@ -85,7 +85,7 @@ const NarrativePatterns = () => {
         {/* Spacing rules */}
         <div className="p-5 rounded-md border border-border bg-card">
           <p className="text-xs font-body font-medium text-foreground mb-1">Spacing &amp; density</p>
-          <p className="text-sm font-body text-muted-foreground">
+          <p className="text-sm font-body text-foreground">
             Path stops use <code className="text-[11px] font-mono bg-muted px-1 py-0.5 rounded">space-6</code> vertical rhythm between modules.
             Stop content padding uses <code className="text-[11px] font-mono bg-muted px-1 py-0.5 rounded">space-4</code>.
             Text stacks within a stop use <code className="text-[11px] font-mono bg-muted px-1 py-0.5 rounded">space-3</code>.
@@ -100,7 +100,7 @@ const NarrativePatterns = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="p-4 rounded-md border border-accent/20 bg-card">
             <p className="text-xs font-body font-medium text-accent mb-2">Do</p>
-            <ul className="space-y-1.5 text-sm font-body text-muted-foreground">
+            <ul className="space-y-1.5 text-sm font-body text-foreground">
               <li>• Use numbered stops for sequential content</li>
               <li>• Keep each stop to one idea, place, or step</li>
               <li>• Use a thin connecting line (1px, border token)</li>
@@ -110,7 +110,7 @@ const NarrativePatterns = () => {
           </div>
           <div className="p-4 rounded-md border border-destructive/20 bg-card">
             <p className="text-xs font-body font-medium text-destructive mb-2">Don't</p>
-            <ul className="space-y-1.5 text-sm font-body text-muted-foreground">
+            <ul className="space-y-1.5 text-sm font-body text-foreground">
               <li>• Don't use decorative path shapes or curves</li>
               <li>• Don't combine multiple ideas in one stop</li>
               <li>• Don't animate the path line or stops</li>

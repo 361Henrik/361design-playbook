@@ -26,7 +26,7 @@ const TokensMotion = () => {
             {/* UI Transitions */}
             <div className="p-5 rounded-md border border-border bg-card">
               <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-2">UI Transitions</h3>
-              <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose mb-4">
+              <p className="text-sm font-body leading-reading text-foreground max-w-prose mb-4">
                 All interactive UI elements use 300–400ms transitions with ease-out timing. Hover states, focus rings, sidebar collapse — all calm and controlled.
               </p>
               <div className="flex items-center gap-4 mb-3">
@@ -49,7 +49,7 @@ const TokensMotion = () => {
             {/* Hero Loops */}
             <div className="p-5 rounded-md border border-border bg-card">
               <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-2">Hero Loops</h3>
-              <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose mb-3">
+              <p className="text-sm font-body leading-reading text-foreground max-w-prose mb-3">
                 Ambient hero animations use 8–20 second loops. Subtle, contemplative movement — never attention-grabbing.
               </p>
               <div className="flex flex-wrap gap-2">
@@ -72,7 +72,7 @@ const TokensMotion = () => {
             {/* Prohibited */}
             <div className="p-5 rounded-md border-2 border-destructive/20 bg-card">
               <p className="text-sm font-body font-medium text-destructive mb-3">✗ Prohibited Motion Patterns</p>
-              <ul className="space-y-2 text-sm font-body leading-reading text-muted-foreground">
+              <ul className="space-y-2 text-sm font-body leading-reading text-foreground">
                 <li className="flex gap-2"><span className="text-destructive">✗</span> Parallax-heavy transitions</li>
                 <li className="flex gap-2"><span className="text-destructive">✗</span> Bouncing or scaling buttons</li>
                 <li className="flex gap-2"><span className="text-destructive">✗</span> Dramatic page transitions</li>
