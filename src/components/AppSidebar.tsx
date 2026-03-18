@@ -128,7 +128,7 @@ function MapsAccordionNav(): JSX.Element {
               <Map className="nav-icon h-4 w-4 shrink-0 text-sidebar-primary/85 group-hover:text-sidebar-primary transition-colors duration-ui" strokeWidth={1.5} />
               <span className="font-body text-sm flex-1">MAP</span>
               <ChevronRight
-                className={`h-3 w-3 text-sidebar-foreground/40 transition-transform duration-ui ${
+                className={`h-3 w-3 text-sidebar-primary/60 transition-transform duration-ui ${
                   isOpen ? "rotate-90" : ""
                 }`}
                 strokeWidth={1.5}
