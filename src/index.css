@@ -111,6 +111,20 @@
   }
 }
 
+/* Gold heading treatment on marine blue surfaces */
+.surface-marine h1,
+.surface-marine h2,
+.surface-marine h3 {
+  color: hsl(43 44% 60%);
+  margin-bottom: 1rem;
+}
+
+.surface-marine p,
+.surface-marine span:not(.heading-accent),
+.surface-marine li {
+  color: hsl(var(--primary-foreground));
+}
+
 @layer base {
   * {
     @apply border-border;
