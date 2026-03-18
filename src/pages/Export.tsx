@@ -121,12 +121,12 @@ const ExportPage = () => {
     <div className="px-space-5 md:px-space-8 py-space-8 max-w-content space-y-space-8">
       <PageHeader
         title="Code Export"
-        description="Export tokens as CSS, Tailwind, JSON, or TypeScript — or export the full design playbook as Markdown for IDE handoff."
+        description="Export design foundations as CSS, Tailwind, JSON, or TypeScript — or export the full design playbook as Markdown for IDE handoff."
       />
 
-      <Tabs defaultValue="tokens">
+      <Tabs defaultValue="foundations">
         <TabsList>
-          <TabsTrigger value="tokens">Token Export</TabsTrigger>
+          <TabsTrigger value="foundations">Design Foundations</TabsTrigger>
           <TabsTrigger value="playbook" className="flex items-center gap-1.5">
             <BookOpen className="h-3.5 w-3.5" strokeWidth={1.5} />
             Design Playbook
