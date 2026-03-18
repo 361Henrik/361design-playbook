@@ -123,12 +123,6 @@ const TokensVoice = () => {
                             <CardTitle className="text-base font-display tracking-headline">
                               {token.name}
                             </CardTitle>
-                            <Badge
-                              variant={token.severity === "error" ? "destructive" : "secondary"}
-                              className="text-[10px] font-mono"
-                            >
-                              {token.severity}
-                            </Badge>
                             <CopyButton value={token.name} label="Copy name" />
                           </div>
                           {token.description && (
