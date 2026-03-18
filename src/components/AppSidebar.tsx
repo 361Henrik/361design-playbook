@@ -191,9 +191,9 @@ export function AppSidebar() {
             to={item.url}
             end={item.url === "/"}
             className="group flex items-center gap-3 px-3 py-2 rounded-md text-sidebar-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors duration-ui"
-            activeClassName="bg-sidebar-accent text-foreground font-semibold [&_.nav-icon]:opacity-100"
+            activeClassName="text-foreground font-semibold border-l-2 border-sidebar-primary [&_.nav-icon]:opacity-100"
           >
-            <item.icon className="nav-icon h-4 w-4 shrink-0 text-sidebar-primary/85 group-hover:text-sidebar-primary transition-colors duration-ui" strokeWidth={1.5} />
+            <item.icon className="nav-icon h-4 w-4 shrink-0 text-bronze-muted group-hover:text-accent transition-colors duration-ui" strokeWidth={1.5} />
             <span className="font-body text-sm">{item.title}</span>
           </NavLink>
         </SidebarMenuButton>
