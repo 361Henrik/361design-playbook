@@ -246,7 +246,7 @@ const Dashboard = () => {
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
           {[
-            { num: "1", rule: "Use named spacing tokens (space-1 through space-9) — never arbitrary pixel values." },
+            { num: "1", rule: "Use named spacing values (space-1 through space-9) — never arbitrary pixel values." },
             { num: "2", rule: "Follow the nine typography roles — never invent new sizes or weights." },
             { num: "3", rule: "Constrain content width: max-w-reading (720px) for text, max-w-content (1100px) for pages." },
             { num: "4", rule: "One primary CTA per section. Labels: verb-first, 1–3 words." },
