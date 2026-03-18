@@ -1,4 +1,5 @@
 import { PageHeader } from "@/components/PageHeader";
+import { AppliedExampleRenderer } from "@/components/playbook/AppliedExampleRenderer";
 
 const SignifiersClarity = () => (
   <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
@@ -74,6 +75,15 @@ const SignifiersClarity = () => (
             Unavailable
           </button>
         </div>
+      </section>
+
+      <section className="space-y-4">
+        <AppliedExampleRenderer block={{
+          type: "applied-example",
+          heading: "Applied Example",
+          description: "A single navigation element rendered across clickable, hovered, active, and disabled states.",
+          variant: "signifiers",
+        }} />
       </section>
 
       <section className="space-y-4">

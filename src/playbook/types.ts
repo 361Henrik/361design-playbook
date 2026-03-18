@@ -114,6 +114,13 @@ export interface IconGridBlock {
   groups: { category: string; icons: { name: string; lucideId: string }[] }[];
 }
 
+export interface AppliedExampleBlock {
+  type: "applied-example";
+  heading?: string;
+  description?: string;
+  variant: "spacing-card" | "layout-page" | "interaction-states" | "signifiers" | "motion-sequence" | "color-usage" | "icon-usage";
+}
+
 export interface ChannelKitBlock {
   type: "channel-kit";
   heading?: string;
@@ -152,7 +159,8 @@ export type ContentBlock =
   | ComponentSpecBlock
   | ChannelKitBlock
   | SpacingVisualBlock
-  | IconGridBlock;
+  | IconGridBlock
+  | AppliedExampleBlock;
 
 export interface PlaybookPage {
   section: string;

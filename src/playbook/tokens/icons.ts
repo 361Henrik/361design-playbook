@@ -123,5 +123,11 @@ export const iconsPlaybook: PlaybookPage = {
         "Don't use icons larger than 32px except in hero/empty states.",
       ],
     },
+    {
+      type: "applied-example",
+      heading: "Applied Example",
+      description: "Icons used in navigation items, buttons with labels, and data lists.",
+      variant: "icon-usage",
+    },
   ],
 };

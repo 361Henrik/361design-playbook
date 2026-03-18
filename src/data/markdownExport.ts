@@ -251,6 +251,14 @@ function serializeBlock(block: ContentBlock): string {
     case "channel-kit": return serializeChannelKit(block);
     case "spacing-visual": return serializeSpacingVisual(block);
     case "icon-grid": return serializeIconGrid(block);
+    case "applied-example": {
+      const b = block as Extract<ContentBlock, { type: "applied-example" }>;
+      const lines: string[] = [];
+      if (b.heading) lines.push(`## ${b.heading}\n`);
+      if (b.description) lines.push(`${b.description}\n`);
+      lines.push(`> *Applied example: ${b.variant}* — See the design system app for live preview.\n`);
+      return lines.join("\n");
+    }
     default: return "";
   }
 }

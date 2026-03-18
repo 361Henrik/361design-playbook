@@ -1,4 +1,5 @@
 import { PageHeader } from "@/components/PageHeader";
+import { AppliedExampleRenderer } from "@/components/playbook/AppliedExampleRenderer";
 
 const stateRows = [
   { state: "Default", description: "The resting appearance. Calm, readable, clearly defined." },
@@ -62,6 +63,15 @@ const InteractionStates = () => (
             </div>
           ))}
         </div>
+      </section>
+
+      <section className="space-y-4">
+        <AppliedExampleRenderer block={{
+          type: "applied-example",
+          heading: "Applied Example",
+          description: "A row of buttons showing each interaction state as it appears in the system.",
+          variant: "interaction-states",
+        }} />
       </section>
 
       <div className="p-5 rounded-md border border-border bg-card">
