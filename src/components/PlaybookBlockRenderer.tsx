@@ -140,7 +140,7 @@ function LayerStackBlock({ block }: { block: Extract<ContentBlock, { type: "laye
               <Badge variant="outline" className="text-[10px]">{l.number}</Badge>
               <span className="font-body text-sm font-medium text-foreground">{l.title}</span>
             </div>
-            <p className="font-body text-xs text-muted-foreground mb-1">{l.description}</p>
+            <p className="font-body text-xs text-foreground mb-1">{l.description}</p>
             <div className="flex flex-wrap gap-1">
               {l.items.map((item, j) => (
                 <Badge key={j} variant="secondary" className="text-[10px]">{item}</Badge>
