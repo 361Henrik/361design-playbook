@@ -223,6 +223,7 @@ export function AppSidebar() {
             <p className="text-xs font-body text-foreground/70 mt-1">A single source of truth for The Curated Lens</p>
           </>
         )}
+      </div>
 
       <SidebarContent className="px-3 py-4">
         <SidebarGroup>
