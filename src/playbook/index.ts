@@ -12,7 +12,7 @@ import { operatorBrandingPlaybook } from "./principles/operator-branding";
 import { editorialElegancePlaybook } from "./principles/editorial-elegance";
 import { imageSystemPlaybook } from "./principles/image-system";
 
-// Tokens
+// Foundations
 import { colorsPlaybook } from "./tokens/colors";
 import { typographyPlaybook } from "./tokens/typography";
 import { spacingPlaybook } from "./tokens/spacing";
