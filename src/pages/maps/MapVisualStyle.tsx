@@ -68,7 +68,7 @@ const MapVisualStyle = () => {
         {/* Constraints */}
         <div className="p-5 rounded-md border-2 border-destructive/20 bg-card">
           <p className="text-sm font-body font-medium text-destructive mb-3">✗ Visual Constraints</p>
-          <ul className="space-y-2 text-sm font-body leading-reading text-muted-foreground">
+          <ul className="space-y-2 text-sm font-body leading-reading text-foreground">
             <li className="flex gap-2"><span className="text-destructive">✗</span> No saturated or bright colors on the base map</li>
             <li className="flex gap-2"><span className="text-destructive">✗</span> No gradients on land or water fills</li>
             <li className="flex gap-2"><span className="text-destructive">✗</span> No drop shadows on markers or labels</li>

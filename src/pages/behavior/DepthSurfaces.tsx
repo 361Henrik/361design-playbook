@@ -12,7 +12,7 @@ const DepthSurfaces = () => (
         <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-2">
           Philosophy
         </h3>
-        <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose">
+        <p className="text-sm font-body leading-reading text-foreground max-w-prose">
           The interface is built on a quiet layer model. The background is the foundation, cards rest gently above it, and overlays float above everything. The transitions between layers should feel like turning pages — not like opening drawers.
         </p>
       </div>
@@ -38,7 +38,7 @@ const DepthSurfaces = () => (
           ].map((s) => (
             <div key={s.level} className="p-4 rounded-md border border-border bg-card flex gap-4 items-baseline">
               <span className="font-body text-sm font-medium text-card-foreground w-28 shrink-0">{s.level}</span>
-              <p className="text-sm font-body leading-reading text-muted-foreground">{s.description}</p>
+              <p className="text-sm font-body leading-reading text-foreground">{s.description}</p>
             </div>
           ))}
         </div>
@@ -65,7 +65,7 @@ const DepthSurfaces = () => (
           Principles
         </h2>
         <div className="p-5 rounded-md border border-border bg-card">
-          <ul className="space-y-2 text-sm font-body leading-reading text-muted-foreground">
+          <ul className="space-y-2 text-sm font-body leading-reading text-foreground">
             <li>Prefer border separation over shadow. A 1px border communicates containment without heaviness.</li>
             <li>Shadows are reserved for floating elements (overlays, tooltips). Keep them soft and diffused.</li>
             <li>Never stack more than three visual layers in a single view. Complexity should be managed through navigation, not nesting.</li>

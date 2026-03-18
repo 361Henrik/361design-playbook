@@ -57,7 +57,7 @@ const MapStructure = () => {
 
           <div className="p-5 rounded-md border border-border bg-card">
             <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-3">Layer Stack</h3>
-            <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose mb-4">
+            <p className="text-sm font-body leading-reading text-foreground max-w-prose mb-4">
               Layers are rendered bottom-to-top. Higher layers visually sit above lower layers. The base geography is always present; upper layers are conditionally shown based on zoom level, corridor state, and guest interaction.
             </p>
             <div className="flex flex-col gap-1">
@@ -76,7 +76,7 @@ const MapStructure = () => {
                 <span className="text-xs font-mono text-muted-foreground">Layer {layer.number}</span>
                 <h3 className="font-display text-base font-medium tracking-headline text-card-foreground">{layer.title}</h3>
               </div>
-              <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose mb-3">
+              <p className="text-sm font-body leading-reading text-foreground max-w-prose mb-3">
                 {layer.description}
               </p>
               <div className="flex flex-wrap gap-2">
@@ -89,7 +89,7 @@ const MapStructure = () => {
 
           <div className="p-5 rounded-md border-2 border-destructive/20 bg-card">
             <p className="text-sm font-body font-medium text-destructive mb-3">✗ Layer Rules</p>
-            <ul className="space-y-2 text-sm font-body leading-reading text-muted-foreground">
+            <ul className="space-y-2 text-sm font-body leading-reading text-foreground">
               <li className="flex gap-2"><span className="text-destructive">✗</span> Never merge layers — each layer has distinct rendering logic</li>
               <li className="flex gap-2"><span className="text-destructive">✗</span> Never show POI layer without the route layer visible</li>
               <li className="flex gap-2"><span className="text-destructive">✗</span> Never allow interaction layer to obscure the vessel position</li>
@@ -128,7 +128,7 @@ const MapStructure = () => {
 
           <div className="p-5 rounded-md border border-border bg-card">
             <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-3">Naming Conventions</h3>
-            <ul className="space-y-2 text-sm font-body leading-reading text-muted-foreground">
+            <ul className="space-y-2 text-sm font-body leading-reading text-foreground">
               <li>• Use local names with Latin transliteration where needed</li>
               <li>• Include the English name in parentheses only for major landmarks</li>
               <li>• Water features use italic styling to distinguish from land</li>
@@ -139,7 +139,7 @@ const MapStructure = () => {
 
           <div className="p-5 rounded-md border border-border bg-card">
             <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-3">Visibility Rules</h3>
-            <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose mb-3">
+            <p className="text-sm font-body leading-reading text-foreground max-w-prose mb-3">
               Labels appear and disappear based on corridor state and zoom level. The system prevents label collision and clutter.
             </p>
             <div className="space-y-3">
@@ -160,7 +160,7 @@ const MapStructure = () => {
 
           <div className="p-5 rounded-md border border-border bg-card">
             <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-2">Label Collision</h3>
-            <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose">
+            <p className="text-sm font-body leading-reading text-foreground max-w-prose">
               When labels overlap, higher-level labels take priority. Lower-level labels are hidden — never truncated, never reduced in size. The map should always feel spacious and readable.
             </p>
           </div>

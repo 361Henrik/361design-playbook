@@ -41,7 +41,7 @@ const NavigationLogic = () => {
 
           <div className="p-5 rounded-md border border-border bg-card">
             <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-3">Filter UI Behavior</h3>
-            <ul className="space-y-2 text-sm font-body leading-reading text-muted-foreground">
+            <ul className="space-y-2 text-sm font-body leading-reading text-foreground">
               <li>• Filter bar sits at the top or bottom of the map, depending on device</li>
               <li>• Categories are shown as pill-shaped toggles</li>
               <li>• Active categories use filled style; inactive use outline style</li>
@@ -53,7 +53,7 @@ const NavigationLogic = () => {
 
           <div className="p-5 rounded-md border border-border bg-card">
             <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-3">Default Visibility</h3>
-            <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose mb-3">
+            <p className="text-sm font-body leading-reading text-foreground max-w-prose mb-3">
               On first load, only default-on categories are visible. This ensures the map feels clean and curated. Guests can enable additional categories — but the default must never feel cluttered.
             </p>
             <div className="grid grid-cols-2 gap-3">
@@ -70,7 +70,7 @@ const NavigationLogic = () => {
 
           <div className="p-5 rounded-md border border-border bg-card">
             <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-2">Operator Control</h3>
-            <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose">
+            <p className="text-sm font-body leading-reading text-foreground max-w-prose">
               Operators can customize which categories are default-on per route. They can also create custom categories for specific voyages (e.g., "Wine Region" for a Douro cruise). Custom categories follow the same visual rules as standard categories.
             </p>
           </div>
@@ -82,7 +82,7 @@ const NavigationLogic = () => {
 
           <div className="p-5 rounded-md border border-border bg-card">
             <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-3">Route Line</h3>
-            <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose mb-4">
+            <p className="text-sm font-body leading-reading text-foreground max-w-prose mb-4">
               The route is a single continuous line from embarkation to disembarkation. It is the most prominent element on the map after the base geography.
             </p>
             <div className="space-y-3">
@@ -103,7 +103,7 @@ const NavigationLogic = () => {
 
           <div className="p-5 rounded-md border border-border bg-card">
             <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-3">Vessel Position</h3>
-            <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose mb-3">
+            <p className="text-sm font-body leading-reading text-foreground max-w-prose mb-3">
               The vessel is shown as a solid dot at the current GPS position on the route line. It must always be visible and never obscured by other map elements.
             </p>
             <div className="space-y-3">
@@ -124,10 +124,10 @@ const NavigationLogic = () => {
 
           <div className="p-5 rounded-md border border-border bg-card">
             <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-3">Progress Indication</h3>
-            <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose mb-3">
+            <p className="text-sm font-body leading-reading text-foreground max-w-prose mb-3">
               Progress is shown through the contrast between completed (dark) and upcoming (light) route segments. No percentage, no progress bar, no numeric distance.
             </p>
-            <ul className="space-y-1.5 text-sm font-body leading-reading text-muted-foreground">
+            <ul className="space-y-1.5 text-sm font-body leading-reading text-foreground">
               <li>• The completed/upcoming split at the vessel position is the only progress indicator</li>
               <li>• Port stops along the route are shown as small circles on the route line</li>
               <li>• Visited ports use the completed style; upcoming ports use the upcoming style</li>
@@ -136,7 +136,7 @@ const NavigationLogic = () => {
 
           <div className="p-5 rounded-md border-2 border-destructive/20 bg-card">
             <p className="text-sm font-body font-medium text-destructive mb-3">✗ Route Constraints</p>
-            <ul className="space-y-2 text-sm font-body leading-reading text-muted-foreground">
+            <ul className="space-y-2 text-sm font-body leading-reading text-foreground">
               <li className="flex gap-2"><span className="text-destructive">✗</span> No dashed or dotted route lines</li>
               <li className="flex gap-2"><span className="text-destructive">✗</span> No directional arrows on the route</li>
               <li className="flex gap-2"><span className="text-destructive">✗</span> No glowing, pulsing, or animated vessel marker</li>

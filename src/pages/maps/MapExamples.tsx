@@ -67,7 +67,7 @@ const MapExamples = () => {
               <span className="px-2 py-0.5 rounded-full bg-primary/10 text-[10px] font-body font-medium text-primary">{scenario.type}</span>
             </div>
             <p className="text-xs font-mono text-muted-foreground mb-3">Corridor: {scenario.corridor}</p>
-            <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose mb-4">
+            <p className="text-sm font-body leading-reading text-foreground max-w-prose mb-4">
               {scenario.description}
             </p>
             <div className="space-y-1.5">
@@ -82,7 +82,7 @@ const MapExamples = () => {
         {/* Summary */}
         <div className="p-5 rounded-md border border-border bg-card">
           <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-2">Pattern Summary</h3>
-          <p className="text-sm font-body leading-reading text-muted-foreground max-w-prose">
+          <p className="text-sm font-body leading-reading text-foreground max-w-prose">
             The map system adapts to each voyage context through corridor width, label density, and POI category defaults. The core principles — calm, curated, readable — remain constant regardless of geography. The operator's role is to define the scenic envelope; the system's role is to present it elegantly.
           </p>
         </div>
