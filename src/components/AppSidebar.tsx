@@ -220,11 +220,9 @@ export function AppSidebar() {
               {activeWorkspace?.name || "The Curated Lens"}
             </h1>
             <p className="text-sm font-body font-medium text-accent tracking-[0.03em] mt-1.5">Design System Hub</p>
+            <p className="text-xs font-body text-foreground/70 mt-1">A single source of truth for The Curated Lens</p>
           </>
         )}
-      </div>
-
-      <WelcomePanel onStartTour={() => setTourOpen(true)} onboardingCompleted={onboardingCompleted} />
 
       <SidebarContent className="px-3 py-4">
         <SidebarGroup>
