@@ -372,7 +372,7 @@ export interface ExportFile {
 
 const sectionFolderMap: Record<string, string> = {
   Principles: "01-principles",
-  Tokens: "02-tokens",
+  Foundations: "02-foundations",
   Components: "03-components",
   Patterns: "04-patterns",
   "Channel Kits": "04b-channel-kits",
