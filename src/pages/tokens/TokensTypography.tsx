@@ -158,7 +158,7 @@ const TokensTypography = () => {
           <div key={t.name} className="p-5 rounded-md border border-border bg-card">
             <div className="flex items-baseline justify-between mb-1">
               <h3 className="font-display text-h3 text-card-foreground">{t.name}</h3>
-              <div className="flex gap-3 text-caption font-body text-muted-foreground shrink-0 ml-4">
+              <div className="flex gap-3 text-caption font-body text-foreground shrink-0 ml-4">
                 <span>{t.font}</span>
                 <span>w{t.weight}</span>
                 <span>lh {t.lineHeight}</span>
