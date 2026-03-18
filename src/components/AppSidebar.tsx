@@ -1,13 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useWorkspace } from "@/hooks/useWorkspace";
 import { NotificationCenter } from "@/components/NotificationCenter";
-import { WelcomePanel } from "@/components/WelcomePanel";
-import { OnboardingTour } from "@/components/OnboardingTour";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { supabase } from "@/integrations/supabase/client";
+
 import {
   Sidebar,
   SidebarContent,
@@ -163,25 +161,6 @@ export function AppSidebar() {
   const { user, signOut } = useAuth();
   const isMobile = useIsMobile();
   const { workspaces, activeWorkspace, setActiveWorkspaceId } = useWorkspace();
-  const [tourOpen, setTourOpen] = useState(false);
-  const [onboardingCompleted, setOnboardingCompleted] = useState(false);
-
-  useEffect(() => {
-    if (!user) return;
-    supabase
-      .from("profiles")
-      .select("onboarding_completed")
-      .eq("id", user.id)
-      .single()
-      .then(({ data }) => {
-        if (data?.onboarding_completed) setOnboardingCompleted(true);
-      });
-  }, [user]);
-
-  const handleTourComplete = () => {
-    setOnboardingCompleted(true);
-    try { localStorage.setItem("welcome_panel_collapsed", "true"); } catch {}
-  };
 
   const renderItems = (items: typeof mainNav) =>
     items.map((item) => (
@@ -220,11 +199,10 @@ export function AppSidebar() {
               {activeWorkspace?.name || "The Curated Lens"}
             </h1>
             <p className="text-sm font-body font-medium text-accent tracking-[0.03em] mt-1.5">Design System Hub</p>
+            <p className="text-xs font-body text-foreground/70 mt-1">A single source of truth for The Curated Lens</p>
           </>
         )}
       </div>
-
-      <WelcomePanel onStartTour={() => setTourOpen(true)} onboardingCompleted={onboardingCompleted} />
 
       <SidebarContent className="px-3 py-4">
         <SidebarGroup>
@@ -287,7 +265,7 @@ export function AppSidebar() {
           <p className="text-[10px] font-mono text-sidebar-primary/50 mt-2">⌘K to search</p>
         </div>
       )}
-      <OnboardingTour forceOpen={tourOpen} onClose={() => setTourOpen(false)} onTourComplete={handleTourComplete} />
+      
     </Sidebar>
   );
 }
