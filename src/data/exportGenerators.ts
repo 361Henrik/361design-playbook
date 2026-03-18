@@ -333,10 +333,10 @@ export function downloadFile(content: string, filename: string, mimeType = "text
 export type ExportFormat = "css" | "tailwind" | "json" | "typescript";
 
 export const exportFormats: { id: ExportFormat; label: string; filename: string; description: string }[] = [
-  { id: "css", label: "CSS Custom Properties", filename: "tokens.css", description: "Ready-to-use CSS variables for any framework." },
-  { id: "json", label: "JSON", filename: "tokens.json", description: "Machine-readable token definitions for tooling." },
+  { id: "css", label: "CSS Custom Properties", filename: "foundations.css", description: "Ready-to-use CSS variables for any framework." },
+  { id: "json", label: "JSON", filename: "foundations.json", description: "Machine-readable design definitions for tooling." },
   { id: "tailwind", label: "Tailwind Config", filename: "tailwind.config.ts", description: "Drop-in Tailwind CSS configuration file." },
-  { id: "typescript", label: "TypeScript", filename: "tokens.ts", description: "Typed constants for programmatic token access." },
+  { id: "typescript", label: "TypeScript", filename: "foundations.ts", description: "Typed constants for programmatic access." },
 ];
 
 export function getExportContent(format: ExportFormat): string {
