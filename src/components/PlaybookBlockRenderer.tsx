@@ -229,7 +229,7 @@ function ChannelKitBlock({ block }: { block: Extract<ContentBlock, { type: "chan
               <Badge key={j} variant="secondary" className="text-[10px]">{t}</Badge>
             ))}
           </div>
-          <p className="font-body text-xs text-muted-foreground">Spacing: {kit.spacingProfile} · Colour emphasis: {kit.colorEmphasis}</p>
+          <p className="font-body text-xs text-foreground">Spacing: {kit.spacingProfile} · Colour emphasis: {kit.colorEmphasis}</p>
         </div>
       ))}
     </div>

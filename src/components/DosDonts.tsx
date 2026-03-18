@@ -20,7 +20,7 @@ export function DosDonts({ dos, donts }: DosDontsProps) {
         <p className="text-sm font-body font-medium text-destructive mb-3">✗ Don't</p>
         <ul className="space-y-2">
           {donts.map((item, i) => (
-            <li key={i} className="text-sm font-body leading-reading text-muted-foreground">
+            <li key={i} className="text-sm font-body leading-reading text-foreground">
               {item}
             </li>
           ))}
