@@ -125,7 +125,7 @@ function MapsAccordionNav(): JSX.Element {
                   : "text-sidebar-foreground hover:text-foreground"
               }`}
             >
-              <Map className="nav-icon h-4 w-4 shrink-0 text-bronze-muted group-hover:text-accent transition-colors duration-ui" strokeWidth={1.5} />
+              <Map className="nav-icon h-4 w-4 shrink-0 text-accent group-hover:text-accent transition-colors duration-ui" strokeWidth={1.5} />
               <span className="font-body text-sm flex-1">MAP</span>
               <ChevronRight
                 className={`h-3 w-3 text-sidebar-primary/60 transition-transform duration-ui ${
@@ -193,7 +193,7 @@ export function AppSidebar() {
             className="group flex items-center gap-3 px-3 py-2 rounded-md text-sidebar-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors duration-ui"
             activeClassName="text-foreground font-semibold border-l-2 border-sidebar-primary [&_.nav-icon]:opacity-100"
           >
-            <item.icon className="nav-icon h-4 w-4 shrink-0 text-bronze-muted group-hover:text-accent transition-colors duration-ui" strokeWidth={1.5} />
+            <item.icon className="nav-icon h-4 w-4 shrink-0 text-accent group-hover:text-accent transition-colors duration-ui" strokeWidth={1.5} />
             <span className="font-body text-sm">{item.title}</span>
           </NavLink>
         </SidebarMenuButton>
@@ -219,7 +219,7 @@ export function AppSidebar() {
             <h1 className="font-display text-lg font-medium tracking-headline text-sidebar-foreground leading-section">
               {activeWorkspace?.name || "The Curated Lens"}
             </h1>
-            <p className="text-xs font-body text-sidebar-primary/70 mt-1">Design System Hub</p>
+            <p className="text-sm font-body font-medium text-accent tracking-[0.03em] mt-1.5">Design System Hub</p>
           </>
         )}
       </div>
