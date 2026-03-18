@@ -11,7 +11,7 @@ function TextBlock({ block }: { block: Extract<ContentBlock, { type: "text" }> }
       {block.heading && (
         <h4 className="font-display text-base font-semibold text-foreground">{block.heading}</h4>
       )}
-      <p className="font-body text-sm leading-reading text-muted-foreground whitespace-pre-line">{block.body}</p>
+      <p className="font-body text-sm leading-reading text-foreground whitespace-pre-line">{block.body}</p>
     </div>
   );
 }
