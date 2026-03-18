@@ -29,8 +29,8 @@
     --destructive: 0 72% 51%;
     --destructive-foreground: 37 33% 95%;
 
-    --border: 32 14% 80%;               /* #D4CCC1 — single warm border */
-    --input: 32 14% 80%;
+    --border: 33 12% 76%;               /* #CCC4B8 — warm border, visible on both surfaces */
+    --input: 33 12% 76%;
     --ring: 218 38% 18%;
 
     --radius: 0.375rem;
