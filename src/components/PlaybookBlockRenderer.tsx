@@ -202,7 +202,7 @@ function ComponentSpecBlock({ block }: { block: Extract<ContentBlock, { type: "c
       {block.components.map((comp, i) => (
         <div key={i} className="p-4 rounded-md border border-border bg-card space-y-2">
           <p className="font-display text-sm font-semibold text-foreground">{comp.name}</p>
-          <p className="font-body text-xs text-muted-foreground">{comp.description}</p>
+          <p className="font-body text-xs text-foreground">{comp.description}</p>
           {comp.anatomy && (
             <p className="font-body text-xs text-muted-foreground"><span className="font-medium">Anatomy:</span> {comp.anatomy}</p>
           )}
