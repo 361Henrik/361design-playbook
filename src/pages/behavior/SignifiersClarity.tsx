@@ -78,6 +78,15 @@ const SignifiersClarity = () => (
       </section>
 
       <section className="space-y-4">
+        <AppliedExampleRenderer block={{
+          type: "applied-example",
+          heading: "Applied Example",
+          description: "A single navigation element rendered across clickable, hovered, active, and disabled states.",
+          variant: "signifiers",
+        }} />
+      </section>
+
+      <section className="space-y-4">
         <h2 className="font-display text-xl font-medium tracking-headline text-foreground">
           Containers & Contrast
         </h2>

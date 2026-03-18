@@ -65,6 +65,15 @@ const InteractionStates = () => (
         </div>
       </section>
 
+      <section className="space-y-4">
+        <AppliedExampleRenderer block={{
+          type: "applied-example",
+          heading: "Applied Example",
+          description: "A row of buttons showing each interaction state as it appears in the system.",
+          variant: "interaction-states",
+        }} />
+      </section>
+
       <div className="p-5 rounded-md border border-border bg-card">
         <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-2">
           A Note on Consistency
