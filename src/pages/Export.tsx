@@ -134,7 +134,7 @@ const ExportPage = () => {
         </TabsList>
 
         {/* ── Token Export Tab ── */}
-        <TabsContent value="tokens" className="space-y-10">
+        <TabsContent value="foundations" className="space-y-10">
           {canonicalCount > 0 && (
             <div className="flex items-center gap-2 px-3 py-2 rounded-md bg-primary/5 border border-primary/20">
               <Crown className="h-3.5 w-3.5 text-primary" strokeWidth={1.5} />
