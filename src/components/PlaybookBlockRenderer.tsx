@@ -181,7 +181,7 @@ function ScenarioBlock({ block }: { block: Extract<ContentBlock, { type: "scenar
         <div key={i} className="p-3 rounded-md border border-border bg-card">
           <p className="font-body text-sm font-medium text-foreground">{s.title}</p>
           {s.type && <Badge variant="outline" className="text-[10px] mt-1">{s.type}</Badge>}
-          <p className="font-body text-xs text-muted-foreground mt-1">{s.description}</p>
+          <p className="font-body text-xs text-foreground mt-1">{s.description}</p>
           <ul className="mt-2 space-y-0.5">
             {s.features.map((f, j) => (
               <li key={j} className="font-body text-xs text-muted-foreground">• {f}</li>
