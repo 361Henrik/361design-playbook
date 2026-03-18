@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "@/hooks/useAuth";
 import { WorkspaceProvider } from "@/hooks/useWorkspace";
 import { AppShell } from "@/components/AppShell";
-import Dashboard from "./pages/Dashboard";
+
 import TokensColors from "./pages/tokens/TokensColors";
 import TokensTypography from "./pages/tokens/TokensTypography";
 import TokensSpacing from "./pages/tokens/TokensSpacing";
@@ -68,7 +68,7 @@ function ProtectedRoutes() {
     <WorkspaceProvider>
       <AppShell>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<Navigate to="/maps/principles" replace />} />
           <Route path="/tokens/colors" element={<TokensColors />} />
           <Route path="/tokens/typography" element={<TokensTypography />} />
           <Route path="/tokens/spacing" element={<TokensSpacing />} />

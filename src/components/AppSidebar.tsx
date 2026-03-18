@@ -20,7 +20,7 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
 import {
-  LayoutDashboard,
+  
   Palette,
   Type,
   Ruler,
@@ -47,10 +47,6 @@ import {
   ChevronRight,
   MousePointer,
 } from "lucide-react";
-
-const mainNav = [
-  { title: "Dashboard", url: "/", icon: LayoutDashboard },
-];
 
 const tokenNav = [
   { title: "Colors", url: "/tokens/colors", icon: Palette },
@@ -162,7 +158,7 @@ export function AppSidebar() {
   const isMobile = useIsMobile();
   const { workspaces, activeWorkspace, setActiveWorkspaceId } = useWorkspace();
 
-  const renderItems = (items: typeof mainNav) =>
+  const renderItems = (items: typeof tokenNav) =>
     items.map((item) => (
       <SidebarMenuItem key={item.title}>
         <SidebarMenuButton asChild>
@@ -205,11 +201,6 @@ export function AppSidebar() {
       </div>
 
       <SidebarContent className="px-3 py-4">
-        <SidebarGroup>
-          <SidebarGroupContent>
-            <SidebarMenu>{renderItems(mainNav)}</SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
 
         <MapsAccordionNav />
 
