@@ -201,11 +201,6 @@ export function AppSidebar() {
       </div>
 
       <SidebarContent className="px-3 py-4">
-        <SidebarGroup>
-          <SidebarGroupContent>
-            <SidebarMenu>{renderItems(mainNav)}</SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
 
         <MapsAccordionNav />
 
