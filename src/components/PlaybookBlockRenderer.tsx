@@ -56,7 +56,7 @@ function SpecTableBlock({ block }: { block: Extract<ContentBlock, { type: "spec-
         <h4 className="font-display text-base font-semibold text-foreground">{block.heading}</h4>
       )}
       {block.description && (
-        <p className="font-body text-xs text-muted-foreground mb-2">{block.description}</p>
+        <p className="font-body text-xs text-foreground mb-2">{block.description}</p>
       )}
       <div className="overflow-x-auto rounded-md border border-border">
         <table className="w-full text-sm">
