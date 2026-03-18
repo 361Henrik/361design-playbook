@@ -217,7 +217,7 @@ export function generateTypeScript(overrideTokens?: typeof tokens): string {
     )
     .join(",\n");
 
-  return `// Curated Lens Design System — Token Constants
+  return `// Curated Lens Design System — Foundation Constants
 // Auto-generated. Deterministic output — safe to commit.
 
 export const colors = {
