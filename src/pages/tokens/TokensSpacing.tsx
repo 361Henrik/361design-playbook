@@ -110,7 +110,7 @@ const TokensSpacing = () => {
             <h2 className="font-display text-h2 text-foreground mb-4">Do / Don't</h2>
             <DosDonts
               dos={[
-                "Always use named spacing tokens (space-1 through space-9) instead of arbitrary pixel values.",
+                "Always use named spacing values (space-1 through space-9) instead of arbitrary pixel values.",
                 "Use space-8 (64px) between major sections for clear separation.",
                 "Use space-4 (16px) as the default component internal padding.",
                 "Maintain hierarchy: section > block > component > text stack > tight.",
