@@ -11,17 +11,17 @@ const TokensMotion = () => {
   return (
     <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
       <PageHeader
-        title="Motion Tokens"
+        title="Interaction · Motion"
         description="UI transitions 300–400ms with ease-out. Hero movement 8–20s subtle loop. Restraint in every interaction."
       />
 
-      <Tabs defaultValue="tokens" className="mt-6">
+      <Tabs defaultValue="rules" className="mt-6">
         <TabsList>
-          <TabsTrigger value="tokens">Tokens</TabsTrigger>
+          <TabsTrigger value="rules">Motion Rules</TabsTrigger>
           <TabsTrigger value="examples">Examples</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="tokens">
+        <TabsContent value="rules">
           <div className="space-y-6">
             {/* UI Transitions */}
             <div className="p-5 rounded-md border border-border bg-card">

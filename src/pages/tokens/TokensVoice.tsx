@@ -97,7 +97,7 @@ const TokensVoice = () => {
             <Card>
               <CardContent className="py-12 text-center">
                 <p className="text-sm font-body text-muted-foreground">
-                  No voice tokens defined yet.
+                  No voice rules defined yet.
                 </p>
               </CardContent>
             </Card>

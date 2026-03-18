@@ -28,7 +28,7 @@ const TokensColors = () => {
           <TabsTrigger value="examples">Examples</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="tokens">
+        <TabsContent value="system">
           {/* System Modes */}
           <div className="mb-10 p-5 rounded-md border border-border bg-card">
             <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-4">System Modes</h3>
