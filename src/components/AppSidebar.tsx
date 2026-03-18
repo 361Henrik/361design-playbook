@@ -161,25 +161,6 @@ export function AppSidebar() {
   const { user, signOut } = useAuth();
   const isMobile = useIsMobile();
   const { workspaces, activeWorkspace, setActiveWorkspaceId } = useWorkspace();
-  const [tourOpen, setTourOpen] = useState(false);
-  const [onboardingCompleted, setOnboardingCompleted] = useState(false);
-
-  useEffect(() => {
-    if (!user) return;
-    supabase
-      .from("profiles")
-      .select("onboarding_completed")
-      .eq("id", user.id)
-      .single()
-      .then(({ data }) => {
-        if (data?.onboarding_completed) setOnboardingCompleted(true);
-      });
-  }, [user]);
-
-  const handleTourComplete = () => {
-    setOnboardingCompleted(true);
-    try { localStorage.setItem("welcome_panel_collapsed", "true"); } catch {}
-  };
 
   const renderItems = (items: typeof mainNav) =>
     items.map((item) => (
