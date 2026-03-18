@@ -184,7 +184,7 @@ function ScenarioBlock({ block }: { block: Extract<ContentBlock, { type: "scenar
           <p className="font-body text-xs text-foreground mt-1">{s.description}</p>
           <ul className="mt-2 space-y-0.5">
             {s.features.map((f, j) => (
-              <li key={j} className="font-body text-xs text-muted-foreground">• {f}</li>
+              <li key={j} className="font-body text-xs text-foreground">• {f}</li>
             ))}
           </ul>
         </div>
