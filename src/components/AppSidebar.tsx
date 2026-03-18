@@ -111,7 +111,7 @@ function MapsAccordionNav(): JSX.Element {
 
   return (
     <SidebarGroup>
-        <SidebarGroupLabel className="px-3 text-[10px] uppercase tracking-widest text-sidebar-primary/70 font-body font-medium mb-1">
+        <SidebarGroupLabel className="px-3 text-[13px] uppercase tracking-[0.05em] text-foreground font-medium mb-2 mt-4">
         Maps
       </SidebarGroupLabel>
       <SidebarGroupContent>
@@ -236,7 +236,7 @@ export function AppSidebar() {
         <MapsAccordionNav />
 
         <SidebarGroup>
-          <SidebarGroupLabel className="px-3 text-[10px] uppercase tracking-widest text-sidebar-primary/70 font-body font-medium mb-1">
+          <SidebarGroupLabel className="px-3 text-[13px] uppercase tracking-[0.05em] text-foreground font-medium mb-2 mt-4 pt-4 border-t border-border/60">
             Foundations
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -245,7 +245,7 @@ export function AppSidebar() {
         </SidebarGroup>
 
         <SidebarGroup>
-          <SidebarGroupLabel className="px-3 text-[10px] uppercase tracking-widest text-sidebar-primary/70 font-body font-medium mb-1">
+          <SidebarGroupLabel className="px-3 text-[13px] uppercase tracking-[0.05em] text-foreground font-medium mb-2 mt-4 pt-4 border-t border-border/60">
             Interaction
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -254,7 +254,7 @@ export function AppSidebar() {
         </SidebarGroup>
 
         <SidebarGroup>
-          <SidebarGroupLabel className="px-3 text-[10px] uppercase tracking-widest text-sidebar-primary/70 font-body font-medium mb-1">
+          <SidebarGroupLabel className="px-3 text-[13px] uppercase tracking-[0.05em] text-foreground font-medium mb-2 mt-4 pt-4 border-t border-border/60">
             System
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -263,7 +263,7 @@ export function AppSidebar() {
         </SidebarGroup>
 
         <SidebarGroup>
-          <SidebarGroupLabel className="px-3 text-[10px] uppercase tracking-widest text-sidebar-primary/70 font-body font-medium mb-1">
+          <SidebarGroupLabel className="px-3 text-[13px] uppercase tracking-[0.05em] text-foreground font-medium mb-2 mt-4 pt-4 border-t border-border/60">
             Tools
           </SidebarGroupLabel>
           <SidebarGroupContent>
