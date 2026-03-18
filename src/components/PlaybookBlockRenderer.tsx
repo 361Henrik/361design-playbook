@@ -252,6 +252,7 @@ export function PlaybookBlockRenderer({ block }: { block: ContentBlock }) {
     case "channel-kit": return <ChannelKitBlock block={block} />;
     case "spacing-visual": return <SpacingVisualBlock block={block} />;
     case "icon-grid": return <IconGridBlock block={block} />;
+    case "applied-example": return <AppliedExampleRenderer block={block} />;
     default: return null;
   }
 }

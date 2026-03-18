@@ -159,7 +159,8 @@ export type ContentBlock =
   | ComponentSpecBlock
   | ChannelKitBlock
   | SpacingVisualBlock
-  | IconGridBlock;
+  | IconGridBlock
+  | AppliedExampleBlock;
 
 export interface PlaybookPage {
   section: string;
