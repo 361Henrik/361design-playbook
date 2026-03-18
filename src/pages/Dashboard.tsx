@@ -126,7 +126,7 @@ const Dashboard = () => {
     <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
       <PageHeader
         title="Design System Hub"
-        description="The single source of truth for Curated Lens. Browse tokens, components, and guidelines — all enforced with brand guardrails."
+        description="The single source of truth for Curated Lens. Browse foundations, components, and guidelines — all enforced with brand guardrails."
       />
 
       {/* Onboarding checklist */}
