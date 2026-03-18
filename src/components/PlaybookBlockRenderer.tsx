@@ -112,7 +112,7 @@ function TokenRefBlock({ block }: { block: Extract<ContentBlock, { type: "token-
           <div key={i} className="p-3 rounded-md border border-border bg-card">
             <p className="font-mono text-xs text-foreground">{t.name}</p>
             <p className="font-mono text-xs text-muted-foreground">{t.value}</p>
-            {t.description && <p className="font-body text-xs text-muted-foreground mt-1">{t.description}</p>}
+            {t.description && <p className="font-body text-xs text-foreground mt-1">{t.description}</p>}
           </div>
         ))}
       </div>
