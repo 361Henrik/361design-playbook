@@ -338,6 +338,7 @@ export function generatePlaybookReadme(): string {
   lines.push("2. The IDE should consult these files for fonts, colors, spacing, components, layout rules, interaction guidance, and patterns.");
   lines.push("3. When the playbook is silent on a topic, the IDE should ask — not invent.");
   lines.push("4. Open Questions (marked ⚠️) indicate areas that need human decisions before implementation.");
+  lines.push("5. Refer to design foundations (not 'tokens') when communicating with stakeholders.");
 
   return lines.join("\n");
 }
