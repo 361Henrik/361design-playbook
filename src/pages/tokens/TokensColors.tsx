@@ -18,13 +18,13 @@ const TokensColors = () => {
   return (
     <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
       <PageHeader
-        title="Color Tokens"
+        title="Foundations · Color"
         description="The Curated Lens uses a neutral foundation with marine blue for interaction and champagne bronze for subtle highlights. No colored backgrounds — neutrals dominate."
       />
 
-      <Tabs defaultValue="tokens" className="mt-6">
+      <Tabs defaultValue="system" className="mt-6">
         <TabsList>
-          <TabsTrigger value="tokens">Tokens</TabsTrigger>
+          <TabsTrigger value="system">Color System</TabsTrigger>
           <TabsTrigger value="examples">Examples</TabsTrigger>
         </TabsList>
 
