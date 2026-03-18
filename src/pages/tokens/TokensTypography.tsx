@@ -115,19 +115,19 @@ const TokensTypography = () => {
       {/* Font stack overview */}
       <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
         <div className="p-5 rounded-md border border-border bg-card">
-          <p className="text-caption font-body font-medium text-muted-foreground uppercase tracking-widest mb-3">Display Font</p>
+          <p className="text-caption font-body font-medium text-foreground uppercase tracking-widest mb-3">Display Font</p>
           <p className="font-display text-h1 text-card-foreground">Playfair Display</p>
-          <p className="mt-2 text-caption font-body text-muted-foreground">Weight 500 (default) · 600 (rare, emphasis only)</p>
-          <p className="mt-1 text-caption font-body text-muted-foreground">Used for: Display, H1, H2, H3</p>
+          <p className="mt-2 text-body-sm font-body text-foreground">Weight 500 (default) · 600 (rare, emphasis only)</p>
+          <p className="mt-1 text-body-sm font-body text-foreground">Used for: Display, H1, H2, H3</p>
           <div className="mt-3">
             <CopyButton value='font-family: "Playfair Display", Georgia, serif' label="CSS" />
           </div>
         </div>
         <div className="p-5 rounded-md border border-border bg-card">
-          <p className="text-caption font-body font-medium text-muted-foreground uppercase tracking-widest mb-3">Body Font</p>
+          <p className="text-caption font-body font-medium text-foreground uppercase tracking-widest mb-3">Body Font</p>
           <p className="font-body text-h1 font-medium text-card-foreground">Lexend</p>
-          <p className="mt-2 text-caption font-body text-muted-foreground">Weight 400 (body) · 500 (label/CTA) · Never 300</p>
-          <p className="mt-1 text-caption font-body text-muted-foreground">Used for: Body Large, Body, Body Small, Label, Caption</p>
+          <p className="mt-2 text-body-sm font-body text-foreground">Weight 400 (body) · 500 (label/CTA) · Never 300</p>
+          <p className="mt-1 text-body-sm font-body text-foreground">Used for: Body Large, Body, Body Small, Label, Caption</p>
           <div className="mt-3">
             <CopyButton value='font-family: Lexend, system-ui, sans-serif' label="CSS" />
           </div>
@@ -158,7 +158,7 @@ const TokensTypography = () => {
           <div key={t.name} className="p-5 rounded-md border border-border bg-card">
             <div className="flex items-baseline justify-between mb-1">
               <h3 className="font-display text-h3 text-card-foreground">{t.name}</h3>
-              <div className="flex gap-3 text-caption font-body text-muted-foreground shrink-0 ml-4">
+              <div className="flex gap-3 text-caption font-body text-foreground shrink-0 ml-4">
                 <span>{t.font}</span>
                 <span>w{t.weight}</span>
                 <span>lh {t.lineHeight}</span>
