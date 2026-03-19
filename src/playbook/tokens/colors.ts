@@ -19,7 +19,7 @@ export const colorsPlaybook: PlaybookPage = {
       colors: [
         {
           name: "Warm Canvas",
-          value: "#E6D8C3 (HSL 36 41% 83%)",
+          value: "#EEE7DD (HSL 36 33% 90%)",
           description: "Primary background. Every main surface uses this color. It is the canvas of the system. CSS: --background, Tailwind: background",
         },
         {
