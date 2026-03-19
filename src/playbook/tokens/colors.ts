@@ -121,8 +121,26 @@ export const colorsPlaybook: PlaybookPage = {
     },
     {
       type: "text",
-      heading: "Bronze as Supporting Surface",
-      body: "In hero sections and key action areas, Champagne Bronze may be used as a subtle supporting surface behind primary CTAs. This creates a layered, materially rich composition:\n\n**Deep Green** = environment (structural surface)\n**Bronze** = material richness (supporting layer, ~12% opacity)\n**Terracotta** = action (CTA on top)\n\nBronze must support the CTA, not compete with it. Use the `.cta-cradle` utility class: a softly bordered container with `hsl(var(--bronze) / 0.12)` background. On deep green surfaces, opacity increases slightly to `0.15`.\n\n**Prohibited:** Bronze as a primary background, bronze buttons, bronze replacing CTA color, or bronze overpowering green or terracotta.",
+      heading: "Color Environments",
+      body: "Every surface belongs to one of three color environments. Each environment dictates which CTA colors are permitted and which combinations are prohibited.\n\n### Green Environment (Deep Green backgrounds)\nUsed for hero sections, navigation surfaces, and anchor panels.\n- **CTA:** Cream or White buttons only.\n- **Optional:** Champagne Bronze as a subtle supporting surface (CTA cradle at ~12–15% opacity).\n- **Prohibited:** Terracotta CTA on green. Bronze + Terracotta combinations.\n\n### Cream Environment (Base Canvas / Warm Stone)\nUsed for main content areas and reading surfaces.\n- **CTA:** Terracotta buttons.\n- **Prohibited:** Bronze surface behind Terracotta CTA. Green CTA.\n\n### Terracotta Environment (rare, controlled)\nUsed for emphasis panels and highlight sections.\n- **CTA:** Cream or Deep Charcoal buttons only.\n- **Prohibited:** Green CTA. Bronze surfaces.\n\n### Global Rule\nDo not stack warm or dominant colors in the same interaction layer. Each environment must have one dominant surface color and one clear interaction color. Visual priority: Background defines environment → CTA must contrast clearly with background → Supporting colors must never compete with CTA.",
+    },
+    {
+      type: "do-dont",
+      heading: "Environment CTA Rules",
+      dos: [
+        "On Deep Green: use Cream / White CTA buttons.",
+        "On Base Canvas: use Terracotta CTA buttons with no bronze cradle.",
+        "On Terracotta panels: use Cream or Deep Charcoal CTA buttons.",
+        "Use the bronze CTA cradle only on Deep Green surfaces.",
+        "Ensure each environment has exactly one dominant surface and one interaction color.",
+      ],
+      donts: [
+        "Never place Terracotta CTA on Deep Green backgrounds.",
+        "Never place a bronze cradle behind a Terracotta CTA on Cream surfaces.",
+        "Never use Green as a CTA color in any environment.",
+        "Never stack warm or dominant colors (Terracotta + Bronze) in the same interaction layer.",
+        "Never use Terracotta as a structural surface or full panel background.",
+      ],
     },
     {
       type: "text",
