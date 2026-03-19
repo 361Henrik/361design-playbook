@@ -327,7 +327,7 @@ const TokensLayout = () => {
                   </div>
                 </div>
                 <div className="px-4 py-2 border-t border-border bg-muted/40">
-                  <span className="text-caption font-body text-muted-foreground">3 col sidebar (bg-primary) + 9 col content (bg-background) · gap space-5</span>
+                  <span className="text-caption font-body text-muted-foreground">3 col sidebar (bg-deep-green) + 9 col content (bg-background) · gap space-5</span>
                 </div>
               </div>
             </div>
