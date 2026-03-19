@@ -115,7 +115,7 @@ const TokensColors = () => {
           dos={[
             "Use terracotta exclusively for interactive elements — buttons, links, active states.",
             "Use deep green for structural emphasis — section backgrounds, identity panels.",
-            "Use bronze sparingly — icon highlights, selected markers, thin dividers.",
+            "Use bronze sparingly — icon highlights, selected markers, thin dividers. As text, only on deep green.",
             "Keep Warm Canvas dominant — it is the visual foundation.",
             "Use Deep Charcoal for all primary text. One weight of dark, no variations.",
             "Use the single Muted tone for all secondary text. No additional greys.",
