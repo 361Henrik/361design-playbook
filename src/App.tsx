@@ -44,6 +44,7 @@ import MotionTransitionsPage from "./pages/behavior/MotionTransitions";
 import SemanticColorPage from "./pages/behavior/SemanticColor";
 import DepthSurfacesPage from "./pages/behavior/DepthSurfaces";
 import DarkModePage from "./pages/behavior/DarkMode";
+import CTASystemPage from "./pages/behavior/CTASystem";
 import AuthPage from "./pages/Auth";
 import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
