@@ -81,7 +81,7 @@ const TokensColors = () => {
             { bg: "bg-background", fg: "text-foreground", label: "Deep Charcoal on Warm Canvas" },
             { bg: "bg-deep-green", fg: "text-primary-foreground", label: "Cream on Deep Green" },
             { bg: "bg-card", fg: "text-card-foreground", label: "Deep Charcoal on Warm Stone" },
-            { bg: "bg-background", fg: "text-accent", label: "Bronze on Warm Canvas (accent only)" },
+            { bg: "bg-deep-green", fg: "text-accent", label: "Bronze on Deep Green (headings only)" },
           ].map((pair) => (
             <div key={pair.label} className={`p-5 rounded-md border border-border ${pair.bg}`}>
               <p className={`text-sm font-body font-medium ${pair.fg}`}>{pair.label}</p>
