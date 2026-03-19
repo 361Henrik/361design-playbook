@@ -14,7 +14,7 @@ const COMPONENT_INDEX = [
   { name: "Text Link Button", category: "buttons", dos: ["Inline navigation"], donts: ["Never as primary CTA"] },
   { name: "Destructive Button", category: "buttons", dos: ["Delete/remove only", "Always with confirmation"], donts: ["Not for cancel/dismiss"] },
   { name: "Primary Context Card", category: "cards", dos: ["Warm Off-White bg", "One idea per card"], donts: ["No nested cards", "No colored backgrounds"] },
-  { name: "Anchor Context Panel", category: "cards", dos: ["Deep Marine Blue bg", "One per major section"], donts: ["Never stack two back-to-back"] },
+  { name: "Anchor Context Panel", category: "cards", dos: ["Deep Green bg", "One per major section"], donts: ["Never stack two back-to-back"] },
   { name: "Panel Pairing", category: "cards", dos: ["Hero sections", "50/50 or 60/40 split"], donts: ["Max one per page section", "No third panel"] },
   { name: "Text Input", category: "forms", dos: ["Always with visible Label"], donts: ["No placeholder-only labels"] },
   { name: "Textarea", category: "forms", dos: ["Multi-line freeform text"], donts: ["Not for single-line"] },
@@ -29,8 +29,8 @@ const COMPONENT_INDEX = [
 const GUARDRAIL_RULES = [
   { id: "color-bronze-ratio", name: "Bronze accent ≤ 8%", description: "Antique Bronze must remain an accent — never exceeding 8% of total visible area." },
   { id: "color-no-gradients", name: "No gradients", description: "Gradients are prohibited. Use flat, solid color fills only." },
-  { id: "color-approved-palette", name: "Approved palette only", description: "Only approved colors: Cream (#F7F4EF), Soft Ivory (#FBF9F6), Charcoal (#1A1A1A), Deep Marine Blue (#1F3A5F), Champagne Bronze (#C6A96B)." },
-  { id: "color-neutral-dominant", name: "Neutral base dominant", description: "Neutral surfaces (cream, ivory) dominant. Marine blue for interaction only. Bronze for highlights only. No colored backgrounds." },
+  { id: "color-approved-palette", name: "Approved palette only", description: "Only approved colors: Warm Canvas (#E6D8C3), Warm Stone (#E8E2D9), Deep Charcoal (#1A1F1A), Deep Green (#1F4A3A), Terracotta (#C35C3C), Champagne Bronze (#C9A962)." },
+  { id: "color-neutral-dominant", name: "Neutral base dominant", description: "Neutral surfaces (canvas, stone) dominant. Deep green for structure only. Terracotta for interaction only. Bronze for highlights only. No blue tones." },
   { id: "color-contrast", name: "WCAG AA contrast", description: "All text/background pairs must meet WCAG AA (4.5:1 body, 3:1 large)." },
   { id: "type-no-weight-300", name: "No weight 300", description: "Font weight 300 is never permitted." },
   { id: "type-headlines-playfair", name: "Headlines use Playfair Display", description: "All headlines (h1–h6) must use Playfair Display." },
@@ -110,12 +110,13 @@ Always structure your response with these sections:
 ## DESIGN SYSTEM CONTEXT
 
 ### Approved Color Palette
-- Cream: HSL 36 24% 95% (#F7F4EF) — primary background. Neutral foundation, always dominant.
-- Soft Ivory: HSL 40 33% 97% (#FBF9F6) — secondary surfaces (cards, panels).
-- Charcoal: HSL 0 0% 10% (#1A1A1A) — text only. No pure black.
-- Muted Grey: HSL 0 0% 36% (#5C5C5C) — secondary text, captions, de-emphasized labels.
-- Deep Marine Blue: HSL 215 51% 25% (#1F3A5F) — interaction accent (buttons, route lines, active states). Not for backgrounds or large fills.
-- Champagne Bronze: HSL 40 42% 60% (#C6A96B) — highlight accent (≤ subtle). Jewelry, never paint. Not for buttons or backgrounds.
+- Warm Canvas: HSL 36 41% 83% (#E6D8C3) — primary background. Neutral foundation, always dominant.
+- Warm Stone: HSL 33 16% 89% (#E8E2D9) — secondary surfaces (cards, panels).
+- Deep Charcoal: HSL 120 9% 11% (#1A1F1A) — text only. No pure black.
+- Muted: HSL 45 8% 40% (#6E6A5E) — secondary text, captions, de-emphasized labels.
+- Deep Green: HSL 158 41% 21% (#1F4A3A) — structure / identity (section backgrounds, emphasis panels). Not for buttons.
+- Terracotta: HSL 14 53% 50% (#C35C3C) — interaction accent (buttons, CTAs, active states).
+- Champagne Bronze: HSL 40 46% 53% (#C9A962) — highlight accent (≤ subtle). Jewelry, never paint. Not for buttons or backgrounds.
 
 ### Typography
 - Display/Headlines: Playfair Display (font-display)

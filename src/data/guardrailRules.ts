@@ -78,7 +78,7 @@ export const guardrailRules: GuardrailRule[] = [
     name: "Approved palette only",
     category: "color",
     severity: "error",
-    description: "Only the approved colors may be used: Cream, Soft Ivory, Charcoal, Muted Grey, Deep Marine Blue, Champagne Bronze, and Border Subtle.",
+    description: "Only the approved colors may be used: Warm Canvas, Warm Stone, Deep Charcoal, Muted, Deep Green, Terracotta, Champagne Bronze, and Warm Border.",
     checkDescription: "Flag any color value not in the approved palette.",
     status: "pass",
     weight: 0.9,
@@ -88,7 +88,7 @@ export const guardrailRules: GuardrailRule[] = [
     name: "Neutral base dominant",
     category: "color",
     severity: "warning",
-    description: "Neutral surfaces (cream, ivory) must dominate. Marine blue for interaction only. Bronze for highlights only. No colored backgrounds.",
+    description: "Neutral surfaces (canvas, stone) must dominate. Terracotta for interaction only. Deep green for structure only. Bronze for highlights only. No blue tones.",
     checkDescription: "Verify neutral surfaces fill 80%+ of visible area with no colored backgrounds.",
     status: "pass",
     weight: 0.5,
@@ -470,11 +470,11 @@ export function checkContrastRatio(
  */
 export function getContrastResults() {
   const palette = [
-    { name: "Deep Marine Blue", hsl: "215 51% 25%", role: "primary" },
-    { name: "Cream", hsl: "36 24% 95%", role: "background" },
-    { name: "Soft Ivory", hsl: "40 33% 97%", role: "secondary" },
-    { name: "Charcoal", hsl: "0 0% 10%", role: "foreground" },
-    { name: "Champagne Bronze", hsl: "40 42% 60%", role: "accent" },
+    { name: "Terracotta", hsl: "14 53% 50%", role: "primary" },
+    { name: "Warm Canvas", hsl: "36 41% 83%", role: "background" },
+    { name: "Warm Stone", hsl: "33 16% 89%", role: "secondary" },
+    { name: "Deep Charcoal", hsl: "120 9% 11%", role: "foreground" },
+    { name: "Champagne Bronze", hsl: "40 46% 53%", role: "accent" },
   ];
 
   const results: {

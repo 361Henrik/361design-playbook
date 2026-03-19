@@ -3,13 +3,14 @@ import { CopyButton } from "@/components/CopyButton";
 import { DosDonts } from "@/components/DosDonts";
 
 const tokensData = [
-  { name: "Cream Beige", variable: "--background", hex: "#F2EDE6", hsl: "34 22% 93%", tailwind: "background", usage: "Primary background. Every main surface uses this color. It is the canvas of the system.", swatch: "bg-background", role: "background" },
+  { name: "Warm Canvas", variable: "--background", hex: "#E6D8C3", hsl: "36 41% 83%", tailwind: "background", usage: "Primary background. Every main surface uses this color. It is the canvas of the system.", swatch: "bg-background", role: "background" },
   { name: "Warm Stone", variable: "--card", hex: "#E8E2D9", hsl: "33 16% 89%", tailwind: "card", usage: "Secondary surface. Cards, panels, and layered sections. Creates clear separation from the background.", swatch: "bg-card", role: "surface" },
-  { name: "Near-Black", variable: "--foreground", hex: "#111111", hsl: "0 0% 7%", tailwind: "foreground", usage: "Primary text. All body copy, headings, labels, and UI text. The only primary text color.", swatch: "bg-foreground", role: "text" },
-  { name: "Muted", variable: "--muted-foreground", hex: "#6B6B6B", hsl: "0 0% 42%", tailwind: "muted-foreground", usage: "Secondary text. Descriptions, captions, supporting labels. The only secondary text tone — no additional greys.", swatch: "bg-muted-foreground", role: "secondary text" },
-  { name: "Deep Marine Blue", variable: "--primary", hex: "#1A2744", hsl: "218 38% 18%", tailwind: "primary", usage: "Interaction color. Buttons, active states, route lines, navigation anchors and focused elements. Marine blue also serves as a surface for emphasis — information panels, highlight sections or areas requiring stronger contrast within a page. When used as a background, pair with light text and bronze headings. Signals importance and structure, never decoration.", swatch: "bg-primary", role: "interaction" },
-  { name: "Champagne Bronze", variable: "--accent", hex: "#C9A962", hsl: "40 46% 53%", tailwind: "accent", usage: "Highlight accent. Icon highlights, selected markers, thin dividers and small emphasis words. On marine blue surfaces, bronze is used for headings to create a refined, high-contrast hierarchy. Bronze is jewelry, never paint.", swatch: "bg-accent", role: "highlight" },
-  { name: "Warm Border", variable: "--border", hex: "#CCC4B8", hsl: "33 12% 76%", tailwind: "border", usage: "The single border color. Cards, inputs, dividers. Visible against both Cream Beige and Warm Stone surfaces. No border variations.", swatch: "bg-border", role: "structural" },
+  { name: "Deep Charcoal", variable: "--foreground", hex: "#1A1F1A", hsl: "120 9% 11%", tailwind: "foreground", usage: "Primary text. All body copy, headings, labels, and UI text. The only primary text color.", swatch: "bg-foreground", role: "text" },
+  { name: "Muted", variable: "--muted-foreground", hex: "#6E6A5E", hsl: "45 8% 40%", tailwind: "muted-foreground", usage: "Secondary text. Descriptions, captions, supporting labels. The only secondary text tone — no additional greys.", swatch: "bg-muted-foreground", role: "secondary text" },
+  { name: "Deep Green", variable: "--deep-green", hex: "#1F4A3A", hsl: "158 41% 21%", tailwind: "deep-green", usage: "Structure and identity color. Section backgrounds, emphasis panels, and areas requiring stronger contrast within a page. When used as a background, pair with light text and bronze headings. Signals importance and structure, never interaction.", swatch: "bg-deep-green", role: "structure" },
+  { name: "Terracotta", variable: "--primary", hex: "#C35C3C", hsl: "14 53% 50%", tailwind: "primary", usage: "Interaction color. Buttons, active states, route lines, navigation anchors and focused elements. The primary CTA color across the entire system.", swatch: "bg-primary", role: "interaction" },
+  { name: "Champagne Bronze", variable: "--accent", hex: "#C9A962", hsl: "40 46% 53%", tailwind: "accent", usage: "Highlight accent. Icon highlights, selected markers, thin dividers and small emphasis words. On deep green surfaces, bronze is used for headings to create a refined, high-contrast hierarchy. Bronze is jewelry, never paint.", swatch: "bg-accent", role: "highlight" },
+  { name: "Warm Border", variable: "--border", hex: "#CCC4B8", hsl: "33 12% 76%", tailwind: "border", usage: "The single border color. Cards, inputs, dividers. Visible against both Warm Canvas and Warm Stone surfaces. No border variations.", swatch: "bg-border", role: "structural" },
 ];
 
 const TokensColors = () => {
@@ -17,7 +18,7 @@ const TokensColors = () => {
     <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
       <PageHeader
         title="Foundations · Color"
-        description="Four neutrals, each with a single purpose. Marine blue for interaction. Bronze for highlights. No overlapping roles."
+        description="Four neutrals, each with a single purpose. Deep green for structure. Terracotta for interaction. Bronze for highlights. No overlapping roles."
       />
 
       {/* System Modes */}
@@ -26,7 +27,7 @@ const TokensColors = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="p-4 rounded-md border border-border bg-background">
             <h4 className="font-display text-sm font-medium text-foreground mb-1">Curated Lens Signature</h4>
-            <p className="text-xs font-body text-muted-foreground">B2B — Design System Hub, sales, onboarding. Marine blue + bronze accents.</p>
+            <p className="text-xs font-body text-muted-foreground">B2B — Design System Hub, sales, onboarding. Deep green + terracotta + bronze accents.</p>
           </div>
           <div className="p-4 rounded-md border border-border bg-background">
             <h4 className="font-display text-sm font-medium text-foreground mb-1">Operator Expression</h4>
@@ -39,11 +40,12 @@ const TokensColors = () => {
       <div className="mb-10 p-5 rounded-md border border-border bg-card">
         <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-4">Color Usage Rules</h3>
         <ul className="space-y-2 text-sm font-body text-muted-foreground">
-          <li>• <strong className="text-foreground">Cream Beige = background</strong> — all main surfaces, 80%+ of visible area</li>
+          <li>• <strong className="text-foreground">Warm Canvas = background</strong> — all main surfaces, 80%+ of visible area</li>
           <li>• <strong className="text-foreground">Warm Stone = secondary surface</strong> — cards, panels, layered sections</li>
-          <li>• <strong className="text-foreground">Near-Black = primary text</strong> — one text color, no variations</li>
+          <li>• <strong className="text-foreground">Deep Charcoal = primary text</strong> — one text color, no variations</li>
           <li>• <strong className="text-foreground">Muted = secondary text</strong> — the only secondary tone, no additional greys</li>
-          <li>• <strong className="text-foreground">Marine Blue = interaction</strong> — buttons, route lines, active states</li>
+          <li>• <strong className="text-foreground">Deep Green = structure</strong> — section backgrounds, emphasis panels, identity</li>
+          <li>• <strong className="text-foreground">Terracotta = interaction</strong> — buttons, CTAs, active states</li>
           <li>• <strong className="text-foreground">Bronze = highlight</strong> — selected markers, icon accents, thin dividers</li>
           <li>• <strong className="text-foreground">Warm Border = borders</strong> — single border color, no variations</li>
         </ul>
@@ -76,10 +78,10 @@ const TokensColors = () => {
         <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-4">Approved Contrast Pairs</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[
-            { bg: "bg-background", fg: "text-foreground", label: "Near-Black on Cream Beige" },
-            { bg: "bg-primary", fg: "text-primary-foreground", label: "Cream on Marine Blue" },
-            { bg: "bg-card", fg: "text-card-foreground", label: "Near-Black on Warm Stone" },
-            { bg: "bg-background", fg: "text-accent", label: "Bronze on Cream Beige (accent only)" },
+            { bg: "bg-background", fg: "text-foreground", label: "Deep Charcoal on Warm Canvas" },
+            { bg: "bg-deep-green", fg: "text-primary-foreground", label: "Cream on Deep Green" },
+            { bg: "bg-card", fg: "text-card-foreground", label: "Deep Charcoal on Warm Stone" },
+            { bg: "bg-background", fg: "text-accent", label: "Bronze on Warm Canvas (accent only)" },
           ].map((pair) => (
             <div key={pair.label} className={`p-5 rounded-md border border-border ${pair.bg}`}>
               <p className={`text-sm font-body font-medium ${pair.fg}`}>{pair.label}</p>
@@ -111,17 +113,19 @@ const TokensColors = () => {
         <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-4">Do / Don't</h2>
         <DosDonts
           dos={[
-            "Use marine blue exclusively for interactive elements — buttons, links, active states.",
+            "Use terracotta exclusively for interactive elements — buttons, links, active states.",
+            "Use deep green for structural emphasis — section backgrounds, identity panels.",
             "Use bronze sparingly — icon highlights, selected markers, thin dividers.",
-            "Keep Cream Beige dominant — it is the visual foundation.",
-            "Use Near-Black for all primary text. One weight of black, no variations.",
+            "Keep Warm Canvas dominant — it is the visual foundation.",
+            "Use Deep Charcoal for all primary text. One weight of dark, no variations.",
             "Use the single Muted tone for all secondary text. No additional greys.",
           ]}
           donts={[
             "Never introduce additional neutral tones beyond the four defined.",
-            "Never use marine blue as a background fill.",
+            "Never introduce any blue tones.",
+            "Never use deep green as a button or interactive color.",
             "Never use bronze as a fill color, button, or large surface.",
-            "Never use pure black (#000). Near-Black (#111) provides warmth.",
+            "Never use pure black (#000). Deep Charcoal (#1A1F1A) provides warmth.",
             "Never add colored backgrounds — neutrals only.",
           ]}
         />

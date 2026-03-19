@@ -5,10 +5,10 @@
 const tokens = {
   colors: {
     accent: { name: "Champagne Bronze", hsl: "40 42% 60%", hex: "#C6A96B", css: "--accent", tw: "accent" },
-    background: { name: "Cream", hsl: "36 24% 95%", hex: "#F7F4EF", css: "--background", tw: "background" },
-    foreground: { name: "Charcoal", hsl: "0 0% 10%", hex: "#1A1A1A", css: "--foreground", tw: "foreground" },
-    primary: { name: "Deep Marine Blue", hsl: "215 51% 25%", hex: "#1F3A5F", css: "--primary", tw: "primary" },
-    secondary: { name: "Soft Ivory", hsl: "40 33% 97%", hex: "#FBF9F6", css: "--secondary", tw: "secondary" },
+    background: { name: "Warm Canvas", hsl: "36 41% 83%", hex: "#E6D8C3", css: "--background", tw: "background" },
+    foreground: { name: "Deep Charcoal", hsl: "120 9% 11%", hex: "#1A1F1A", css: "--foreground", tw: "foreground" },
+    primary: { name: "Terracotta", hsl: "14 53% 50%", hex: "#C35C3C", css: "--primary", tw: "primary" },
+    secondary: { name: "Warm Stone", hsl: "33 16% 89%", hex: "#E8E2D9", css: "--secondary", tw: "secondary" },
   },
   typography: {
     body: { family: "Lexend", fallback: "system-ui, sans-serif", weight: "400", lineHeight: "1.6" },
@@ -290,11 +290,12 @@ CSS, Tailwind, JSON, and TypeScript outputs.
 | Name              | Hex     | Role            |
 |-------------------|---------|-----------------|
 | Cream             | #F7F4EF | Background      |
-| Soft Ivory        | #FBF9F6 | Cards / panels  |
-| Charcoal          | #1A1A1A | Text            |
-| Deep Marine Blue  | #1F3A5F | Interaction     |
-| Champagne Bronze  | #C6A96B | Highlight       |
-| Border Subtle     | #D9D6D1 | Borders         |
+| Warm Stone         | #E8E2D9 | Cards / panels  |
+| Deep Charcoal      | #1A1F1A | Text            |
+| Deep Green         | #1F4A3A | Structure       |
+| Terracotta         | #C35C3C | Interaction     |
+| Champagne Bronze   | #C9A962 | Highlight       |
+| Warm Border        | #CCC4B8 | Borders         |
 
 ## Typography
 
@@ -304,7 +305,8 @@ CSS, Tailwind, JSON, and TypeScript outputs.
 ## Rules
 
 - Neutral base always dominant — no colored backgrounds
-- Marine blue for interaction only — buttons, routes, active states
+- Terracotta for interaction only — buttons, CTAs, active states
+- Deep green for structural emphasis — section backgrounds, identity panels
 - Bronze is a highlight accent — never exceed subtle usage
 - No gradients, no parallax, no bouncing animations
 - Max paragraph width: 52 characters
