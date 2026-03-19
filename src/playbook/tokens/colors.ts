@@ -121,6 +121,11 @@ export const colorsPlaybook: PlaybookPage = {
     },
     {
       type: "text",
+      heading: "Bronze as Supporting Surface",
+      body: "In hero sections and key action areas, Champagne Bronze may be used as a subtle supporting surface behind primary CTAs. This creates a layered, materially rich composition:\n\n**Deep Green** = environment (structural surface)\n**Bronze** = material richness (supporting layer, ~12% opacity)\n**Terracotta** = action (CTA on top)\n\nBronze must support the CTA, not compete with it. Use the `.cta-cradle` utility class: a softly bordered container with `hsl(var(--bronze) / 0.12)` background. On deep green surfaces, opacity increases slightly to `0.15`.\n\n**Prohibited:** Bronze as a primary background, bronze buttons, bronze replacing CTA color, or bronze overpowering green or terracotta.",
+    },
+    {
+      type: "text",
       heading: "Palette Philosophy",
       body: "Four neutrals. Two structural accents. One interaction color. Each with a single, non-overlapping purpose. The palette evokes cartography, editorial clarity, and architectural warmth. No redundancy, no ambiguity.",
     },

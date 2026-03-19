@@ -121,6 +121,21 @@
   margin-bottom: 1rem;
 }
 
+/* Bronze CTA cradle — subtle supporting surface behind primary CTAs */
+.cta-cradle {
+  background: hsl(var(--bronze) / 0.12);
+  border: 1px solid hsl(var(--bronze) / 0.18);
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+}
+
+/* On deep green surfaces, bronze cradle is slightly more visible */
+.surface-deep .cta-cradle,
+.bg-deep-green .cta-cradle {
+  background: hsl(var(--bronze) / 0.15);
+  border-color: hsl(var(--bronze) / 0.25);
+}
+
 .surface-deep p,
 .surface-deep span:not(.heading-accent),
 .surface-deep li {

@@ -299,6 +299,19 @@ const Dashboard = () => {
         </div>
       </section>
 
+      {/* Bronze CTA cradle — featured action */}
+      <section className="mb-space-8">
+        <div className="cta-cradle flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <h3 className="font-display text-h3 font-medium text-foreground">Ready to build?</h3>
+            <p className="text-body-sm font-body text-muted-foreground mt-1 max-w-prose">Browse foundations, compose in Studio, or export production-ready specs.</p>
+          </div>
+          <Link to="/studio" className="inline-flex items-center justify-center gap-2 rounded-md bg-primary text-primary-foreground font-body font-medium text-sm px-5 py-2.5 hover:bg-primary/90 transition-colors shrink-0">
+            Open Studio
+          </Link>
+        </div>
+      </section>
+
       <section>
         <h2 className="font-display text-h2 text-foreground mb-6">
           Foundations Overview

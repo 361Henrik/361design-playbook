@@ -131,7 +131,7 @@ const AuthPage = () => {
       </section>
 
       {/* Right Panel — Auth Form */}
-      <main className="flex-1 flex items-center justify-center bg-card px-space-5 py-space-8 lg:py-0 animate-in fade-in slide-in-from-right-4 duration-500">
+      <main id="auth-form" className="flex-1 flex items-center justify-center bg-card px-space-5 py-space-8 lg:py-0 animate-in fade-in slide-in-from-right-4 duration-500">
         <div className="w-full max-w-sm">
           {/* Inner card container */}
           <div className="rounded-lg border border-border bg-background p-space-6 md:p-space-7">
