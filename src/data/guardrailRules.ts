@@ -78,7 +78,7 @@ export const guardrailRules: GuardrailRule[] = [
     name: "Approved palette only",
     category: "color",
     severity: "error",
-    description: "Only the approved colors may be used: Cream, Soft Ivory, Charcoal, Muted Grey, Deep Marine Blue, Champagne Bronze, and Border Subtle.",
+    description: "Only the approved colors may be used: Warm Canvas, Warm Stone, Deep Charcoal, Muted, Deep Green, Terracotta, Champagne Bronze, and Warm Border.",
     checkDescription: "Flag any color value not in the approved palette.",
     status: "pass",
     weight: 0.9,
