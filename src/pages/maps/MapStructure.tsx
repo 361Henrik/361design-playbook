@@ -87,12 +87,12 @@ const MapStructure = () => {
             </div>
           ))}
 
-          <div className="p-5 rounded-md border-2 border-destructive/20 bg-card">
-            <p className="text-sm font-body font-medium text-destructive mb-3">✗ Layer Rules</p>
+          <div className="p-5 rounded-md border-2 border-border bg-card">
+            <p className="text-sm font-body font-medium text-foreground mb-3">✗ Layer Rules</p>
             <ul className="space-y-2 text-sm font-body leading-reading text-foreground">
-              <li className="flex gap-2"><span className="text-destructive">✗</span> Never merge layers — each layer has distinct rendering logic</li>
-              <li className="flex gap-2"><span className="text-destructive">✗</span> Never show POI layer without the route layer visible</li>
-              <li className="flex gap-2"><span className="text-destructive">✗</span> Never allow interaction layer to obscure the vessel position</li>
+              <li className="flex gap-2"><span className="text-foreground">✗</span> Never merge layers — each layer has distinct rendering logic</li>
+              <li className="flex gap-2"><span className="text-foreground">✗</span> Never show POI layer without the route layer visible</li>
+              <li className="flex gap-2"><span className="text-foreground">✗</span> Never allow interaction layer to obscure the vessel position</li>
             </ul>
           </div>
         </section>

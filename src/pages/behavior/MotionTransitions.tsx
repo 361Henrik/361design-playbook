@@ -69,8 +69,8 @@ const MotionTransitions = () => (
         </div>
       </section>
 
-      <div className="p-5 rounded-md border-2 border-destructive/20 bg-card">
-        <h3 className="font-display text-base font-medium tracking-headline text-destructive mb-2">Never</h3>
+      <div className="p-5 rounded-md border-2 border-border bg-card">
+        <h3 className="font-display text-base font-medium tracking-headline text-foreground mb-2">Never</h3>
         <ul className="space-y-1.5 text-sm font-body leading-reading text-foreground">
           <li>• Parallax scroll effects</li>
           <li>• Page route transitions with sliding or fading</li>
