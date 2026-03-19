@@ -45,7 +45,7 @@ export const colorsPlaybook: PlaybookPage = {
         {
           name: "Terracotta",
           value: "#C35C3C (HSL 14 53% 50%)",
-          description: "Interaction color. Buttons, active states, route lines, navigation anchors and focused elements. The primary CTA color across the system. CSS: --primary / --terracotta, Tailwind: primary / terracotta",
+          description: "Interaction and emphasis color only. Buttons, CTAs, active states, selected states, highlight panels, callout sections. Never for typography (body, headings, labels, tags), map elements (markers, routes, overlays), icons, borders, or structural UI. Controlled, intentional, rare enough to signal importance. CSS: --primary / --terracotta, Tailwind: primary / terracotta",
         },
         {
           name: "Champagne Bronze",
