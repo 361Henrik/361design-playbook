@@ -140,7 +140,7 @@ function VisualText({ block }: { block: Extract<ContentBlock, { type: "text" }> 
 }
 
 function VisualRuleList({ block }: { block: Extract<ContentBlock, { type: "rule-list" }> }) {
-  const color = block.variant === "do" ? "text-primary" : block.variant === "dont" ? "text-destructive" : "text-muted-foreground";
+  const color = block.variant === "do" ? "text-foreground" : block.variant === "dont" ? "text-foreground" : "text-muted-foreground";
   const marker = block.variant === "do" ? "✓" : block.variant === "dont" ? "✗" : "•";
   return (
     <div>

@@ -109,6 +109,10 @@ export const colorsPlaybook: PlaybookPage = {
       donts: [
         "Never introduce additional neutral tones beyond the four defined.",
         "Never introduce any blue tones.",
+        "Never use terracotta for typography — body text, headings, labels, navigation text, tags, or pill labels.",
+        "Never use terracotta in maps — markers, icons, route lines, overlays, or highlights.",
+        "Never use terracotta for system icons or navigation icons.",
+        "Never use terracotta for borders, dividers, or neutral surface backgrounds.",
         "Never use deep green as a button or interactive color.",
         "Never use bronze as a fill color, button, large surface, or text on light/neutral backgrounds.",
         "Never use pure black (#000). Deep Charcoal (#1A1F1A) provides warmth.",

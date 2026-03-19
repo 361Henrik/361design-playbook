@@ -30,7 +30,7 @@ const NavigationLogic = () => {
                   <div className="flex items-center gap-2">
                     <p className="text-sm font-body font-medium text-card-foreground">{cat.name}</p>
                     {cat.defaultVisible && (
-                      <span className="px-2 py-0.5 rounded-full bg-primary/10 text-[10px] font-body font-medium text-primary">Default ON</span>
+                      <span className="px-2 py-0.5 rounded-full bg-muted/30 text-[10px] font-body font-medium text-foreground border border-border">Default ON</span>
                     )}
                   </div>
                   <p className="text-xs font-body text-muted-foreground mt-1">{cat.description}</p>

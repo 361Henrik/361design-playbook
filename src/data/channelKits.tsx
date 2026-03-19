@@ -279,7 +279,7 @@ const EmailHeaderTemplate = () => (
       {/* Hero image placeholder */}
       <div className="h-48 bg-secondary flex items-center justify-center">
         <div className="text-center space-y-2">
-          <Layers className="h-8 w-8 text-primary mx-auto" strokeWidth={1.5} />
+          <Layers className="h-8 w-8 text-accent mx-auto" strokeWidth={1.5} />
           <p className="text-xs font-body text-muted-foreground">Hero image area</p>
         </div>
       </div>

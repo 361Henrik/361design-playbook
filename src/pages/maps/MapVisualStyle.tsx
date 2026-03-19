@@ -66,15 +66,16 @@ const MapVisualStyle = () => {
         </div>
 
         {/* Constraints */}
-        <div className="p-5 rounded-md border-2 border-destructive/20 bg-card">
-          <p className="text-sm font-body font-medium text-destructive mb-3">✗ Visual Constraints</p>
+        <div className="p-5 rounded-md border-2 border-border bg-card">
+          <p className="text-sm font-body font-medium text-foreground mb-3">✗ Visual Constraints</p>
           <ul className="space-y-2 text-sm font-body leading-reading text-foreground">
-            <li className="flex gap-2"><span className="text-destructive">✗</span> No saturated or bright colors on the base map</li>
-            <li className="flex gap-2"><span className="text-destructive">✗</span> No gradients on land or water fills</li>
-            <li className="flex gap-2"><span className="text-destructive">✗</span> No drop shadows on markers or labels</li>
-            <li className="flex gap-2"><span className="text-destructive">✗</span> No outline strokes on land masses</li>
-            <li className="flex gap-2"><span className="text-destructive">✗</span> No pattern fills or textures</li>
-            <li className="flex gap-2"><span className="text-destructive">✗</span> No colored category markers — all markers use the neutral palette</li>
+            <li className="flex gap-2"><span className="text-foreground">✗</span> No saturated or bright colors on the base map</li>
+            <li className="flex gap-2"><span className="text-foreground">✗</span> No gradients on land or water fills</li>
+            <li className="flex gap-2"><span className="text-foreground">✗</span> No drop shadows on markers or labels</li>
+            <li className="flex gap-2"><span className="text-foreground">✗</span> No outline strokes on land masses</li>
+            <li className="flex gap-2"><span className="text-foreground">✗</span> No pattern fills or textures</li>
+            <li className="flex gap-2"><span className="text-foreground">✗</span> No colored category markers — all markers use the neutral palette</li>
+            <li className="flex gap-2"><span className="text-foreground">✗</span> No terracotta in any map element — markers, routes, overlays, or highlights</li>
           </ul>
         </div>
       </div>

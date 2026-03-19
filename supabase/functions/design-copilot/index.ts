@@ -116,7 +116,7 @@ Always structure your response with these sections:
 - Deep Charcoal: HSL 120 9% 11% (#1A1F1A) — text only. No pure black.
 - Muted: HSL 45 8% 40% (#6E6A5E) — secondary text, captions, de-emphasized labels.
 - Deep Green: HSL 158 41% 21% (#1F4A3A) — structure / identity (section backgrounds, emphasis panels). Not for buttons.
-- Terracotta: HSL 14 53% 50% (#C35C3C) — interaction accent (buttons, CTAs, active states).
+- Terracotta: HSL 14 53% 50% (#C35C3C) — interaction and emphasis only (buttons, CTAs, active states, highlight panels). NEVER for text, labels, icons, map elements, or borders.
 - Champagne Bronze: HSL 40 46% 53% (#C9A962) — highlight accent (≤ subtle). Jewelry, never paint. Not for buttons or backgrounds.
 
 ### Typography
