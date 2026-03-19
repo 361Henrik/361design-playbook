@@ -219,8 +219,8 @@ const TokensLayout = () => {
                       <div className="grid grid-cols-3 gap-4">
                         {[0, 1, 2].map((i) => (
                           <div key={i} className="text-center space-y-2">
-                            <div className="h-8 w-8 mx-auto rounded-full bg-primary/10 border border-primary/20" />
-                            <div className="h-2.5 w-3/4 mx-auto rounded bg-primary/15" />
+                            <div className="h-8 w-8 mx-auto rounded-full bg-deep-green/10 border border-deep-green/20" />
+                            <div className="h-2.5 w-3/4 mx-auto rounded bg-deep-green/15" />
                             <div className="h-2 w-full rounded bg-muted-foreground/10" />
                             <div className="h-2 w-2/3 mx-auto rounded bg-muted-foreground/10" />
                           </div>
