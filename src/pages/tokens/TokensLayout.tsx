@@ -436,7 +436,7 @@ const TokensLayout = () => {
                     ))}
                   </div>
                   <div className="flex-1 bg-background p-6 space-y-4">
-                    <div className="h-5 w-1/3 rounded bg-primary/20" />
+                    <div className="h-5 w-1/3 rounded bg-deep-green/20" />
                     <div className="space-y-2">
                       <div className="h-2.5 w-full rounded bg-muted-foreground/10" />
                       <div className="h-2.5 w-4/5 rounded bg-muted-foreground/10" />
