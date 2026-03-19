@@ -272,8 +272,8 @@ const TokensLayout = () => {
                     <div className="relative grid grid-cols-3 gap-6">
                       {["Feature A", "Feature B", "Feature C"].map((label) => (
                         <div key={label} className="bg-background border border-border rounded-md p-4 space-y-2">
-                          <div className="h-10 rounded bg-primary/8 border border-primary/15" />
-                          <div className="h-2.5 w-3/5 rounded bg-primary/20" />
+                          <div className="h-10 rounded bg-deep-green/8 border border-deep-green/15" />
+                          <div className="h-2.5 w-3/5 rounded bg-deep-green/20" />
                           <div className="h-2 w-full rounded bg-muted-foreground/10" />
                           <div className="h-2 w-4/5 rounded bg-muted-foreground/10" />
                         </div>
