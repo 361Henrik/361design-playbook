@@ -65,7 +65,7 @@ export const components: ComponentEntry[] = [
     id: "button-primary",
     name: "Primary Button",
     category: "buttons",
-    description: "The main call-to-action. Uses Deep Marine Blue with cream text. No scaling or bouncing hover effects — opacity shift only.",
+    description: "The main call-to-action. Uses Terracotta with cream text. No scaling or bouncing hover effects — opacity shift only.",
     anatomy: "A <button> element styled with the primary variant. Contains text and an optional trailing icon.",
     accessibilityNotes: "Uses native <button> semantics. Ensure visible focus ring (ring-ring). Disabled state reduces opacity to 50%.",
     responsiveNotes: "Full-width on mobile (w-full) when used as a page-level CTA. Inline at md+ breakpoints.",
