@@ -96,6 +96,7 @@ const behaviorNav = [
   { title: "Semantic Colour Usage", url: "/behavior/semantic-color", icon: MousePointer },
   { title: "Depth & Surfaces", url: "/behavior/depth", icon: MousePointer },
   { title: "Dark Mode Principles", url: "/behavior/dark-mode", icon: MousePointer },
+  { title: "CTA System", url: "/behavior/cta-system", icon: MousePointer },
 ];
 
 function MapsAccordionNav(): JSX.Element {

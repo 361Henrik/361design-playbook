@@ -114,6 +114,7 @@ function ProtectedRoutes() {
           <Route path="/behavior/semantic-color" element={<SemanticColorPage />} />
           <Route path="/behavior/depth" element={<DepthSurfacesPage />} />
           <Route path="/behavior/dark-mode" element={<DarkModePage />} />
+          <Route path="/behavior/cta-system" element={<CTASystemPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AppShell>
