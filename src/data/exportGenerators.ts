@@ -305,7 +305,8 @@ CSS, Tailwind, JSON, and TypeScript outputs.
 ## Rules
 
 - Neutral base always dominant — no colored backgrounds
-- Marine blue for interaction only — buttons, routes, active states
+- Terracotta for interaction only — buttons, CTAs, active states
+- Deep green for structural emphasis — section backgrounds, identity panels
 - Bronze is a highlight accent — never exceed subtle usage
 - No gradients, no parallax, no bouncing animations
 - Max paragraph width: 52 characters

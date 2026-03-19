@@ -40,7 +40,7 @@ export const buttonsPlaybook: PlaybookPage = {
         },
         {
           name: "Secondary Button",
-          description: "Used alongside primary buttons for supporting actions. Ivory background with marine blue text.",
+          description: "Used alongside primary buttons for supporting actions. Stone background with deep charcoal text.",
           anatomy: "Same structure as Primary Button but with variant='secondary'.",
           accessibilityNotes: "Same focus and disabled behavior as Primary. Ensure sufficient contrast on both light and dark backgrounds.",
           responsiveNotes: "Follows the same sizing rules as Primary Button.",
