@@ -89,7 +89,7 @@ export const colorsPlaybook: PlaybookPage = {
       type: "spec-table",
       heading: "Approved Contrast Pairs",
       rows: [
-        { label: "Deep Charcoal on Warm Canvas", value: "Primary text pairing" },
+        { label: "Deep Charcoal on Base Canvas", value: "Primary text pairing" },
         { label: "Cream on Deep Green", value: "Inverted panels / emphasis sections" },
         { label: "Deep Charcoal on Warm Stone", value: "Card text" },
         { label: "Bronze on Deep Green", value: "Headings only — high-contrast accent on dark surface" },
