@@ -496,10 +496,10 @@ const TokensLayout = () => {
                       <div className="h-2.5 w-2/3 rounded bg-muted-foreground/10" />
                     </div>
                     {/* Callout */}
-                    <div className="bg-primary rounded-md p-6 space-y-2">
+                    <div className="bg-deep-green rounded-md p-6 space-y-2">
                       <div className="h-1 w-8 rounded bg-bronze mb-3" />
-                      <div className="h-3 w-4/5 rounded bg-primary-foreground/20" />
-                      <div className="h-2.5 w-3/5 rounded bg-primary-foreground/12" />
+                      <div className="h-3 w-4/5 rounded bg-cream/20" />
+                      <div className="h-2.5 w-3/5 rounded bg-cream/12" />
                     </div>
                     <div className="space-y-2">
                       <div className="h-2.5 w-full rounded bg-muted-foreground/10" />
