@@ -60,7 +60,7 @@ const TokensLayout = () => {
               {widthTokens.slice(0, 3).map((w, i) => (
                 <div key={w.name} className="space-y-1">
                   <span className="text-caption font-body text-muted-foreground">{w.name} ({w.value})</span>
-                  <div className="h-4 rounded-sm bg-primary/15 border border-primary/25" style={{ width: `${[56, 86, 100][i]}%` }} />
+                  <div className="h-4 rounded-sm bg-deep-green/15 border border-deep-green/25" style={{ width: `${[56, 86, 100][i]}%` }} />
                 </div>
               ))}
             </div>
@@ -77,7 +77,7 @@ const TokensLayout = () => {
                   </div>
                   <div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${g.columns}, 1fr)` }}>
                     {Array.from({ length: g.columns }).map((_, i) => (
-                      <div key={i} className="h-6 rounded-sm bg-primary/10 border border-primary/20" />
+                      <div key={i} className="h-6 rounded-sm bg-deep-green/10 border border-deep-green/20" />
                     ))}
                   </div>
                 </div>
@@ -130,8 +130,8 @@ const TokensLayout = () => {
                 <div className="bg-muted/30 p-6 flex justify-center">
                   <div className="w-full" style={{ maxWidth: "720px" }}>
                     <div className="bg-background border border-border rounded-md p-8 space-y-4">
-                      <div className="h-3 w-2/5 rounded bg-primary/20" />
-                      <div className="h-6 w-4/5 rounded bg-primary/30" />
+                      <div className="h-3 w-2/5 rounded bg-deep-green/20" />
+                      <div className="h-6 w-4/5 rounded bg-deep-green/30" />
                       <div className="space-y-2 mt-4">
                         <div className="h-2.5 w-full rounded bg-muted-foreground/10" />
                         <div className="h-2.5 w-full rounded bg-muted-foreground/10" />
@@ -167,7 +167,7 @@ const TokensLayout = () => {
                   <div className="w-full" style={{ maxWidth: "720px" }}>
                     {/* Header bar */}
                     <div className="bg-background border border-border rounded-t-md px-4 py-3 flex items-center gap-3">
-                      <div className="h-3 w-24 rounded bg-primary/20" />
+                      <div className="h-3 w-24 rounded bg-deep-green/20" />
                       <div className="flex-1" />
                       <div className="h-3 w-16 rounded bg-muted-foreground/15" />
                     </div>
@@ -176,8 +176,8 @@ const TokensLayout = () => {
                       <div className="grid grid-cols-3 gap-4">
                         {[0, 1, 2].map((i) => (
                           <div key={i} className="border border-border rounded-md p-4 space-y-2">
-                            <div className="h-16 rounded bg-primary/8 border border-primary/15" />
-                            <div className="h-2.5 w-3/4 rounded bg-primary/20" />
+                            <div className="h-16 rounded bg-deep-green/8 border border-deep-green/15" />
+                            <div className="h-2.5 w-3/4 rounded bg-deep-green/20" />
                             <div className="h-2 w-full rounded bg-muted-foreground/10" />
                             <div className="h-2 w-2/3 rounded bg-muted-foreground/10" />
                           </div>
@@ -206,12 +206,12 @@ const TokensLayout = () => {
                 <div className="bg-muted/30 p-6 flex justify-center">
                   <div className="w-full" style={{ maxWidth: "720px" }}>
                     {/* Hero block */}
-                    <div className="bg-primary rounded-t-md p-8 flex flex-col items-center text-center space-y-3">
-                      <div className="h-5 w-2/3 rounded bg-primary-foreground/20" />
-                      <div className="h-3 w-1/2 rounded bg-primary-foreground/15" />
+                    <div className="bg-deep-green rounded-t-md p-8 flex flex-col items-center text-center space-y-3">
+                      <div className="h-5 w-2/3 rounded bg-cream/20" />
+                      <div className="h-3 w-1/2 rounded bg-cream/15" />
                       <div className="flex gap-3 mt-2">
-                        <div className="h-8 w-24 rounded bg-primary-foreground/20" />
-                        <div className="h-8 w-20 rounded border border-primary-foreground/20" />
+                        <div className="h-8 w-24 rounded bg-cream/20" />
+                        <div className="h-8 w-20 rounded border border-cream/20" />
                       </div>
                     </div>
                     {/* Content below hero */}
@@ -219,8 +219,8 @@ const TokensLayout = () => {
                       <div className="grid grid-cols-3 gap-4">
                         {[0, 1, 2].map((i) => (
                           <div key={i} className="text-center space-y-2">
-                            <div className="h-8 w-8 mx-auto rounded-full bg-primary/10 border border-primary/20" />
-                            <div className="h-2.5 w-3/4 mx-auto rounded bg-primary/15" />
+                            <div className="h-8 w-8 mx-auto rounded-full bg-deep-green/10 border border-deep-green/20" />
+                            <div className="h-2.5 w-3/4 mx-auto rounded bg-deep-green/15" />
                             <div className="h-2 w-full rounded bg-muted-foreground/10" />
                             <div className="h-2 w-2/3 mx-auto rounded bg-muted-foreground/10" />
                           </div>
@@ -248,7 +248,7 @@ const TokensLayout = () => {
               <div className="grid grid-cols-12 gap-1.5">
                 {Array.from({ length: 12 }).map((_, i) => (
                   <div key={i} className="space-y-1">
-                    <div className="h-12 rounded-sm bg-primary/10 border border-primary/20" />
+                    <div className="h-12 rounded-sm bg-deep-green/10 border border-deep-green/20" />
                     <span className="block text-center text-[10px] font-body text-muted-foreground">{i + 1}</span>
                   </div>
                 ))}
@@ -266,14 +266,14 @@ const TokensLayout = () => {
                   <div className="relative">
                     <div className="absolute inset-0 grid grid-cols-12 gap-1.5 pointer-events-none opacity-30">
                       {Array.from({ length: 12 }).map((_, i) => (
-                        <div key={i} className="h-full bg-primary/5 border-x border-primary/10" />
+                         <div key={i} className="h-full bg-deep-green/5 border-x border-deep-green/10" />
                       ))}
                     </div>
                     <div className="relative grid grid-cols-3 gap-6">
                       {["Feature A", "Feature B", "Feature C"].map((label) => (
                         <div key={label} className="bg-background border border-border rounded-md p-4 space-y-2">
-                          <div className="h-10 rounded bg-primary/8 border border-primary/15" />
-                          <div className="h-2.5 w-3/5 rounded bg-primary/20" />
+                          <div className="h-10 rounded bg-deep-green/8 border border-deep-green/15" />
+                          <div className="h-2.5 w-3/5 rounded bg-deep-green/20" />
                           <div className="h-2 w-full rounded bg-muted-foreground/10" />
                           <div className="h-2 w-4/5 rounded bg-muted-foreground/10" />
                         </div>
@@ -297,22 +297,22 @@ const TokensLayout = () => {
                   <div className="relative">
                     <div className="absolute inset-0 grid grid-cols-12 gap-1.5 pointer-events-none opacity-30">
                       {Array.from({ length: 12 }).map((_, i) => (
-                        <div key={i} className="h-full bg-primary/5 border-x border-primary/10" />
+                        <div key={i} className="h-full bg-deep-green/5 border-x border-deep-green/10" />
                       ))}
                     </div>
                     <div className="relative flex gap-6" style={{ minHeight: 180 }}>
                       {/* Sidebar */}
-                      <div className="w-1/4 shrink-0 bg-primary rounded-md p-4 space-y-3">
-                        <div className="h-3 w-3/4 rounded bg-primary-foreground/20" />
+                      <div className="w-1/4 shrink-0 bg-deep-green rounded-md p-4 space-y-3">
+                        <div className="h-3 w-3/4 rounded bg-cream/20" />
                         <div className="space-y-2 mt-4">
                           {["Nav Item 1", "Nav Item 2", "Nav Item 3", "Nav Item 4"].map((item) => (
-                            <div key={item} className="h-2.5 w-full rounded bg-primary-foreground/12" />
+                            <div key={item} className="h-2.5 w-full rounded bg-cream/12" />
                           ))}
                         </div>
                       </div>
                       {/* Content */}
                       <div className="flex-1 bg-background border border-border rounded-md p-5 space-y-4">
-                        <div className="h-4 w-2/5 rounded bg-primary/20" />
+                        <div className="h-4 w-2/5 rounded bg-deep-green/20" />
                         <div className="space-y-2">
                           <div className="h-2.5 w-full rounded bg-muted-foreground/10" />
                           <div className="h-2.5 w-full rounded bg-muted-foreground/10" />
@@ -327,7 +327,7 @@ const TokensLayout = () => {
                   </div>
                 </div>
                 <div className="px-4 py-2 border-t border-border bg-muted/40">
-                  <span className="text-caption font-body text-muted-foreground">3 col sidebar (bg-primary) + 9 col content (bg-background) · gap space-5</span>
+                  <span className="text-caption font-body text-muted-foreground">3 col sidebar (bg-deep-green) + 9 col content (bg-background) · gap space-5</span>
                 </div>
               </div>
             </div>
@@ -342,27 +342,27 @@ const TokensLayout = () => {
                   <div className="relative">
                     <div className="absolute inset-0 grid grid-cols-12 gap-1.5 pointer-events-none opacity-30">
                       {Array.from({ length: 12 }).map((_, i) => (
-                        <div key={i} className="h-full bg-primary/5 border-x border-primary/10" />
+                        <div key={i} className="h-full bg-deep-green/5 border-x border-deep-green/10" />
                       ))}
                     </div>
                     <div className="relative grid grid-cols-12 gap-4" style={{ minHeight: 200 }}>
                       {/* List panel */}
                       <div className="col-span-3 bg-background border border-border rounded-md p-3 space-y-2">
-                        <div className="h-2.5 w-2/3 rounded bg-primary/20 mb-3" />
+                        <div className="h-2.5 w-2/3 rounded bg-deep-green/20 mb-3" />
                         {[0, 1, 2, 3, 4].map((i) => (
-                          <div key={i} className={`h-7 rounded px-2 flex items-center ${i === 1 ? "bg-primary/10 border border-primary/20" : "bg-muted/30"}`}>
+                          <div key={i} className={`h-7 rounded px-2 flex items-center ${i === 1 ? "bg-deep-green/10 border border-deep-green/20" : "bg-muted/30"}`}>
                             <div className="h-2 w-4/5 rounded bg-muted-foreground/15" />
                           </div>
                         ))}
                       </div>
                       {/* Editor panel */}
                       <div className="col-span-6 bg-background border border-border rounded-md p-4 space-y-3">
-                        <div className="h-3.5 w-1/3 rounded bg-primary/25" />
+                        <div className="h-3.5 w-1/3 rounded bg-deep-green/25" />
                         <div className="h-8 w-full rounded border border-border bg-muted/20" />
                         <div className="h-8 w-full rounded border border-border bg-muted/20" />
                         <div className="h-20 w-full rounded border border-border bg-muted/20" />
                         <div className="flex gap-3 mt-2">
-                          <div className="h-7 w-20 rounded bg-primary/20" />
+                          <div className="h-7 w-20 rounded bg-deep-green/20" />
                           <div className="h-7 w-16 rounded border border-border" />
                         </div>
                       </div>
@@ -403,15 +403,15 @@ const TokensLayout = () => {
                   <p className="text-label font-body text-foreground mb-1">bg-background</p>
                   <p className="text-body-sm font-body text-foreground max-w-prose">Main content, editorial text, forms, data tables. Default reading context.</p>
                 </div>
-                <div className="p-8 bg-primary text-primary-foreground">
-                  <p className="text-caption font-body font-medium text-primary-foreground/60 uppercase tracking-widest mb-2">Anchor Surface</p>
-                  <p className="text-label font-body text-primary-foreground mb-1">bg-primary</p>
-                  <p className="text-body-sm font-body text-primary-foreground/90 max-w-prose">Navigation, hero sections, quote blocks, contextual anchoring.</p>
+                <div className="p-8 bg-deep-green text-cream">
+                  <p className="text-caption font-body font-medium text-cream/60 uppercase tracking-widest mb-2">Anchor Surface</p>
+                  <p className="text-label font-body text-cream mb-1">bg-deep-green</p>
+                  <p className="text-body-sm font-body text-cream/90 max-w-prose">Navigation, hero sections, quote blocks, contextual anchoring.</p>
                 </div>
               </div>
               <div className="mt-3 flex flex-wrap gap-2">
                 <CopyButton value="bg-background text-foreground" label="Primary Surface" />
-                <CopyButton value="bg-primary text-primary-foreground" label="Anchor Surface" />
+                <CopyButton value="bg-deep-green text-cream" label="Anchor Surface" />
               </div>
             </div>
 
@@ -422,13 +422,13 @@ const TokensLayout = () => {
 
               <div className="border border-border rounded-md overflow-hidden">
                 <div className="flex" style={{ minHeight: 220 }}>
-                  <div className="w-56 shrink-0 bg-primary p-5 space-y-4">
-                    <div className="h-3.5 w-3/4 rounded bg-primary-foreground/20 mb-6" />
+                  <div className="w-56 shrink-0 bg-deep-green p-5 space-y-4">
+                    <div className="h-3.5 w-3/4 rounded bg-cream/20 mb-6" />
                     {["Dashboard", "Components", "Tokens", "Patterns", "Settings"].map((item, i) => (
                       <div
                         key={item}
                         className={`px-3 py-1.5 rounded text-body-sm font-body ${
-                          i === 2 ? "bg-primary-foreground/10 text-primary-foreground" : "text-primary-foreground/60"
+                          i === 2 ? "bg-cream/10 text-cream" : "text-cream/60"
                         }`}
                       >
                         {item}
@@ -436,7 +436,7 @@ const TokensLayout = () => {
                     ))}
                   </div>
                   <div className="flex-1 bg-background p-6 space-y-4">
-                    <div className="h-5 w-1/3 rounded bg-primary/20" />
+                    <div className="h-5 w-1/3 rounded bg-deep-green/20" />
                     <div className="space-y-2">
                       <div className="h-2.5 w-full rounded bg-muted-foreground/10" />
                       <div className="h-2.5 w-4/5 rounded bg-muted-foreground/10" />
@@ -460,17 +460,17 @@ const TokensLayout = () => {
               <p className="text-caption font-body text-muted-foreground mb-5">Anchor surface for hero/brand messaging. Primary surface for body content below.</p>
 
               <div className="border border-border rounded-md overflow-hidden">
-                <div className="bg-primary p-10 text-center space-y-3">
-                  <div className="h-6 w-2/5 mx-auto rounded bg-primary-foreground/20" />
-                  <div className="h-3 w-1/3 mx-auto rounded bg-primary-foreground/12" />
+                <div className="bg-deep-green p-10 text-center space-y-3">
+                  <div className="h-6 w-2/5 mx-auto rounded bg-cream/20" />
+                  <div className="h-3 w-1/3 mx-auto rounded bg-cream/12" />
                   <div className="flex justify-center gap-3 mt-4">
-                    <div className="h-8 w-28 rounded bg-primary-foreground/20" />
-                    <div className="h-8 w-24 rounded border border-primary-foreground/20" />
+                    <div className="h-8 w-28 rounded bg-cream/20" />
+                    <div className="h-8 w-24 rounded border border-cream/20" />
                   </div>
                 </div>
                 <div className="bg-background p-8 space-y-4">
                   <div className="max-w-lg mx-auto space-y-3">
-                    <div className="h-4 w-1/3 rounded bg-primary/20" />
+                    <div className="h-4 w-1/3 rounded bg-deep-green/20" />
                     <div className="h-2.5 w-full rounded bg-muted-foreground/10" />
                     <div className="h-2.5 w-full rounded bg-muted-foreground/10" />
                     <div className="h-2.5 w-3/4 rounded bg-muted-foreground/10" />
@@ -496,10 +496,10 @@ const TokensLayout = () => {
                       <div className="h-2.5 w-2/3 rounded bg-muted-foreground/10" />
                     </div>
                     {/* Callout */}
-                    <div className="bg-primary rounded-md p-6 space-y-2">
+                    <div className="bg-deep-green rounded-md p-6 space-y-2">
                       <div className="h-1 w-8 rounded bg-bronze mb-3" />
-                      <div className="h-3 w-4/5 rounded bg-primary-foreground/20" />
-                      <div className="h-2.5 w-3/5 rounded bg-primary-foreground/12" />
+                      <div className="h-3 w-4/5 rounded bg-cream/20" />
+                      <div className="h-2.5 w-3/5 rounded bg-cream/12" />
                     </div>
                     <div className="space-y-2">
                       <div className="h-2.5 w-full rounded bg-muted-foreground/10" />
@@ -520,8 +520,8 @@ const TokensLayout = () => {
               <DosDonts
                 dos={[
                   "Use white (bg-background) as the default reading surface.",
-                  "Use green (bg-primary) to anchor navigation, heroes, and callouts.",
-                  "Keep text on green surfaces using text-primary-foreground for contrast.",
+                  "Use green (bg-deep-green) to anchor navigation, heroes, and callouts.",
+                  "Keep text on green surfaces using text-cream for contrast.",
                   "Use bronze accents sparingly for dividers and emphasis markers.",
                 ]}
                 donts={[

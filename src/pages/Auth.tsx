@@ -78,7 +78,7 @@ const AuthPage = () => {
       {/* Left Panel — Branded Intro */}
       <section
         className="
-          bg-primary text-primary-foreground
+          bg-deep-green text-cream
           flex flex-col justify-center
           px-space-5 py-space-7
           md:px-space-8 md:py-space-8
@@ -109,7 +109,7 @@ const AuthPage = () => {
         {/* Benefit bullets — hidden on mobile */}
         <ul className="space-y-space-3 hidden md:block">
           {benefits.map((b) => (
-            <li key={b} className="flex items-start gap-space-3 font-body text-body leading-reading text-primary-foreground/90">
+            <li key={b} className="flex items-start gap-space-3 font-body text-body leading-reading text-cream/90">
               <span className="mt-1.5 block h-1.5 w-1.5 rounded-full bg-bronze shrink-0" />
               {b}
             </li>
