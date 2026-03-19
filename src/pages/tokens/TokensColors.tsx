@@ -45,7 +45,7 @@ const TokensColors = () => {
           <li>• <strong className="text-foreground">Deep Charcoal = primary text</strong> — one text color, no variations</li>
           <li>• <strong className="text-foreground">Muted = secondary text</strong> — the only secondary tone, no additional greys</li>
           <li>• <strong className="text-foreground">Deep Green = structure</strong> — section backgrounds, emphasis panels, identity</li>
-          <li>• <strong className="text-foreground">Terracotta = interaction</strong> — buttons, CTAs, active states</li>
+          <li>• <strong className="text-foreground">Terracotta = interaction & emphasis only</strong> — buttons, CTAs, active states, highlight panels. Never text, labels, icons, map elements, or borders.</li>
           <li>• <strong className="text-foreground">Bronze = highlight</strong> — selected markers, icon accents, thin dividers</li>
           <li>• <strong className="text-foreground">Warm Border = borders</strong> — single border color, no variations</li>
         </ul>
