@@ -219,7 +219,7 @@ const LandingPricingTemplate = () => (
             <ul className="space-y-2">
               {tier.features.map((f) => (
                 <li key={f} className="flex items-center gap-2 text-sm font-body text-foreground">
-                  <Check className="h-3.5 w-3.5 text-primary shrink-0" strokeWidth={2} />
+                  <Check className="h-3.5 w-3.5 text-foreground shrink-0" strokeWidth={2} />
                   {f}
                 </li>
               ))}
