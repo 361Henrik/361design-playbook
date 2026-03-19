@@ -106,10 +106,10 @@ const AuthPage = () => {
         {/* Bronze accent line */}
         <div className="w-12 h-px bg-bronze mb-space-5 lg:mb-space-7 hidden md:block" />
 
-        {/* CTA on deep green — cream button per environment rules */}
+        {/* CTA on deep green — bronze primary per environment rules */}
         <div className="hidden md:block mb-space-5 lg:mb-space-7 max-w-xs">
           <p className="text-body-sm font-body text-cream/80 mb-space-3">Ready to explore your design system?</p>
-          <a href="#auth-form" className="inline-flex items-center justify-center gap-2 rounded-md bg-cream text-deep-green font-body font-medium text-sm px-5 py-2.5 hover:bg-cream/90 transition-colors">
+          <a href="#auth-form" className="inline-flex items-center justify-center gap-2 rounded-md bg-accent text-foreground font-body font-medium text-sm px-5 py-2.5 hover:bg-accent/90 transition-colors">
             Get Started
           </a>
         </div>
