@@ -98,8 +98,8 @@ const NarrativePatterns = () => {
       <div>
         <h2 className="font-display text-lg font-medium tracking-headline leading-section text-foreground mb-4">Do / Don't</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="p-4 rounded-md border border-accent/20 bg-card">
-            <p className="text-xs font-body font-medium text-accent mb-2">Do</p>
+          <div className="p-4 rounded-md border border-border bg-card">
+            <p className="text-xs font-body font-medium text-foreground mb-2">✓ Do</p>
             <ul className="space-y-1.5 text-sm font-body text-foreground">
               <li>• Use numbered stops for sequential content</li>
               <li>• Keep each stop to one idea, place, or step</li>
@@ -108,8 +108,8 @@ const NarrativePatterns = () => {
               <li>• Use badges to categorise stop types</li>
             </ul>
           </div>
-          <div className="p-4 rounded-md border border-destructive/20 bg-card">
-            <p className="text-xs font-body font-medium text-destructive mb-2">Don't</p>
+          <div className="p-4 rounded-md border border-border bg-card">
+            <p className="text-xs font-body font-medium text-foreground mb-2">✗ Don't</p>
             <ul className="space-y-1.5 text-sm font-body text-foreground">
               <li>• Don't use decorative path shapes or curves</li>
               <li>• Don't combine multiple ideas in one stop</li>
