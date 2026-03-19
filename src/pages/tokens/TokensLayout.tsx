@@ -302,11 +302,11 @@ const TokensLayout = () => {
                     </div>
                     <div className="relative flex gap-6" style={{ minHeight: 180 }}>
                       {/* Sidebar */}
-                      <div className="w-1/4 shrink-0 bg-primary rounded-md p-4 space-y-3">
-                        <div className="h-3 w-3/4 rounded bg-primary-foreground/20" />
+                      <div className="w-1/4 shrink-0 bg-deep-green rounded-md p-4 space-y-3">
+                        <div className="h-3 w-3/4 rounded bg-cream/20" />
                         <div className="space-y-2 mt-4">
                           {["Nav Item 1", "Nav Item 2", "Nav Item 3", "Nav Item 4"].map((item) => (
-                            <div key={item} className="h-2.5 w-full rounded bg-primary-foreground/12" />
+                            <div key={item} className="h-2.5 w-full rounded bg-cream/12" />
                           ))}
                         </div>
                       </div>
