@@ -60,7 +60,7 @@ const TokensLayout = () => {
               {widthTokens.slice(0, 3).map((w, i) => (
                 <div key={w.name} className="space-y-1">
                   <span className="text-caption font-body text-muted-foreground">{w.name} ({w.value})</span>
-                  <div className="h-4 rounded-sm bg-primary/15 border border-primary/25" style={{ width: `${[56, 86, 100][i]}%` }} />
+                  <div className="h-4 rounded-sm bg-deep-green/15 border border-deep-green/25" style={{ width: `${[56, 86, 100][i]}%` }} />
                 </div>
               ))}
             </div>
