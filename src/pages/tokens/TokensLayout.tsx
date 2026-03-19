@@ -77,7 +77,7 @@ const TokensLayout = () => {
                   </div>
                   <div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${g.columns}, 1fr)` }}>
                     {Array.from({ length: g.columns }).map((_, i) => (
-                      <div key={i} className="h-6 rounded-sm bg-primary/10 border border-primary/20" />
+                      <div key={i} className="h-6 rounded-sm bg-deep-green/10 border border-deep-green/20" />
                     ))}
                   </div>
                 </div>
