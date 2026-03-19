@@ -68,7 +68,7 @@ export const colorsPlaybook: PlaybookPage = {
         { label: "Deep Charcoal", value: "Primary text only", notes: "Never as background fill" },
         { label: "Muted", value: "Secondary text only", notes: "No other grey tones allowed" },
         { label: "Deep Green", value: "Structure / identity only", notes: "Section backgrounds, emphasis panels" },
-        { label: "Terracotta", value: "Interaction only", notes: "Buttons, route lines, active states, CTAs" },
+        { label: "Terracotta", value: "Interaction & emphasis only", notes: "Buttons, CTAs, active states, highlight panels. Never text, labels, icons, map elements, or borders." },
         { label: "Bronze", value: "Highlight only", notes: "Icons, markers, dividers. Text only on deep green backgrounds." },
         { label: "Warm Border", value: "Borders only", notes: "Single border color, no variations" },
       ],
