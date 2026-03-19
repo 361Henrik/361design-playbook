@@ -188,25 +188,23 @@ const TokensColors = () => {
         <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-4">Do / Don't</h2>
         <DosDonts
           dos={[
-            "Use terracotta exclusively for interaction and emphasis — buttons, CTAs, active states, highlight panels.",
-            "Keep terracotta rare and intentional — it signals importance through scarcity.",
-            "Use deep green for structural emphasis — section backgrounds, identity panels.",
-            "Use bronze sparingly — icon highlights, selected markers, thin dividers. As text, only on deep green.",
+            "On Deep Green: use Champagne Bronze as primary CTA (solid). White + bronze outline as secondary.",
+            "On Base Canvas: use Terracotta as primary CTA. Colored CTAs only if container defines an accent.",
+            "On Terracotta panels: use Base Canvas (cream) CTA with dark text.",
+            "In outlined containers: CTA may match the outline color (the only case for colored CTAs outside defaults).",
+            "Ensure each environment has one dominant surface and one clear interaction color.",
             "Keep Base Canvas dominant — the neutral foundation that lets accents shine.",
-            "Use Deep Charcoal for all primary text. One weight of dark, no variations.",
-            "Use the single Muted tone for all secondary text. No additional greys.",
+            "Use bronze sparingly — icon highlights, selected markers, thin dividers. As text, only on deep green.",
           ]}
           donts={[
-            "Never introduce additional neutral tones beyond the four defined.",
+            "Never place Terracotta CTA on Deep Green backgrounds.",
+            "Never use the same color for CTA and its filled container (green on green, terracotta on terracotta).",
+            "Never stack Bronze + Terracotta in the same interaction layer.",
+            "Never use bronze CTA arbitrarily on cream surfaces without container logic.",
+            "Never use deep green as a button or interactive color (except within outlined container context).",
+            "Never use more than one accent color per container.",
             "Never introduce any blue tones.",
-            "Never use terracotta for typography — body text, headings, labels, navigation text, tags, or pills.",
-            "Never use terracotta in maps — markers, icons, route lines, overlays, or highlights.",
-            "Never use terracotta for system icons or navigation icons.",
-            "Never use terracotta for borders, dividers, or neutral surface backgrounds.",
-            "Never use deep green as a button or interactive color.",
-            "Never use bronze as a fill color, button, large surface, or text on light/neutral backgrounds.",
             "Never use pure black (#000). Deep Charcoal (#1A1F1A) provides warmth.",
-            "Never add colored backgrounds — neutrals only.",
           ]}
         />
       </section>
