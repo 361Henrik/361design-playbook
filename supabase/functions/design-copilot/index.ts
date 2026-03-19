@@ -110,7 +110,7 @@ Always structure your response with these sections:
 ## DESIGN SYSTEM CONTEXT
 
 ### Approved Color Palette
-- Warm Canvas: HSL 36 41% 83% (#E6D8C3) — primary background. Neutral foundation, always dominant.
+- Base Canvas: HSL 37 31% 95% (#F6F3EE) — primary background. Neutral foundation, always dominant.
 - Warm Stone: HSL 33 16% 89% (#E8E2D9) — secondary surfaces (cards, panels).
 - Deep Charcoal: HSL 120 9% 11% (#1A1F1A) — text only. No pure black.
 - Muted: HSL 45 8% 40% (#6E6A5E) — secondary text, captions, de-emphasized labels.
