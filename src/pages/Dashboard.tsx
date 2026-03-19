@@ -299,9 +299,9 @@ const Dashboard = () => {
         </div>
       </section>
 
-      {/* Bronze CTA cradle — featured action */}
+      {/* Featured action — cream environment, terracotta CTA, no bronze cradle */}
       <section className="mb-space-8">
-        <div className="cta-cradle flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 rounded-md border border-border bg-card">
           <div>
             <h3 className="font-display text-h3 font-medium text-foreground">Ready to build?</h3>
             <p className="text-body-sm font-body text-muted-foreground mt-1 max-w-prose">Browse foundations, compose in Studio, or export production-ready specs.</p>
