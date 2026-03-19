@@ -130,8 +130,8 @@ const TokensLayout = () => {
                 <div className="bg-muted/30 p-6 flex justify-center">
                   <div className="w-full" style={{ maxWidth: "720px" }}>
                     <div className="bg-background border border-border rounded-md p-8 space-y-4">
-                      <div className="h-3 w-2/5 rounded bg-primary/20" />
-                      <div className="h-6 w-4/5 rounded bg-primary/30" />
+                      <div className="h-3 w-2/5 rounded bg-deep-green/20" />
+                      <div className="h-6 w-4/5 rounded bg-deep-green/30" />
                       <div className="space-y-2 mt-4">
                         <div className="h-2.5 w-full rounded bg-muted-foreground/10" />
                         <div className="h-2.5 w-full rounded bg-muted-foreground/10" />
