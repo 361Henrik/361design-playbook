@@ -113,7 +113,8 @@ const TokensColors = () => {
         <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-4">Do / Don't</h2>
         <DosDonts
           dos={[
-            "Use terracotta exclusively for interactive elements — buttons, links, active states.",
+            "Use terracotta exclusively for interaction and emphasis — buttons, CTAs, active states, highlight panels.",
+            "Keep terracotta rare and intentional — it signals importance through scarcity.",
             "Use deep green for structural emphasis — section backgrounds, identity panels.",
             "Use bronze sparingly — icon highlights, selected markers, thin dividers. As text, only on deep green.",
             "Keep Base Canvas dominant — the neutral foundation that lets accents shine.",
