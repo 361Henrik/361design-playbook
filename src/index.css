@@ -4,59 +4,60 @@
 
 @layer base {
   :root {
-    /* Curated Lens Design System — Simplified Neutral Foundation */
-    --background: 34 22% 93%;            /* #F2EDE6 Cream Beige — primary background */
-    --foreground: 0 0% 7%;               /* #111111 Near-black — primary text */
+    /* Curated Lens Design System — Warm Editorial Foundation */
+    --background: 36 41% 83%;            /* #E6D8C3 Warm Canvas */
+    --foreground: 120 9% 11%;            /* #1A1F1A Deep Charcoal — primary text */
 
     --card: 33 16% 89%;                  /* #E8E2D9 Warm Stone — secondary surface */
-    --card-foreground: 0 0% 7%;
+    --card-foreground: 120 9% 11%;
 
     --popover: 33 16% 89%;
-    --popover-foreground: 0 0% 7%;
+    --popover-foreground: 120 9% 11%;
 
-    --primary: 218 38% 18%;              /* #1A2744 Marine Blue */
+    --primary: 14 53% 50%;               /* #C35C3C Terracotta — interaction / CTA */
     --primary-foreground: 37 33% 95%;    /* #F8F5F0 warm white */
 
     --secondary: 33 16% 89%;
-    --secondary-foreground: 218 38% 18%;
+    --secondary-foreground: 158 41% 21%;
 
     --muted: 33 16% 89%;
-    --muted-foreground: 0 0% 42%;        /* #6B6B6B — secondary text */
+    --muted-foreground: 45 8% 40%;       /* #6E6A5E — secondary text */
 
     --accent: 40 46% 53%;               /* #C9A962 Strong Gold */
-    --accent-foreground: 0 0% 7%;
+    --accent-foreground: 120 9% 11%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 37 33% 95%;
 
     --border: 33 12% 76%;               /* #CCC4B8 — warm border, visible on both surfaces */
     --input: 33 12% 76%;
-    --ring: 218 38% 18%;
+    --ring: 14 53% 50%;
 
     --radius: 0.375rem;
 
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 0 0% 7%;
+    --sidebar-foreground: 120 9% 11%;
     --sidebar-primary: 40 46% 53%;
-    --sidebar-primary-foreground: 0 0% 7%;
-    --sidebar-accent: 34 22% 93% / 0.5;
-    --sidebar-accent-foreground: 0 0% 7%;
+    --sidebar-primary-foreground: 120 9% 11%;
+    --sidebar-accent: 36 41% 83% / 0.5;
+    --sidebar-accent-foreground: 120 9% 11%;
     --sidebar-border: 32 14% 80%;
     --sidebar-ring: 40 46% 53%;
 
     /* Custom tokens */
-    --marine: 218 38% 18%;
-    --cream: 34 22% 93%;
-    --charcoal: 0 0% 7%;
+    --deep-green: 158 41% 21%;
+    --cream: 36 41% 83%;
+    --charcoal: 120 9% 11%;
     --bronze: 40 46% 53%;
     --bronze-muted: 38 36% 51%;
+    --terracotta: 14 53% 50%;
 
     /* Bronze pill tokens */
-    --pill-bg: 34 22% 93%;
-    --pill-text: 0 0% 7%;
+    --pill-bg: 36 41% 83%;
+    --pill-text: 120 9% 11%;
     --pill-border: 40 46% 53%;
     --pill-active-bg: 40 46% 53%;
-    --pill-active-text: 0 0% 7%;
+    --pill-active-text: 120 9% 11%;
     --pill-active-border: 40 46% 53%;
   }
 
