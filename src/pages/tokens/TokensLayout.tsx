@@ -470,7 +470,7 @@ const TokensLayout = () => {
                 </div>
                 <div className="bg-background p-8 space-y-4">
                   <div className="max-w-lg mx-auto space-y-3">
-                    <div className="h-4 w-1/3 rounded bg-primary/20" />
+                    <div className="h-4 w-1/3 rounded bg-deep-green/20" />
                     <div className="h-2.5 w-full rounded bg-muted-foreground/10" />
                     <div className="h-2.5 w-full rounded bg-muted-foreground/10" />
                     <div className="h-2.5 w-3/4 rounded bg-muted-foreground/10" />
