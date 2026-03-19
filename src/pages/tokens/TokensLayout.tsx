@@ -403,15 +403,15 @@ const TokensLayout = () => {
                   <p className="text-label font-body text-foreground mb-1">bg-background</p>
                   <p className="text-body-sm font-body text-foreground max-w-prose">Main content, editorial text, forms, data tables. Default reading context.</p>
                 </div>
-                <div className="p-8 bg-primary text-primary-foreground">
-                  <p className="text-caption font-body font-medium text-primary-foreground/60 uppercase tracking-widest mb-2">Anchor Surface</p>
-                  <p className="text-label font-body text-primary-foreground mb-1">bg-primary</p>
-                  <p className="text-body-sm font-body text-primary-foreground/90 max-w-prose">Navigation, hero sections, quote blocks, contextual anchoring.</p>
+                <div className="p-8 bg-deep-green text-cream">
+                  <p className="text-caption font-body font-medium text-cream/60 uppercase tracking-widest mb-2">Anchor Surface</p>
+                  <p className="text-label font-body text-cream mb-1">bg-deep-green</p>
+                  <p className="text-body-sm font-body text-cream/90 max-w-prose">Navigation, hero sections, quote blocks, contextual anchoring.</p>
                 </div>
               </div>
               <div className="mt-3 flex flex-wrap gap-2">
                 <CopyButton value="bg-background text-foreground" label="Primary Surface" />
-                <CopyButton value="bg-primary text-primary-foreground" label="Anchor Surface" />
+                <CopyButton value="bg-deep-green text-cream" label="Anchor Surface" />
               </div>
             </div>
 
