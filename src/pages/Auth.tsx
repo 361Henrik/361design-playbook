@@ -151,7 +151,7 @@ const AuthPage = () => {
                     <Label className="text-label font-body">Password</Label>
                     <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required className="h-12" />
                   </div>
-                  <Button type="submit" className="w-full font-body font-medium" size="lg" disabled={loading}>
+                  <Button type="submit" className="w-full font-body font-medium bg-accent text-accent-foreground hover:bg-accent/90" size="lg" disabled={loading}>
                     {loading && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
                     Sign In
                   </Button>
