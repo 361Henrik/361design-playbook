@@ -422,13 +422,13 @@ const TokensLayout = () => {
 
               <div className="border border-border rounded-md overflow-hidden">
                 <div className="flex" style={{ minHeight: 220 }}>
-                  <div className="w-56 shrink-0 bg-primary p-5 space-y-4">
-                    <div className="h-3.5 w-3/4 rounded bg-primary-foreground/20 mb-6" />
+                  <div className="w-56 shrink-0 bg-deep-green p-5 space-y-4">
+                    <div className="h-3.5 w-3/4 rounded bg-cream/20 mb-6" />
                     {["Dashboard", "Components", "Tokens", "Patterns", "Settings"].map((item, i) => (
                       <div
                         key={item}
                         className={`px-3 py-1.5 rounded text-body-sm font-body ${
-                          i === 2 ? "bg-primary-foreground/10 text-primary-foreground" : "text-primary-foreground/60"
+                          i === 2 ? "bg-cream/10 text-cream" : "text-cream/60"
                         }`}
                       >
                         {item}
