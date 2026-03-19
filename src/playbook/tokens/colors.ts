@@ -50,7 +50,7 @@ export const colorsPlaybook: PlaybookPage = {
         {
           name: "Champagne Bronze",
           value: "#C9A962 (HSL 40 46% 53%)",
-          description: "Highlight accent. Icon highlights, selected markers, thin dividers and small emphasis words. On deep green surfaces, bronze is used for headings to create a refined, high-contrast hierarchy. Bronze is jewelry, never paint. CSS: --accent, Tailwind: accent",
+          description: "Highlight accent. Icon highlights, selected markers, thin dividers. On deep green surfaces only, bronze is used for headings to create a refined, high-contrast hierarchy. Never used as text on light/neutral surfaces — insufficient contrast. Bronze is jewelry, never paint. CSS: --accent, Tailwind: accent",
         },
         {
           name: "Warm Border",
@@ -69,7 +69,7 @@ export const colorsPlaybook: PlaybookPage = {
         { label: "Muted", value: "Secondary text only", notes: "No other grey tones allowed" },
         { label: "Deep Green", value: "Structure / identity only", notes: "Section backgrounds, emphasis panels" },
         { label: "Terracotta", value: "Interaction only", notes: "Buttons, route lines, active states, CTAs" },
-        { label: "Bronze", value: "Highlight only", notes: "Selected markers, icon accents, thin dividers" },
+        { label: "Bronze", value: "Highlight only", notes: "Icons, markers, dividers. Text only on deep green backgrounds." },
         { label: "Warm Border", value: "Borders only", notes: "Single border color, no variations" },
       ],
     },
@@ -92,7 +92,7 @@ export const colorsPlaybook: PlaybookPage = {
         { label: "Deep Charcoal on Warm Canvas", value: "Primary text pairing" },
         { label: "Cream on Deep Green", value: "Inverted panels / emphasis sections" },
         { label: "Deep Charcoal on Warm Stone", value: "Card text" },
-        { label: "Bronze on Warm Canvas", value: "Accent text only — decorative labels" },
+        { label: "Bronze on Deep Green", value: "Headings only — high-contrast accent on dark surface" },
       ],
     },
     {
@@ -100,7 +100,7 @@ export const colorsPlaybook: PlaybookPage = {
       dos: [
         "Use terracotta exclusively for interactive elements — buttons, links, active states.",
         "Use deep green for structural emphasis — section backgrounds, identity panels.",
-        "Use bronze sparingly — icon highlights, selected markers, thin dividers.",
+        "Use bronze sparingly — icon highlights, selected markers, thin dividers. As text, only on deep green.",
         "Keep Warm Canvas dominant — it is the visual foundation.",
         "Use Deep Charcoal for all primary text. One weight of dark, no variations.",
         "Use the single Muted tone for all secondary text. No additional greys.",
@@ -109,7 +109,7 @@ export const colorsPlaybook: PlaybookPage = {
         "Never introduce additional neutral tones beyond the four defined.",
         "Never introduce any blue tones.",
         "Never use deep green as a button or interactive color.",
-        "Never use bronze as a fill color, button, or large surface.",
+        "Never use bronze as a fill color, button, large surface, or text on light/neutral backgrounds.",
         "Never use pure black (#000). Deep Charcoal (#1A1F1A) provides warmth.",
         "Never add colored backgrounds — neutrals only.",
       ],
