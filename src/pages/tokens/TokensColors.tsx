@@ -40,7 +40,7 @@ const TokensColors = () => {
       <div className="mb-10 p-5 rounded-md border border-border bg-card">
         <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-4">Color Usage Rules</h3>
         <ul className="space-y-2 text-sm font-body text-muted-foreground">
-          <li>• <strong className="text-foreground">Warm Canvas = background</strong> — all main surfaces, 80%+ of visible area</li>
+          <li>• <strong className="text-foreground">Base Canvas = background</strong> — all main surfaces, 80%+ of visible area</li>
           <li>• <strong className="text-foreground">Warm Stone = secondary surface</strong> — cards, panels, layered sections</li>
           <li>• <strong className="text-foreground">Deep Charcoal = primary text</strong> — one text color, no variations</li>
           <li>• <strong className="text-foreground">Muted = secondary text</strong> — the only secondary tone, no additional greys</li>
