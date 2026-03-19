@@ -206,12 +206,12 @@ const TokensLayout = () => {
                 <div className="bg-muted/30 p-6 flex justify-center">
                   <div className="w-full" style={{ maxWidth: "720px" }}>
                     {/* Hero block */}
-                    <div className="bg-primary rounded-t-md p-8 flex flex-col items-center text-center space-y-3">
-                      <div className="h-5 w-2/3 rounded bg-primary-foreground/20" />
-                      <div className="h-3 w-1/2 rounded bg-primary-foreground/15" />
+                    <div className="bg-deep-green rounded-t-md p-8 flex flex-col items-center text-center space-y-3">
+                      <div className="h-5 w-2/3 rounded bg-cream/20" />
+                      <div className="h-3 w-1/2 rounded bg-cream/15" />
                       <div className="flex gap-3 mt-2">
-                        <div className="h-8 w-24 rounded bg-primary-foreground/20" />
-                        <div className="h-8 w-20 rounded border border-primary-foreground/20" />
+                        <div className="h-8 w-24 rounded bg-cream/20" />
+                        <div className="h-8 w-20 rounded border border-cream/20" />
                       </div>
                     </div>
                     {/* Content below hero */}
