@@ -290,11 +290,12 @@ CSS, Tailwind, JSON, and TypeScript outputs.
 | Name              | Hex     | Role            |
 |-------------------|---------|-----------------|
 | Cream             | #F7F4EF | Background      |
-| Soft Ivory        | #FBF9F6 | Cards / panels  |
-| Charcoal          | #1A1A1A | Text            |
-| Deep Marine Blue  | #1F3A5F | Interaction     |
-| Champagne Bronze  | #C6A96B | Highlight       |
-| Border Subtle     | #D9D6D1 | Borders         |
+| Warm Stone         | #E8E2D9 | Cards / panels  |
+| Deep Charcoal      | #1A1F1A | Text            |
+| Deep Green         | #1F4A3A | Structure       |
+| Terracotta         | #C35C3C | Interaction     |
+| Champagne Bronze   | #C9A962 | Highlight       |
+| Warm Border        | #CCC4B8 | Borders         |
 
 ## Typography
 
