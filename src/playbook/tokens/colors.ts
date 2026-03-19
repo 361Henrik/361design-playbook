@@ -50,7 +50,7 @@ export const colorsPlaybook: PlaybookPage = {
         {
           name: "Champagne Bronze",
           value: "#C9A962 (HSL 40 46% 53%)",
-          description: "Highlight accent. Icon highlights, selected markers, thin dividers and small emphasis words. On deep green surfaces, bronze is used for headings to create a refined, high-contrast hierarchy. Bronze is jewelry, never paint. CSS: --accent, Tailwind: accent",
+          description: "Highlight accent. Icon highlights, selected markers, thin dividers. On deep green surfaces only, bronze is used for headings to create a refined, high-contrast hierarchy. Never used as text on light/neutral surfaces — insufficient contrast. Bronze is jewelry, never paint. CSS: --accent, Tailwind: accent",
         },
         {
           name: "Warm Border",
