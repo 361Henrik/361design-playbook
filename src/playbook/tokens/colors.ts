@@ -18,9 +18,9 @@ export const colorsPlaybook: PlaybookPage = {
       heading: "Core Palette",
       colors: [
         {
-          name: "Warm Canvas",
+          name: "Base Canvas",
           value: "#F6F3EE (HSL 37 31% 95%)",
-          description: "Primary background. Every main surface uses this color. It is the canvas of the system. CSS: --background, Tailwind: background",
+          description: "Primary background. Used across all main surfaces. A neutral, low-chroma base that allows accent colors to stand out clearly. The canvas should recede — never compete. CSS: --background, Tailwind: background",
         },
         {
           name: "Warm Stone",
