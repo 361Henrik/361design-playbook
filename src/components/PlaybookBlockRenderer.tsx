@@ -83,7 +83,7 @@ function SpecTableBlock({ block }: { block: Extract<ContentBlock, { type: "spec-
 }
 
 function RuleListBlock({ block }: { block: Extract<ContentBlock, { type: "rule-list" }> }) {
-  const color = block.variant === "do" ? "text-primary" : block.variant === "dont" ? "text-destructive" : "text-muted-foreground";
+  const color = block.variant === "do" ? "text-foreground" : block.variant === "dont" ? "text-muted-foreground" : "text-muted-foreground";
   const marker = block.variant === "do" ? "✓" : block.variant === "dont" ? "✗" : "•";
   return (
     <div className="space-y-2">

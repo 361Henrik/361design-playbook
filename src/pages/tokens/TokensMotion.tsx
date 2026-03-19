@@ -70,15 +70,15 @@ const TokensMotion = () => {
             </div>
 
             {/* Prohibited */}
-            <div className="p-5 rounded-md border-2 border-destructive/20 bg-card">
-              <p className="text-sm font-body font-medium text-destructive mb-3">✗ Prohibited Motion Patterns</p>
+            <div className="p-5 rounded-md border border-border bg-card">
+              <p className="text-sm font-body font-medium text-foreground mb-3">✗ Prohibited Motion Patterns</p>
               <ul className="space-y-2 text-sm font-body leading-reading text-foreground">
-                <li className="flex gap-2"><span className="text-destructive">✗</span> Parallax-heavy transitions</li>
-                <li className="flex gap-2"><span className="text-destructive">✗</span> Bouncing or scaling buttons</li>
-                <li className="flex gap-2"><span className="text-destructive">✗</span> Dramatic page transitions</li>
-                <li className="flex gap-2"><span className="text-destructive">✗</span> Over-animated layouts or loading sequences</li>
-                <li className="flex gap-2"><span className="text-destructive">✗</span> Any motion that breaks architectural calm</li>
-                <li className="flex gap-2"><span className="text-destructive">✗</span> Scale transforms on interactive elements</li>
+                <li className="flex gap-2"><span className="text-muted-foreground">✗</span> Parallax-heavy transitions</li>
+                <li className="flex gap-2"><span className="text-muted-foreground">✗</span> Bouncing or scaling buttons</li>
+                <li className="flex gap-2"><span className="text-muted-foreground">✗</span> Dramatic page transitions</li>
+                <li className="flex gap-2"><span className="text-muted-foreground">✗</span> Over-animated layouts or loading sequences</li>
+                <li className="flex gap-2"><span className="text-muted-foreground">✗</span> Any motion that breaks architectural calm</li>
+                <li className="flex gap-2"><span className="text-muted-foreground">✗</span> Scale transforms on interactive elements</li>
               </ul>
             </div>
           </div>

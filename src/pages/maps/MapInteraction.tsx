@@ -70,14 +70,14 @@ const MapInteraction = () => {
         </div>
 
         {/* Constraints */}
-        <div className="p-5 rounded-md border-2 border-destructive/20 bg-card">
-          <p className="text-sm font-body font-medium text-destructive mb-3">✗ Interaction Constraints</p>
+        <div className="p-5 rounded-md border border-border bg-card">
+          <p className="text-sm font-body font-medium text-foreground mb-3">✗ Interaction Constraints</p>
           <ul className="space-y-2 text-sm font-body leading-reading text-foreground">
-            <li className="flex gap-2"><span className="text-destructive">✗</span> No double-tap to zoom</li>
-            <li className="flex gap-2"><span className="text-destructive">✗</span> No long-press actions</li>
-            <li className="flex gap-2"><span className="text-destructive">✗</span> No gesture-based navigation (swipe to next POI)</li>
-            <li className="flex gap-2"><span className="text-destructive">✗</span> No hover tooltips (touch-first design)</li>
-            <li className="flex gap-2"><span className="text-destructive">✗</span> No clustering that requires tap-to-expand</li>
+            <li className="flex gap-2"><span className="text-muted-foreground">✗</span> No double-tap to zoom</li>
+            <li className="flex gap-2"><span className="text-muted-foreground">✗</span> No long-press actions</li>
+            <li className="flex gap-2"><span className="text-muted-foreground">✗</span> No gesture-based navigation (swipe to next POI)</li>
+            <li className="flex gap-2"><span className="text-muted-foreground">✗</span> No hover tooltips (touch-first design)</li>
+            <li className="flex gap-2"><span className="text-muted-foreground">✗</span> No clustering that requires tap-to-expand</li>
           </ul>
         </div>
       </div>

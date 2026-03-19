@@ -72,14 +72,14 @@ const MapPrinciples = () => {
         </div>
 
         {/* Anti-patterns */}
-        <div className="p-5 rounded-md border-2 border-destructive/20 bg-card">
-          <p className="text-sm font-body font-medium text-destructive mb-3">✗ The Map Must Never</p>
+        <div className="p-5 rounded-md border border-border bg-card">
+          <p className="text-sm font-body font-medium text-foreground mb-3">✗ The Map Must Never</p>
           <ul className="space-y-2 text-sm font-body leading-reading text-foreground">
-            <li className="flex gap-2"><span className="text-destructive">✗</span> Feel like a GPS or car navigation system</li>
-            <li className="flex gap-2"><span className="text-destructive">✗</span> Show dense, unfiltered geographic data</li>
-            <li className="flex gap-2"><span className="text-destructive">✗</span> Display areas far outside the scenic corridor</li>
-            <li className="flex gap-2"><span className="text-destructive">✗</span> Use bright, saturated, or playful styling</li>
-            <li className="flex gap-2"><span className="text-destructive">✗</span> Require pinching, zooming, or effort to read</li>
+            <li className="flex gap-2"><span className="text-muted-foreground">✗</span> Feel like a GPS or car navigation system</li>
+            <li className="flex gap-2"><span className="text-muted-foreground">✗</span> Show dense, unfiltered geographic data</li>
+            <li className="flex gap-2"><span className="text-muted-foreground">✗</span> Display areas far outside the scenic corridor</li>
+            <li className="flex gap-2"><span className="text-muted-foreground">✗</span> Use bright, saturated, or playful styling</li>
+            <li className="flex gap-2"><span className="text-muted-foreground">✗</span> Require pinching, zooming, or effort to read</li>
           </ul>
         </div>
       </div>

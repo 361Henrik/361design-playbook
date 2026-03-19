@@ -134,14 +134,14 @@ const NavigationLogic = () => {
             </ul>
           </div>
 
-          <div className="p-5 rounded-md border-2 border-destructive/20 bg-card">
-            <p className="text-sm font-body font-medium text-destructive mb-3">✗ Route Constraints</p>
+          <div className="p-5 rounded-md border border-border bg-card">
+            <p className="text-sm font-body font-medium text-foreground mb-3">✗ Route Constraints</p>
             <ul className="space-y-2 text-sm font-body leading-reading text-foreground">
-              <li className="flex gap-2"><span className="text-destructive">✗</span> No dashed or dotted route lines</li>
-              <li className="flex gap-2"><span className="text-destructive">✗</span> No directional arrows on the route</li>
-              <li className="flex gap-2"><span className="text-destructive">✗</span> No glowing, pulsing, or animated vessel marker</li>
-              <li className="flex gap-2"><span className="text-destructive">✗</span> No ETA or distance overlays on the map</li>
-              <li className="flex gap-2"><span className="text-destructive">✗</span> No speed indicators</li>
+              <li className="flex gap-2"><span className="text-muted-foreground">✗</span> No dashed or dotted route lines</li>
+              <li className="flex gap-2"><span className="text-muted-foreground">✗</span> No directional arrows on the route</li>
+              <li className="flex gap-2"><span className="text-muted-foreground">✗</span> No glowing, pulsing, or animated vessel marker</li>
+              <li className="flex gap-2"><span className="text-muted-foreground">✗</span> No ETA or distance overlays on the map</li>
+              <li className="flex gap-2"><span className="text-muted-foreground">✗</span> No speed indicators</li>
             </ul>
           </div>
         </section>
