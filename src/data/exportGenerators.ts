@@ -5,10 +5,10 @@
 const tokens = {
   colors: {
     accent: { name: "Champagne Bronze", hsl: "40 42% 60%", hex: "#C6A96B", css: "--accent", tw: "accent" },
-    background: { name: "Cream", hsl: "36 24% 95%", hex: "#F7F4EF", css: "--background", tw: "background" },
-    foreground: { name: "Charcoal", hsl: "0 0% 10%", hex: "#1A1A1A", css: "--foreground", tw: "foreground" },
-    primary: { name: "Deep Marine Blue", hsl: "215 51% 25%", hex: "#1F3A5F", css: "--primary", tw: "primary" },
-    secondary: { name: "Soft Ivory", hsl: "40 33% 97%", hex: "#FBF9F6", css: "--secondary", tw: "secondary" },
+    background: { name: "Warm Canvas", hsl: "36 41% 83%", hex: "#E6D8C3", css: "--background", tw: "background" },
+    foreground: { name: "Deep Charcoal", hsl: "120 9% 11%", hex: "#1A1F1A", css: "--foreground", tw: "foreground" },
+    primary: { name: "Terracotta", hsl: "14 53% 50%", hex: "#C35C3C", css: "--primary", tw: "primary" },
+    secondary: { name: "Warm Stone", hsl: "33 16% 89%", hex: "#E8E2D9", css: "--secondary", tw: "secondary" },
   },
   typography: {
     body: { family: "Lexend", fallback: "system-ui, sans-serif", weight: "400", lineHeight: "1.6" },

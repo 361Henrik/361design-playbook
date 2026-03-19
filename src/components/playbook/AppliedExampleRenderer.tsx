@@ -211,7 +211,7 @@ function ColorUsageExample() {
         {/* Primary button */}
         <div className="flex flex-col items-center gap-1.5">
           <Button size="sm" className="text-xs pointer-events-none">Book Route</Button>
-          <span className="text-[9px] font-mono text-muted-foreground">marine blue</span>
+          <span className="text-[9px] font-mono text-muted-foreground">terracotta</span>
         </div>
         {/* Success alert */}
         <div className="flex flex-col items-center gap-1.5">

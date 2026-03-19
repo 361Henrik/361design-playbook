@@ -26,7 +26,7 @@ export const routePositionPlaybook: PlaybookPage = {
       type: "spec-table",
       heading: "Vessel Position",
       rows: [
-        { label: "Marker", value: "8px solid circle · Marine blue (#1F3A5F) · No stroke" },
+        { label: "Marker", value: "8px solid circle · Deep green (#1F4A3A) · No stroke" },
         { label: "Update frequency", value: "Every 30–60 seconds · Smooth interpolation between updates" },
         { label: "Map centering", value: "Map follows vessel by default · Guest can pan freely · 'Return to vessel' button appears" },
       ],

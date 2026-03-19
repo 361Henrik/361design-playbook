@@ -34,7 +34,7 @@ const onboardingSteps: Step[] = [
 ];
 
 const PIE_COLORS = [
-  "hsl(215 51% 25%)",   // primary (marine blue)
+  "hsl(14 53% 50%)",    // primary (terracotta)
   "hsl(40 42% 60%)",    // accent (bronze)
   "hsl(0 0% 36%)",      // muted-fg
   "hsl(0 72% 51%)",     // destructive

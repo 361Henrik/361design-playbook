@@ -19,7 +19,7 @@ export const buttonsPlaybook: PlaybookPage = {
       components: [
         {
           name: "Primary Button",
-          description: "The main call-to-action. Uses Deep Marine Blue with cream text. No scaling or bouncing hover effects — opacity shift only.",
+          description: "The main call-to-action. Uses Terracotta with cream text. No scaling or bouncing hover effects — opacity shift only.",
           anatomy: "A <button> element styled with the primary variant. Contains text and an optional trailing icon.",
           accessibilityNotes: "Uses native <button> semantics. Ensure visible focus ring (ring-ring). Disabled state reduces opacity to 50%.",
           responsiveNotes: "Full-width on mobile (w-full) when used as a page-level CTA. Inline at md+ breakpoints. Minimum height 44px (48px preferred for guest-facing CTAs).",
