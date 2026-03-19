@@ -91,6 +91,35 @@ const TokensColors = () => {
         </div>
       </section>
 
+      {/* Bronze CTA Cradle */}
+      <section className="mt-12">
+        <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-4">Bronze as Supporting Surface</h2>
+        <p className="text-sm font-body text-foreground max-w-prose mb-6">
+          In hero and key action areas, Champagne Bronze serves as a subtle supporting layer behind CTAs. The visual priority is: <strong>CTA (Terracotta)</strong> → <strong>Supporting surface (Bronze)</strong> → <strong>Background (Deep Green or Canvas)</strong>.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* On canvas */}
+          <div className="p-6 rounded-md border border-border bg-background">
+            <p className="text-xs font-body text-muted-foreground mb-3 uppercase tracking-widest">On Base Canvas</p>
+            <div className="cta-cradle">
+              <p className="text-sm font-body text-foreground mb-3">Ready to explore your design system?</p>
+              <button className="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground font-body font-medium text-sm px-5 py-2.5">Get Started</button>
+            </div>
+          </div>
+          {/* On deep green */}
+          <div className="p-6 rounded-md bg-deep-green">
+            <p className="text-xs font-body text-cream/60 mb-3 uppercase tracking-widest">On Deep Green</p>
+            <div className="cta-cradle">
+              <p className="text-sm font-body text-cream/80 mb-3">Browse tokens, compose layouts, export specs.</p>
+              <button className="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground font-body font-medium text-sm px-5 py-2.5">Open Studio</button>
+            </div>
+          </div>
+        </div>
+        <p className="text-xs font-body text-muted-foreground mt-4 max-w-prose">
+          Use the <code className="font-mono text-xs bg-card px-1.5 py-0.5 rounded border border-border">.cta-cradle</code> utility class. Bronze opacity is restrained (~12%) to support without competing.
+        </p>
+      </section>
+
       {/* Operator Adaptation */}
       <section className="mt-12">
         <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-4">Operator Adaptation Rules</h2>
