@@ -55,7 +55,7 @@ export const colorsPlaybook: PlaybookPage = {
         {
           name: "Warm Border",
           value: "#CCC4B8 (HSL 33 12% 76%)",
-          description: "The single border color. Cards, inputs, dividers. Visible against both Warm Canvas and Warm Stone surfaces — no border variations. CSS: --border, Tailwind: border",
+          description: "The single border color. Cards, inputs, dividers. Visible against both Base Canvas and Warm Stone surfaces — no border variations. CSS: --border, Tailwind: border",
         },
       ],
     },
