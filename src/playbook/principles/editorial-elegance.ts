@@ -36,7 +36,7 @@ export const editorialElegancePlaybook: PlaybookPage = {
         {
           title: "Restrained Color",
           description:
-            "Neutral base always dominant. Terracotta for interaction only. Deep green for structural emphasis. Bronze for subtle highlights. No blue tones — surfaces are always warm canvas, stone, or white.",
+            "Neutral base always dominant. Terracotta for interaction only. Deep green for structural emphasis. Bronze for subtle highlights. No blue tones — surfaces are always base canvas, stone, or white.",
         },
         {
           title: "Subtle Depth",

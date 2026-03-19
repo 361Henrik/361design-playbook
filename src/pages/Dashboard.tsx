@@ -15,7 +15,7 @@ import {
 } from "recharts";
 
 const categories = [
-  { title: "Colors", description: "Warm Canvas, Deep Green, Terracotta, Champagne Bronze — exact values and usage rules.", icon: Palette, href: "/tokens/colors" },
+  { title: "Colors", description: "Base Canvas, Deep Green, Terracotta, Champagne Bronze — exact values and usage rules.", icon: Palette, href: "/tokens/colors" },
   { title: "Typography", description: "Playfair Display headlines, Lexend body — weights, line-heights, and discipline.", icon: Type, href: "/tokens/typography" },
   { title: "Spacing", description: "Section padding, headline gaps, paragraph spacing ranges.", icon: Ruler, href: "/tokens/spacing" },
   { title: "Layout", description: "Content widths, column control, panel pairings.", icon: LayoutGrid, href: "/tokens/layout" },

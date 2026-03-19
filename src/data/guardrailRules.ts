@@ -471,7 +471,7 @@ export function checkContrastRatio(
 export function getContrastResults() {
   const palette = [
     { name: "Terracotta", hsl: "14 53% 50%", role: "primary" },
-    { name: "Warm Canvas", hsl: "36 41% 83%", role: "background" },
+    { name: "Base Canvas", hsl: "37 31% 95%", role: "background" },
     { name: "Warm Stone", hsl: "33 16% 89%", role: "secondary" },
     { name: "Deep Charcoal", hsl: "120 9% 11%", role: "foreground" },
     { name: "Champagne Bronze", hsl: "40 46% 53%", role: "accent" },

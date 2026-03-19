@@ -5,7 +5,7 @@
 const tokens = {
   colors: {
     accent: { name: "Champagne Bronze", hsl: "40 42% 60%", hex: "#C6A96B", css: "--accent", tw: "accent" },
-    background: { name: "Warm Canvas", hsl: "37 31% 95%", hex: "#F6F3EE", css: "--background", tw: "background" },
+    background: { name: "Base Canvas", hsl: "37 31% 95%", hex: "#F6F3EE", css: "--background", tw: "background" },
     foreground: { name: "Deep Charcoal", hsl: "120 9% 11%", hex: "#1A1F1A", css: "--foreground", tw: "foreground" },
     primary: { name: "Terracotta", hsl: "14 53% 50%", hex: "#C35C3C", css: "--primary", tw: "primary" },
     secondary: { name: "Warm Stone", hsl: "33 16% 89%", hex: "#E8E2D9", css: "--secondary", tw: "secondary" },
