@@ -92,7 +92,7 @@ export const colorsPlaybook: PlaybookPage = {
         { label: "Deep Charcoal on Warm Canvas", value: "Primary text pairing" },
         { label: "Cream on Deep Green", value: "Inverted panels / emphasis sections" },
         { label: "Deep Charcoal on Warm Stone", value: "Card text" },
-        { label: "Bronze on Warm Canvas", value: "Accent text only — decorative labels" },
+        { label: "Bronze on Deep Green", value: "Headings only — high-contrast accent on dark surface" },
       ],
     },
     {
