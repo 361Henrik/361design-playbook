@@ -78,7 +78,7 @@ const AuthPage = () => {
       {/* Left Panel — Branded Intro */}
       <section
         className="
-          bg-primary text-primary-foreground
+          bg-deep-green text-cream
           flex flex-col justify-center
           px-space-5 py-space-7
           md:px-space-8 md:py-space-8
