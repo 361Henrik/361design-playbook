@@ -44,6 +44,7 @@ import MotionTransitionsPage from "./pages/behavior/MotionTransitions";
 import SemanticColorPage from "./pages/behavior/SemanticColor";
 import DepthSurfacesPage from "./pages/behavior/DepthSurfaces";
 import DarkModePage from "./pages/behavior/DarkMode";
+import CTASystemPage from "./pages/behavior/CTASystem";
 import AuthPage from "./pages/Auth";
 import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
@@ -113,6 +114,7 @@ function ProtectedRoutes() {
           <Route path="/behavior/semantic-color" element={<SemanticColorPage />} />
           <Route path="/behavior/depth" element={<DepthSurfacesPage />} />
           <Route path="/behavior/dark-mode" element={<DarkModePage />} />
+          <Route path="/behavior/cta-system" element={<CTASystemPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AppShell>
