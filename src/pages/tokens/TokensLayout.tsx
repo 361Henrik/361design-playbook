@@ -357,7 +357,7 @@ const TokensLayout = () => {
                       </div>
                       {/* Editor panel */}
                       <div className="col-span-6 bg-background border border-border rounded-md p-4 space-y-3">
-                        <div className="h-3.5 w-1/3 rounded bg-primary/25" />
+                        <div className="h-3.5 w-1/3 rounded bg-deep-green/25" />
                         <div className="h-8 w-full rounded border border-border bg-muted/20" />
                         <div className="h-8 w-full rounded border border-border bg-muted/20" />
                         <div className="h-20 w-full rounded border border-border bg-muted/20" />
