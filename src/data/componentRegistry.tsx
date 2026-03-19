@@ -249,9 +249,9 @@ export const components: ComponentEntry[] = [
     id: "card-anchor",
     name: "Anchor Context Panel",
     category: "cards",
-    description: "A Deep Marine Blue panel that provides visual weight and grounds sections. Used for hero areas, featured callouts, and section anchors.",
-    anatomy: "A styled <div> with bg-primary and text-primary-foreground. May contain headings, body text, and CTAs.",
-    accessibilityNotes: "Ensure all text meets WCAG AA contrast against the Marine Blue background. Use primary-foreground tokens.",
+    description: "A Deep Green panel that provides visual weight and grounds sections. Used for hero areas, featured callouts, and section anchors.",
+    anatomy: "A styled <div> with bg-deep-green and text-primary-foreground. May contain headings, body text, and CTAs.",
+    accessibilityNotes: "Ensure all text meets WCAG AA contrast against the Deep Green background. Use primary-foreground tokens.",
     responsiveNotes: "Can be full-width on mobile. On desktop, pair side-by-side with a Primary Context card for the classic panel pairing.",
     dos: [
       "Use to anchor a section — it provides visual gravity",
