@@ -72,12 +72,13 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        marine: "hsl(var(--marine))",
+        "deep-green": "hsl(var(--deep-green))",
         cream: "hsl(var(--cream))",
         
         charcoal: "hsl(var(--charcoal))",
         bronze: "hsl(var(--bronze))",
         "bronze-muted": "hsl(var(--bronze-muted))",
+        terracotta: "hsl(var(--terracotta))",
       },
       maxWidth: {
         prose: "52ch",
