@@ -109,7 +109,7 @@ export const colorsPlaybook: PlaybookPage = {
         "Never introduce additional neutral tones beyond the four defined.",
         "Never introduce any blue tones.",
         "Never use deep green as a button or interactive color.",
-        "Never use bronze as a fill color, button, or large surface.",
+        "Never use bronze as a fill color, button, large surface, or text on light/neutral backgrounds.",
         "Never use pure black (#000). Deep Charcoal (#1A1F1A) provides warmth.",
         "Never add colored backgrounds — neutrals only.",
       ],
