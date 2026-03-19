@@ -460,12 +460,12 @@ const TokensLayout = () => {
               <p className="text-caption font-body text-muted-foreground mb-5">Anchor surface for hero/brand messaging. Primary surface for body content below.</p>
 
               <div className="border border-border rounded-md overflow-hidden">
-                <div className="bg-primary p-10 text-center space-y-3">
-                  <div className="h-6 w-2/5 mx-auto rounded bg-primary-foreground/20" />
-                  <div className="h-3 w-1/3 mx-auto rounded bg-primary-foreground/12" />
+                <div className="bg-deep-green p-10 text-center space-y-3">
+                  <div className="h-6 w-2/5 mx-auto rounded bg-cream/20" />
+                  <div className="h-3 w-1/3 mx-auto rounded bg-cream/12" />
                   <div className="flex justify-center gap-3 mt-4">
-                    <div className="h-8 w-28 rounded bg-primary-foreground/20" />
-                    <div className="h-8 w-24 rounded border border-primary-foreground/20" />
+                    <div className="h-8 w-28 rounded bg-cream/20" />
+                    <div className="h-8 w-24 rounded border border-cream/20" />
                   </div>
                 </div>
                 <div className="bg-background p-8 space-y-4">
