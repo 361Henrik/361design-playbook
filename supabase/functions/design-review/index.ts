@@ -14,7 +14,7 @@ const COMPONENT_INDEX = [
   { name: "Text Link Button", category: "buttons", dos: ["Inline navigation"], donts: ["Never as primary CTA"] },
   { name: "Destructive Button", category: "buttons", dos: ["Delete/remove only", "Always with confirmation"], donts: ["Not for cancel/dismiss"] },
   { name: "Primary Context Card", category: "cards", dos: ["Warm Off-White bg", "One idea per card"], donts: ["No nested cards", "No colored backgrounds"] },
-  { name: "Anchor Context Panel", category: "cards", dos: ["Deep Marine Blue bg", "One per major section"], donts: ["Never stack two back-to-back"] },
+  { name: "Anchor Context Panel", category: "cards", dos: ["Deep Green bg", "One per major section"], donts: ["Never stack two back-to-back"] },
   { name: "Panel Pairing", category: "cards", dos: ["Hero sections", "50/50 or 60/40 split"], donts: ["Max one per page section", "No third panel"] },
   { name: "Text Input", category: "forms", dos: ["Always with visible Label"], donts: ["No placeholder-only labels"] },
   { name: "Textarea", category: "forms", dos: ["Multi-line freeform text"], donts: ["Not for single-line"] },
