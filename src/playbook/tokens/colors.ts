@@ -45,7 +45,7 @@ export const colorsPlaybook: PlaybookPage = {
         {
           name: "Terracotta",
           value: "#C35C3C (HSL 14 53% 50%)",
-          description: "Interaction color. Buttons, active states, route lines, navigation anchors and focused elements. The primary CTA color across the system. CSS: --primary / --terracotta, Tailwind: primary / terracotta",
+          description: "Interaction and emphasis color only. Buttons, CTAs, active states, selected states, highlight panels, callout sections. Never for typography (body, headings, labels, tags), map elements (markers, routes, overlays), icons, borders, or structural UI. Controlled, intentional, rare enough to signal importance. CSS: --primary / --terracotta, Tailwind: primary / terracotta",
         },
         {
           name: "Champagne Bronze",
@@ -68,7 +68,7 @@ export const colorsPlaybook: PlaybookPage = {
         { label: "Deep Charcoal", value: "Primary text only", notes: "Never as background fill" },
         { label: "Muted", value: "Secondary text only", notes: "No other grey tones allowed" },
         { label: "Deep Green", value: "Structure / identity only", notes: "Section backgrounds, emphasis panels" },
-        { label: "Terracotta", value: "Interaction only", notes: "Buttons, route lines, active states, CTAs" },
+        { label: "Terracotta", value: "Interaction & emphasis only", notes: "Buttons, CTAs, active states, highlight panels. Never text, labels, icons, map elements, or borders." },
         { label: "Bronze", value: "Highlight only", notes: "Icons, markers, dividers. Text only on deep green backgrounds." },
         { label: "Warm Border", value: "Borders only", notes: "Single border color, no variations" },
       ],
@@ -98,8 +98,9 @@ export const colorsPlaybook: PlaybookPage = {
     {
       type: "do-dont",
       dos: [
-        "Use terracotta exclusively for interactive elements — buttons, links, active states.",
+        "Use terracotta exclusively for interactive elements and emphasis surfaces — buttons, CTAs, active states, highlight panels.",
         "Use deep green for structural emphasis — section backgrounds, identity panels.",
+        "Keep terracotta rare and intentional — it signals importance through scarcity.",
         "Use bronze sparingly — icon highlights, selected markers, thin dividers. As text, only on deep green.",
         "Keep Base Canvas dominant — it is the neutral foundation that lets accents shine.",
         "Use Deep Charcoal for all primary text. One weight of dark, no variations.",
@@ -108,6 +109,10 @@ export const colorsPlaybook: PlaybookPage = {
       donts: [
         "Never introduce additional neutral tones beyond the four defined.",
         "Never introduce any blue tones.",
+        "Never use terracotta for typography — body text, headings, labels, navigation text, tags, or pill labels.",
+        "Never use terracotta in maps — markers, icons, route lines, overlays, or highlights.",
+        "Never use terracotta for system icons or navigation icons.",
+        "Never use terracotta for borders, dividers, or neutral surface backgrounds.",
         "Never use deep green as a button or interactive color.",
         "Never use bronze as a fill color, button, large surface, or text on light/neutral backgrounds.",
         "Never use pure black (#000). Deep Charcoal (#1A1F1A) provides warmth.",

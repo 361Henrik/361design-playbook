@@ -8,7 +8,7 @@ const tokensData = [
   { name: "Deep Charcoal", variable: "--foreground", hex: "#1A1F1A", hsl: "120 9% 11%", tailwind: "foreground", usage: "Primary text. All body copy, headings, labels, and UI text. The only primary text color.", swatch: "bg-foreground", role: "text" },
   { name: "Muted", variable: "--muted-foreground", hex: "#6E6A5E", hsl: "45 8% 40%", tailwind: "muted-foreground", usage: "Secondary text. Descriptions, captions, supporting labels. The only secondary text tone — no additional greys.", swatch: "bg-muted-foreground", role: "secondary text" },
   { name: "Deep Green", variable: "--deep-green", hex: "#1F4A3A", hsl: "158 41% 21%", tailwind: "deep-green", usage: "Structure and identity color. Section backgrounds, emphasis panels, and areas requiring stronger contrast within a page. When used as a background, pair with light text and bronze headings. Signals importance and structure, never interaction.", swatch: "bg-deep-green", role: "structure" },
-  { name: "Terracotta", variable: "--primary", hex: "#C35C3C", hsl: "14 53% 50%", tailwind: "primary", usage: "Interaction color. Buttons, active states, route lines, navigation anchors and focused elements. The primary CTA color across the entire system.", swatch: "bg-primary", role: "interaction" },
+  { name: "Terracotta", variable: "--primary", hex: "#C35C3C", hsl: "14 53% 50%", tailwind: "primary", usage: "Interaction and emphasis color only. Buttons, CTAs, active states, selected states, highlight panels, and callout sections. Never for text, labels, icons, map elements, or structural UI. Controlled, intentional, rare enough to signal importance.", swatch: "bg-primary", role: "interaction" },
   { name: "Champagne Bronze", variable: "--accent", hex: "#C9A962", hsl: "40 46% 53%", tailwind: "accent", usage: "Highlight accent. Icon highlights, selected markers, thin dividers. As text, only on deep green surfaces for headings — never on light/neutral backgrounds. Bronze is jewelry, never paint.", swatch: "bg-accent", role: "highlight" },
   { name: "Warm Border", variable: "--border", hex: "#CCC4B8", hsl: "33 12% 76%", tailwind: "border", usage: "The single border color. Cards, inputs, dividers. Visible against both Base Canvas and Warm Stone surfaces. No border variations.", swatch: "bg-border", role: "structural" },
 ];
@@ -45,7 +45,7 @@ const TokensColors = () => {
           <li>• <strong className="text-foreground">Deep Charcoal = primary text</strong> — one text color, no variations</li>
           <li>• <strong className="text-foreground">Muted = secondary text</strong> — the only secondary tone, no additional greys</li>
           <li>• <strong className="text-foreground">Deep Green = structure</strong> — section backgrounds, emphasis panels, identity</li>
-          <li>• <strong className="text-foreground">Terracotta = interaction</strong> — buttons, CTAs, active states</li>
+          <li>• <strong className="text-foreground">Terracotta = interaction & emphasis only</strong> — buttons, CTAs, active states, highlight panels. Never text, labels, icons, map elements, or borders.</li>
           <li>• <strong className="text-foreground">Bronze = highlight</strong> — selected markers, icon accents, thin dividers</li>
           <li>• <strong className="text-foreground">Warm Border = borders</strong> — single border color, no variations</li>
         </ul>
@@ -113,7 +113,8 @@ const TokensColors = () => {
         <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-4">Do / Don't</h2>
         <DosDonts
           dos={[
-            "Use terracotta exclusively for interactive elements — buttons, links, active states.",
+            "Use terracotta exclusively for interaction and emphasis — buttons, CTAs, active states, highlight panels.",
+            "Keep terracotta rare and intentional — it signals importance through scarcity.",
             "Use deep green for structural emphasis — section backgrounds, identity panels.",
             "Use bronze sparingly — icon highlights, selected markers, thin dividers. As text, only on deep green.",
             "Keep Base Canvas dominant — the neutral foundation that lets accents shine.",
@@ -123,6 +124,10 @@ const TokensColors = () => {
           donts={[
             "Never introduce additional neutral tones beyond the four defined.",
             "Never introduce any blue tones.",
+            "Never use terracotta for typography — body text, headings, labels, navigation text, tags, or pills.",
+            "Never use terracotta in maps — markers, icons, route lines, overlays, or highlights.",
+            "Never use terracotta for system icons or navigation icons.",
+            "Never use terracotta for borders, dividers, or neutral surface backgrounds.",
             "Never use deep green as a button or interactive color.",
             "Never use bronze as a fill color, button, large surface, or text on light/neutral backgrounds.",
             "Never use pure black (#000). Deep Charcoal (#1A1F1A) provides warmth.",

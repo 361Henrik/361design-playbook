@@ -30,7 +30,8 @@ const GUARDRAIL_RULES = [
   { id: "color-bronze-ratio", name: "Bronze accent ≤ 8%", description: "Antique Bronze must remain an accent — never exceeding 8% of total visible area." },
   { id: "color-no-gradients", name: "No gradients", description: "Gradients are prohibited. Use flat, solid color fills only." },
   { id: "color-approved-palette", name: "Approved palette only", description: "Only approved colors: Base Canvas (#F6F3EE), Warm Stone (#E8E2D9), Deep Charcoal (#1A1F1A), Deep Green (#1F4A3A), Terracotta (#C35C3C), Champagne Bronze (#C9A962)." },
-  { id: "color-neutral-dominant", name: "Neutral base dominant", description: "Neutral surfaces (canvas, stone) dominant. Deep green for structure only. Terracotta for interaction only. Bronze for highlights only. No blue tones." },
+  { id: "color-neutral-dominant", name: "Neutral base dominant", description: "Neutral surfaces (canvas, stone) dominant. Deep green for structure only. Terracotta for interaction and emphasis surfaces only — never text, labels, icons, map elements, or borders. Bronze for highlights only. No blue tones." },
+  { id: "color-terracotta-usage", name: "Terracotta interaction only", description: "Terracotta restricted to buttons, CTAs, active/selected states, highlight panels, callout sections. Prohibited for typography, map elements, icons, borders, dividers." },
   { id: "color-contrast", name: "WCAG AA contrast", description: "All text/background pairs must meet WCAG AA (4.5:1 body, 3:1 large)." },
   { id: "type-no-weight-300", name: "No weight 300", description: "Font weight 300 is never permitted." },
   { id: "type-headlines-playfair", name: "Headlines use Playfair Display", description: "All headlines (h1–h6) must use Playfair Display." },
@@ -115,7 +116,7 @@ Always structure your response with these sections:
 - Deep Charcoal: HSL 120 9% 11% (#1A1F1A) — text only. No pure black.
 - Muted: HSL 45 8% 40% (#6E6A5E) — secondary text, captions, de-emphasized labels.
 - Deep Green: HSL 158 41% 21% (#1F4A3A) — structure / identity (section backgrounds, emphasis panels). Not for buttons.
-- Terracotta: HSL 14 53% 50% (#C35C3C) — interaction accent (buttons, CTAs, active states).
+- Terracotta: HSL 14 53% 50% (#C35C3C) — interaction and emphasis only (buttons, CTAs, active states, highlight panels). NEVER for text, labels, icons, map elements, or borders.
 - Champagne Bronze: HSL 40 46% 53% (#C9A962) — highlight accent (≤ subtle). Jewelry, never paint. Not for buttons or backgrounds.
 
 ### Typography

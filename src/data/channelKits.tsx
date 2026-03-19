@@ -151,7 +151,7 @@ const LandingHeroTemplate = () => (
           ].map((feature) => (
             <div key={feature.title} className="flex gap-3">
               <div className="h-8 w-8 rounded-md bg-secondary flex items-center justify-center shrink-0">
-                <feature.icon className="h-4 w-4 text-primary" strokeWidth={1.5} />
+                <feature.icon className="h-4 w-4 text-accent" strokeWidth={1.5} />
               </div>
               <div>
                 <p className="text-sm font-body font-medium text-foreground">{feature.title}</p>
@@ -219,7 +219,7 @@ const LandingPricingTemplate = () => (
             <ul className="space-y-2">
               {tier.features.map((f) => (
                 <li key={f} className="flex items-center gap-2 text-sm font-body text-foreground">
-                  <Check className="h-3.5 w-3.5 text-primary shrink-0" strokeWidth={2} />
+                  <Check className="h-3.5 w-3.5 text-foreground shrink-0" strokeWidth={2} />
                   {f}
                 </li>
               ))}
@@ -279,7 +279,7 @@ const EmailHeaderTemplate = () => (
       {/* Hero image placeholder */}
       <div className="h-48 bg-secondary flex items-center justify-center">
         <div className="text-center space-y-2">
-          <Layers className="h-8 w-8 text-primary mx-auto" strokeWidth={1.5} />
+          <Layers className="h-8 w-8 text-accent mx-auto" strokeWidth={1.5} />
           <p className="text-xs font-body text-muted-foreground">Hero image area</p>
         </div>
       </div>
