@@ -5,7 +5,7 @@
 @layer base {
   :root {
     /* Curated Lens Design System — Warm Editorial Foundation */
-    --background: 36 41% 83%;            /* #E6D8C3 Warm Canvas */
+    --background: 36 33% 90%;            /* #EEE7DD Warm Canvas */
     --foreground: 120 9% 11%;            /* #1A1F1A Deep Charcoal — primary text */
 
     --card: 33 16% 89%;                  /* #E8E2D9 Warm Stone — secondary surface */
