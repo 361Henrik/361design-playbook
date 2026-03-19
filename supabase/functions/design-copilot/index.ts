@@ -29,7 +29,7 @@ const COMPONENT_INDEX = [
 const GUARDRAIL_RULES = [
   { id: "color-bronze-ratio", name: "Bronze accent ≤ 8%", description: "Antique Bronze must remain an accent — never exceeding 8% of total visible area." },
   { id: "color-no-gradients", name: "No gradients", description: "Gradients are prohibited. Use flat, solid color fills only." },
-  { id: "color-approved-palette", name: "Approved palette only", description: "Only approved colors: Warm Canvas (#E6D8C3), Warm Stone (#E8E2D9), Deep Charcoal (#1A1F1A), Deep Green (#1F4A3A), Terracotta (#C35C3C), Champagne Bronze (#C9A962)." },
+  { id: "color-approved-palette", name: "Approved palette only", description: "Only approved colors: Base Canvas (#F6F3EE), Warm Stone (#E8E2D9), Deep Charcoal (#1A1F1A), Deep Green (#1F4A3A), Terracotta (#C35C3C), Champagne Bronze (#C9A962)." },
   { id: "color-neutral-dominant", name: "Neutral base dominant", description: "Neutral surfaces (canvas, stone) dominant. Deep green for structure only. Terracotta for interaction only. Bronze for highlights only. No blue tones." },
   { id: "color-contrast", name: "WCAG AA contrast", description: "All text/background pairs must meet WCAG AA (4.5:1 body, 3:1 large)." },
   { id: "type-no-weight-300", name: "No weight 300", description: "Font weight 300 is never permitted." },
