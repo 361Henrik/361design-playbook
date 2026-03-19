@@ -18,9 +18,9 @@ export const colorsPlaybook: PlaybookPage = {
       heading: "Core Palette",
       colors: [
         {
-          name: "Warm Canvas",
+          name: "Base Canvas",
           value: "#F6F3EE (HSL 37 31% 95%)",
-          description: "Primary background. Every main surface uses this color. It is the canvas of the system. CSS: --background, Tailwind: background",
+          description: "Primary background. Used across all main surfaces. A neutral, low-chroma base that allows accent colors to stand out clearly. The canvas should recede — never compete. CSS: --background, Tailwind: background",
         },
         {
           name: "Warm Stone",
@@ -55,7 +55,7 @@ export const colorsPlaybook: PlaybookPage = {
         {
           name: "Warm Border",
           value: "#CCC4B8 (HSL 33 12% 76%)",
-          description: "The single border color. Cards, inputs, dividers. Visible against both Warm Canvas and Warm Stone surfaces — no border variations. CSS: --border, Tailwind: border",
+          description: "The single border color. Cards, inputs, dividers. Visible against both Base Canvas and Warm Stone surfaces — no border variations. CSS: --border, Tailwind: border",
         },
       ],
     },
@@ -63,7 +63,7 @@ export const colorsPlaybook: PlaybookPage = {
       type: "spec-table",
       heading: "Color Usage Rules",
       rows: [
-        { label: "Warm Canvas", value: "Background only", notes: "All main surfaces, 80%+ of visible area" },
+        { label: "Base Canvas", value: "Background only", notes: "All main surfaces, 80%+ of visible area" },
         { label: "Warm Stone", value: "Secondary surface only", notes: "Cards, panels, layered sections" },
         { label: "Deep Charcoal", value: "Primary text only", notes: "Never as background fill" },
         { label: "Muted", value: "Secondary text only", notes: "No other grey tones allowed" },
@@ -89,7 +89,7 @@ export const colorsPlaybook: PlaybookPage = {
       type: "spec-table",
       heading: "Approved Contrast Pairs",
       rows: [
-        { label: "Deep Charcoal on Warm Canvas", value: "Primary text pairing" },
+        { label: "Deep Charcoal on Base Canvas", value: "Primary text pairing" },
         { label: "Cream on Deep Green", value: "Inverted panels / emphasis sections" },
         { label: "Deep Charcoal on Warm Stone", value: "Card text" },
         { label: "Bronze on Deep Green", value: "Headings only — high-contrast accent on dark surface" },
@@ -101,7 +101,7 @@ export const colorsPlaybook: PlaybookPage = {
         "Use terracotta exclusively for interactive elements — buttons, links, active states.",
         "Use deep green for structural emphasis — section backgrounds, identity panels.",
         "Use bronze sparingly — icon highlights, selected markers, thin dividers. As text, only on deep green.",
-        "Keep Warm Canvas dominant — it is the visual foundation.",
+        "Keep Base Canvas dominant — it is the neutral foundation that lets accents shine.",
         "Use Deep Charcoal for all primary text. One weight of dark, no variations.",
         "Use the single Muted tone for all secondary text. No additional greys.",
       ],

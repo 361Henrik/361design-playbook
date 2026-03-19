@@ -28,7 +28,7 @@ const COMPONENT_INDEX = [
 const GUARDRAIL_RULES = [
   { id: "color-bronze-ratio", name: "Bronze highlight only", severity: "error", description: "Champagne Bronze must remain a subtle highlight accent — never for buttons, backgrounds, or large surfaces." },
   { id: "color-no-gradients", name: "No gradients", severity: "error", description: "Gradients are prohibited. Use flat, solid color fills only." },
-  { id: "color-approved-palette", name: "Approved palette only", severity: "error", description: "Only approved colors: Warm Canvas (#E6D8C3), Warm Stone (#E8E2D9), Deep Charcoal (#1A1F1A), Deep Green (#1F4A3A), Terracotta (#C35C3C), Champagne Bronze (#C9A962)." },
+  { id: "color-approved-palette", name: "Approved palette only", severity: "error", description: "Only approved colors: Base Canvas (#F6F3EE), Warm Stone (#E8E2D9), Deep Charcoal (#1A1F1A), Deep Green (#1F4A3A), Terracotta (#C35C3C), Champagne Bronze (#C9A962)." },
   { id: "color-neutral-dominant", name: "Neutral base dominant", severity: "warning", description: "Neutral surfaces (canvas, stone) dominant. Terracotta for interaction only. Deep green for structure only. No blue tones." },
   { id: "color-contrast", name: "WCAG AA contrast", severity: "error", description: "All text/background pairs must meet WCAG AA (4.5:1 body, 3:1 large). AAA (7:1) preferred for body text." },
   { id: "color-no-bright-markers", name: "No bright colored markers", severity: "error", description: "Map markers use white disk + black ring only. Color reserved for state changes (selected = bronze)." },

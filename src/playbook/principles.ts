@@ -16,7 +16,7 @@ export const brandPrinciples: PlaybookPage = {
     {
       type: "text",
       heading: "Single System, Two Rendering Modes",
-      body: "The Curated Lens is a single design system with two rendering modes:\n\n**Curated Lens Signature Mode (B2B)** — How the system expresses its own identity in the Design System Hub, sales materials, and onboarding. Uses Deep Green + Champagne Bronze as structural accents, Terracotta for interaction.\n\n**Operator Expression Mode (B2C)** — How the system adapts to each operator's identity in guest-facing environments. Allows controlled color adaptation while structural rules (map, marker, layout, typography) remain immutable.\n\nThese modes share a single foundation: neutral backgrounds (warm canvas, stone), the same typography stack, the same spacing scale, and the same structural constraints.",
+      body: "The Curated Lens is a single design system with two rendering modes:\n\n**Curated Lens Signature Mode (B2B)** — How the system expresses its own identity in the Design System Hub, sales materials, and onboarding. Uses Deep Green + Champagne Bronze as structural accents, Terracotta for interaction.\n\n**Operator Expression Mode (B2C)** — How the system adapts to each operator's identity in guest-facing environments. Allows controlled color adaptation while structural rules (map, marker, layout, typography) remain immutable.\n\nThese modes share a single foundation: neutral backgrounds (base canvas, stone), the same typography stack, the same spacing scale, and the same structural constraints.",
     },
     {
       type: "text",

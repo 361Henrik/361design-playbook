@@ -3,14 +3,14 @@ import { CopyButton } from "@/components/CopyButton";
 import { DosDonts } from "@/components/DosDonts";
 
 const tokensData = [
-  { name: "Warm Canvas", variable: "--background", hex: "#F6F3EE", hsl: "37 31% 95%", tailwind: "background", usage: "Primary background. Every main surface uses this color. It is the canvas of the system.", swatch: "bg-background", role: "background" },
+  { name: "Base Canvas", variable: "--background", hex: "#F6F3EE", hsl: "37 31% 95%", tailwind: "background", usage: "Primary background. Used across all main surfaces. A neutral, low-chroma base that allows accent colors to stand out clearly. The canvas should recede — never compete.", swatch: "bg-background", role: "background" },
   { name: "Warm Stone", variable: "--card", hex: "#E8E2D9", hsl: "33 16% 89%", tailwind: "card", usage: "Secondary surface. Cards, panels, and layered sections. Creates clear separation from the background.", swatch: "bg-card", role: "surface" },
   { name: "Deep Charcoal", variable: "--foreground", hex: "#1A1F1A", hsl: "120 9% 11%", tailwind: "foreground", usage: "Primary text. All body copy, headings, labels, and UI text. The only primary text color.", swatch: "bg-foreground", role: "text" },
   { name: "Muted", variable: "--muted-foreground", hex: "#6E6A5E", hsl: "45 8% 40%", tailwind: "muted-foreground", usage: "Secondary text. Descriptions, captions, supporting labels. The only secondary text tone — no additional greys.", swatch: "bg-muted-foreground", role: "secondary text" },
   { name: "Deep Green", variable: "--deep-green", hex: "#1F4A3A", hsl: "158 41% 21%", tailwind: "deep-green", usage: "Structure and identity color. Section backgrounds, emphasis panels, and areas requiring stronger contrast within a page. When used as a background, pair with light text and bronze headings. Signals importance and structure, never interaction.", swatch: "bg-deep-green", role: "structure" },
   { name: "Terracotta", variable: "--primary", hex: "#C35C3C", hsl: "14 53% 50%", tailwind: "primary", usage: "Interaction color. Buttons, active states, route lines, navigation anchors and focused elements. The primary CTA color across the entire system.", swatch: "bg-primary", role: "interaction" },
   { name: "Champagne Bronze", variable: "--accent", hex: "#C9A962", hsl: "40 46% 53%", tailwind: "accent", usage: "Highlight accent. Icon highlights, selected markers, thin dividers. As text, only on deep green surfaces for headings — never on light/neutral backgrounds. Bronze is jewelry, never paint.", swatch: "bg-accent", role: "highlight" },
-  { name: "Warm Border", variable: "--border", hex: "#CCC4B8", hsl: "33 12% 76%", tailwind: "border", usage: "The single border color. Cards, inputs, dividers. Visible against both Warm Canvas and Warm Stone surfaces. No border variations.", swatch: "bg-border", role: "structural" },
+  { name: "Warm Border", variable: "--border", hex: "#CCC4B8", hsl: "33 12% 76%", tailwind: "border", usage: "The single border color. Cards, inputs, dividers. Visible against both Base Canvas and Warm Stone surfaces. No border variations.", swatch: "bg-border", role: "structural" },
 ];
 
 const TokensColors = () => {
@@ -40,7 +40,7 @@ const TokensColors = () => {
       <div className="mb-10 p-5 rounded-md border border-border bg-card">
         <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-4">Color Usage Rules</h3>
         <ul className="space-y-2 text-sm font-body text-muted-foreground">
-          <li>• <strong className="text-foreground">Warm Canvas = background</strong> — all main surfaces, 80%+ of visible area</li>
+          <li>• <strong className="text-foreground">Base Canvas = background</strong> — all main surfaces, 80%+ of visible area</li>
           <li>• <strong className="text-foreground">Warm Stone = secondary surface</strong> — cards, panels, layered sections</li>
           <li>• <strong className="text-foreground">Deep Charcoal = primary text</strong> — one text color, no variations</li>
           <li>• <strong className="text-foreground">Muted = secondary text</strong> — the only secondary tone, no additional greys</li>
@@ -78,7 +78,7 @@ const TokensColors = () => {
         <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-4">Approved Contrast Pairs</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[
-            { bg: "bg-background", fg: "text-foreground", label: "Deep Charcoal on Warm Canvas" },
+            { bg: "bg-background", fg: "text-foreground", label: "Deep Charcoal on Base Canvas" },
             { bg: "bg-deep-green", fg: "text-primary-foreground", label: "Cream on Deep Green" },
             { bg: "bg-card", fg: "text-card-foreground", label: "Deep Charcoal on Warm Stone" },
             { bg: "bg-deep-green", fg: "text-accent", label: "Bronze on Deep Green (headings only)" },
@@ -116,7 +116,7 @@ const TokensColors = () => {
             "Use terracotta exclusively for interactive elements — buttons, links, active states.",
             "Use deep green for structural emphasis — section backgrounds, identity panels.",
             "Use bronze sparingly — icon highlights, selected markers, thin dividers. As text, only on deep green.",
-            "Keep Warm Canvas dominant — it is the visual foundation.",
+            "Keep Base Canvas dominant — the neutral foundation that lets accents shine.",
             "Use Deep Charcoal for all primary text. One weight of dark, no variations.",
             "Use the single Muted tone for all secondary text. No additional greys.",
           ]}
