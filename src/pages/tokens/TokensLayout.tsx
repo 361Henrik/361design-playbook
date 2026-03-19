@@ -266,7 +266,7 @@ const TokensLayout = () => {
                   <div className="relative">
                     <div className="absolute inset-0 grid grid-cols-12 gap-1.5 pointer-events-none opacity-30">
                       {Array.from({ length: 12 }).map((_, i) => (
-                        <div key={i} className="h-full bg-primary/5 border-x border-primary/10" />
+                         <div key={i} className="h-full bg-deep-green/5 border-x border-deep-green/10" />
                       ))}
                     </div>
                     <div className="relative grid grid-cols-3 gap-6">
