@@ -167,7 +167,7 @@ const TokensLayout = () => {
                   <div className="w-full" style={{ maxWidth: "720px" }}>
                     {/* Header bar */}
                     <div className="bg-background border border-border rounded-t-md px-4 py-3 flex items-center gap-3">
-                      <div className="h-3 w-24 rounded bg-primary/20" />
+                      <div className="h-3 w-24 rounded bg-deep-green/20" />
                       <div className="flex-1" />
                       <div className="h-3 w-16 rounded bg-muted-foreground/15" />
                     </div>
