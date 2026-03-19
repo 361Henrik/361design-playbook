@@ -50,8 +50,8 @@ export const operatorBrandingPlaybook: PlaybookPage = {
       heading: "Operator Customization Tokens",
       rows: [
         { label: "Operator logo", value: "SVG or PNG, displayed in header and welcome screen" },
-        { label: "Accent color override", value: "Replaces marine blue for buttons and highlights" },
-        { label: "Route color override", value: "Optional, replaces marine blue for map route lines (must pass contrast)" },
+        { label: "Accent color override", value: "Replaces terracotta for buttons and highlights" },
+        { label: "Route color override", value: "Optional, replaces deep green for map route lines (must pass contrast)" },
         { label: "Font pairing", value: "Operator may supply a display font; body font remains Lexend for consistency" },
         { label: "Tone modifiers", value: "Voice tokens adjusted per operator (e.g., formal, adventurous, heritage)" },
         { label: "Welcome copy", value: "Operator-specific onboarding text and imagery" },
