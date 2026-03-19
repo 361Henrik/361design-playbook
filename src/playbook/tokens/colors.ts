@@ -63,7 +63,7 @@ export const colorsPlaybook: PlaybookPage = {
       type: "spec-table",
       heading: "Color Usage Rules",
       rows: [
-        { label: "Warm Canvas", value: "Background only", notes: "All main surfaces, 80%+ of visible area" },
+        { label: "Base Canvas", value: "Background only", notes: "All main surfaces, 80%+ of visible area" },
         { label: "Warm Stone", value: "Secondary surface only", notes: "Cards, panels, layered sections" },
         { label: "Deep Charcoal", value: "Primary text only", notes: "Never as background fill" },
         { label: "Muted", value: "Secondary text only", notes: "No other grey tones allowed" },
