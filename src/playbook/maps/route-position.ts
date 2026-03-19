@@ -17,7 +17,7 @@ export const routePositionPlaybook: PlaybookPage = {
       type: "spec-table",
       heading: "Route Line Specs",
       rows: [
-        { label: "Active segment", value: "2px solid · Marine blue (#1F3A5F) · Full opacity" },
+        { label: "Active segment", value: "2px solid · Deep green (#1F4A3A) · Full opacity" },
         { label: "Upcoming segment", value: "2px solid · Warm grey (#8B8680) · 60% opacity" },
         { label: "Line style", value: "Smooth curves · No dashes · No arrows · Round line caps" },
       ],
