@@ -118,6 +118,60 @@ const ImageSystem = () => {
           </div>
         </section>
 
+        {/* Overlay Policy */}
+        <section className="space-y-4">
+          <h2 className="font-display text-xl font-medium tracking-headline text-foreground">
+            Overlay Policy
+          </h2>
+          <div className="p-5 rounded-md border border-border bg-card">
+            <p className="text-sm font-body leading-reading text-foreground max-w-prose mb-4">
+              <strong>Default rule:</strong> Images must be presented without overlays. No color washes, no dimming for style, no overlays for visual consistency. Images should stand on their own.
+            </p>
+            <p className="text-sm font-body leading-reading text-foreground max-w-prose mb-3">
+              <strong>Allowed exception (strict):</strong> Subtle gradient overlays are permitted ONLY when required to improve clarity:
+            </p>
+            <ul className="space-y-1.5 text-sm font-body leading-reading text-foreground list-disc pl-5">
+              <li><strong>Readability</strong> — text placed directly on an image, or insufficient background contrast</li>
+              <li><strong>Noise reduction</strong> — non-essential areas distract from the main subject</li>
+              <li><strong>Visual guidance</strong> — gently guide focus toward key content or direction</li>
+            </ul>
+          </div>
+
+          {/* Overlay style rules */}
+          <div className="p-5 rounded-md border border-border bg-card">
+            <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-3">Overlay Style Rules</h3>
+            <div className="space-y-2">
+              {[
+                { label: "Opacity", value: "5–20% maximum", note: "Must be nearly invisible" },
+                { label: "Tone", value: "Neutral only", note: "No color tinting" },
+                { label: "Shape", value: "Soft gradients only", note: "No hard edges" },
+                { label: "Direction", value: "Top, bottom, or side fade", note: "Never full image wash" },
+              ].map((rule) => (
+                <div key={rule.label} className="flex items-start gap-3 text-sm font-body">
+                  <span className="font-medium text-foreground w-24 shrink-0">{rule.label}</span>
+                  <span className="text-foreground">{rule.value}</span>
+                  <span className="text-muted-foreground ml-auto">— {rule.note}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Priority order */}
+          <div className="p-5 rounded-md border border-border bg-card">
+            <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-3">Before Applying Any Overlay</h3>
+            <ol className="space-y-1.5 text-sm font-body leading-reading text-foreground list-decimal pl-5">
+              <li>Crop the image to improve composition</li>
+              <li>Reposition the text to a clearer area</li>
+              <li>Select a better image with natural contrast</li>
+              <li>Reduce text density over the image</li>
+              <li>Place text outside the image entirely</li>
+            </ol>
+            <p className="text-sm font-body leading-reading text-muted-foreground mt-3 italic">
+              Overlays are a last-resort tool — exhaust all alternatives first.
+            </p>
+          </div>
+        </section>
+
         {/* Do's & Don'ts */}
         <section className="space-y-4">
           <h2 className="font-display text-xl font-medium tracking-headline text-foreground">
@@ -130,12 +184,16 @@ const ImageSystem = () => {
               "Keep people understated — from behind or in profile",
               "Show the product as a subtle, natural part of the scene",
               "Prioritize cinematic compositions with landscape as hero",
+              "Present images without overlays by default",
+              "Use gradient overlays only as a last resort for text readability or focus guidance",
             ]}
             donts={[
               "Use staged corporate stock imagery",
               "Show posed, performative, or fashion-led shots",
               "Let the device dominate the composition",
-              "Use low-contrast overlays that compromise text readability",
+              "Use overlays for decoration, mood, or atmosphere",
+              "Apply brand colors as image tints or washes",
+              "Use overlays to compensate for poor image selection — replace the image instead",
               "Include recognizable operator assets unless approved",
               "Use overly saturated or artificially enhanced color grading",
             ]}
