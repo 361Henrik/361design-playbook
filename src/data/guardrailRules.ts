@@ -88,7 +88,7 @@ export const guardrailRules: GuardrailRule[] = [
     name: "Neutral base dominant",
     category: "color",
     severity: "warning",
-    description: "Neutral surfaces (cream, ivory) must dominate. Marine blue for interaction only. Bronze for highlights only. No colored backgrounds.",
+    description: "Neutral surfaces (canvas, stone) must dominate. Terracotta for interaction only. Deep green for structure only. Bronze for highlights only. No blue tones.",
     checkDescription: "Verify neutral surfaces fill 80%+ of visible area with no colored backgrounds.",
     status: "pass",
     weight: 0.5,
