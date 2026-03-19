@@ -520,8 +520,8 @@ const TokensLayout = () => {
               <DosDonts
                 dos={[
                   "Use white (bg-background) as the default reading surface.",
-                  "Use green (bg-primary) to anchor navigation, heroes, and callouts.",
-                  "Keep text on green surfaces using text-primary-foreground for contrast.",
+                  "Use green (bg-deep-green) to anchor navigation, heroes, and callouts.",
+                  "Keep text on green surfaces using text-cream for contrast.",
                   "Use bronze accents sparingly for dividers and emphasis markers.",
                 ]}
                 donts={[
