@@ -292,7 +292,7 @@ export const components: ComponentEntry[] = [
     id: "panel-pairing",
     name: "Panel Pairing",
     category: "cards",
-    description: "The signature layout: a Primary Context (ivory) card paired side-by-side with an Anchor Context (marine blue) panel. This creates the visual rhythm that defines the Curated Lens aesthetic.",
+    description: "The signature layout: a Primary Context (stone) card paired side-by-side with an Anchor Context (deep green) panel. This creates the visual rhythm that defines the Curated Lens aesthetic.",
     anatomy: "A grid container with two children — one Primary Context card and one Anchor Context panel, typically in a 50/50 or 60/40 split.",
     accessibilityNotes: "Both panels should be independently readable. Don't rely on the pairing to convey meaning — each panel should stand alone.",
     responsiveNotes: "Stacks vertically on mobile (grid-cols-1). Side-by-side at md+ (grid-cols-2). The Anchor panel should come first in the stack.",
