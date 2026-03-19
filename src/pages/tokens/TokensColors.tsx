@@ -78,7 +78,7 @@ const TokensColors = () => {
         <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-4">Approved Contrast Pairs</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[
-            { bg: "bg-background", fg: "text-foreground", label: "Deep Charcoal on Warm Canvas" },
+            { bg: "bg-background", fg: "text-foreground", label: "Deep Charcoal on Base Canvas" },
             { bg: "bg-deep-green", fg: "text-primary-foreground", label: "Cream on Deep Green" },
             { bg: "bg-card", fg: "text-card-foreground", label: "Deep Charcoal on Warm Stone" },
             { bg: "bg-deep-green", fg: "text-accent", label: "Bronze on Deep Green (headings only)" },
