@@ -348,9 +348,9 @@ const TokensLayout = () => {
                     <div className="relative grid grid-cols-12 gap-4" style={{ minHeight: 200 }}>
                       {/* List panel */}
                       <div className="col-span-3 bg-background border border-border rounded-md p-3 space-y-2">
-                        <div className="h-2.5 w-2/3 rounded bg-primary/20 mb-3" />
+                        <div className="h-2.5 w-2/3 rounded bg-deep-green/20 mb-3" />
                         {[0, 1, 2, 3, 4].map((i) => (
-                          <div key={i} className={`h-7 rounded px-2 flex items-center ${i === 1 ? "bg-primary/10 border border-primary/20" : "bg-muted/30"}`}>
+                          <div key={i} className={`h-7 rounded px-2 flex items-center ${i === 1 ? "bg-deep-green/10 border border-deep-green/20" : "bg-muted/30"}`}>
                             <div className="h-2 w-4/5 rounded bg-muted-foreground/15" />
                           </div>
                         ))}
