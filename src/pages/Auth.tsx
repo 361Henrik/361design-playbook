@@ -106,6 +106,14 @@ const AuthPage = () => {
         {/* Bronze accent line */}
         <div className="w-12 h-px bg-bronze mb-space-5 lg:mb-space-7 hidden md:block" />
 
+        {/* Bronze CTA cradle on deep green */}
+        <div className="cta-cradle hidden md:block mb-space-5 lg:mb-space-7 max-w-xs">
+          <p className="text-body-sm font-body text-cream/80 mb-space-3">Ready to explore your design system?</p>
+          <a href="#auth-form" className="inline-flex items-center justify-center gap-2 rounded-md bg-primary text-primary-foreground font-body font-medium text-sm px-5 py-2.5 hover:bg-primary/90 transition-colors">
+            Get Started
+          </a>
+        </div>
+
         {/* Benefit bullets — hidden on mobile */}
         <ul className="space-y-space-3 hidden md:block">
           {benefits.map((b) => (
