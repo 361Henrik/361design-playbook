@@ -95,29 +95,61 @@ const TokensColors = () => {
       <section className="mt-12">
         <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-4">Color Environments</h2>
         <p className="text-sm font-body text-foreground max-w-prose mb-6">
-          Every surface belongs to one of three color environments. Each environment dictates which CTA colors are permitted.
+          CTA color is determined in two steps: <strong>Environment</strong> (background context) defines the primary CTA, then <strong>Container style</strong> (filled or outlined) refines behavior.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+
+        {/* Step 1 — Environments */}
+        <h3 className="font-display text-base font-medium tracking-headline text-foreground mb-4">Step 1 — Environment</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           {/* Green Environment */}
           <div className="p-5 rounded-md bg-deep-green">
             <p className="text-xs font-body text-cream/60 mb-2 uppercase tracking-widest">Green Environment</p>
             <p className="text-sm font-body text-cream/80 mb-4">Hero sections, navigation, anchor panels</p>
-            <p className="text-xs font-body text-cream/50 mb-2">CTA: Cream / White only</p>
-            <button className="inline-flex items-center justify-center rounded-md bg-cream text-deep-green font-body font-medium text-sm px-5 py-2.5">Explore</button>
+            <p className="text-xs font-body text-cream/50 mb-3">Primary: Bronze solid · Secondary: White + bronze outline</p>
+            <div className="flex flex-wrap gap-3">
+              <button className="inline-flex items-center justify-center rounded-md bg-accent text-foreground font-body font-medium text-sm px-5 py-2.5">Explore</button>
+              <button className="inline-flex items-center justify-center rounded-md bg-transparent border border-accent text-cream font-body font-medium text-sm px-5 py-2.5">Learn More</button>
+            </div>
           </div>
           {/* Cream Environment */}
           <div className="p-5 rounded-md border border-border bg-background">
             <p className="text-xs font-body text-muted-foreground mb-2 uppercase tracking-widest">Cream Environment</p>
             <p className="text-sm font-body text-foreground mb-4">Main content, reading surfaces</p>
-            <p className="text-xs font-body text-muted-foreground mb-2">CTA: Terracotta only</p>
+            <p className="text-xs font-body text-muted-foreground mb-3">Primary: Terracotta solid</p>
             <button className="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground font-body font-medium text-sm px-5 py-2.5">Get Started</button>
           </div>
           {/* Terracotta Environment */}
           <div className="p-5 rounded-md bg-primary">
             <p className="text-xs font-body text-primary-foreground/60 mb-2 uppercase tracking-widest">Terracotta Environment</p>
             <p className="text-sm font-body text-primary-foreground/80 mb-4">Emphasis panels (rare, controlled)</p>
-            <p className="text-xs font-body text-primary-foreground/50 mb-2">CTA: Cream or Charcoal only</p>
+            <p className="text-xs font-body text-primary-foreground/50 mb-3">Primary: Base Canvas + dark text</p>
             <button className="inline-flex items-center justify-center rounded-md bg-cream text-foreground font-body font-medium text-sm px-5 py-2.5">View Details</button>
+          </div>
+        </div>
+
+        {/* Step 2 — Container Behavior */}
+        <h3 className="font-display text-base font-medium tracking-headline text-foreground mb-4">Step 2 — Container Behavior</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          {/* Filled container */}
+          <div className="p-5 rounded-md bg-deep-green">
+            <p className="text-xs font-body text-cream/60 mb-2 uppercase tracking-widest">Filled Container</p>
+            <p className="text-sm font-body text-cream/80 mb-4">Green or Terracotta fill → neutral CTA</p>
+            <button className="inline-flex items-center justify-center rounded-md bg-cream text-foreground font-body font-medium text-sm px-5 py-2.5">Neutral CTA</button>
+            <p className="text-xs font-body text-cream/40 mt-3">CTA must NOT match container color</p>
+          </div>
+          {/* Outlined container */}
+          <div className="p-5 rounded-md border-2 border-accent bg-background">
+            <p className="text-xs font-body text-muted-foreground mb-2 uppercase tracking-widest">Outlined Container</p>
+            <p className="text-sm font-body text-foreground mb-4">Border accent → CTA may use that color</p>
+            <button className="inline-flex items-center justify-center rounded-md bg-accent text-foreground font-body font-medium text-sm px-5 py-2.5">Bronze CTA</button>
+            <p className="text-xs font-body text-muted-foreground mt-3">Only case for colored CTAs outside defaults</p>
+          </div>
+          {/* Neutral container */}
+          <div className="p-5 rounded-md border border-border bg-background">
+            <p className="text-xs font-body text-muted-foreground mb-2 uppercase tracking-widest">Neutral Container</p>
+            <p className="text-sm font-body text-foreground mb-4">Base Canvas → default Terracotta CTA</p>
+            <button className="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground font-body font-medium text-sm px-5 py-2.5">Default CTA</button>
+            <p className="text-xs font-body text-muted-foreground mt-3">May inherit accent if container defines one</p>
           </div>
         </div>
 
@@ -125,8 +157,8 @@ const TokensColors = () => {
         <div className="p-6 rounded-md bg-deep-green">
           <p className="text-xs font-body text-cream/60 mb-3 uppercase tracking-widest">Bronze CTA Cradle (Green Environment Only)</p>
           <div className="cta-cradle max-w-xs">
-            <p className="text-sm font-body text-cream/80 mb-3">Optional bronze supporting surface behind cream CTA.</p>
-            <button className="inline-flex items-center justify-center rounded-md bg-cream text-deep-green font-body font-medium text-sm px-5 py-2.5">Open Studio</button>
+            <p className="text-sm font-body text-cream/80 mb-3">Optional bronze supporting surface behind primary CTA.</p>
+            <button className="inline-flex items-center justify-center rounded-md bg-accent text-foreground font-body font-medium text-sm px-5 py-2.5">Open Studio</button>
           </div>
           <p className="text-xs font-body text-cream/40 mt-3">
             Use <code className="font-mono text-xs bg-cream/10 px-1.5 py-0.5 rounded">.cta-cradle</code> — bronze at ~12–15% opacity. Never on cream surfaces.
