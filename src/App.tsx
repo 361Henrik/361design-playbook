@@ -21,6 +21,7 @@ import ExperienceDesign from "./pages/maps/ExperienceDesign";
 import MapExamples from "./pages/maps/MapExamples";
 import TokensIcons from "./pages/tokens/TokensIcons";
 import TokensVoice from "./pages/tokens/TokensVoice";
+import TokensLogoSystem from "./pages/tokens/TokensLogoSystem";
 import ComponentsPage from "./pages/Components";
 import ComponentDetailPage from "./pages/ComponentDetail";
 import GuidelinesPage from "./pages/Guidelines";
