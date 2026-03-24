@@ -92,6 +92,7 @@ function ProtectedRoutes() {
           <Route path="/maps/guest-experience" element={<Navigate to="/maps/experience-design" replace />} />
           <Route path="/tokens/icons" element={<TokensIcons />} />
           <Route path="/tokens/voice" element={<TokensVoice />} />
+          <Route path="/tokens/logo-system" element={<TokensLogoSystem />} />
           <Route path="/components" element={<ComponentsPage />} />
           <Route path="/components/:id" element={<ComponentDetailPage />} />
           <Route path="/guidelines" element={<GuidelinesPage />} />
