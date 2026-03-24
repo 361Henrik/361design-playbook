@@ -2,42 +2,10 @@ import { PageHeader } from "@/components/PageHeader";
 import { Badge } from "@/components/ui/badge";
 import { Camera, MapPin, Check, X } from "lucide-react";
 
-/* ─── Logo mark (pin + shutter) as inline SVG ─── */
-function LogoIcon({ size = 48, color = "currentColor" }: { size?: number; color?: string }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 48 48" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      {/* Pin silhouette */}
-      <path d="M24 4C17.4 4 12 9.4 12 16c0 9 12 24 12 24s12-15 12-24c0-6.6-5.4-12-12-12z" />
-      {/* Shutter aperture inside */}
-      <circle cx="24" cy="16" r="6" />
-      <line x1="24" y1="10" x2="24" y2="12" />
-      <line x1="29.2" y1="13" x2="27.5" y2="14" />
-      <line x1="29.2" y1="19" x2="27.5" y2="18" />
-      <line x1="24" y1="22" x2="24" y2="20" />
-      <line x1="18.8" y1="19" x2="20.5" y2="18" />
-      <line x1="18.8" y1="13" x2="20.5" y2="14" />
-    </svg>
-  );
-}
-
-/* ─── Wordmark ─── */
-function Wordmark({ color = "currentColor", className = "" }: { color?: string; className?: string }) {
-  return (
-    <span className={`font-display text-lg tracking-headline leading-none ${className}`} style={{ color }}>
-      The Curated Lens
-    </span>
-  );
-}
-
-/* ─── Full lockup ─── */
-function FullLockup({ iconColor = "currentColor", textColor = "currentColor" }: { iconColor?: string; textColor?: string }) {
-  return (
-    <div className="flex items-center gap-3">
-      <LogoIcon size={36} color={iconColor} />
-      <Wordmark color={textColor} />
-    </div>
-  );
-}
+import logoIcon from "@/assets/logo-icon.png";
+import logoIconInverted from "@/assets/logo-icon-inverted.png";
+import logoFull from "@/assets/logo-full.png";
+import logoLockup from "@/assets/logo-lockup.png";
 
 /* ─── Section wrapper ─── */
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -50,13 +18,13 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 }
 
 /* ─── Color usage cell ─── */
-function ColorCell({ bg, label, iconColor, textColor, valid = true }: {
-  bg: string; label: string; iconColor: string; textColor: string; valid?: boolean;
+function ColorCell({ bg, label, children, valid = true }: {
+  bg: string; label: string; children: React.ReactNode; valid?: boolean;
 }) {
   return (
     <div className="space-y-2">
       <div className={`${bg} rounded-md p-6 flex items-center justify-center min-h-[88px]`}>
-        <FullLockup iconColor={iconColor} textColor={textColor} />
+        {children}
       </div>
       <div className="flex items-center gap-1.5">
         {valid
@@ -83,21 +51,21 @@ export default function TokensLogoSystem() {
           <div className="rounded-md border border-border bg-card p-6 space-y-4">
             <Badge variant="outline" className="border-accent text-accent text-[10px] font-mono uppercase">Primary</Badge>
             <div className="flex items-center justify-center py-4">
-              <FullLockup iconColor="hsl(var(--charcoal))" textColor="hsl(var(--charcoal))" />
+              <img src={logoFull} alt="The Curated Lens — full lockup" className="h-20 w-auto object-contain" />
             </div>
             <p className="font-body text-xs text-muted-foreground leading-reading">
               Full lockup for hero placements, headers, and external communications.
             </p>
           </div>
 
-          {/* Wordmark */}
+          {/* Lockup horizontal */}
           <div className="rounded-md border border-border bg-card p-6 space-y-4">
             <Badge variant="outline" className="border-accent text-accent text-[10px] font-mono uppercase">Secondary</Badge>
             <div className="flex items-center justify-center py-4">
-              <Wordmark color="hsl(var(--charcoal))" className="text-xl" />
+              <img src={logoLockup} alt="The Curated Lens — horizontal lockup" className="h-16 w-auto object-contain" />
             </div>
             <p className="font-body text-xs text-muted-foreground leading-reading">
-              Wordmark only for tight spaces, inline references, and secondary placements.
+              Horizontal lockup for tight spaces, inline references, and secondary placements.
             </p>
           </div>
 
@@ -105,7 +73,7 @@ export default function TokensLogoSystem() {
           <div className="rounded-md border border-border bg-card p-6 space-y-4">
             <Badge variant="outline" className="border-accent text-accent text-[10px] font-mono uppercase">Icon</Badge>
             <div className="flex items-center justify-center py-4">
-              <LogoIcon size={48} color="hsl(var(--charcoal))" />
+              <img src={logoIcon} alt="Pin + shutter icon" className="h-16 w-auto object-contain" />
             </div>
             <p className="font-body text-xs text-muted-foreground leading-reading">
               Pin + shutter icon for map markers, favicons, app icons, and product UI elements.
@@ -120,17 +88,31 @@ export default function TokensLogoSystem() {
           Approved logo color combinations. Each pairing is designed for maximum legibility within its environment.
         </p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-space-4">
-          <ColorCell bg="bg-background" label="Charcoal on Base Canvas" iconColor="hsl(var(--charcoal))" textColor="hsl(var(--charcoal))" />
-          <ColorCell bg="bg-deep-green" label="White on Deep Green" iconColor="#ffffff" textColor="#ffffff" />
-          <ColorCell bg="bg-deep-green" label="Bronze on Deep Green" iconColor="hsl(var(--bronze))" textColor="hsl(var(--bronze))" />
-          <ColorCell bg="bg-background" label="Bronze icon on light (icon only)" iconColor="hsl(var(--bronze))" textColor="hsl(var(--charcoal))" />
+          <ColorCell bg="bg-background" label="Icon on Base Canvas">
+            <img src={logoIcon} alt="Logo on light" className="h-12 w-auto object-contain" />
+          </ColorCell>
+          <ColorCell bg="bg-deep-green" label="White on Deep Green">
+            <img src={logoIconInverted} alt="Logo inverted on green" className="h-12 w-auto object-contain" />
+          </ColorCell>
+          <ColorCell bg="bg-deep-green" label="Full lockup on Deep Green">
+            <img src={logoFull} alt="Full logo on green" className="h-10 w-auto object-contain brightness-200" />
+          </ColorCell>
+          <ColorCell bg="bg-background" label="Full lockup on light">
+            <img src={logoFull} alt="Full logo on light" className="h-10 w-auto object-contain" />
+          </ColorCell>
         </div>
 
         <h3 className="font-display text-sm tracking-headline text-foreground pt-space-3">Prohibited</h3>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-space-4">
-          <ColorCell bg="bg-primary" label="White on Terracotta" iconColor="#ffffff" textColor="#ffffff" valid={false} />
-          <ColorCell bg="bg-background" label="Bronze wordmark on light" iconColor="hsl(var(--bronze))" textColor="hsl(var(--bronze))" valid={false} />
-          <ColorCell bg="bg-card" label="Muted on muted" iconColor="hsl(var(--muted-foreground))" textColor="hsl(var(--muted-foreground))" valid={false} />
+          <ColorCell bg="bg-primary" label="Icon on Terracotta" valid={false}>
+            <img src={logoIconInverted} alt="" className="h-12 w-auto object-contain opacity-70" />
+          </ColorCell>
+          <ColorCell bg="bg-card" label="Muted on muted" valid={false}>
+            <img src={logoIcon} alt="" className="h-12 w-auto object-contain opacity-30" />
+          </ColorCell>
+          <ColorCell bg="bg-charcoal" label="Icon without contrast adjustment" valid={false}>
+            <img src={logoIcon} alt="" className="h-12 w-auto object-contain opacity-40" />
+          </ColorCell>
         </div>
       </Section>
 
@@ -141,12 +123,10 @@ export default function TokensLogoSystem() {
         </p>
         <div className="flex items-center justify-center py-8">
           <div className="relative inline-flex items-center justify-center">
-            {/* Clear zone visualisation */}
             <div className="absolute inset-0 border-2 border-dashed border-accent/30 rounded-md" style={{ margin: "-24px" }} />
             <div className="bg-card border border-border rounded-md p-6">
-              <FullLockup iconColor="hsl(var(--charcoal))" textColor="hsl(var(--charcoal))" />
+              <img src={logoFull} alt="Full lockup with clear space" className="h-14 w-auto object-contain" />
             </div>
-            {/* Dimension arrows */}
             <span className="absolute -top-8 left-1/2 -translate-x-1/2 font-mono text-[10px] text-accent">x</span>
             <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 font-mono text-[10px] text-accent">x</span>
             <span className="absolute top-1/2 -left-8 -translate-y-1/2 font-mono text-[10px] text-accent">x</span>
@@ -165,7 +145,7 @@ export default function TokensLogoSystem() {
             <h3 className="font-display text-sm tracking-headline text-foreground">Full Logo</h3>
             <div className="flex items-end gap-6">
               <div className="space-y-1 text-center">
-                <FullLockup iconColor="hsl(var(--charcoal))" textColor="hsl(var(--charcoal))" />
+                <img src={logoFull} alt="Full logo min size" className="h-14 w-auto object-contain" />
                 <span className="font-mono text-[10px] text-muted-foreground">min 120px wide</span>
               </div>
             </div>
@@ -174,11 +154,11 @@ export default function TokensLogoSystem() {
             <h3 className="font-display text-sm tracking-headline text-foreground">Icon Only</h3>
             <div className="flex items-end gap-6">
               <div className="space-y-1 text-center">
-                <LogoIcon size={32} color="hsl(var(--charcoal))" />
+                <img src={logoIcon} alt="Icon 32px" className="h-8 w-auto object-contain" />
                 <span className="font-mono text-[10px] text-muted-foreground">min 24px</span>
               </div>
               <div className="space-y-1 text-center">
-                <LogoIcon size={16} color="hsl(var(--charcoal))" />
+                <img src={logoIcon} alt="Icon 16px" className="h-4 w-auto object-contain" />
                 <span className="font-mono text-[10px] text-muted-foreground">16px favicon</span>
               </div>
             </div>
@@ -192,14 +172,11 @@ export default function TokensLogoSystem() {
           The pin + shutter icon bridges brand identity with product experience. It appears as map markers, POI indicators, and interface anchors.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-space-5">
-          {/* Map marker */}
           <div className="rounded-md border border-border bg-card p-6 space-y-3">
             <Badge variant="outline" className="border-accent text-accent text-[10px] font-mono uppercase">Map Marker</Badge>
             <div className="flex items-center justify-center py-4">
-              <div className="relative">
-                <div className="w-12 h-12 rounded-full border-2 border-charcoal bg-white flex items-center justify-center">
-                  <Camera className="h-5 w-5 text-foreground" strokeWidth={1.5} />
-                </div>
+              <div className="w-12 h-12 rounded-full border-2 border-charcoal bg-white flex items-center justify-center">
+                <Camera className="h-5 w-5 text-foreground" strokeWidth={1.5} />
               </div>
             </div>
             <p className="font-body text-xs text-muted-foreground leading-reading">
@@ -207,7 +184,6 @@ export default function TokensLogoSystem() {
             </p>
           </div>
 
-          {/* Selected state */}
           <div className="rounded-md border border-border bg-card p-6 space-y-3">
             <Badge variant="outline" className="border-accent text-accent text-[10px] font-mono uppercase">Selected State</Badge>
             <div className="flex items-center justify-center py-4">
@@ -220,7 +196,6 @@ export default function TokensLogoSystem() {
             </p>
           </div>
 
-          {/* Interface element */}
           <div className="rounded-md border border-border bg-card p-6 space-y-3">
             <Badge variant="outline" className="border-accent text-accent text-[10px] font-mono uppercase">Interface</Badge>
             <div className="flex items-center justify-center py-4">
@@ -239,28 +214,25 @@ export default function TokensLogoSystem() {
       {/* ─── 6. Background Pairing ─── */}
       <Section title="Background Pairing">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-space-5">
-          {/* Light */}
           <div className="space-y-2">
             <div className="rounded-md bg-background border border-border p-8 flex items-center justify-center">
-              <FullLockup iconColor="hsl(var(--charcoal))" textColor="hsl(var(--charcoal))" />
+              <img src={logoFull} alt="Logo on light" className="h-14 w-auto object-contain" />
             </div>
             <span className="font-body text-xs text-muted-foreground">Light / Base Canvas</span>
           </div>
 
-          {/* Deep Green */}
           <div className="space-y-2">
             <div className="rounded-md bg-deep-green p-8 flex items-center justify-center">
-              <FullLockup iconColor="hsl(var(--bronze))" textColor="hsl(var(--bronze))" />
+              <img src={logoIconInverted} alt="Logo on Deep Green" className="h-14 w-auto object-contain" />
             </div>
             <span className="font-body text-xs text-muted-foreground">Deep Green</span>
           </div>
 
-          {/* Image / overlay */}
           <div className="space-y-2">
             <div className="rounded-md bg-charcoal/80 p-8 flex items-center justify-center relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-charcoal/60 to-charcoal/30" />
               <div className="relative z-10">
-                <FullLockup iconColor="#ffffff" textColor="#ffffff" />
+                <img src={logoIconInverted} alt="Logo over image" className="h-14 w-auto object-contain" />
               </div>
             </div>
             <span className="font-body text-xs text-muted-foreground">Over image (neutral overlay 10–20%)</span>
