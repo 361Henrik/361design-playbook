@@ -87,25 +87,40 @@ export default function TokensLogoSystem() {
         <p className="font-body text-sm text-muted-foreground leading-reading max-w-prose">
           Approved logo color combinations. Each pairing is designed for maximum legibility within its environment.
         </p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-space-4">
-          <ColorCell bg="bg-background" label="Icon on Base Canvas">
-            <img src={logoIcon} alt="Logo on light" className="h-12 w-auto object-contain" />
-          </ColorCell>
+        <h3 className="font-display text-sm tracking-headline text-foreground">White Icon</h3>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-space-4">
           <ColorCell bg="bg-deep-green" label="White on Deep Green">
-            <img src={logoIconInverted} alt="Logo inverted on green" className="h-12 w-auto object-contain" />
+            <img src={logoIconInverted} alt="White icon on green" className="h-12 w-auto object-contain" />
+          </ColorCell>
+          <ColorCell bg="bg-primary" label="White on Terracotta">
+            <img src={logoIconInverted} alt="White icon on terracotta" className="h-12 w-auto object-contain" />
+          </ColorCell>
+        </div>
+
+        <h3 className="font-display text-sm tracking-headline text-foreground pt-space-3">Golden Icon</h3>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-space-4">
+          <ColorCell bg="bg-deep-green" label="Golden on Deep Green">
+            <img src={logoIcon} alt="Golden icon on green" className="h-12 w-auto object-contain" />
+          </ColorCell>
+          <ColorCell bg="bg-background" label="Golden on Base Canvas">
+            <img src={logoIcon} alt="Golden icon on cream" className="h-12 w-auto object-contain" />
+          </ColorCell>
+        </div>
+
+        <h3 className="font-display text-sm tracking-headline text-foreground pt-space-3">Full Lockup</h3>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-space-4">
+          <ColorCell bg="bg-background" label="Full lockup on light">
+            <img src={logoFull} alt="Full logo on light" className="h-10 w-auto object-contain" />
           </ColorCell>
           <ColorCell bg="bg-deep-green" label="Full lockup on Deep Green">
             <img src={logoFull} alt="Full logo on green" className="h-10 w-auto object-contain brightness-200" />
-          </ColorCell>
-          <ColorCell bg="bg-background" label="Full lockup on light">
-            <img src={logoFull} alt="Full logo on light" className="h-10 w-auto object-contain" />
           </ColorCell>
         </div>
 
         <h3 className="font-display text-sm tracking-headline text-foreground pt-space-3">Prohibited</h3>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-space-4">
-          <ColorCell bg="bg-primary" label="Icon on Terracotta" valid={false}>
-            <img src={logoIconInverted} alt="" className="h-12 w-auto object-contain opacity-70" />
+          <ColorCell bg="bg-primary" label="Golden on Terracotta" valid={false}>
+            <img src={logoIcon} alt="" className="h-12 w-auto object-contain opacity-70" />
           </ColorCell>
           <ColorCell bg="bg-card" label="Muted on muted" valid={false}>
             <img src={logoIcon} alt="" className="h-12 w-auto object-contain opacity-30" />
