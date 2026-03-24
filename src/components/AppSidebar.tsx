@@ -56,6 +56,7 @@ const tokenNav = [
   { title: "Motion", url: "/tokens/motion", icon: Zap },
   { title: "Icons", url: "/tokens/icons", icon: Hexagon },
   { title: "Voice", url: "/tokens/voice", icon: MessageSquare },
+  { title: "Logo System", url: "/tokens/logo-system", icon: Camera },
 ];
 
 const mapsItems = [
