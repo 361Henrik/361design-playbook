@@ -88,7 +88,7 @@ const AuthPage = () => {
       >
         {/* Logo */}
         <p className="font-display text-body-lg tracking-headline opacity-80 mb-space-5 lg:mb-space-7">
-          The Curated Lens
+          Host Atlas
         </p>
 
         {/* Headline */}

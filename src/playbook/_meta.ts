@@ -1,8 +1,8 @@
 export const playbookMeta = {
-  brand: "The Curated Lens",
-  version: "1.0.0",
-  description: "Design system playbook for The Curated Lens — a landscape awareness and storytelling platform for premium river cruises, coastal voyages, and scenic journeys.",
-  lastUpdated: "2026-03-18",
+  brand: "Host Atlas",
+  version: "2.0.0",
+  description: "Design system for Host Atlas — the landscape awareness and storytelling product for premium river cruises, coastal voyages, and scenic journeys. Paired with the 361 AI Development delivery system for offers, documentation, and prototype work.",
+  lastUpdated: "2026-04-19",
   sections: [
     { slug: "principles", label: "Principles" },
     { slug: "foundations", label: "Foundations" },

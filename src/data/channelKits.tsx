@@ -246,7 +246,7 @@ const SocialPostTemplate = () => (
           <div className="h-8 w-8 rounded-full bg-primary-foreground/20 flex items-center justify-center">
             <Layers className="h-4 w-4" strokeWidth={1.5} />
           </div>
-          <span className="text-xs font-body opacity-70">Curated Lens</span>
+          <span className="text-xs font-body opacity-70">Host Atlas</span>
         </div>
         <h2 className="font-display text-2xl font-medium tracking-headline leading-section">
           Consistency is a design decision, not an accident
@@ -270,7 +270,7 @@ const EmailHeaderTemplate = () => (
     <div className="w-[600px] bg-background rounded-lg overflow-hidden border border-border">
       {/* Header */}
       <div className="bg-primary text-primary-foreground px-8 py-6">
-        <p className="text-xs font-body opacity-70 mb-1">Curated Lens</p>
+        <p className="text-xs font-body opacity-70 mb-1">Host Atlas</p>
         <h1 className="font-display text-xl font-medium tracking-headline">
           Your weekly design digest
         </h1>
@@ -310,7 +310,7 @@ const EmailTransactionalTemplate = () => (
     <div className="w-[600px] bg-background rounded-lg overflow-hidden border border-border">
       {/* Header */}
       <div className="bg-primary text-primary-foreground px-8 py-5">
-        <p className="text-xs font-body opacity-70">Curated Lens</p>
+        <p className="text-xs font-body opacity-70">Host Atlas</p>
       </div>
 
       {/* Content */}
@@ -675,7 +675,7 @@ export function SocialPost() {
           <div className="h-8 w-8 rounded-full bg-primary-foreground/20 flex items-center justify-center">
             <Layers className="h-4 w-4" strokeWidth={1.5} />
           </div>
-          <span className="text-xs font-body opacity-70">Curated Lens</span>
+          <span className="text-xs font-body opacity-70">Host Atlas</span>
         </div>
         <h2 className="font-display text-2xl font-medium tracking-headline leading-section">
           Consistency is a design decision, not an accident
@@ -745,7 +745,7 @@ export function EmailNewsletter() {
   return (
     <div className="w-[600px] bg-background rounded-lg overflow-hidden border border-border">
       <div className="bg-primary text-primary-foreground px-8 py-6">
-        <p className="text-xs font-body opacity-70 mb-1">Curated Lens</p>
+        <p className="text-xs font-body opacity-70 mb-1">Host Atlas</p>
         <h1 className="font-display text-xl font-medium tracking-headline">
           Your weekly design digest
         </h1>
@@ -814,7 +814,7 @@ export function EmailTransactional() {
   return (
     <div className="w-[600px] bg-background rounded-lg overflow-hidden border border-border">
       <div className="bg-primary text-primary-foreground px-8 py-5">
-        <p className="text-xs font-body opacity-70">Curated Lens</p>
+        <p className="text-xs font-body opacity-70">Host Atlas</p>
       </div>
       <div className="px-8 py-8 space-y-5">
         <h1 className="font-display text-xl font-medium tracking-headline text-foreground">

@@ -292,7 +292,7 @@ export const components: ComponentEntry[] = [
     id: "panel-pairing",
     name: "Panel Pairing",
     category: "cards",
-    description: "The signature layout: a Primary Context (stone) card paired side-by-side with an Anchor Context (deep green) panel. This creates the visual rhythm that defines the Curated Lens aesthetic.",
+    description: "The signature layout: a Primary Context (stone) card paired side-by-side with an Anchor Context (deep green) panel. This creates the visual rhythm that defines the Host Atlas aesthetic.",
     anatomy: "A grid container with two children — one Primary Context card and one Anchor Context panel, typically in a 50/50 or 60/40 split.",
     accessibilityNotes: "Both panels should be independently readable. Don't rely on the pairing to convey meaning — each panel should stand alone.",
     responsiveNotes: "Stacks vertically on mobile (grid-cols-1). Side-by-side at md+ (grid-cols-2). The Anchor panel should come first in the stack.",
@@ -705,7 +705,7 @@ export const components: ComponentEntry[] = [
           Our Approach
         </h2>
         <p className="font-body text-sm leading-reading text-muted-foreground max-w-prose">
-          We believe in systems that empower rather than constrain. Every design decision in Curated Lens has been made with intention — from the restrained color palette to the precise typographic scale.
+          We believe in systems that empower rather than constrain. Every design decision in Host Atlas has been made with intention — from the restrained color palette to the precise typographic scale.
         </p>
         <p className="font-body text-sm leading-reading text-muted-foreground max-w-prose">
           The result is a framework that feels effortless to use while maintaining rigorous brand consistency across every touchpoint.

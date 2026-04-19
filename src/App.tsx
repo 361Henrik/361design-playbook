@@ -46,6 +46,16 @@ import SemanticColorPage from "./pages/behavior/SemanticColor";
 import DepthSurfacesPage from "./pages/behavior/DepthSurfaces";
 import DarkModePage from "./pages/behavior/DarkMode";
 import CTASystemPage from "./pages/behavior/CTASystem";
+import HostAtlasOverview from "./pages/HostAtlasOverview";
+import HostAtlasIcons from "./pages/HostAtlasIcons";
+import ThreeSixtyOneOverview from "./pages/ThreeSixtyOneOverview";
+import ThreeSixtyOneBrand from "./pages/threesixone/ThreeSixtyOneBrand";
+import ThreeSixtyOneOffers from "./pages/threesixone/ThreeSixtyOneOffers";
+import ThreeSixtyOneDocs from "./pages/threesixone/ThreeSixtyOneDocs";
+import ThreeSixtyOneDelivery from "./pages/threesixone/ThreeSixtyOneDelivery";
+import ThreeSixtyOnePrototypeKit from "./pages/threesixone/ThreeSixtyOnePrototypeKit";
+import ThreeSixtyOneGuardrails from "./pages/threesixone/ThreeSixtyOneGuardrails";
+import ThreeSixtyOneIcons from "./pages/threesixone/ThreeSixtyOneIcons";
 import AuthPage from "./pages/Auth";
 import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
@@ -117,6 +127,21 @@ function ProtectedRoutes() {
           <Route path="/behavior/depth" element={<DepthSurfacesPage />} />
           <Route path="/behavior/dark-mode" element={<DarkModePage />} />
           <Route path="/behavior/cta-system" element={<CTASystemPage />} />
+
+          {/* Domain landings */}
+          <Route path="/host-atlas" element={<HostAtlasOverview />} />
+          <Route path="/host-atlas/icons" element={<HostAtlasIcons />} />
+          <Route path="/tokens/icons" element={<Navigate to="/host-atlas/icons" replace />} />
+
+          <Route path="/361" element={<ThreeSixtyOneOverview />} />
+          <Route path="/361/brand" element={<ThreeSixtyOneBrand />} />
+          <Route path="/361/offers" element={<ThreeSixtyOneOffers />} />
+          <Route path="/361/docs" element={<ThreeSixtyOneDocs />} />
+          <Route path="/361/delivery" element={<ThreeSixtyOneDelivery />} />
+          <Route path="/361/prototype-kit" element={<ThreeSixtyOnePrototypeKit />} />
+          <Route path="/361/guardrails" element={<ThreeSixtyOneGuardrails />} />
+          <Route path="/361/icons" element={<ThreeSixtyOneIcons />} />
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AppShell>
