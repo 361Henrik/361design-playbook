@@ -10,7 +10,7 @@ import { useAuth } from "@/hooks/useAuth";
 const slides = [
   {
     title: "Your design system, governed",
-    body: "Curated Lens is where brand decisions become enforceable rules. It is not a component library alone — it is a system of record and a system of judgment.",
+    body: "Host Atlas is where brand decisions become enforceable rules. It is not a component library alone — it is a system of record and a system of judgment.",
     cta: "Go to Dashboard",
     href: "/",
   },
