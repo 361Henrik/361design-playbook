@@ -21,19 +21,14 @@ const TokensColors = () => {
         description="Four neutrals, each with a single purpose. Deep green for structure. Terracotta for interaction. Bronze for highlights. No overlapping roles."
       />
 
-      {/* System Modes */}
-      <div className="mt-6 mb-10 p-5 rounded-md border border-border bg-card">
-        <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-4">System Modes</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="p-4 rounded-md border border-border bg-background">
-            <h4 className="font-display text-sm font-medium text-foreground mb-1">Curated Lens Signature</h4>
-            <p className="text-xs font-body text-muted-foreground">B2B — Design System Hub, sales, onboarding. Deep green + terracotta + bronze accents.</p>
-          </div>
-          <div className="p-4 rounded-md border border-border bg-background">
-            <h4 className="font-display text-sm font-medium text-foreground mb-1">Operator Expression</h4>
-            <p className="text-xs font-body text-muted-foreground">B2C — Guest-facing. Controlled color adaptation while structure remains immutable.</p>
-          </div>
-        </div>
+      {/* Operator overrides note */}
+      <div className="mt-6 mb-10 p-4 rounded-md border border-border bg-card">
+        <p className="text-sm font-body text-foreground">
+          <span className="font-medium">Operator overrides:</span>{" "}
+          <span className="text-muted-foreground">
+            Host Atlas adapts to each operator through controlled token overrides — accent color, route color, and tone modifiers. Structural rules (neutral foundation, typography, spacing, map behavior) remain immutable.
+          </span>
+        </p>
       </div>
 
       {/* Color Usage Rules */}
