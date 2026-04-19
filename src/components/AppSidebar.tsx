@@ -194,10 +194,9 @@ export function AppSidebar() {
         ) : (
           <>
             <h1 className="font-display text-lg font-medium tracking-headline text-sidebar-foreground leading-section">
-              {activeWorkspace?.name || "The Curated Lens"}
+              {activeWorkspace?.name || "Host Atlas"}
             </h1>
-            <p className="text-sm font-body font-medium text-sidebar-foreground tracking-[0.03em] mt-1.5">Design System Hub</p>
-            
+            <p className="text-sm font-body font-medium text-sidebar-foreground tracking-[0.03em] mt-1.5">Host Atlas · Design System</p>
           </>
         )}
       </div>
