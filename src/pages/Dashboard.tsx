@@ -126,7 +126,7 @@ const Dashboard = () => {
     <div className="px-space-5 md:px-space-8 py-space-8 max-w-content">
       <PageHeader
         title="Design System Hub"
-        description="The single source of truth for Curated Lens. Browse foundations, components, and guidelines — all enforced with brand guardrails."
+        description="The single source of truth for Host Atlas. Browse foundations, components, and guidelines — all enforced with brand guardrails."
       />
 
       {/* Onboarding checklist */}
@@ -250,7 +250,7 @@ const Dashboard = () => {
             { num: "2", rule: "Follow the nine typography roles — never invent new sizes or weights." },
             { num: "3", rule: "Constrain content width: max-w-reading (720px) for text, max-w-content (1100px) for pages." },
             { num: "4", rule: "One primary CTA per section. Labels: verb-first, 1–3 words." },
-            { num: "5", rule: "Use the master spec (curated-lens-system.md) as the canonical reference." },
+            { num: "5", rule: "Use the master spec (host-atlas-design-system.md) as the canonical reference." },
           ].map((r) => (
             <Card key={r.num} className="p-4">
               <CardContent className="p-0 flex items-start gap-3">

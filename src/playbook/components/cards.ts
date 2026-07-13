@@ -11,7 +11,7 @@ export const cardsPlaybook: PlaybookPage = {
     {
       type: "text",
       heading: "Purpose",
-      body: "Cards and panels are the primary content containers in The Curated Lens. The system uses two context types — Primary (white) and Anchor (green) — to create visual rhythm and hierarchy.",
+      body: "Cards and panels are the primary content containers in Host Atlas. The system uses two context types — Primary (white) and Anchor (green) — to create visual rhythm and hierarchy.",
     },
     {
       type: "component-spec",
@@ -55,7 +55,7 @@ export const cardsPlaybook: PlaybookPage = {
         },
         {
           name: "Panel Pairing",
-          description: "The signature layout: a Primary Context (white) card paired side-by-side with an Anchor Context (green) panel. This creates the visual rhythm that defines the Curated Lens aesthetic.",
+          description: "The signature layout: a Primary Context (white) card paired side-by-side with an Anchor Context (green) panel. This creates the visual rhythm that defines the Host Atlas aesthetic.",
           anatomy: "A grid container with two children — one Primary Context card and one Anchor Context panel, typically in a 50/50 or 60/40 split.",
           accessibilityNotes: "Both panels should be independently readable. Don't rely on the pairing to convey meaning — each panel should stand alone.",
           responsiveNotes: "Stacks vertically on mobile (grid-cols-1). Side-by-side at md+ (grid-cols-2). The Anchor panel should come first in the stack.",

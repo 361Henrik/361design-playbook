@@ -84,7 +84,7 @@ export const guardrailsPlaybook: PlaybookPage = {
       type: "spec-table",
       heading: "Branding Rules",
       rows: [
-        { label: "No platform branding in guest UX", value: "Error", notes: "Curated Guide logos and wordmarks must not appear in the guest experience." },
+        { label: "No platform branding in guest UX", value: "Error", notes: "Host Atlas logos and wordmarks must not appear in the guest experience." },
         { label: "Operator logo primary", value: "Error", notes: "The operator's logo must be the primary brand mark in guest-facing UI." },
         { label: "No 'powered by' labels", value: "Error", notes: "No visible 'powered by' attributions in the guest experience." },
         { label: "Operator overrides respect contrast", value: "Error", notes: "Operator color overrides must still meet WCAG AA contrast requirements." },

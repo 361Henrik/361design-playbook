@@ -51,7 +51,7 @@ export default function TokensLogoSystem() {
           <div className="rounded-md border border-border bg-card p-6 space-y-4">
             <Badge variant="outline" className="border-accent text-accent text-[10px] font-mono uppercase">Primary</Badge>
             <div className="flex items-center justify-center py-4">
-              <img src={logoFull} alt="The Curated Lens — full lockup" className="h-20 w-auto object-contain" />
+              <img src={logoFull} alt="Host Atlas — full lockup" className="h-20 w-auto object-contain" />
             </div>
             <p className="font-body text-xs text-muted-foreground leading-reading">
               Full lockup for hero placements, headers, and external communications.
@@ -62,7 +62,7 @@ export default function TokensLogoSystem() {
           <div className="rounded-md border border-border bg-card p-6 space-y-4">
             <Badge variant="outline" className="border-accent text-accent text-[10px] font-mono uppercase">Secondary</Badge>
             <div className="flex items-center justify-center py-4">
-              <img src={logoLockup} alt="The Curated Lens — horizontal lockup" className="h-16 w-auto object-contain" />
+              <img src={logoLockup} alt="Host Atlas — horizontal lockup" className="h-16 w-auto object-contain" />
             </div>
             <p className="font-body text-xs text-muted-foreground leading-reading">
               Horizontal lockup for tight spaces, inline references, and secondary placements.

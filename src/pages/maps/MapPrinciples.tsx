@@ -40,7 +40,7 @@ const MapPrinciples = () => {
         <div className="p-5 rounded-md border border-border bg-card">
           <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-2">Purpose</h3>
           <p className="text-sm font-body leading-reading text-foreground max-w-prose">
-            The Curated Lens map exists to create a sense of place. It answers four questions for the guest:
+            The Host Atlas map exists to create a sense of place. It answers four questions for the guest:
           </p>
           <ul className="mt-3 space-y-1.5 text-sm font-body leading-reading text-foreground">
             <li>• Where am I right now?</li>

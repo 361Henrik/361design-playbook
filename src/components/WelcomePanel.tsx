@@ -58,8 +58,8 @@ export function WelcomePanel({ onStartTour, onboardingCompleted }: WelcomePanelP
         {/* Welcome paragraph */}
         <p className="text-[11px] leading-relaxed text-sidebar-foreground/60 font-body">
           {onboardingCompleted
-            ? "Welcome back to Curated Lens — your design system's single source of truth."
-            : "Curated Lens is your design system's single source of truth — a system of record for what the brand looks like, and a system of judgment for how it should behave."}
+            ? "Welcome back to Host Atlas — your design system's single source of truth."
+            : "Host Atlas is your design system's single source of truth — a system of record for what the brand looks like, and a system of judgment for how it should behave."}
         </p>
 
         {/* Full content for first-run users only */}

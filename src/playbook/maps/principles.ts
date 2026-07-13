@@ -11,7 +11,7 @@ export const mapPrinciplesPlaybook: PlaybookPage = {
     {
       type: "text",
       heading: "Purpose",
-      body: "The Curated Lens map exists to create a sense of place. It answers four questions for the guest:\n• Where am I right now?\n• What am I seeing outside the window?\n• What is nearby worth knowing about?\n• Where am I along the journey?",
+      body: "The Host Atlas map exists to create a sense of place. It answers four questions for the guest:\n• Where am I right now?\n• What am I seeing outside the window?\n• What is nearby worth knowing about?\n• Where am I along the journey?",
     },
     {
       type: "text",

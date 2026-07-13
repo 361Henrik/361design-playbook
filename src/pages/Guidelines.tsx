@@ -5,7 +5,7 @@ const systemRules = [
   "Follow the nine typography roles. Never invent new sizes or weights.",
   "Constrain content width: max-w-reading (720px) for text, max-w-content (1100px) for pages.",
   "One primary CTA per section. Labels: verb-first, 1–3 words.",
-  "Use the master spec (curated-lens-system.md) as the canonical reference.",
+  "Use the master spec (host-atlas-design-system.md) as the canonical reference.",
 ];
 
 const GuidelinesPage = () => {
