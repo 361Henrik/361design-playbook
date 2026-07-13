@@ -40,6 +40,9 @@ export default function CopilotPage() {
   const [reviewSourceId, setReviewSourceId] = useState<string | null>(null);
   const [reviewStatus, setReviewStatus] = useState<string | null>(null);
   const [reviewSource, setReviewSource] = useState<any>(null);
+  // Bumped on retry so the polling effect restarts even though the
+  // source id itself is unchanged.
+  const [pollGeneration, setPollGeneration] = useState(0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const pollingRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -129,7 +132,7 @@ export default function CopilotPage() {
     return () => {
       if (pollingRef.current) clearInterval(pollingRef.current);
     };
-  }, [reviewSourceId]);
+  }, [reviewSourceId, pollGeneration]);
 
   const runReviewAudit = async (sourceId: string) => {
     try {
@@ -255,25 +258,21 @@ export default function CopilotPage() {
     });
   };
 
-  const handleRetry = async () => {
+  const handleRetry = async (force = false) => {
     if (!reviewSourceId) return;
     setReviewStatus("pending");
     const session = await supabase.auth.getSession();
     const accessToken = session.data.session?.access_token;
-    fetch(EXTRACT_URL, {
+    await fetch(EXTRACT_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
         apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
       },
-      body: JSON.stringify({ source_id: reviewSourceId }),
+      body: JSON.stringify({ source_id: reviewSourceId, force: force || undefined }),
     });
-    // Re-enable polling
-    setReviewSourceId((prev) => {
-      // Force re-trigger the effect
-      return prev;
-    });
+    setPollGeneration((g) => g + 1);
   };
 
   const sendMessage = useCallback(async () => {
@@ -449,11 +448,8 @@ export default function CopilotPage() {
                 pagesProcessed={reviewSource?.pages_processed}
                 totalPages={reviewSource?.total_pages}
                 errorMessage={reviewSource?.error_message}
-                onRetry={handleRetry}
-                onForceExtract={() => {
-                  // Force extraction by calling extract-source again
-                  handleRetry();
-                }}
+                onRetry={() => handleRetry()}
+                onForceExtract={() => handleRetry(true)}
               />
             ) : messages.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-full text-center py-20">

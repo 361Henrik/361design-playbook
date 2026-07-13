@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { requireUser, requireWorkspaceMember } from "../_shared/auth.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -7,11 +8,15 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
+// Only formats we can genuinely read as text. Binary formats (PDF, images)
+// would feed garbage bytes to the model, so they are rejected up front.
+const BINARY_TYPES = ["pdf", "png", "jpg", "jpeg", "gif", "webp", "figma"];
+
 serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
-    const { source_id, continue_from } = await req.json();
+    const { source_id, continue_from, force } = await req.json();
     if (!source_id) throw new Error("source_id is required");
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
@@ -21,6 +26,10 @@ serve(async (req) => {
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
+    // Authenticate before touching anything.
+    const { userId, errorResponse } = await requireUser(req, corsHeaders);
+    if (errorResponse) return errorResponse;
+
     const { data: source, error: sourceError } = await supabase
       .from("sources")
       .select("*")
@@ -29,12 +38,37 @@ serve(async (req) => {
 
     if (sourceError || !source) throw new Error("Source not found");
 
+    // Caller must belong to the source's workspace (legacy rows without a
+    // workspace still require a signed-in user).
+    if (source.workspace_id) {
+      const membershipError = await requireWorkspaceMember(supabase, userId!, source.workspace_id, corsHeaders);
+      if (membershipError) return membershipError;
+    }
+
+    // Status updates must not fail silently — a swallowed constraint
+    // violation is how chunked extraction silently broke before.
+    const updateSource = async (patch: Record<string, unknown>) => {
+      const { error } = await supabase.from("sources").update(patch).eq("id", source_id);
+      if (error) throw new Error(`Failed to update source status: ${error.message}`);
+    };
+
     // Update status to processing, increment retry count
-    await supabase.from("sources").update({
+    await updateSource({
       status: "processing",
       error_message: null,
       retry_count: (source.retry_count || 0) + 1,
-    }).eq("id", source_id);
+    });
+
+    // Reject binary formats we cannot read as text
+    const fileType = (source.file_type || "").toLowerCase();
+    if (BINARY_TYPES.some((t) => fileType.includes(t))) {
+      const msg = `"${source.file_type}" files are not supported yet. Upload text, markdown, HTML, CSS, or JSON exports instead.`;
+      await updateSource({ status: "failed", error_message: msg });
+      return new Response(JSON.stringify({ error: msg }), {
+        status: 415,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
 
     // Download file content
     let fileContent = "";
@@ -57,13 +91,14 @@ serve(async (req) => {
     // Update pages info
     const totalPages = Math.ceil(totalLength / CHUNK_SIZE) || 1;
     const currentPage = Math.floor(startOffset / CHUNK_SIZE) + 1;
-    await supabase.from("sources").update({
+    await updateSource({
       pages_processed: currentPage,
       total_pages: totalPages,
-    }).eq("id", source_id);
+    });
 
-    // Step 1: Relevance classification (only on first chunk)
-    if (startOffset === 0) {
+    // Step 1: Relevance classification (only on first chunk; skipped when
+    // the user explicitly forces extraction of a low-relevance document)
+    if (startOffset === 0 && !force) {
       const classifyResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
         method: "POST",
         headers: {
@@ -87,10 +122,10 @@ serve(async (req) => {
           if (jsonMatch) {
             const classification = JSON.parse(jsonMatch[0]);
             if (classification.confidence < 0.3 && !classification.is_design) {
-              await supabase.from("sources").update({
+              await updateSource({
                 status: "not_relevant",
                 error_message: `Low design relevance (confidence: ${(classification.confidence * 100).toFixed(0)}%). This doesn't appear to be a design document. You can force extraction if needed.`,
-              }).eq("id", source_id);
+              });
               return new Response(
                 JSON.stringify({ success: false, not_relevant: true, confidence: classification.confidence }),
                 { headers: { ...corsHeaders, "Content-Type": "application/json" } }
@@ -175,7 +210,7 @@ Return entries that cover colors, typography, spacing, layout, motion, imagery, 
       });
     } catch (e: any) {
       if (e.name === "AbortError") {
-        await supabase.from("sources").update({ status: "failed", error_message: "Extraction timed out after 30 seconds." }).eq("id", source_id);
+        await updateSource({ status: "failed", error_message: "Extraction timed out after 30 seconds." });
         return new Response(JSON.stringify({ error: "Timeout" }), { status: 408, headers: { ...corsHeaders, "Content-Type": "application/json" } });
       }
       throw e;
@@ -188,7 +223,7 @@ Return entries that cover colors, typography, spacing, layout, motion, imagery, 
       const errorMsg = status === 429 ? "Rate limit exceeded. Please try again later."
         : status === 402 ? "Payment required. Please add credits."
         : `AI gateway error: ${status}`;
-      await supabase.from("sources").update({ status: "failed", error_message: errorMsg }).eq("id", source_id);
+      await updateSource({ status: "failed", error_message: errorMsg });
       return new Response(JSON.stringify({ error: errorMsg }), {
         status,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -204,16 +239,21 @@ Return entries that cover colors, typography, spacing, layout, motion, imagery, 
         const parsed = JSON.parse(toolCall.function.arguments);
         entries = parsed.entries || [];
       } catch {
-        await supabase.from("sources").update({ status: "failed", error_message: "Failed to parse AI response." }).eq("id", source_id);
+        await updateSource({ status: "failed", error_message: "Failed to parse AI response." });
         return new Response(JSON.stringify({ error: "Parse error" }), { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } });
       }
     }
 
-    // Step 3: Conflict detection — check new entries against existing approved entries
-    const { data: existingEntries } = await supabase
+    // Step 3: Conflict detection — check new entries against this workspace's
+    // existing approved entries only (never leak titles across tenants)
+    let existingQuery = supabase
       .from("library_entries")
       .select("id, title, entry_type, tags")
       .eq("status", "approved");
+    existingQuery = source.workspace_id
+      ? existingQuery.eq("workspace_id", source.workspace_id)
+      : existingQuery.is("workspace_id", null);
+    const { data: existingEntries } = await existingQuery;
 
     const conflicts: { newTitle: string; existingId: string; existingTitle: string }[] = [];
 
@@ -251,6 +291,7 @@ Return entries that cover colors, typography, spacing, layout, motion, imagery, 
         rules: entry.rules,
         confidence: typeof entry.confidence === "number" ? entry.confidence : null,
         source_id,
+        workspace_id: source.workspace_id ?? null,
         status: conflictWith.length > 0 ? "conflict" : "draft",
         related_entry_ids: conflictWith.length > 0 ? conflictWith : [],
       };
@@ -260,10 +301,10 @@ Return entries that cover colors, typography, spacing, layout, motion, imagery, 
       const { error: insertError } = await supabase.from("library_entries").insert(insertData);
       if (insertError) {
         console.error("Insert error:", insertError);
-        await supabase.from("sources").update({ status: "partial", error_message: "Some entries failed to save." }).eq("id", source_id);
+        await updateSource({ status: "failed", error_message: `Entries failed to save: ${insertError.message}` });
         return new Response(
-          JSON.stringify({ success: true, entries_count: 0, error: "Partial failure" }),
-          { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          JSON.stringify({ success: false, entries_count: 0, error: "Entries failed to save" }),
+          { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
     }
@@ -274,11 +315,11 @@ Return entries that cover colors, typography, spacing, layout, motion, imagery, 
       ? `${conflicts.length} potential conflict(s) detected with existing entries.`
       : null;
 
-    await supabase.from("sources").update({
+    await updateSource({
       status: finalStatus,
       error_message: conflictMsg,
       pages_processed: currentPage,
-    }).eq("id", source_id);
+    });
 
     return new Response(
       JSON.stringify({
@@ -293,7 +334,7 @@ Return entries that cover colors, typography, spacing, layout, motion, imagery, 
   } catch (e) {
     console.error("extract-source error:", e);
     return new Response(
-      JSON.stringify({ error: e instanceof Error ? e.message : "Unknown error" }),
+      JSON.stringify({ error: "Internal error" }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }

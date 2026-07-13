@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { useWorkspace } from "@/hooks/useWorkspace";
 import { Upload, FileText, Image, Link2, Loader2, CheckCircle2, XCircle, Clock, RotateCcw, AlertTriangle, Trash2, Play, Ban } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -36,15 +37,21 @@ const SourcesPage = () => {
   const [dupeWarning, setDupeWarning] = useState<{ existing: Source; hash: string } | null>(null);
   const [continuing, setContinuing] = useState<string | null>(null);
   const { toast } = useToast();
-  const { isEditor, isAdmin } = useAuth();
+  const { isEditor, isAdmin, user } = useAuth();
+  const { activeWorkspace } = useWorkspace();
 
   const fetchSources = async () => {
-    const { data, error } = await supabase.from("sources").select("*").order("created_at", { ascending: false });
+    if (!activeWorkspace) return;
+    const { data, error } = await supabase
+      .from("sources")
+      .select("*")
+      .eq("workspace_id", activeWorkspace.id)
+      .order("created_at", { ascending: false });
     if (!error && data) setSources(data as Source[]);
     setLoading(false);
   };
 
-  useEffect(() => { fetchSources(); }, []);
+  useEffect(() => { fetchSources(); }, [activeWorkspace?.id]);
 
   const computeHash = async (file: File): Promise<string> => {
     const buffer = await file.arrayBuffer();
@@ -68,7 +75,14 @@ const SourcesPage = () => {
 
       const { data: source, error: insertError } = await supabase
         .from("sources")
-        .insert({ title, file_type: fileType, file_url: fileUrl, file_hash: hash } as any)
+        .insert({
+          title,
+          file_type: fileType,
+          file_url: fileUrl,
+          file_hash: hash,
+          workspace_id: activeWorkspace?.id,
+          uploaded_by: user?.id,
+        } as any)
         .select()
         .single();
       if (insertError) throw insertError;
@@ -115,9 +129,11 @@ const SourcesPage = () => {
     }
   };
 
-  const retryExtraction = async (sourceId: string) => {
+  const retryExtraction = async (sourceId: string, force = false) => {
     toast({ title: "Retrying extraction…" });
-    const { data, error } = await supabase.functions.invoke("extract-source", { body: { source_id: sourceId } });
+    const { error } = await supabase.functions.invoke("extract-source", {
+      body: { source_id: sourceId, force: force || undefined },
+    });
     if (error) {
       toast({ title: "Retry failed", description: error.message, variant: "destructive" });
     } else {
@@ -127,9 +143,9 @@ const SourcesPage = () => {
   };
 
   const forceExtraction = async (sourceId: string) => {
-    // Reset status to pending, then retry
+    // Reset status, then retry with the relevance gate bypassed
     await supabase.from("sources").update({ status: "pending", error_message: null } as any).eq("id", sourceId);
-    await retryExtraction(sourceId);
+    await retryExtraction(sourceId, true);
   };
 
   const continueExtraction = async (sourceId: string) => {
