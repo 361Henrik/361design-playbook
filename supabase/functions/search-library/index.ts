@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { requireUser, requireWorkspaceMember, sanitizeSearchTerm } from "../_shared/auth.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -11,8 +12,13 @@ serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
-    const { query, filters } = await req.json();
-    if (!query) throw new Error("query is required");
+    const { query, filters, workspace_id } = await req.json();
+    if (!query || !workspace_id) {
+      return new Response(JSON.stringify({ error: "query and workspace_id required" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
@@ -21,14 +27,23 @@ serve(async (req) => {
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
+    // Authenticate: caller must be a signed-in member of the workspace.
+    const { userId, errorResponse } = await requireUser(req, corsHeaders);
+    if (errorResponse) return errorResponse;
+
+    const membershipError = await requireWorkspaceMember(supabase, userId!, workspace_id, corsHeaders);
+    if (membershipError) return membershipError;
+
     // Generate embedding for the query using AI
     // For now, do a text-based search since embedding generation needs a separate model
     // We'll do a smart keyword + AI-ranked search
+    const safeQuery = sanitizeSearchTerm(String(query));
     let dbQuery = supabase
       .from("library_entries")
       .select("*")
       .eq("status", "approved")
-      .or(`title.ilike.%${query}%,summary.ilike.%${query}%,content.ilike.%${query}%`);
+      .eq("workspace_id", workspace_id)
+      .or(`title.ilike.%${safeQuery}%,summary.ilike.%${safeQuery}%,content.ilike.%${safeQuery}%`);
 
     if (filters?.entry_type) {
       dbQuery = dbQuery.eq("entry_type", filters.entry_type);
@@ -77,12 +92,12 @@ serve(async (req) => {
 
     return new Response(
       JSON.stringify({ results: results || [], ai_summary: "" }),
-      { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (e) {
     console.error("search-library error:", e);
     return new Response(
-      JSON.stringify({ error: e instanceof Error ? e.message : "Unknown error" }),
+      JSON.stringify({ error: "Internal error" }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }

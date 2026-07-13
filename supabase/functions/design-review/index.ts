@@ -1,66 +1,13 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { BRAND_NAME, COMPONENT_INDEX, GUARDRAIL_RULES, PALETTE_BLOCK, TYPOGRAPHY_BLOCK } from "../_shared/brand.ts";
+import { requireUser, requireWorkspaceMember, requireSessionOwner } from "../_shared/auth.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
-
-// Duplicated from design-copilot (edge functions can't share imports)
-const COMPONENT_INDEX = [
-  { name: "Primary Button", category: "buttons", dos: ["Single most important action per page", "1-3 word labels"], donts: ["No more than one per section", "No scale/bounce hover"] },
-  { name: "Secondary Button", category: "buttons", dos: ["Pair with primary CTA"], donts: ["Not for destructive actions"] },
-  { name: "Text Link Button", category: "buttons", dos: ["Inline navigation"], donts: ["Never as primary CTA"] },
-  { name: "Destructive Button", category: "buttons", dos: ["Delete/remove only", "Always with confirmation"], donts: ["Not for cancel/dismiss"] },
-  { name: "Primary Context Card", category: "cards", dos: ["Warm Off-White bg", "One idea per card"], donts: ["No nested cards", "No colored backgrounds"] },
-  { name: "Anchor Context Panel", category: "cards", dos: ["Deep Green bg", "One per major section"], donts: ["Never stack two back-to-back"] },
-  { name: "Panel Pairing", category: "cards", dos: ["Hero sections", "50/50 or 60/40 split"], donts: ["Max one per page section", "No third panel"] },
-  { name: "Text Input", category: "forms", dos: ["Always with visible Label"], donts: ["No placeholder-only labels"] },
-  { name: "Textarea", category: "forms", dos: ["Multi-line freeform text"], donts: ["Not for single-line"] },
-  { name: "Select", category: "forms", dos: ["3-10 options"], donts: ["Not for 2 options (use radio)"] },
-  { name: "Checkbox / Switch", category: "forms", dos: ["Binary toggles"], donts: ["Don't mix in same form"] },
-  { name: "Data Table", category: "data-display", dos: ["Structured tabular data"], donts: ["No nested tables"] },
-  { name: "Badge", category: "data-display", dos: ["Status indicators"], donts: ["No long text"] },
-  { name: "Tabs", category: "navigation", dos: ["2-5 tabs max"], donts: ["No nested tabs"] },
-];
-
-const GUARDRAIL_RULES = [
-  { id: "color-bronze-ratio", name: "Bronze highlight only", severity: "error", description: "Champagne Bronze must remain a subtle highlight accent — never for buttons, backgrounds, or large surfaces." },
-  { id: "color-no-gradients", name: "No gradients", severity: "error", description: "Gradients are prohibited. Use flat, solid color fills only." },
-  { id: "color-approved-palette", name: "Approved palette only", severity: "error", description: "Only approved colors: Base Canvas (#F6F3EE), Warm Stone (#E8E2D9), Deep Charcoal (#1A1F1A), Deep Green (#1F4A3A), Terracotta (#C35C3C), Champagne Bronze (#C9A962)." },
-  { id: "color-neutral-dominant", name: "Neutral base dominant", severity: "warning", description: "Neutral surfaces (canvas, stone) dominant. Terracotta for interaction and emphasis surfaces only — never text, labels, icons, map elements, or borders. Deep green for structure only. No blue tones." },
-  { id: "color-terracotta-usage", name: "Terracotta interaction only", severity: "error", description: "Terracotta restricted to buttons, CTAs, active/selected states, highlight panels, callout sections. Prohibited for typography, map elements, icons, borders, dividers." },
-  { id: "color-contrast", name: "WCAG AA contrast", severity: "error", description: "All text/background pairs must meet WCAG AA (4.5:1 body, 3:1 large). AAA (7:1) preferred for body text." },
-  { id: "color-no-bright-markers", name: "No bright colored markers", severity: "error", description: "Map markers use white disk + black ring only. Color reserved for state changes (selected = bronze)." },
-  { id: "type-no-weight-300", name: "No weight 300", severity: "error", description: "Font weight 300 is never permitted." },
-  { id: "type-headlines-playfair", name: "Headlines use Playfair Display", severity: "error", description: "All headlines (h1–h6) must use Playfair Display." },
-  { id: "type-body-lexend", name: "Body text uses Lexend", severity: "error", description: "All body text, labels, UI copy must use Lexend." },
-  { id: "type-headline-tracking", name: "Headline letter-spacing −0.01em", severity: "warning", description: "Headlines should use tracking-headline." },
-  { id: "type-body-line-height", name: "Body line-height 1.6–1.75", severity: "warning", description: "Body text line-height should be 1.6–1.75." },
-  { id: "type-body-min-16px", name: "Body text min 16px", severity: "error", description: "Body text must never be smaller than 16px. Guest content should use 18px (Body Large)." },
-  { id: "layout-max-52ch", name: "Max paragraph width 52ch", severity: "warning", description: "Paragraph text capped at 48–52 characters." },
-  { id: "layout-no-full-width-text", name: "No full-width text blocks", severity: "warning", description: "Text must never span the full viewport width." },
-  { id: "layout-top-padding", name: "Section top padding 120–160px", severity: "warning", description: "Major sections need 120–160px top padding." },
-  { id: "layout-no-nested-cards", name: "No nested cards", severity: "error", description: "Cards must never be nested inside other cards." },
-  { id: "a11y-tap-target-44", name: "Tap target min 44px", severity: "error", description: "All interactive elements must have minimum 44×44px tap area. 48px preferred." },
-  { id: "a11y-touch-spacing", name: "Touch spacing min 8px", severity: "warning", description: "Minimum 8px between adjacent interactive elements." },
-  { id: "a11y-icon-min-20px", name: "Icon min 20px", severity: "error", description: "Icons must be at least 20×20px. 24px preferred for navigation and map icons." },
-  { id: "a11y-no-low-contrast-overlay", name: "No low-contrast overlays", severity: "error", description: "Text overlays on photography must meet WCAG AA contrast." },
-  { id: "a11y-no-color-only", name: "No information by color alone", severity: "error", description: "Color must never be the sole means of conveying information." },
-  { id: "a11y-reduced-motion", name: "Respects prefers-reduced-motion", severity: "error", description: "All animations must respect the prefers-reduced-motion media query." },
-  { id: "motion-no-bounce", name: "No bouncing animations", severity: "error", description: "Bouncing/spring physics prohibited." },
-  { id: "motion-no-parallax", name: "No parallax scrolling", severity: "error", description: "Parallax effects not permitted." },
-  { id: "motion-no-scale-hover", name: "No scale on hover", severity: "error", description: "No hover:scale transforms. Use opacity/color shifts." },
-  { id: "motion-ui-duration", name: "UI transitions 300–400ms", severity: "warning", description: "Standard transitions 300–400ms ease-out." },
-  { id: "motion-hero-loop", name: "Hero loops 8–20s", severity: "warning", description: "Ambient hero animations loop at 8–20s." },
-  { id: "imagery-no-corporate-stock", name: "No corporate stock imagery", severity: "error", description: "Generic corporate stock photos prohibited." },
-  { id: "consistency-type-hierarchy", name: "Consistent type hierarchy", severity: "warning", description: "h1 → h2 → h3, no skipping levels." },
-  { id: "consistency-spacing-scale", name: "Use spacing scale only", severity: "warning", description: "All spacing from defined scale, no arbitrary pixels." },
-  { id: "consistency-icon-style", name: "Icons: thin stroke, no fills", severity: "warning", description: "Stroke width 1.5–2px, geometric, no fills/gradients." },
-  { id: "brand-no-platform-logo", name: "No platform branding in guest UX", severity: "error", description: "Curated Guide logos must not appear in the guest experience." },
-  { id: "brand-operator-primary", name: "Operator logo primary", severity: "error", description: "The operator's logo must be the primary brand mark in guest-facing UI." },
-];
 
 serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
@@ -85,6 +32,16 @@ serve(async (req) => {
     const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
     const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const adminClient = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+
+    // 0. Authenticate: caller must own the session and belong to the workspace.
+    const { userId, errorResponse } = await requireUser(req, corsHeaders);
+    if (errorResponse) return errorResponse;
+
+    const membershipError = await requireWorkspaceMember(adminClient, userId!, workspace_id, corsHeaders);
+    if (membershipError) return membershipError;
+
+    const sessionError = await requireSessionOwner(adminClient, userId!, session_id, corsHeaders, workspace_id);
+    if (sessionError) return sessionError;
 
     // 1. Fetch extracted entries for this source
     const { data: extractedEntries, error: entriesErr } = await adminClient
@@ -150,7 +107,7 @@ serve(async (req) => {
         approvedEntries.map((e, i) => `[APPROVED-${i + 1}] "${e.title}" (${e.entry_type}) Tags: ${e.tags?.join(", ") || "none"}`).join("\n");
     }
 
-    const systemPrompt = `You are a Design System Reviewer for "Curated Lens". You audit extracted design entries against the workspace's guardrail rules and produce a structured review.
+    const systemPrompt = `You are a Design System Reviewer for "${BRAND_NAME}". You audit extracted design entries against the workspace's guardrail rules and produce a structured review.
 
 ## YOUR TASK
 Analyze the EXTRACTED ENTRIES below and check each one against the GUARDRAIL RULES. Produce:
@@ -166,16 +123,10 @@ ${GUARDRAIL_RULES.map(r => `- [${r.id}] ${r.name} (${r.severity}): ${r.descripti
 ${COMPONENT_INDEX.map(c => `- ${c.name} (${c.category}): Dos: ${c.dos.join("; ")} | Don'ts: ${c.donts.join("; ")}`).join("\n")}
 
 ## APPROVED COLOR PALETTE
-- Deep Forest Green: HSL 103 53% 23% (#2E5A1C) — primary structural color (buttons, outlines, nav anchors, route lines, icons, UI accents). 20–30% of visible area. Not for paragraph text or long copy.
-- Warm White: HSL 40 33% 97% (#FBFAF8) — primary background. 60–70% of visible area.
-- Warm Off-White: HSL 37 21% 95% (#F5F3EF) — secondary surfaces (cards, panels).
-- Near Black: HSL 240 29% 14% (#1A1A2E) — text only. No pure black.
-- Antique Bronze: HSL 36 42% 56% (#C49A5C) — accent only (≤8%). Jewelry, never paint. Not for buttons or backgrounds.
+${PALETTE_BLOCK}
 
 ## TYPOGRAPHY
-- Display/Headlines: Playfair Display
-- Body/UI: Inter
-- Monospace: JetBrains Mono
+${TYPOGRAPHY_BLOCK}
 
 ${canonicalBlock}
 ${approvedBlock}
@@ -278,6 +229,7 @@ ${extractedBlock}
     let fixPlan: any[] = [];
     let codeSnippet = "";
     let riskNotes: string[] = [];
+    let parsedOk = false;
 
     if (toolCall?.function?.arguments) {
       try {
@@ -286,9 +238,25 @@ ${extractedBlock}
         fixPlan = parsed.fix_plan || [];
         codeSnippet = parsed.code_snippet || "";
         riskNotes = parsed.risk_notes || [];
+        parsedOk = true;
       } catch (e) {
         console.error("Failed to parse review response:", e);
       }
+    }
+
+    // A missing/unparseable tool call must read as a failed review,
+    // not as a clean "no violations" result.
+    if (!parsedOk) {
+      const failMsg = "⚠️ Review failed: the AI response could not be parsed. Please retry the review.";
+      await adminClient.from("chat_messages").insert({
+        session_id,
+        role: "assistant",
+        content: failMsg,
+      });
+      return new Response(JSON.stringify({ error: "Unparseable AI response" }), {
+        status: 502,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // 5. Format as markdown for chat message
@@ -380,7 +348,7 @@ ${extractedBlock}
     });
   } catch (e) {
     console.error("design-review error:", e);
-    return new Response(JSON.stringify({ error: e instanceof Error ? e.message : "Unknown error" }), {
+    return new Response(JSON.stringify({ error: "Internal error" }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });

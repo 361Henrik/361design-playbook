@@ -1,5 +1,6 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "jsr:@supabase/supabase-js@2";
+import { requireUser } from "../_shared/auth.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -13,6 +14,9 @@ Deno.serve(async (req) => {
   }
 
   try {
+    const { errorResponse } = await requireUser(req, corsHeaders);
+    if (errorResponse) return errorResponse;
+
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, serviceKey);
@@ -36,7 +40,7 @@ Deno.serve(async (req) => {
       drafts: entries.filter((e) => e.status === "draft").length,
       conflicts: entries.filter((e) => e.status === "conflict").length,
       sourcesUploaded: sources.length,
-      sourcesProcessed: sources.filter((s) => s.status === "processed").length,
+      sourcesProcessed: sources.filter((s) => s.status === "completed").length,
       sourcesFailed: sources.filter((s) => s.status === "failed").length,
       versionChanges: versions.length,
     };
@@ -46,7 +50,8 @@ Deno.serve(async (req) => {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
+    console.error("weekly-digest error:", error);
+    return new Response(JSON.stringify({ error: "Internal error" }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
