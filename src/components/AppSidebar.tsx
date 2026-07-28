@@ -141,9 +141,10 @@ const threeSixtyOneGroups: NavGroup[] = [
 
 // ───────── TOOLS ─────────
 const toolsItems: NavItem[] = [
+  { title: "Preview Engine", url: "/preview-engine", icon: Sparkles },
   { title: "Studio", url: "/studio", icon: PanelTop },
   { title: "Export", url: "/export", icon: Download },
-  { title: "Copilot", url: "/copilot", icon: Sparkles },
+  { title: "Copilot", url: "/copilot", icon: MessageSquare },
   { title: "Sources", url: "/sources", icon: Upload },
   { title: "Library", url: "/library", icon: Library },
   { title: "Handbook", url: "/handbook", icon: BookOpen },

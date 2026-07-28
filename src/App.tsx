@@ -38,6 +38,7 @@ import StudioPage from "./pages/Studio";
 import NarrativePatternsPage from "./pages/NarrativePatterns";
 import HelpPage from "./pages/Help";
 import HandbookViewerPage from "./pages/HandbookViewer";
+import PreviewEnginePage from "./pages/PreviewEngine";
 import SignifiersClarityPage from "./pages/behavior/SignifiersClarity";
 import InteractionStatesPage from "./pages/behavior/InteractionStates";
 import FeedbackMicroPage from "./pages/behavior/FeedbackMicro";
@@ -119,6 +120,7 @@ function ProtectedRoutes() {
           <Route path="/copilot" element={<CopilotPage />} />
           <Route path="/help" element={<HelpPage />} />
           <Route path="/handbook" element={<HandbookViewerPage />} />
+          <Route path="/preview-engine" element={<PreviewEnginePage />} />
           <Route path="/behavior/signifiers" element={<SignifiersClarityPage />} />
           <Route path="/behavior/interaction-states" element={<InteractionStatesPage />} />
           <Route path="/behavior/feedback" element={<FeedbackMicroPage />} />
