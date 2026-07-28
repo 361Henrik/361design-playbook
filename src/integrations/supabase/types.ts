@@ -424,9 +424,11 @@ export type Database = {
           hero_image_url: string | null
           id: string
           input: Json
+          is_public: boolean
           location: string | null
           name: string
           output: Json
+          slug: string | null
           style_tags: string[] | null
           updated_at: string
           workspace_id: string
@@ -437,9 +439,11 @@ export type Database = {
           hero_image_url?: string | null
           id?: string
           input?: Json
+          is_public?: boolean
           location?: string | null
           name: string
           output?: Json
+          slug?: string | null
           style_tags?: string[] | null
           updated_at?: string
           workspace_id: string
@@ -450,9 +454,11 @@ export type Database = {
           hero_image_url?: string | null
           id?: string
           input?: Json
+          is_public?: boolean
           location?: string | null
           name?: string
           output?: Json
+          slug?: string | null
           style_tags?: string[] | null
           updated_at?: string
           workspace_id?: string
