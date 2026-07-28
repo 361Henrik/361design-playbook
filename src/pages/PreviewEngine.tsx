@@ -119,18 +119,18 @@ export default function PreviewEngine() {
       const slug = slugify(name);
       const { data, error } = await supabase
         .from("property_previews")
-        .insert({
+        .insert([{
           workspace_id: activeWorkspace.id,
           created_by: user.id,
           name,
           location,
           style_tags: tags,
-          input: inputPayload(),
-          output: { copy: preview, theme: theme.key, galleryImages },
+          input: inputPayload() as any,
+          output: { copy: preview, theme: theme.key, galleryImages } as any,
           hero_image_url: heroImage,
           slug,
           is_public: true,
-        })
+        }])
         .select("id, slug")
         .single();
       if (error) throw error;
