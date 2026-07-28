@@ -59,6 +59,7 @@ import ThreeSixtyOneGuardrails from "./pages/threesixone/ThreeSixtyOneGuardrails
 import ThreeSixtyOneIcons from "./pages/threesixone/ThreeSixtyOneIcons";
 import AuthPage from "./pages/Auth";
 import ResetPassword from "./pages/ResetPassword";
+import SharePreview from "./pages/SharePreview";
 import NotFound from "./pages/NotFound";
 import { Loader2 } from "lucide-react";
 
@@ -176,6 +177,7 @@ const App = () => (
           <Routes>
             <Route path="/auth" element={<AuthGate />} />
             <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/share/:slug" element={<SharePreview />} />
             <Route path="/*" element={<ProtectedRoutes />} />
           </Routes>
         </AuthProvider>
