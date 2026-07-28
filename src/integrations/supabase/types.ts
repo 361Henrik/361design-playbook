@@ -417,6 +417,48 @@ export type Database = {
         }
         Relationships: []
       }
+      property_previews: {
+        Row: {
+          created_at: string
+          created_by: string
+          hero_image_url: string | null
+          id: string
+          input: Json
+          location: string | null
+          name: string
+          output: Json
+          style_tags: string[] | null
+          updated_at: string
+          workspace_id: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          hero_image_url?: string | null
+          id?: string
+          input?: Json
+          location?: string | null
+          name: string
+          output?: Json
+          style_tags?: string[] | null
+          updated_at?: string
+          workspace_id: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          hero_image_url?: string | null
+          id?: string
+          input?: Json
+          location?: string | null
+          name?: string
+          output?: Json
+          style_tags?: string[] | null
+          updated_at?: string
+          workspace_id?: string
+        }
+        Relationships: []
+      }
       review_decisions: {
         Row: {
           code_snippet: string | null
