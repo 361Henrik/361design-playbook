@@ -91,7 +91,7 @@ export const iconsPlaybook: PlaybookPage = {
       type: "spec-table",
       heading: "Marker Anatomy (Outside → Inside)",
       rows: [
-        { label: "Outer ring", value: "2px solid #1A1A1A (default) · 3px solid #C6A96B (selected)" },
+        { label: "Outer ring", value: "2px solid #191926 (default) · 3px solid #C69B5B (selected, Helmut only)" },
         { label: "White disk", value: "Solid #FFFFFF fill inside ring — no gradient, no transparency" },
         { label: "Icon", value: "Outline style · 2–2.5px stroke · #1A1A1A · centered on white disk" },
         { label: "Fills rule", value: "White disk (solid white background behind icon)" },

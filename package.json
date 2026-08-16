@@ -7,6 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "build:dev": "vite build --mode development",
+    "validate:design": "node scripts/validate-design-contract.mjs",
+    "verify": "npm run validate:design && npm run test && npm run lint && npm run build",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",

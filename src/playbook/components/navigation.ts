@@ -13,7 +13,7 @@ export const navigationPlaybook: PlaybookPage = {
     {
       type: "text",
       heading: "Purpose",
-      body: "Navigation components help users orient themselves within the application. They use Lexend body text with restrained styling to stay out of the way while remaining clear and accessible. All navigation targets must meet the 44px minimum tap target for senior-first accessibility.",
+      body: "Navigation components help users orient themselves within the application. They use Lexend body text with restrained styling. Helmut targets are at least 48px; Olga controls are at least 44px.",
     },
     {
       type: "component-spec",
@@ -37,7 +37,7 @@ export const navigationPlaybook: PlaybookPage = {
         },
         {
           name: "Breadcrumb",
-          description: "A horizontal trail showing the user's location in the hierarchy. Uses Inter body text with subtle separators.",
+          description: "A horizontal trail showing the user's location in the hierarchy. Uses Lexend body text with subtle separators.",
           dos: [
             "Use on detail pages where hierarchy context matters",
             "Make all but the last item clickable links",

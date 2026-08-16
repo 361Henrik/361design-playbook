@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "HostAtlas Design Playbook",
+  "version": "3.0.0",
+  "defaultLanguage": "en",
+  "workflow": ["user-flow", "ux", "ui", "layout", "frontend-review", "implementation"],
+  "shared": {
+    "fonts": { "display": "Playfair Display", "body": "Lexend", "weights": [400, 500, 600] },
+    "prohibitions": ["blue", "gradients", "generic-ai-styling", "hover-scaling", "unapproved-fonts"],
+    "handoffFields": ["project", "component", "revision", "viewport", "surface", "designSystem", "approvedStates", "warnings"]
+  },
+  "surfaces": {
+    "helmut": {
+      "designSystem": "ATLAS · Helmut",
+      "purpose": "guest-facing traveler PWA",
+      "viewport": "mobile-first",
+      "tokens": {
+        "forest": "#1B3D2F",
+        "warmWhite": "#FBF9F5",
+        "offWhite": "#F3F0EA",
+        "nearBlack": "#191926",
+        "antiqueBronze": "#C69B5B"
+      },
+      "bronzeLimit": "8%",
+      "minimumTargetPx": 48,
+      "mapTargetPx": 52,
+      "primaryGuestCopyPx": 18,
+      "requirements": ["offline", "reconnect", "loading", "sunlight-readable", "labelled-navigation", "operator-only-branding", "no-guest-facing-ai-language"],
+      "forbidden": ["terracotta", "blue", "gradients", "dense-desktop-layout", "hostatlas-guest-logo"]
+    },
+    "olga": {
+      "designSystem": "ATLAS · Olga",
+      "purpose": "operator and authoring workbench",
+      "viewport": "desktop-first",
+      "tokens": {
+        "baseCanvas": "#F6F3EE",
+        "warmStone": "#E8E2D9",
+        "deepCharcoal": "#1A1F1A",
+        "muted": "#6E6A5E",
+        "deepGreen": "#1F4A3A",
+        "terracotta": "#C35C3C",
+        "champagneBronze": "#C9A962",
+        "warmBorder": "#CCC4B8"
+      },
+      "minimumTargetPx": 44,
+      "requirements": ["approval", "versioning", "restore", "kill-control", "audit-trail", "multilingual-audio-jobs", "cost-visibility", "loading", "empty", "error", "success"],
+      "forbidden": ["blue", "gradients", "guest-app-density", "bronze-on-light-text", "terracotta-structure"]
+    },
+    "marketing": {
+      "designSystem": "required project import",
+      "purpose": "corporate, agency, operator, HostHouse, and campaign surfaces",
+      "viewport": "responsive",
+      "requirements": ["audience-brief", "imported-design-system", "editorial-authority", "meaningful-imagery", "conversion-hierarchy"],
+      "forbidden": ["guessed-palette", "guessed-fonts", "generic-ai-styling"]
+    }
+  },
+  "verdicts": ["BLOCKED", "NOT_APPROVED", "CLEAN"]
+}

@@ -14,7 +14,7 @@ export const formsPlaybook: PlaybookPage = {
     {
       type: "text",
       heading: "Purpose",
-      body: "Form components handle user input across the system. All inputs use Inter at the body weight, with subtle borders and a Forest Green focus ring. Every input must be paired with a visible label.",
+      body: "Form components handle user input across the system. All inputs use Lexend at the body weight with a visible focus ring from the selected surface contract. Every input must be paired with a visible label.",
     },
     {
       type: "component-spec",
@@ -22,7 +22,7 @@ export const formsPlaybook: PlaybookPage = {
       components: [
         {
           name: "Text Input",
-          description: "Standard text input field. Uses Inter at the body weight, with a subtle border and focus ring in Forest Green.",
+          description: "Standard text input field. Uses Lexend at the body weight, with a subtle border and a surface-approved focus ring.",
           accessibilityNotes: "Always pair with a <Label>. Use htmlFor to associate label with input. Placeholder text is not a substitute for labels.",
           dos: [
             "Always pair with a visible Label above the input",

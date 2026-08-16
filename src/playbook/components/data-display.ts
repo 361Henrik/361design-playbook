@@ -11,7 +11,7 @@ export const dataDisplayPlaybook: PlaybookPage = {
     {
       type: "text",
       heading: "Purpose",
-      body: "Data display components present structured information clearly. They use restrained styling — subtle borders instead of zebra stripes, Inter body text, and Playfair Display for metric values.",
+      body: "Data display components present structured information clearly. They use restrained styling — subtle borders instead of zebra stripes, Lexend body text, and Playfair Display for metric values.",
     },
     {
       type: "component-spec",
@@ -32,7 +32,7 @@ export const dataDisplayPlaybook: PlaybookPage = {
         },
         {
           name: "Data Table",
-          description: "Structured tabular data display. Uses Inter body text, subtle row borders, and restrained header styling.",
+          description: "Structured tabular data display. Uses Lexend body text, subtle row borders, and restrained header styling.",
           accessibilityNotes: "Uses semantic <table> markup. Ensure column headers describe their data. Add caption for screen readers when context is needed.",
           responsiveNotes: "Wrap in a horizontal scroll container on mobile. Consider card-based layouts for narrow screens.",
           dos: [

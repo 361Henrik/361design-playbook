@@ -1,15 +1,14 @@
 import { PageHeader } from "@/components/PageHeader";
 
 const colorTokens = [
-  { name: "Water", value: "#D4E4ED", description: "Desaturated blue-grey. Calm, not bright." },
-  { name: "Land", value: "#F0EDE8", description: "Warm off-white / parchment. Barely visible terrain." },
-  { name: "Terrain shadow", value: "#E2DDD6", description: "Subtle hillshade for depth, not topographic detail." },
-  { name: "Route — upcoming", value: "#8B8680", description: "Muted warm grey. Present but not dominant." },
-  { name: "Route — completed", value: "#1A1A1A", description: "Near-black. Clear progress indication." },
-  { name: "Vessel position", value: "#1A1A1A", description: "Matches completed route. Solid, confident." },
-  { name: "POI marker", value: "#5C5650", description: "Dark warm grey. Refined, not bright." },
-  { name: "POI marker — selected", value: "#1A1A1A", description: "Full contrast when tapped / active." },
-  { name: "Label text", value: "#6B6560", description: "Warm mid-grey. Readable but quiet." },
+  { name: "Water", value: "#FBF9F5", description: "Warm White with shoreline stroke and explicit water labels." },
+  { name: "Land", value: "#F3F0EA", description: "Off-white; differentiated without introducing blue." },
+  { name: "Route — upcoming", value: "#191926", description: "Near Black at 45% plus pattern or label." },
+  { name: "Route — active", value: "#1B3D2F", description: "Forest. Fixed Helmut route state." },
+  { name: "Vessel position", value: "#1B3D2F", description: "Forest with non-color direction indicator." },
+  { name: "POI marker", value: "#191926", description: "Near Black ring and icon on Warm White disk." },
+  { name: "POI marker — selected", value: "#C69B5B", description: "Antique Bronze ring plus visible label state." },
+  { name: "Label text", value: "#191926", description: "Near Black for outdoor legibility." },
   { name: "Corridor boundary", value: "transparent", description: "The corridor is implied, never drawn." },
 ];
 
@@ -52,7 +51,7 @@ const MapVisualStyle = () => {
             </div>
             <div className="px-4 py-3 rounded bg-primary/5 border border-primary/10">
               <p className="text-xs font-body font-medium text-card-foreground mb-1">Water labels (fjords, seas, rivers)</p>
-              <p className="text-sm font-mono text-muted-foreground">11–13px · Italic · Blue-grey · Letter-spacing +0.04em</p>
+              <p className="text-sm font-mono text-muted-foreground">12–14px · Lexend 500 · Near Black · explicit water descriptor</p>
             </div>
             <div className="px-4 py-3 rounded bg-primary/5 border border-primary/10">
               <p className="text-xs font-body font-medium text-card-foreground mb-1">Village / town labels</p>
@@ -70,12 +69,14 @@ const MapVisualStyle = () => {
           <p className="text-sm font-body font-medium text-foreground mb-3">✗ Visual Constraints</p>
           <ul className="space-y-2 text-sm font-body leading-reading text-foreground">
             <li className="flex gap-2"><span className="text-foreground">✗</span> No saturated or bright colors on the base map</li>
+            <li className="flex gap-2"><span className="text-foreground">✗</span> No colors outside ATLAS · Helmut</li>
             <li className="flex gap-2"><span className="text-foreground">✗</span> No gradients on land or water fills</li>
             <li className="flex gap-2"><span className="text-foreground">✗</span> No drop shadows on markers or labels</li>
             <li className="flex gap-2"><span className="text-foreground">✗</span> No outline strokes on land masses</li>
             <li className="flex gap-2"><span className="text-foreground">✗</span> No pattern fills or textures</li>
             <li className="flex gap-2"><span className="text-foreground">✗</span> No colored category markers — all markers use the neutral palette</li>
             <li className="flex gap-2"><span className="text-foreground">✗</span> No terracotta in any map element — markers, routes, overlays, or highlights</li>
+            <li className="flex gap-2"><span className="text-foreground">✗</span> No hit areas below 52px</li>
           </ul>
         </div>
       </div>

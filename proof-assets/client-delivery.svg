@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100" role="img" aria-labelledby="title desc">
+  <title id="title">Client Delivery</title>
+  <desc id="desc">Proof sheet for evidence-led, approval-gated client proposals, workshops, reports, review briefs, and handoffs.</desc>
+  <rect width="1600" height="1100" fill="#F6F3EE"/>
+  <rect x="0" y="0" width="1600" height="188" fill="#1A1F1A"/>
+  <text x="80" y="72" font-family="Lexend, sans-serif" font-size="18" font-weight="500" letter-spacing="3" fill="#C9A962">361 · DELIVERY PROOF · V1.0.0</text>
+  <text x="80" y="142" font-family="Playfair Display, Georgia, serif" font-size="60" font-weight="500" fill="#F6F3EE">Client Delivery</text>
+  <text x="1240" y="139" font-family="Lexend, sans-serif" font-size="18" font-weight="500" fill="#F6F3EE">2026-08-11</text>
+
+  <text x="80" y="250" font-family="Playfair Display, Georgia, serif" font-size="34" font-weight="500" fill="#1A1F1A">Make the decision easy to understand, verify, and approve.</text>
+
+  <g font-family="Lexend, sans-serif">
+    <rect x="80" y="304" width="274" height="132" rx="10" fill="#E8E2D9"/><text x="110" y="350" font-size="15" font-weight="500" fill="#1F4A3A">01 · CONCLUSION</text><text x="110" y="390" font-size="20" fill="#1A1F1A">Lead with outcome</text>
+    <rect x="372" y="304" width="274" height="132" rx="10" fill="#E8E2D9"/><text x="402" y="350" font-size="15" font-weight="500" fill="#1F4A3A">02 · EVIDENCE</text><text x="402" y="390" font-size="20" fill="#1A1F1A">Name every source</text>
+    <rect x="664" y="304" width="274" height="132" rx="10" fill="#E8E2D9"/><text x="694" y="350" font-size="15" font-weight="500" fill="#1F4A3A">03 · IMPLICATION</text><text x="694" y="390" font-size="20" fill="#1A1F1A">Explain what changes</text>
+    <rect x="956" y="304" width="274" height="132" rx="10" fill="#E8E2D9"/><text x="986" y="350" font-size="15" font-weight="500" fill="#1F4A3A">04 · DECISION</text><text x="986" y="390" font-size="20" fill="#1A1F1A">Ask for approval</text>
+    <rect x="1248" y="304" width="272" height="132" rx="10" fill="#1F4A3A"/><text x="1278" y="350" font-size="15" font-weight="500" fill="#C9A962">05 · NEXT ACTION</text><text x="1278" y="390" font-size="20" fill="#F6F3EE">Owner + exact step</text>
+  </g>
+
+  <rect x="80" y="486" width="700" height="420" rx="12" fill="#F6F3EE" stroke="#CCC4B8" stroke-width="2"/>
+  <text x="116" y="544" font-family="Playfair Display, Georgia, serif" font-size="32" font-weight="500" fill="#1A1F1A">Artifact patterns</text>
+  <g font-family="Lexend, sans-serif" font-size="18" fill="#1A1F1A">
+    <text x="116" y="602">Proposal</text><text x="282" y="602" fill="#6E6A5E">decision → proof → terms → next action</text>
+    <text x="116" y="656">Workshop</text><text x="282" y="656" fill="#6E6A5E">outcome → canvas → decisions → owners</text>
+    <text x="116" y="710">Report</text><text x="282" y="710" fill="#6E6A5E">conclusion → evidence → recommendation</text>
+    <text x="116" y="764">Review brief</text><text x="282" y="764" fill="#6E6A5E">verdict → proof → corrections → warnings</text>
+    <text x="116" y="818">Handoff</text><text x="282" y="818" fill="#6E6A5E">revision → owner → verification → recovery</text>
+  </g>
+
+  <rect x="820" y="486" width="700" height="420" rx="12" fill="#1F4A3A"/>
+  <text x="856" y="544" font-family="Playfair Display, Georgia, serif" font-size="32" font-weight="500" fill="#F6F3EE">Approval gate</text>
+  <g font-family="Lexend, sans-serif" font-size="18" fill="#F6F3EE">
+    <text x="856" y="602">✓ Exact audience, purpose, decision, sources, and format</text>
+    <text x="856" y="656">✓ Selected design system; never inherit HostAtlas by default</text>
+    <text x="856" y="710">✓ Inspected, proposed, approved, and delivered kept distinct</text>
+    <text x="856" y="764">✕ No fabricated proof, credentials, or private comments</text>
+    <text x="856" y="818">✕ CLEAN is review-ready — never automatic send</text>
+  </g>
+
+  <rect x="80" y="952" width="1440" height="76" rx="10" fill="#C9A962"/>
+  <text x="116" y="1000" font-family="Lexend, sans-serif" font-size="18" font-weight="500" fill="#1A1F1A">VERDICTS</text>
+  <text x="260" y="1000" font-family="Lexend, sans-serif" font-size="18" fill="#1A1F1A">BLOCKED · NOT APPROVED · CLEAN</text>
+  <text x="1120" y="1000" font-family="Lexend, sans-serif" font-size="18" font-weight="500" fill="#1A1F1A">HUMAN APPROVAL REQUIRED</text>
+</svg>
