@@ -1,6 +1,6 @@
 ---
 name: component-scaffolder
-description: Scaffolds complete, on-brand Curated Lens UI components from a single description. Use this skill whenever the user asks to "build", "create", "make", or "scaffold" any UI component — cards, buttons, forms, hero sections, nav, data tables, stat blocks, split layouts, or any other interface element. Also triggers when the user says "I need a [component name]" or "give me the code for [UI element]". Always loads the full component spec from components.md before generating. Produces complete TSX with correct tokens, spacing, typography, and Do/Don't rules already applied — never a bare skeleton.
+description: Scaffolds complete, on-brand Host Atlas UI components from a single description. Use this skill whenever the user asks to "build", "create", "make", or "scaffold" any UI component — cards, buttons, forms, hero sections, nav, data tables, stat blocks, split layouts, or any other interface element. Also triggers when the user says "I need a [component name]" or "give me the code for [UI element]". Always loads the full component spec from components.md before generating. Produces complete TSX with correct tokens, spacing, typography, and Do/Don't rules already applied — never a bare skeleton.
 ---
 
 # Component Scaffolder
@@ -84,7 +84,7 @@ Read the card title and description. Match the dominant concept:
 - presentation, pitch, deck → `Monitor`
 - feedback, review, comment → `MessageSquare`
 
-**Travel / Curated Lens**
+**Travel / Host Atlas**
 - location, place, destination, POI → `MapPin`
 - journey, route, travel, cruise → `Navigation`
 - story, narrative, editorial → `BookOpen`

@@ -1,73 +1,31 @@
-# Welcome to your Lovable project
+# 361 Design Playbook
 
-## Project info
+The living design-system playbook for **Host Atlas** (product design system) and **361 AI Development** (delivery & build studio). It is both the system of record for what the brands look like and a working toolset: an AI design copilot, document extraction into a governed library, guardrail checks, channel-kit studio, and multi-format exports.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Structure
 
-## How can I edit this code?
+- **Host Atlas** — foundations (color, type, spacing, motion, voice, logo), interaction behavior, components, maps, patterns, and the Cartographic icon set.
+- **361 AI Development** — brand & voice, offer/pitch system, documentation templates (spec/ADR/runbook), delivery assets, prototype kit, and the Mechanical icon set.
+- **Tools** — Studio, Export, Copilot, Sources, Library, Handbook, Changelog, Settings.
 
-There are several ways of editing your application.
+Canonical written specs live in [`host-atlas-design-system.md`](host-atlas-design-system.md) and [`361-delivery-system.md`](361-delivery-system.md). Brand facts used in code (names, palette, typography) live in [`src/brand/constants.ts`](src/brand/constants.ts) — change them there, not inline.
 
-**Use Lovable**
+## Stack
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+Vite · React 18 · TypeScript · Tailwind CSS · shadcn/ui · Supabase (Postgres, Auth, Storage, Edge Functions) · TanStack Query
 
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+## Development
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+npm install
+npm run dev        # start dev server
+npm run build      # production build
+npm run lint       # eslint
+npm test           # vitest
 ```
 
-**Edit a file directly in GitHub**
+Environment variables (see `.env`): `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`, `VITE_SUPABASE_PROJECT_ID`.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Backend
 
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Supabase migrations live in `supabase/migrations/`; edge functions in `supabase/functions/` (design-copilot, design-review, extract-source, search-library, weekly-digest). Functions call the Lovable AI Gateway and require a valid user JWT.

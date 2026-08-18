@@ -24,6 +24,7 @@ import { allPlaybookPages, getPlaybookSections, getPlaybookAudit } from "@/playb
 import { Download, FileCode, FileJson, FileText, Package, Crown, BookOpen, CheckCircle, AlertTriangle, CircleDot, Bot } from "lucide-react";
 import JSZip from "jszip";
 import { useEffect } from "react";
+import { BRAND } from "@/brand/constants";
 
 const formatIcons: Record<ExportFormat, typeof FileCode> = {
   css: FileText,
@@ -85,7 +86,7 @@ const ExportPage = () => {
   const handlePlaybookExport = async () => {
     const files = generateAllExportFiles(selectedSlugs);
     const zip = new JSZip();
-    const folder = zip.folder("curated-lens-playbook")!;
+    const folder = zip.folder(`${BRAND.exportSlug}-playbook`)!;
     for (const file of files) {
       folder.file(file.path, file.content);
     }
@@ -93,7 +94,7 @@ const ExportPage = () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "curated-lens-playbook.zip";
+    a.download = `${BRAND.exportSlug}-playbook.zip`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

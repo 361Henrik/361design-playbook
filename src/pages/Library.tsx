@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { useWorkspace } from "@/hooks/useWorkspace";
 import { Search, Loader2, CheckCircle2, FileEdit, Trash2, Sparkles, BookOpen, Tag, AlertTriangle, ArrowRight, Crown, TrendingDown } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -50,11 +51,14 @@ const LibraryPage = () => {
   const [conflictTargets, setConflictTargets] = useState<LibraryEntry[]>([]);
   const { toast } = useToast();
   const { isAdmin, isEditor } = useAuth();
+  const { activeWorkspace } = useWorkspace();
 
   const fetchEntries = async () => {
+    if (!activeWorkspace) return;
     let query = supabase
       .from("library_entries")
       .select("*")
+      .eq("workspace_id", activeWorkspace.id)
       .order("created_at", { ascending: false });
 
     if (filterType !== "all") query = query.eq("entry_type", filterType);
@@ -67,7 +71,7 @@ const LibraryPage = () => {
 
   useEffect(() => {
     fetchEntries();
-  }, [filterType, filterStatus]);
+  }, [filterType, filterStatus, activeWorkspace?.id]);
 
   const handleSearch = async () => {
     if (!searchQuery.trim()) {
@@ -78,7 +82,11 @@ const LibraryPage = () => {
     setSearching(true);
     try {
       const { data, error } = await supabase.functions.invoke("search-library", {
-        body: { query: searchQuery, filters: filterType !== "all" ? { entry_type: filterType } : undefined },
+        body: {
+          query: searchQuery,
+          workspace_id: activeWorkspace?.id,
+          filters: filterType !== "all" ? { entry_type: filterType } : undefined,
+        },
       });
       if (error) throw error;
       setSearchResults(data.results || []);

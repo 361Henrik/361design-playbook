@@ -1,57 +1,13 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { BRAND_NAME, COMPONENT_INDEX, GUARDRAIL_RULES, PALETTE_BLOCK, TYPOGRAPHY_BLOCK } from "../_shared/brand.ts";
+import { requireUser, requireWorkspaceMember, requireSessionOwner, sanitizeSearchTerm } from "../_shared/auth.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
-
-// Condensed component registry for the system prompt
-const COMPONENT_INDEX = [
-  { name: "Primary Button", category: "buttons", dos: ["Single most important action per page", "1-3 word labels"], donts: ["No more than one per section", "No scale/bounce hover"] },
-  { name: "Secondary Button", category: "buttons", dos: ["Pair with primary CTA"], donts: ["Not for destructive actions"] },
-  { name: "Text Link Button", category: "buttons", dos: ["Inline navigation"], donts: ["Never as primary CTA"] },
-  { name: "Destructive Button", category: "buttons", dos: ["Delete/remove only", "Always with confirmation"], donts: ["Not for cancel/dismiss"] },
-  { name: "Primary Context Card", category: "cards", dos: ["Warm Off-White bg", "One idea per card"], donts: ["No nested cards", "No colored backgrounds"] },
-  { name: "Anchor Context Panel", category: "cards", dos: ["Deep Green bg", "One per major section"], donts: ["Never stack two back-to-back"] },
-  { name: "Panel Pairing", category: "cards", dos: ["Hero sections", "50/50 or 60/40 split"], donts: ["Max one per page section", "No third panel"] },
-  { name: "Text Input", category: "forms", dos: ["Always with visible Label"], donts: ["No placeholder-only labels"] },
-  { name: "Textarea", category: "forms", dos: ["Multi-line freeform text"], donts: ["Not for single-line"] },
-  { name: "Select", category: "forms", dos: ["3-10 options"], donts: ["Not for 2 options (use radio)"] },
-  { name: "Checkbox / Switch", category: "forms", dos: ["Binary toggles"], donts: ["Don't mix in same form"] },
-  { name: "Data Table", category: "data-display", dos: ["Structured tabular data"], donts: ["No nested tables"] },
-  { name: "Badge", category: "data-display", dos: ["Status indicators"], donts: ["No long text"] },
-  { name: "Tabs", category: "navigation", dos: ["2-5 tabs max"], donts: ["No nested tabs"] },
-];
-
-// Guardrail rules for the system prompt
-const GUARDRAIL_RULES = [
-  { id: "color-bronze-ratio", name: "Bronze accent ≤ 8%", description: "Antique Bronze must remain an accent — never exceeding 8% of total visible area." },
-  { id: "color-no-gradients", name: "No gradients", description: "Gradients are prohibited. Use flat, solid color fills only." },
-  { id: "color-approved-palette", name: "Approved palette only", description: "Only approved colors: Base Canvas (#F6F3EE), Warm Stone (#E8E2D9), Deep Charcoal (#1A1F1A), Deep Green (#1F4A3A), Terracotta (#C35C3C), Champagne Bronze (#C9A962)." },
-  { id: "color-neutral-dominant", name: "Neutral base dominant", description: "Neutral surfaces (canvas, stone) dominant. Deep green for structure only. Terracotta for interaction and emphasis surfaces only — never text, labels, icons, map elements, or borders. Bronze for highlights only. No blue tones." },
-  { id: "color-terracotta-usage", name: "Terracotta interaction only", description: "Terracotta restricted to buttons, CTAs, active/selected states, highlight panels, callout sections. Prohibited for typography, map elements, icons, borders, dividers." },
-  { id: "color-contrast", name: "WCAG AA contrast", description: "All text/background pairs must meet WCAG AA (4.5:1 body, 3:1 large)." },
-  { id: "type-no-weight-300", name: "No weight 300", description: "Font weight 300 is never permitted." },
-  { id: "type-headlines-playfair", name: "Headlines use Playfair Display", description: "All headlines (h1–h6) must use Playfair Display." },
-  { id: "type-body-inter", name: "Body text uses Inter", description: "All body text, labels, UI copy must use Inter." },
-  { id: "type-headline-tracking", name: "Headline letter-spacing −0.01em", description: "Headlines should use tracking-headline." },
-  { id: "type-body-line-height", name: "Body line-height 1.6–1.75", description: "Body text line-height should be 1.6–1.75." },
-  { id: "layout-max-52ch", name: "Max paragraph width 52ch", description: "Paragraph text capped at 48–52 characters." },
-  { id: "layout-no-full-width-text", name: "No full-width text blocks", description: "Text must never span the full viewport width." },
-  { id: "layout-top-padding", name: "Section top padding 120–160px", description: "Major sections need 120–160px top padding." },
-  { id: "layout-no-nested-cards", name: "No nested cards", description: "Cards must never be nested inside other cards." },
-  { id: "motion-no-bounce", name: "No bouncing animations", description: "Bouncing/spring physics prohibited." },
-  { id: "motion-no-parallax", name: "No parallax scrolling", description: "Parallax effects not permitted." },
-  { id: "motion-no-scale-hover", name: "No scale on hover", description: "No hover:scale transforms. Use opacity/color shifts." },
-  { id: "motion-ui-duration", name: "UI transitions 300–400ms", description: "Standard transitions 300–400ms ease-out." },
-  { id: "motion-hero-loop", name: "Hero loops 8–20s", description: "Ambient hero animations loop at 8–20s." },
-  { id: "imagery-no-corporate-stock", name: "No corporate stock imagery", description: "Generic corporate stock photos prohibited." },
-  { id: "consistency-type-hierarchy", name: "Consistent type hierarchy", description: "h1 → h2 → h3, no skipping levels." },
-  { id: "consistency-spacing-scale", name: "Use spacing scale only", description: "All spacing from defined scale, no arbitrary pixels." },
-  { id: "consistency-icon-style", name: "Icons: thin stroke, no fills", description: "Stroke width 1.5–2px, geometric, no fills/gradients." },
-];
 
 function buildSystemPrompt(contextEntries: any[]) {
   const canonicalEntries = contextEntries.filter((e) => e.is_canonical);
@@ -80,7 +36,7 @@ function buildSystemPrompt(contextEntries: any[]) {
     });
   }
 
-  return `You are the Design Copilot for the "Curated Lens" design system. You answer design questions EXCLUSIVELY using the workspace's own tokens, components, guidelines, and library entries provided below. You MUST cite sources in every answer.
+  return `You are the Design Copilot for the "${BRAND_NAME}" design system. You answer design questions EXCLUSIVELY using the workspace's own tokens, components, guidelines, and library entries provided below. You MUST cite sources in every answer.
 
 ## STRICT RULES
 1. You may ONLY recommend tokens, colors, components, patterns, and guidelines that exist in the provided context. If the answer is not in the context, say "I don't have information about this in the current design system."
@@ -111,18 +67,10 @@ Always structure your response with these sections:
 ## DESIGN SYSTEM CONTEXT
 
 ### Approved Color Palette
-- Base Canvas: HSL 37 31% 95% (#F6F3EE) — primary background. Neutral foundation, always dominant.
-- Warm Stone: HSL 33 16% 89% (#E8E2D9) — secondary surfaces (cards, panels).
-- Deep Charcoal: HSL 120 9% 11% (#1A1F1A) — text only. No pure black.
-- Muted: HSL 45 8% 40% (#6E6A5E) — secondary text, captions, de-emphasized labels.
-- Deep Green: HSL 158 41% 21% (#1F4A3A) — structure / identity (section backgrounds, emphasis panels). Not for buttons.
-- Terracotta: HSL 14 53% 50% (#C35C3C) — interaction and emphasis only (buttons, CTAs, active states, highlight panels). NEVER for text, labels, icons, map elements, or borders.
-- Champagne Bronze: HSL 40 46% 53% (#C9A962) — highlight accent (≤ subtle). Jewelry, never paint. Not for buttons or backgrounds.
+${PALETTE_BLOCK}
 
 ### Typography
-- Display/Headlines: Playfair Display (font-display)
-- Body/UI: Inter (font-body)
-- Monospace: JetBrains Mono (font-mono)
+${TYPOGRAPHY_BLOCK}
 
 ### Component Registry
 ${COMPONENT_INDEX.map((c, i) => `[COMPONENT-${i + 1}] ${c.name} (${c.category})\n  Dos: ${c.dos.join("; ")}\n  Don'ts: ${c.donts.join("; ")}`).join("\n")}
@@ -161,30 +109,20 @@ serve(async (req) => {
       });
     }
 
-    // Validate auth
-    const authHeader = req.headers.get("Authorization");
-    if (!authHeader?.startsWith("Bearer ")) {
-      return new Response(JSON.stringify({ error: "Unauthorized" }), {
-        status: 401,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
-
-    const userClient = createClient(SUPABASE_URL, Deno.env.get("SUPABASE_ANON_KEY")!, {
-      global: { headers: { Authorization: authHeader } },
-    });
-
-    const token = authHeader.replace("Bearer ", "");
-    const { data: claimsData, error: claimsError } = await userClient.auth.getClaims(token);
-    if (claimsError || !claimsData?.claims) {
-      return new Response(JSON.stringify({ error: "Unauthorized" }), {
-        status: 401,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
-    const userId = claimsData.claims.sub;
+    // Validate auth: caller must be a signed-in member of the workspace,
+    // and may only continue their own chat sessions.
+    const { userId, errorResponse } = await requireUser(req, corsHeaders);
+    if (errorResponse) return errorResponse;
 
     const adminClient = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+
+    const membershipError = await requireWorkspaceMember(adminClient, userId!, workspace_id, corsHeaders);
+    if (membershipError) return membershipError;
+
+    if (session_id) {
+      const sessionError = await requireSessionOwner(adminClient, userId!, session_id, corsHeaders, workspace_id);
+      if (sessionError) return sessionError;
+    }
 
     // Create or reuse session
     let currentSessionId = session_id;
@@ -214,7 +152,11 @@ serve(async (req) => {
       .limit(30);
 
     // Keyword retrieval from library_entries scoped to workspace
-    const searchTerms = message.split(/\s+/).filter((t: string) => t.length > 2).slice(0, 5);
+    const searchTerms = message
+      .split(/\s+/)
+      .map((t: string) => sanitizeSearchTerm(t))
+      .filter((t: string) => t.length > 2)
+      .slice(0, 5);
     const searchQuery = searchTerms.map((t: string) => `%${t}%`);
 
     let contextEntries: any[] = [];
@@ -358,7 +300,7 @@ serve(async (req) => {
     });
   } catch (e) {
     console.error("design-copilot error:", e);
-    return new Response(JSON.stringify({ error: e instanceof Error ? e.message : "Unknown error" }), {
+    return new Response(JSON.stringify({ error: "Internal error" }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });

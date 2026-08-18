@@ -1,4 +1,4 @@
-# Icon System — The Curated Lens
+# Icon System — Host Atlas
 **AI-Driven Icon Selection Protocol v1.0**
 
 This document is the source of truth for all icon decisions. It is designed to be loaded by AI tools (Claude, Cowork, IDE copilots) so that every icon chosen is semantically correct and on-brand — no manual emoji picking, no guesswork.
@@ -69,7 +69,7 @@ Read the card title and description. Match the **dominant concept** to an icon:
 | feedback, review, comment | `MessageSquare` |
 | share, distribute, publish | `Share2` |
 
-### Travel / Curated Lens
+### Travel / Host Atlas
 | Concept keywords | Lucide icon |
 |-----------------|-------------|
 | location, place, destination, POI | `MapPin` |

@@ -1,16 +1,20 @@
 project_id = "jdtuawpoarrwziwvouie"
 
+# All functions require a valid user JWT at the gateway. Each function
+# additionally verifies workspace membership / resource ownership itself
+# (see supabase/functions/_shared/auth.ts).
+
 [functions.extract-source]
-verify_jwt = false
+verify_jwt = true
 
 [functions.search-library]
-verify_jwt = false
+verify_jwt = true
 
 [functions.weekly-digest]
-verify_jwt = false
+verify_jwt = true
 
 [functions.design-copilot]
-verify_jwt = false
+verify_jwt = true
 
 [functions.design-review]
-verify_jwt = false
+verify_jwt = true

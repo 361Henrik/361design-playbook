@@ -72,7 +72,7 @@ export const imageSystemPlaybook: PlaybookPage = {
     /* ---- Layer 3 ---- */
     {
       type: "text",
-      heading: "Layer 3 — Product in Use (Curated Lens Visible)",
+      heading: "Layer 3 — Product in Use (Host Atlas Visible)",
       body: "Show the product as a subtle part of the journey, never the main subject.\n\n**Guidelines**\n- Integrate the phone naturally into the scene\n- Keep the device present but visually understated\n- Show either a calm glance at the screen or the device resting alongside the environment\n- The landscape or experience must always remain the dominant visual element",
     },
 

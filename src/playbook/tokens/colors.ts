@@ -11,7 +11,7 @@ export const colorsPlaybook: PlaybookPage = {
     {
       type: "text",
       heading: "System Modes",
-      body: "The Curated Lens operates as a single system with two rendering modes:\n\n**Curated Lens Signature Mode (B2B)** — Used in the Design System Hub, sales materials, and onboarding. Deep green + bronze accents express the Curated Lens identity.\n\n**Operator Expression Mode (B2C)** — Used in guest-facing environments. Allows controlled color adaptation (accent override, optional route color) while map structure, marker system, layout, and typography rules remain immutable.",
+      body: "Host Atlas operates as a single system with two rendering modes:\n\n**Host Atlas Signature Mode (B2B)** — Used in the Design System Hub, sales materials, and onboarding. Deep green + bronze accents express the Host Atlas identity.\n\n**Operator Expression Mode (B2C)** — Used in guest-facing environments. Allows controlled color adaptation (accent override, optional route color) while map structure, marker system, layout, and typography rules remain immutable.",
     },
     {
       type: "color-swatch",

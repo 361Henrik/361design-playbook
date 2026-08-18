@@ -103,7 +103,7 @@ const ImageSystem = () => {
         {/* Layer 3 */}
         <section className="space-y-4">
           <h2 className="font-display text-xl font-medium tracking-headline text-foreground">
-            Layer 3 — Product in Use (Curated Lens Visible)
+            Layer 3 — Product in Use (Host Atlas Visible)
           </h2>
           <div className="p-5 rounded-md border border-border bg-card">
             <p className="text-sm font-body leading-reading text-foreground max-w-prose mb-4">

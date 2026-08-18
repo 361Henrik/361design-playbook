@@ -11,7 +11,7 @@ export const buttonsPlaybook: PlaybookPage = {
     {
       type: "text",
       heading: "Purpose",
-      body: "Buttons are the primary interactive elements for triggering actions. The Curated Lens uses a restrained set of button variants — each with a clear role — to maintain visual calm and intentional hierarchy.",
+      body: "Buttons are the primary interactive elements for triggering actions. Host Atlas uses a restrained set of button variants — each with a clear role — to maintain visual calm and intentional hierarchy.",
     },
     {
       type: "component-spec",

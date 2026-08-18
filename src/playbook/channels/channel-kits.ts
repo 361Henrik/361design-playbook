@@ -14,7 +14,7 @@ export const channelKitsPlaybook: PlaybookPage = {
     {
       type: "text",
       heading: "Purpose",
-      body: "Channel kits adapt The Curated Lens design system to specific delivery surfaces. Each kit defines tone modifiers, copy constraints, typography overrides, spacing profiles, and allowed components to ensure brand consistency across every channel while respecting channel-specific requirements.",
+      body: "Channel kits adapt the Host Atlas design system to specific delivery surfaces. Each kit defines tone modifiers, copy constraints, typography overrides, spacing profiles, and allowed components to ensure brand consistency across every channel while respecting channel-specific requirements.",
     },
     {
       type: "channel-kit",
@@ -114,7 +114,7 @@ export const channelKitsPlaybook: PlaybookPage = {
               description: "Confirmation email with action button and summary card.",
               layoutSpec: "Width: fixed 600px. Minimal header: bg-primary, brand name only. Content: headline + body paragraph + summary card + CTA. Footer: separator + fine print.",
               copySpec: "Headline: sentence case, max 50 chars. Body: factual, precise. CTA: verb-first, 2 words. Card summary: descriptive, concise.",
-              code: `<div className="w-[600px] bg-background rounded-lg border">\n  <div className="bg-primary text-primary-foreground px-8 py-5">\n    <p className="text-xs font-body opacity-70">Curated Lens</p>\n  </div>\n  {/* Headline + body + summary card + CTA + footer */}\n</div>`,
+              code: `<div className="w-[600px] bg-background rounded-lg border">\n  <div className="bg-primary text-primary-foreground px-8 py-5">\n    <p className="text-xs font-body opacity-70">Host Atlas</p>\n  </div>\n  {/* Headline + body + summary card + CTA + footer */}\n</div>`,
             },
           ],
         },

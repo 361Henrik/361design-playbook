@@ -11,6 +11,7 @@ import {
   Layers,
   MessageSquare,
 } from "lucide-react";
+import { PALETTE } from "@/brand/constants";
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -58,8 +59,8 @@ export const guardrailRules: GuardrailRule[] = [
     name: "Bronze accent ≤ 8%",
     category: "color",
     severity: "error",
-    description: "Antique Bronze must remain an accent — never exceeding 8% of total visible area.",
-    checkDescription: "Verify bronze (#C49A5C) usage stays below 8% of surface area.",
+    description: "Champagne Bronze must remain an accent — never exceeding 8% of total visible area.",
+    checkDescription: `Verify bronze (${PALETTE.champagneBronze.hex}) usage stays below 8% of surface area.`,
     status: "pass",
     weight: 0.8,
   },
@@ -187,11 +188,11 @@ export const guardrailRules: GuardrailRule[] = [
   },
   {
     id: "type-body-inter",
-    name: "Body text uses Inter",
+    name: "Body text uses Lexend",
     category: "typography",
     severity: "error",
-    description: "All body text, labels, and UI copy must use Inter.",
-    checkDescription: "Verify all non-heading text uses font-body (Inter).",
+    description: "All body text, labels, and UI copy must use Lexend.",
+    checkDescription: "Verify all non-heading text uses font-body (Lexend).",
     status: "pass",
     weight: 0.7,
   },
@@ -530,11 +531,11 @@ export function checkContrastRatio(
  */
 export function getContrastResults() {
   const palette = [
-    { name: "Terracotta", hsl: "14 53% 50%", role: "primary" },
-    { name: "Base Canvas", hsl: "37 31% 95%", role: "background" },
-    { name: "Warm Stone", hsl: "33 16% 89%", role: "secondary" },
-    { name: "Deep Charcoal", hsl: "120 9% 11%", role: "foreground" },
-    { name: "Champagne Bronze", hsl: "40 46% 53%", role: "accent" },
+    { name: PALETTE.terracotta.name, hsl: PALETTE.terracotta.hsl, role: "primary" },
+    { name: PALETTE.baseCanvas.name, hsl: PALETTE.baseCanvas.hsl, role: "background" },
+    { name: PALETTE.warmStone.name, hsl: PALETTE.warmStone.hsl, role: "secondary" },
+    { name: PALETTE.deepCharcoal.name, hsl: PALETTE.deepCharcoal.hsl, role: "foreground" },
+    { name: PALETTE.champagneBronze.name, hsl: PALETTE.champagneBronze.hsl, role: "accent" },
   ];
 
   const results: {
@@ -563,10 +564,6 @@ export function getContrastResults() {
       });
     }
   }
-
-  // Also check primary-foreground (white text on primary bg)
-  const primaryOnWhite = checkContrastRatio(palette[0].hsl, palette[1].hsl);
-  // Already covered above
 
   return results;
 }

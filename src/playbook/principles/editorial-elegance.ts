@@ -17,7 +17,7 @@ export const editorialElegancePlaybook: PlaybookPage = {
     {
       type: "text",
       heading: "The Balance",
-      body: "The Curated Lens serves demanding accessibility and usability requirements — large text, high contrast, generous spacing, clear hierarchy. These constraints could easily produce a clinical, utilitarian interface.\n\nThe design system's job is to ensure that accessibility and beauty are the same gesture. Generous whitespace is both readable and elegant. Large type is both accessible and editorial. Restraint in color is both calm and premium.\n\nThe platform should feel like a premium travel magazine translated into a digital experience — not a software application.",
+      body: "Host Atlas serves demanding accessibility and usability requirements — large text, high contrast, generous spacing, clear hierarchy. These constraints could easily produce a clinical, utilitarian interface.\n\nThe design system's job is to ensure that accessibility and beauty are the same gesture. Generous whitespace is both readable and elegant. Large type is both accessible and editorial. Restraint in color is both calm and premium.\n\nThe platform should feel like a premium travel magazine translated into a digital experience — not a software application.",
     },
     {
       type: "principle-list",

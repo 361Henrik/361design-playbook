@@ -2,17 +2,19 @@
 /*  Design foundation export generators — Deterministic & Canonical-aware */
 /* ------------------------------------------------------------------ */
 
+import { BRAND, PALETTE, TYPOGRAPHY } from "@/brand/constants";
+
 const tokens = {
   colors: {
-    accent: { name: "Champagne Bronze", hsl: "40 42% 60%", hex: "#C6A96B", css: "--accent", tw: "accent" },
-    background: { name: "Base Canvas", hsl: "37 31% 95%", hex: "#F6F3EE", css: "--background", tw: "background" },
-    foreground: { name: "Deep Charcoal", hsl: "120 9% 11%", hex: "#1A1F1A", css: "--foreground", tw: "foreground" },
-    primary: { name: "Terracotta", hsl: "14 53% 50%", hex: "#C35C3C", css: "--primary", tw: "primary" },
-    secondary: { name: "Warm Stone", hsl: "33 16% 89%", hex: "#E8E2D9", css: "--secondary", tw: "secondary" },
+    accent: { name: PALETTE.champagneBronze.name, hsl: PALETTE.champagneBronze.hsl, hex: PALETTE.champagneBronze.hex, css: "--accent", tw: "accent" },
+    background: { name: PALETTE.baseCanvas.name, hsl: PALETTE.baseCanvas.hsl, hex: PALETTE.baseCanvas.hex, css: "--background", tw: "background" },
+    foreground: { name: PALETTE.deepCharcoal.name, hsl: PALETTE.deepCharcoal.hsl, hex: PALETTE.deepCharcoal.hex, css: "--foreground", tw: "foreground" },
+    primary: { name: PALETTE.terracotta.name, hsl: PALETTE.terracotta.hsl, hex: PALETTE.terracotta.hex, css: "--primary", tw: "primary" },
+    secondary: { name: PALETTE.warmStone.name, hsl: PALETTE.warmStone.hsl, hex: PALETTE.warmStone.hex, css: "--secondary", tw: "secondary" },
   },
   typography: {
-    body: { family: "Lexend", fallback: "system-ui, sans-serif", weight: "400", lineHeight: "1.6" },
-    display: { family: "Playfair Display", fallback: "Georgia, serif", weight: "500", letterSpacing: "-0.01em" },
+    body: TYPOGRAPHY.body,
+    display: TYPOGRAPHY.display,
   },
   spacing: {
     headlineGap: "2.5rem",
@@ -119,7 +121,7 @@ ${colorLines}
 
 /* ---- Tailwind Config ---- */
 export function generateTailwind(): string {
-  return `// tailwind.config.ts — Curated Lens Design System
+  return `// tailwind.config.ts — ${BRAND.productName} Design System
 // Auto-generated. Deterministic output — safe to commit.
 import type { Config } from "tailwindcss";
 
@@ -217,7 +219,7 @@ export function generateTypeScript(overrideTokens?: typeof tokens): string {
     )
     .join(",\n");
 
-  return `// Curated Lens Design System — Foundation Constants
+  return `// ${BRAND.productName} Design System — Foundation Constants
 // Auto-generated. Deterministic output — safe to commit.
 
 export const colors = {
@@ -262,7 +264,7 @@ export type TypographyKey = keyof typeof typography;
 
 /* ---- Starter Kit README ---- */
 export function generateStarterReadme(): string {
-  return `# Curated Lens — Starter Kit
+  return `# ${BRAND.productName} — Starter Kit
 
 ## Quick Start
 
@@ -289,13 +291,13 @@ CSS, Tailwind, JSON, and TypeScript outputs.
 
 | Name              | Hex     | Role            |
 |-------------------|---------|-----------------|
-| Cream             | #F7F4EF | Background      |
-| Warm Stone         | #E8E2D9 | Cards / panels  |
-| Deep Charcoal      | #1A1F1A | Text            |
-| Deep Green         | #1F4A3A | Structure       |
-| Terracotta         | #C35C3C | Interaction     |
-| Champagne Bronze   | #C9A962 | Highlight       |
-| Warm Border        | #CCC4B8 | Borders         |
+| Base Canvas        | ${PALETTE.baseCanvas.hex} | Background      |
+| Warm Stone         | ${PALETTE.warmStone.hex} | Cards / panels  |
+| Deep Charcoal      | ${PALETTE.deepCharcoal.hex} | Text            |
+| Deep Green         | ${PALETTE.deepGreen.hex} | Structure       |
+| Terracotta         | ${PALETTE.terracotta.hex} | Interaction     |
+| Champagne Bronze   | ${PALETTE.champagneBronze.hex} | Highlight       |
+| Warm Border        | ${PALETTE.warmBorder.hex} | Borders         |
 
 ## Typography
 

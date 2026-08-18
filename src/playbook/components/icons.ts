@@ -1,5 +1,5 @@
 /**
- * Icon System — The Curated Lens
+ * Icon System — Host Atlas
  * AI-DRIVEN ICON SELECTION PROTOCOL v1.0
  *
  * Source of truth for all icon decisions across:
@@ -98,7 +98,7 @@ export const iconSemanticMap = [
   { concepts: ['feedback', 'review', 'comment', 'response'], icon: 'MessageSquare' },
   { concepts: ['share', 'distribute', 'publish', 'broadcast'], icon: 'Share2' },
 
-  // ── TRAVEL / CURATED LENS SPECIFIC ───────────────────────────
+  // ── TRAVEL / HOST ATLAS SPECIFIC ───────────────────────────
   { concepts: ['location', 'place', 'destination', 'point of interest', 'poi'], icon: 'MapPin' },
   { concepts: ['journey', 'route', 'itinerary', 'travel', 'cruise', 'rail'], icon: 'Navigation' },
   { concepts: ['story', 'narrative', 'editorial', 'article', 'content'], icon: 'BookOpen' },

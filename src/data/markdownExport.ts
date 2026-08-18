@@ -6,6 +6,7 @@
 import type { PlaybookPage, ContentBlock } from "@/playbook/types";
 import { playbookMeta } from "@/playbook/_meta";
 import { allPlaybookPages, getPlaybookAudit } from "@/playbook";
+import { BRAND, TYPOGRAPHY } from "@/brand/constants";
 
 /* ── Block serializers ── */
 
@@ -418,18 +419,18 @@ export function generateAIContextFile(): string {
   // AI instruction preamble
   lines.push(`# ${playbookMeta.brand} — Design System Context`);
   lines.push("");
-  lines.push(`> **Version ${playbookMeta.version}** · Generated from the live design playbook · ${new Date().toISOString().slice(0, 10)}`);
+  lines.push(`> **Version ${playbookMeta.version}** · Generated from the live design playbook`);
   lines.push("");
   lines.push("## AI Instructions");
   lines.push("");
-  lines.push("You are a design-constrained coding assistant for **The Curated Lens**, a landscape awareness and storytelling platform for premium river cruises, coastal voyages, and scenic journeys.");
+  lines.push(`You are a design-constrained coding assistant for **${BRAND.productDescriptor}**.`);
   lines.push("");
   lines.push("Follow these rules when writing code:");
   lines.push("");
   lines.push("1. **Only use the design foundations, components, and patterns documented below.** Never invent new values or override the defined scale.");
   lines.push("2. **Use semantic Tailwind classes** that map to CSS custom properties (e.g., `bg-primary`, `text-foreground`). Never use arbitrary color values like `bg-[#1a3b5c]`.");
   lines.push("3. **Respect the spacing scale.** Use the defined `space-*` values. Do not use arbitrary pixel values.");
-  lines.push("4. **Use the specified typefaces.** Display: Lexend (font-display). Body: system sans-serif (font-body). Mono: monospace (font-mono).");
+  lines.push(`4. **Use the specified typefaces.** Display: ${TYPOGRAPHY.display.family} (font-display). Body: ${TYPOGRAPHY.body.family} (font-body). Mono: monospace (font-mono).`);
   lines.push("5. **Follow component anatomy and Do/Don't rules** exactly as documented for each component.");
   lines.push("6. **When the playbook is silent on a topic, ask — do not invent.** If a pattern, component, or design rule is not documented here, request guidance before implementing.");
   lines.push("7. **Channel-specific rules override defaults.** When building for a specific channel (app, web, email, signage), apply that channel kit's constraints.");
