@@ -105,12 +105,12 @@ const TokensColors = () => {
         <h2 className="font-display text-xl font-medium tracking-headline leading-section text-foreground mb-4">Operator Adaptation Rules</h2>
         <DosDonts
           dos={[
-            "Allow accent color override for buttons and highlights in Operator Expression mode.",
-            "Allow optional route color override (controlled, must pass contrast checks).",
+            "Use operator logo, imagery, welcome copy, and voice within ATLAS · Helmut.",
+            "Keep Helmut route and interaction colors fixed for accessibility.",
           ]}
           donts={[
             "Never allow marker redesign — black/white with optional bronze highlight only.",
-            "Never allow map base color changes — land remains light grey, water remains soft blue.",
+            "Never allow map base color changes — use Warm White water and Off-white land.",
             "Never allow typography changes — Playfair Display + Lexend are constant.",
             "Never allow layout restructuring — spacing scale and widths are immutable.",
           ]}

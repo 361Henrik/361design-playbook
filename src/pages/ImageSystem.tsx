@@ -125,27 +125,27 @@ const ImageSystem = () => {
           </h2>
           <div className="p-5 rounded-md border border-border bg-card">
             <p className="text-sm font-body leading-reading text-foreground max-w-prose mb-4">
-              <strong>Default rule:</strong> Images must be presented without overlays. No color washes, no dimming for style, no overlays for visual consistency. Images should stand on their own.
+              <strong>Default rule:</strong> Images are presented without overlays, washes, or dimming. Text belongs beside or outside the image.
             </p>
             <p className="text-sm font-body leading-reading text-foreground max-w-prose mb-3">
-              <strong>Allowed exception (strict):</strong> Subtle gradient overlays are permitted ONLY when required to improve clarity:
+              <strong>When contrast is insufficient:</strong> change the crop, text position, text density, or image. Use a separate solid token-backed panel when text must share the frame.
             </p>
             <ul className="space-y-1.5 text-sm font-body leading-reading text-foreground list-disc pl-5">
-              <li><strong>Readability</strong> — text placed directly on an image, or insufficient background contrast</li>
-              <li><strong>Noise reduction</strong> — non-essential areas distract from the main subject</li>
-              <li><strong>Visual guidance</strong> — gently guide focus toward key content or direction</li>
+              <li><strong>Preferred</strong> — text outside the image</li>
+              <li><strong>Alternative</strong> — solid token-backed text panel with WCAG AA contrast</li>
+              <li><strong>Prohibited</strong> — image overlays, tints, and washes</li>
             </ul>
           </div>
 
           {/* Overlay style rules */}
           <div className="p-5 rounded-md border border-border bg-card">
-            <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-3">Overlay Style Rules</h3>
+            <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-3">Image and Text Separation</h3>
             <div className="space-y-2">
               {[
-                { label: "Opacity", value: "5–20% maximum", note: "Must be nearly invisible" },
-                { label: "Tone", value: "Neutral only", note: "No color tinting" },
-                { label: "Shape", value: "Soft gradients only", note: "No hard edges" },
-                { label: "Direction", value: "Top, bottom, or side fade", note: "Never full image wash" },
+                { label: "Preferred", value: "Text outside image", note: "Maximum clarity" },
+                { label: "Alternative", value: "Solid token panel", note: "Separate layer" },
+                { label: "Crop", value: "Protect subject", note: "No essential content behind text" },
+                { label: "Prohibited", value: "Overlays and washes", note: "No exceptions" },
               ].map((rule) => (
                 <div key={rule.label} className="flex items-start gap-3 text-sm font-body">
                   <span className="font-medium text-foreground w-24 shrink-0">{rule.label}</span>
@@ -158,7 +158,7 @@ const ImageSystem = () => {
 
           {/* Priority order */}
           <div className="p-5 rounded-md border border-border bg-card">
-            <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-3">Before Applying Any Overlay</h3>
+            <h3 className="font-display text-base font-medium tracking-headline text-card-foreground mb-3">Before Adding a Text Panel</h3>
             <ol className="space-y-1.5 text-sm font-body leading-reading text-foreground list-decimal pl-5">
               <li>Crop the image to improve composition</li>
               <li>Reposition the text to a clearer area</li>
@@ -167,7 +167,7 @@ const ImageSystem = () => {
               <li>Place text outside the image entirely</li>
             </ol>
             <p className="text-sm font-body leading-reading text-muted-foreground mt-3 italic">
-              Overlays are a last-resort tool — exhaust all alternatives first.
+              A separate solid panel is the fallback; altering the image is not.
             </p>
           </div>
         </section>
@@ -185,7 +185,7 @@ const ImageSystem = () => {
               "Show the product as a subtle, natural part of the scene",
               "Prioritize cinematic compositions with landscape as hero",
               "Present images without overlays by default",
-              "Use gradient overlays only as a last resort for text readability or focus guidance",
+              "Keep text outside imagery or on a separate solid panel",
             ]}
             donts={[
               "Use staged corporate stock imagery",

@@ -80,16 +80,16 @@ export const imageSystemPlaybook: PlaybookPage = {
     {
       type: "text",
       heading: "Overlay Policy",
-      body: "**Default rule:** Images must be presented without overlays. No color washes, no dimming for style, no overlays for visual consistency. Images should stand on their own.\n\n**Allowed exception (strict):** Subtle gradient overlays are permitted ONLY when required to improve clarity:\n- **Readability** — text placed directly on an image, or insufficient background contrast\n- **Noise reduction** — non-essential areas distract from the main subject\n- **Visual guidance** — gently guide focus toward key content or direction",
+      body: "Images are presented without overlays, washes, or dimming. Place text beside or outside the image. If contrast is insufficient, change the crop, text position, text density, or image. When text must share the frame, use a separate solid panel in a token from the selected surface contract.",
     },
     {
       type: "spec-table",
-      heading: "Overlay Style Rules",
+      heading: "Image and Text Separation",
       rows: [
-        { label: "Opacity", value: "5–20% maximum", notes: "Must be nearly invisible" },
-        { label: "Tone", value: "Neutral only", notes: "No color tinting" },
-        { label: "Shape", value: "Soft gradients only", notes: "No hard edges" },
-        { label: "Direction", value: "Top, bottom, or side fade", notes: "Never full image wash" },
+        { label: "Preferred", value: "Text outside image", notes: "Preserves image quality and readability" },
+        { label: "Alternative", value: "Solid token-backed panel", notes: "Separate layer, WCAG AA contrast" },
+        { label: "Crop", value: "Protect the subject and intended placement", notes: "No essential subject behind text" },
+        { label: "Prohibited", value: "Image overlays and washes", notes: "No decorative or readability exceptions" },
       ],
     },
     {
@@ -102,7 +102,7 @@ export const imageSystemPlaybook: PlaybookPage = {
         "Select a better image with natural contrast",
         "Reduce text density over the image",
         "Place text outside the image entirely",
-        "Overlays are a last-resort tool — exhaust all alternatives first",
+        "Use a solid token-backed panel when separation is required",
       ],
     },
 
@@ -117,7 +117,7 @@ export const imageSystemPlaybook: PlaybookPage = {
         "Show the product as a subtle, natural part of the scene",
         "Prioritize cinematic compositions with landscape as hero",
         "Present images without overlays by default",
-        "Use gradient overlays only as a last resort for text readability or focus guidance",
+        "Keep text outside imagery or on a separate solid panel",
       ],
       donts: [
         "Use staged corporate stock imagery",

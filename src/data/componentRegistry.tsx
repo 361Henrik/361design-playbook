@@ -525,7 +525,7 @@ export const components: ComponentEntry[] = [
     id: "data-table",
     name: "Data Table",
     category: "data-display",
-    description: "Structured tabular data display. Uses Inter body text, subtle row borders, and restrained header styling.",
+    description: "Structured tabular data display. Uses Lexend body text, subtle row borders, and restrained header styling.",
     accessibilityNotes: "Uses semantic <table> markup. Ensure column headers describe their data. Add caption for screen readers when context is needed.",
     responsiveNotes: "Wrap in a horizontal scroll container on mobile. Consider card-based layouts for narrow screens.",
     dos: [
@@ -823,7 +823,7 @@ export const components: ComponentEntry[] = [
     id: "breadcrumb-nav",
     name: "Breadcrumb",
     category: "navigation",
-    description: "A horizontal trail showing the user's location in the hierarchy. Uses Inter body text with subtle separators.",
+    description: "A horizontal trail showing the user's location in the hierarchy. Uses Lexend body text with subtle separators.",
     dos: [
       "Use on detail pages where hierarchy context matters",
       "Make all but the last item clickable links",
@@ -867,4 +867,3 @@ export function getComponentById(id: string) {
 export function getCategoryById(id: string) {
   return categories.find((c) => c.id === id);
 }
-

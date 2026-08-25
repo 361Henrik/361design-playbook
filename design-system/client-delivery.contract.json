@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "Client Delivery",
+  "version": "1.0.0",
+  "defaultLanguage": "en",
+  "scope": ["proposal", "workshop", "report", "review-brief", "handoff"],
+  "principles": ["conclusion-first", "plain-language", "source-labelled", "progressive-disclosure", "human-approval", "evidence-before-claims"],
+  "requiredInputs": ["audience", "purpose", "decision", "source-material", "delivery-format", "selected-design-system"],
+  "visualRules": ["calm-hierarchy", "one-message-per-section", "meaningful-imagery", "accessible-type", "no-unapproved-client-branding"],
+  "handoffFields": ["client", "artifact", "revision", "owner", "approvalStatus", "sourceLinks", "openWarnings"],
+  "prohibitions": ["fabricated-evidence", "unsourced-claims", "private-comments", "credentials", "expiring-asset-urls", "automatic-send"],
+  "verdicts": ["BLOCKED", "NOT_APPROVED", "CLEAN"]
+}

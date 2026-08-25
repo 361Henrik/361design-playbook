@@ -1,143 +1,88 @@
-# Host Atlas — Design System
+# HostAtlas Design Playbook
 
-> Single source of truth for the Host Atlas product. External tools and AI assistants must follow these rules verbatim.
+> Human-readable companion to `design-system/hostatlas.contract.json`. The JSON contract wins if another page in this repository is stale.
 
----
+## 1. Governing workflow
 
-## 1. Philosophy
+Every request follows: **User Flow → UX → UI → Layout → Frontend approval → Backend**.
 
-Calm. Editorial. Premium. Minimal. Restraint signals confidence.
+Identify `surface` before styling:
 
-- No SaaS-style visuals (no gradients, glass, neon, 3D).
-- No decorative or trend-driven styling.
-- Every decision should reduce noise, not add to it.
+- `helmut` — guest-facing traveler PWA
+- `olga` — operator and authoring workbench
+- `marketing` — a named website or campaign with its own imported design system
 
----
+If the surface or design-system identifier is missing, the verdict is `BLOCKED`. Never combine surface palettes.
 
-## 2. Color System
+## 2. Shared character
 
-| Token | Hex | Role | Allowed | Prohibited |
-|---|---|---|---|---|
-| Base Canvas | `#F6F3EE` | Primary background | All main surfaces (≥80% of visible area) | As text, button fill, or border |
-| Warm Stone | `#E8E2D9` | Secondary surface | Cards, panels, layered sections | As primary background, as text |
-| Deep Charcoal | `#1A1F1A` | Primary text | All body copy, headings, labels | As background, as button fill |
-| Muted | `#6E6A5E` | Secondary text | Descriptions, captions, supporting labels | As background, as primary text |
-| Deep Green | `#1F4A3A` | Structure / identity surface | Section backgrounds, anchor panels, nav rail | As button fill, as text on light surfaces |
-| Terracotta | `#C35C3C` | Interaction & emphasis | Buttons, CTAs, active states, highlight panels | Text, labels, icons, map elements, borders, on Deep Green |
-| Champagne Bronze | `#C9A962` | Highlight | Icon highlights, selected map markers, dividers; headings on Deep Green only | Text on light/neutral backgrounds, content body icons, on Terracotta |
-| Warm Border | `#CCC4B8` | Single border color | All borders | Multiple border tones, decorative lines |
+Calm, editorial, premium, and restrained. Playfair Display provides editorial authority; Lexend provides readable body and interface text. Use weights 400, 500, or 600 only.
 
-Pure black (`#000`) and any blue tone are prohibited.
+Across HostAtlas: no blue, no gradients, no glass, neon, 3D, generic AI decoration, bouncing motion, or hover scaling.
 
----
+## 3. Helmut — `ATLAS · Helmut`
 
-## 3. Color Principles
+Mobile-first guest experience for outdoor use, mature travelers, and patchy signal.
 
-- One token, one role. No overlapping uses.
-- One accent color per container — never stack Bronze + Terracotta.
-- Restrained palette: most surfaces are neutral; accents earn their place.
-- No visual noise: no decorative color, no gradients, no transparency tricks.
-
----
-
-## 4. Surface & Environment Rules
-
-- **Base Canvas** is the foundation. It dominates and recedes.
-- **Warm Stone** is the only secondary surface. Used for cards and panels separated from the canvas by a 1px Warm Border.
-- **Deep Green** is the structural / identity surface. Used for anchor panels and the nav rail. When used, it requires Cream type and Bronze headings.
-- Surfaces layer in this order only: Canvas → Stone → Green. Never invert.
-
-**Environments** define the rules for everything inside them:
-- Cream Environment (Base Canvas / Warm Stone): primary CTA is Terracotta.
-- Green Environment (Deep Green): primary CTA is Bronze; secondary is white outlined in Bronze.
-- Terracotta Environment (highlight panels): primary CTA is Cream with Charcoal text.
-
----
-
-## 5. CTA System (summary)
-
-CTA color is determined by **Environment first, Container second**. The full matrix lives in `Interaction → CTA System` and must not be duplicated elsewhere.
-
-- Environment-based logic: the background dictates valid CTA colors.
-- Container logic: filled, outlined, or neutral. An outlined container may color-match its outline.
-- Priority hierarchy: Primary (one per view) → Secondary → Tertiary (text link).
-- Prohibited: Terracotta on Green, Bronze on Terracotta, color-on-color (CTA matching its container fill), more than one accent per area.
-
----
-
-## 6. Spacing System
-
-Generous. Calm. Consistent rhythm.
-
-| Token | Value | Use |
+| Token | Hex | Role |
 |---|---|---|
-| `space-1` | 4px | Hairline gaps |
-| `space-2` | 8px | Inline gaps |
-| `space-3` | 12px | Tight stacks |
-| `space-4` | 16px | Default stack rhythm |
-| `space-5` | 24px | Card padding |
-| `space-6` | 32px | Section gaps inside a card |
-| `space-7` | 48px | Page gutters |
-| `space-8` | 64px | Section spacing |
-| `space-9` | 96px | Hero / page-level spacing |
+| Forest | `#1B3D2F` | structure, route, focus |
+| Warm White | `#FBF9F5` | primary canvas |
+| Off-white | `#F3F0EA` | secondary surface and neutral map differentiation |
+| Near Black | `#191926` | text, marker ring, icon |
+| Antique Bronze | `#C69B5B` | selected state and accent, maximum 8% |
 
 Rules:
-- Section spacing: `space-8` minimum between major sections.
-- Card padding: `space-5` default; `space-6` for primary cards.
-- Vertical rhythm: stack siblings with the same token; never mix two adjacent values.
 
----
+- Minimum target 48px; map hit areas 52px.
+- Primary guest copy 18px.
+- Provide loading, offline, reconnect, and recovery states.
+- Navigation is labelled; maps remain readable in sunlight.
+- Operator logo, imagery, and voice may appear. HostAtlas product branding and guest-facing “AI” language do not.
+- Operator identity does not change Helmut colors, fonts, spacing, map grammar, or accessibility.
+- Terracotta is not a Helmut token.
 
-## 7. Typography
+## 4. Olga — `ATLAS · Olga`
 
-- **Display / headlines**: Playfair Display, Medium (500) and Regular (400). Used for H1–H3 and editorial accents.
-- **Body**: Lexend, 300/400/500/600. Used for body copy, labels, UI text.
-- **Default text color**: Deep Charcoal. Muted only for secondary copy.
-- No decorative styles, no italics outside cited quotes, no all-caps outside section labels (11–13px, 0.05–0.08em tracking).
-- Sizes: `caption 0.75rem · label 0.875rem · body 1rem · body-lg 1.125rem · h3 1.25rem · h2 1.5rem · h1 2rem · display 3rem`.
+Desktop-first operational UI. Dense, calm, and explicit about system state.
 
----
+| Token | Hex | Role |
+|---|---|---|
+| Base Canvas | `#F6F3EE` | primary surface |
+| Warm Stone | `#E8E2D9` | secondary surface |
+| Deep Charcoal | `#1A1F1A` | primary text |
+| Muted | `#6E6A5E` | secondary text |
+| Deep Green | `#1F4A3A` | structure |
+| Terracotta | `#C35C3C` | interaction on cream only |
+| Champagne Bronze | `#C9A962` | accent and CTA on green only |
+| Warm Border | `#CCC4B8` | borders |
 
-## 8. Component Style
+Rules:
 
-- Soft cards: `bg-card`, `rounded-md`, `border border-border`.
-- Subtle borders: 1px Warm Border. No double borders, no colored borders.
-- Minimal shadows: only on overlays (popover, dialog). Never on inline content.
-- No heavy gradients, no glassmorphism, no neumorphism.
-- Hover and focus states adjust opacity, border, or background — never scale or rotate.
+- Minimum control target 44px.
+- Terracotta signals interaction; it is never text, map color, or structural fill.
+- Bronze is never body text on a light surface.
+- Authoring must expose approval, version, restore/kill, audit, multilingual/audio jobs, and cost state.
+- Provide default, focus, active, disabled, loading, empty, error, and success states where relevant.
+- Do not import Helmut’s low-density guest layout into the operator workbench.
 
----
+## 5. Marketing
 
-## 9. Logo System
+Marketing is not a fixed third palette. Require the exact imported design system and audience brief for that website or campaign. Missing inputs produce `BLOCKED`; never guess colors or fonts.
 
-- The icon is **standalone**: transparent background, no container, no shape behind it.
-- **White icon**: approved on Deep Green and Terracotta. Prohibited on Cream.
-- **Gold (Bronze) icon**: approved on Deep Green and Base Canvas (Cream). Prohibited on Terracotta.
-- The full lockup uses Charcoal type on Cream, or Cream/Bronze type on Deep Green.
-- Minimum sizes: 120px wide for the lockup; 24px / 16px for the standalone icon.
-- Exclusion zone: half the icon's height on every side.
+Preserve editorial authority, constrained prose, meaningful imagery, and a clear conversion hierarchy.
 
----
+## 6. Components and imagery
 
-## 10. Icon System
+- Use tokens only and preserve the selected surface’s roles.
+- Text belongs beside or outside imagery. If contrast is insufficient, change crop, placement, text density, or image; use a solid token-backed text panel when necessary.
+- Imagery follows three layers: Hero (emotion and place), Experience (understated human presence), Product in Use (device is secondary).
+- Every interaction requires a visible focus state and non-color signal.
 
-Two sets, one grammar. See `/host-atlas/icons` and `/361/icons` for full taxonomies.
+## 7. Review and handoff
 
-- Host Atlas (Cartographic): 1.5px stroke, round caps, currentColor.
-- Sizes: 16, 20, 24, 32 only.
-- Map markers are the only place fills are permitted (white disk, ringed by Charcoal or Bronze).
-- Icons inside content bodies use `text-foreground`; Bronze (`text-accent`) is permitted only in the nav rail and brand surfaces.
+Allowed verdicts: `BLOCKED`, `NOT_APPROVED`, `CLEAN`.
 
----
+Handoff includes project, component, exact revision, viewport, surface, design-system identifier, approved states, and unresolved warnings. Never include credentials, client content, private comments, or expiring asset URLs.
 
-## 11. Implementation Rules
-
-- Tokens only. Never hardcode hex values, raw HSL, or pixel sizes outside the spacing scale.
-- Reference tokens via CSS variables (`var(--background)`) or Tailwind theme classes (`bg-background`, `text-foreground`).
-- One role per token. Never repurpose a token to mean something new.
-- Preserve structure: spacing scale, typography roles, and surface layering are immutable.
-- No unnecessary visual additions — if a rule is not in this document, it is not in the system.
-
----
-
-*Version 2.0.0 · Last updated 2026-04-19*
+*Version 3.0.0 · Reconciled 2026-08-11*

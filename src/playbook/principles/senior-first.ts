@@ -31,7 +31,7 @@ export const seniorFirstPlaybook: PlaybookPage = {
         {
           title: "Generous Touch Targets",
           description:
-            "All interactive elements have a minimum comfortable tap area of 44–48px. This includes buttons, icons, markers, toggles, and links. Small hit areas are treated as accessibility failures.",
+            "All Helmut interactive elements have a minimum 48px tap area; map hit areas use 52px. This includes buttons, icons, markers, toggles, and links. Small hit areas are accessibility failures.",
         },
         {
           title: "Strong Visual Hierarchy",
@@ -64,7 +64,7 @@ export const seniorFirstPlaybook: PlaybookPage = {
       type: "spec-table",
       heading: "Minimum Size & Contrast Rules",
       rows: [
-        { label: "Tap target minimum", value: "44px × 44px", notes: "48px preferred for primary actions" },
+        { label: "Tap target minimum", value: "48px × 48px", notes: "52px for map hit areas" },
         { label: "Body text minimum", value: "16px (1rem)", notes: "18px (Body Large) for primary guest content" },
         { label: "Icon minimum", value: "20px × 20px", notes: "24px preferred for map and navigation icons" },
         { label: "Text contrast ratio", value: "WCAG AA (4.5:1)", notes: "AAA (7:1) preferred for body text" },
@@ -78,7 +78,7 @@ export const seniorFirstPlaybook: PlaybookPage = {
       heading: "Guest Interface Rules",
       dos: [
         "Use Body Large (18px) for primary guest-facing content",
-        "Ensure all buttons have minimum 44px height",
+        "Ensure all buttons have minimum 48px height",
         "Provide visible state changes on every interaction",
         "Use sentence case for clarity in all labels",
         "Keep navigation patterns consistent across all screens",

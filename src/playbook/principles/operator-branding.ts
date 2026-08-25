@@ -24,9 +24,9 @@ export const operatorBrandingPlaybook: PlaybookPage = {
             "In the guest-facing experience, the operator's logo appears in the header, loading screens, and welcome flows.",
         },
         {
-          title: "Controlled color adaptation",
+          title: "Controlled identity adaptation",
           description:
-            "Operators may override the accent color (buttons, highlights) and optionally the route color. The neutral foundation (Base Canvas, Warm Stone, Charcoal) remains constant. No colored backgrounds.",
+            "Operators may supply an approved logo, imagery, welcome copy, and voice. Helmut's colors, fonts, spacing, route grammar, and accessibility contract remain fixed.",
         },
         {
           title: "Host Atlas chrome is invisible to guests",
@@ -45,9 +45,9 @@ export const operatorBrandingPlaybook: PlaybookPage = {
       heading: "Operator Customization Tokens",
       rows: [
         { label: "Operator logo", value: "SVG or PNG, displayed in header and welcome screen" },
-        { label: "Accent color override", value: "Replaces Terracotta for buttons and highlights" },
-        { label: "Route color override", value: "Optional, replaces Deep Green for map route lines (must pass contrast)" },
-        { label: "Font pairing", value: "Operator may supply a display font; body font remains Lexend for consistency" },
+        { label: "Color contract", value: "Fixed ATLAS · Helmut tokens; no operator override" },
+        { label: "Route color", value: "Forest #1B3D2F; fixed for legibility and state consistency" },
+        { label: "Font pairing", value: "Playfair Display + Lexend; no operator override" },
         { label: "Tone modifiers", value: "Voice tokens adjusted per operator (formal, adventurous, heritage, etc.)" },
         { label: "Welcome copy", value: "Operator-specific onboarding text and imagery" },
       ],
@@ -55,15 +55,15 @@ export const operatorBrandingPlaybook: PlaybookPage = {
     {
       type: "text",
       heading: "What stays constant",
-      body: "Operator customization affects personality — accent color, logo, imagery, copy tone. It does not override structural design rules.\n\n• Neutral background foundation (Base Canvas, Warm Stone)\n• Spacing scale and layout widths\n• Minimum tap target sizes (44–48px)\n• Typography roles (Playfair Display + Lexend)\n• Contrast and accessibility requirements\n• Map interaction behavior and marker design\n• Animation timing and easing\n• Information architecture and navigation patterns",
+      body: "Operator customization affects identity through logo, imagery, welcome copy, and tone. It does not override structural design rules.\n\n• Warm White and Off-white surface foundation\n• Spacing scale and layout widths\n• Minimum 48px targets and 52px map hit areas\n• Typography roles (Playfair Display + Lexend)\n• Contrast and accessibility requirements\n• Map interaction behavior and marker design\n• Motion timing and easing\n• Information architecture and navigation patterns",
     },
     {
       type: "do-dont",
       heading: "Adaptation Rules",
       dos: [
         "Show the operator's logo prominently in the guest experience",
-        "Allow accent color override for buttons and highlights",
-        "Allow optional route color override (with contrast checks)",
+        "Use the fixed ATLAS · Helmut color contract",
+        "Use Forest for route and focus states",
         "Match copy tone to the operator's brand voice",
         "Use operator imagery in hero sections and onboarding",
         "Maintain structural consistency while adapting personality",
@@ -81,7 +81,7 @@ export const operatorBrandingPlaybook: PlaybookPage = {
     {
       type: "text",
       heading: "Implementation note",
-      body: "Operator branding is applied through token overrides stored per workspace. The system enforces structural integrity — spacing, layout widths, typography roles, neutral backgrounds, and accessibility rules remain constant. Only accent color, route color, logo, imagery, and tone are customizable.",
+      body: "Operator branding is applied through approved identity assets and content stored per workspace. The system enforces Helmut tokens, spacing, layout widths, typography, map behavior, and accessibility. Only logo, imagery, welcome copy, and tone are customizable.",
     },
   ],
 };

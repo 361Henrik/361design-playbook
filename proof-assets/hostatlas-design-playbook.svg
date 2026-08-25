@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100" role="img" aria-labelledby="title desc">
+  <title id="title">HostAtlas Design Playbook</title>
+  <desc id="desc">Proof sheet showing isolated Helmut and Olga design contracts and the project-selected Marketing rule.</desc>
+  <rect width="1600" height="1100" fill="#F6F3EE"/>
+  <rect x="0" y="0" width="1600" height="188" fill="#1F4A3A"/>
+  <text x="80" y="72" font-family="Lexend, sans-serif" font-size="18" font-weight="500" letter-spacing="3" fill="#C9A962">ATLAS · GOVERNANCE PROOF · V3.0.0</text>
+  <text x="80" y="142" font-family="Playfair Display, Georgia, serif" font-size="58" font-weight="500" fill="#FBF9F5">HostAtlas Design Playbook</text>
+  <text x="1240" y="139" font-family="Lexend, sans-serif" font-size="18" font-weight="500" fill="#FBF9F5">2026-08-11</text>
+
+  <text x="80" y="242" font-family="Lexend, sans-serif" font-size="17" font-weight="500" fill="#6E6A5E">USER FLOW → UX → UI → LAYOUT → FRONTEND APPROVAL → IMPLEMENTATION</text>
+
+  <rect x="80" y="286" width="690" height="556" rx="12" fill="#FBF9F5" stroke="#1B3D2F" stroke-width="2"/>
+  <rect x="80" y="286" width="690" height="94" rx="12" fill="#1B3D2F"/>
+  <rect x="80" y="366" width="690" height="14" fill="#1B3D2F"/>
+  <text x="116" y="346" font-family="Playfair Display, Georgia, serif" font-size="38" font-weight="500" fill="#FBF9F5">Helmut</text>
+  <text x="642" y="342" font-family="Lexend, sans-serif" font-size="15" font-weight="500" fill="#C69B5B">GUEST · MOBILE</text>
+  <text x="116" y="424" font-family="Lexend, sans-serif" font-size="17" font-weight="500" fill="#191926">ATLAS · HELMUT</text>
+  <g transform="translate(116 454)">
+    <rect width="92" height="72" rx="6" fill="#1B3D2F"/><rect x="108" width="92" height="72" rx="6" fill="#FBF9F5" stroke="#CCC4B8"/><rect x="216" width="92" height="72" rx="6" fill="#F3F0EA"/><rect x="324" width="92" height="72" rx="6" fill="#191926"/><rect x="432" width="92" height="72" rx="6" fill="#C69B5B"/>
+  </g>
+  <text x="116" y="566" font-family="Lexend, sans-serif" font-size="18" fill="#191926">48px targets · 52px map hit areas · 18px guest copy</text>
+  <text x="116" y="610" font-family="Lexend, sans-serif" font-size="18" fill="#191926">Offline + reconnect · labelled navigation · sunlight-readable</text>
+  <text x="116" y="654" font-family="Lexend, sans-serif" font-size="18" fill="#191926">Operator logo, imagery, welcome copy, and voice only</text>
+  <rect x="116" y="694" width="618" height="104" rx="8" fill="#F3F0EA"/>
+  <text x="140" y="733" font-family="Lexend, sans-serif" font-size="15" font-weight="500" fill="#1B3D2F">BLOCKS</text>
+  <text x="140" y="767" font-family="Lexend, sans-serif" font-size="17" fill="#191926">Terracotta · blue · gradients · guest-facing AI language</text>
+
+  <rect x="830" y="286" width="690" height="556" rx="12" fill="#F6F3EE" stroke="#CCC4B8" stroke-width="2"/>
+  <rect x="830" y="286" width="690" height="94" rx="12" fill="#1A1F1A"/>
+  <rect x="830" y="366" width="690" height="14" fill="#1A1F1A"/>
+  <text x="866" y="346" font-family="Playfair Display, Georgia, serif" font-size="38" font-weight="500" fill="#F6F3EE">Olga</text>
+  <text x="1365" y="342" font-family="Lexend, sans-serif" font-size="15" font-weight="500" fill="#C9A962">OPERATOR · DESKTOP</text>
+  <text x="866" y="424" font-family="Lexend, sans-serif" font-size="17" font-weight="500" fill="#1A1F1A">ATLAS · OLGA</text>
+  <g transform="translate(866 454)">
+    <rect width="65" height="72" rx="6" fill="#F6F3EE" stroke="#CCC4B8"/><rect x="77" width="65" height="72" rx="6" fill="#E8E2D9"/><rect x="154" width="65" height="72" rx="6" fill="#1A1F1A"/><rect x="231" width="65" height="72" rx="6" fill="#6E6A5E"/><rect x="308" width="65" height="72" rx="6" fill="#1F4A3A"/><rect x="385" width="65" height="72" rx="6" fill="#C35C3C"/><rect x="462" width="65" height="72" rx="6" fill="#C9A962"/><rect x="539" width="65" height="72" rx="6" fill="#CCC4B8"/>
+  </g>
+  <text x="866" y="566" font-family="Lexend, sans-serif" font-size="18" fill="#1A1F1A">44px controls · dense calm hierarchy · explicit system state</text>
+  <text x="866" y="610" font-family="Lexend, sans-serif" font-size="18" fill="#1A1F1A">Approval · version · restore/kill · audit · cost visibility</text>
+  <text x="866" y="654" font-family="Lexend, sans-serif" font-size="18" fill="#1A1F1A">Loading · empty · error · success · multilingual/audio jobs</text>
+  <rect x="866" y="694" width="618" height="104" rx="8" fill="#E8E2D9"/>
+  <text x="890" y="733" font-family="Lexend, sans-serif" font-size="15" font-weight="500" fill="#1F4A3A">BLOCKS</text>
+  <text x="890" y="767" font-family="Lexend, sans-serif" font-size="17" fill="#1A1F1A">Helmut density · blue · gradients · Terracotta structure</text>
+
+  <rect x="80" y="886" width="1440" height="142" rx="12" fill="#E8E2D9"/>
+  <text x="116" y="935" font-family="Playfair Display, Georgia, serif" font-size="28" font-weight="500" fill="#1A1F1A">Marketing is selected, never guessed.</text>
+  <text x="116" y="979" font-family="Lexend, sans-serif" font-size="18" fill="#1A1F1A">Require the exact imported design system + audience brief. Missing input → BLOCKED.</text>
+  <text x="1145" y="980" font-family="Lexend, sans-serif" font-size="17" font-weight="500" fill="#1F4A3A">VERDICTS  BLOCKED · NOT APPROVED · CLEAN</text>
+</svg>
